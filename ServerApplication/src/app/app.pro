@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-07-20T21:29:43
+# Project created by QtCreator 2015-07-25T22:25:07
 #
 #-------------------------------------------------
 
@@ -11,10 +11,13 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = app
 TEMPLATE = app
 
+SOURCES += main.cc
 
-SOURCES += main.cpp\
-        mainwindow.cpp
+INCLUDEPATH += ..
 
-HEADERS  += mainwindow.h
+LIBS += -L../libs/ui -lui
+LIBS += -L../libs/dao -ldao
+LIBS += -L../libs/controllers -lcontrollers
 
-FORMS    += mainwindow.ui
+unix: CONFIG += link_pkgconfig
+unix: PKGCONFIG += litesql
