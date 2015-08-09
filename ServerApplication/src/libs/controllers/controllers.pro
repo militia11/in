@@ -12,7 +12,9 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 HEADERS += \
-    CServer.h
+    CServer.h \
+    CServerThread.h
 
 SOURCES += \
-    CServer.cc
+    CServer.cc \
+    CServerThread.cc
