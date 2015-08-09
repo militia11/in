@@ -5,7 +5,14 @@
 #-------------------------------------------------
 
 QT       -= core gui
+QT       += network
 
 TARGET = controllers
 TEMPLATE = lib
 CONFIG += staticlib
+
+HEADERS += \
+    CServer.h
+
+SOURCES += \
+    CServer.cc

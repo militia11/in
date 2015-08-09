@@ -10,7 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = app
 TEMPLATE = app
-
+TRANSLATIONS += sa_en_SE.ts
 SOURCES += main.cc
 
 INCLUDEPATH += ..
