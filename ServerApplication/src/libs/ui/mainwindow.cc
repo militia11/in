@@ -3,12 +3,26 @@
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
-  ui(new Ui::MainWindow)
+  mUi(new Ui::MainWindow)
 {
-  ui->setupUi(this);
+  mUi->setupUi(this);
 }
 
 MainWindow::~MainWindow()
 {
-  delete ui;
+    delete mUi;
+}
+
+void MainWindow::DisplayData(QByteArray aData)
+{
+    mUi->textEdit->setText(aData);
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+   mServer = new CServer(this);
+   mServer->Run();
+
+   connect( mServer, SIGNAL(SendData(QByteArray)), this,
+            SLOT(DisplayData(QByteArray))) ;
 }

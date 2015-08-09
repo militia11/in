@@ -11,6 +11,8 @@ TARGET = controllers
 TEMPLATE = lib
 CONFIG += staticlib
 
+INCLUDEPATH += ../..
+
 HEADERS += \
     CServer.h \
     CServerThread.h

@@ -2,7 +2,7 @@
 #define CSERVER_H
 
 #include <QTcpServer>
-//#include <CServerThread.h>
+#include "libs/controllers/CServerThread.h"
 
 class CServer : public QTcpServer {
 
