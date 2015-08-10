@@ -1,24 +1,25 @@
 #include "CServerThread.h"
 
 CServerThread::CServerThread(int aId, QObject *aParent)
-    : QThread(aParent) {
+    : QThread(aParent),
+    mSocketDescriptor(aId){
 }
 
 void CServerThread::Run()
 {
-    qDebug() << mScocketDescriptor << "Wątek startuje";
+    qDebug() << mSocketDescriptor << "Wątek startuje";
     mSocket = new QTcpSocket();
 
-    if ( !mSocket->setSocketDescriptor(mScocketDescriptor) ) {
+    if ( !mSocket->setSocketDescriptor(mSocketDescriptor) ) {
       emit Error(mSocket->error());
       return;
     }
 
-    connect( mSocket, SIGNAL(readyRead()), this, SLOT(moznaCzytac()),
+    connect( mSocket, SIGNAL(readyRead()), this, SLOT(ReadyRead()),
              Qt::DirectConnection);
-    connect( mSocket, SIGNAL(disconnected()), this, SLOT( connectionLosted()),
+    connect( mSocket, SIGNAL(disconnected()), this, SLOT(ConnectionLosted()),
              Qt::DirectConnection);
-    qDebug() << mScocketDescriptor << "Połączony... ";
+    qDebug() << mSocketDescriptor << "Połączony... ";
     exec();
 }
 
@@ -30,13 +31,14 @@ void CServerThread::ReadyRead()
       mSocket->write("Odebrano dane.\r\n");
     }
 
-    qDebug() << mScocketDescriptor << "Dane : " << dane ;// sygnal wyslanie danych
+    qDebug() << mSocketDescriptor << "Dane : " << dane ;// sygnal wyslanie danych
     //emit moznaCzytac(dane);
     //socket->waitForBytesWritten(3000);
     //socket->flush();
 }
 
-void CServerThread::Disconected()
+void CServerThread::ConnectionLosted()
 {
 
 }
+

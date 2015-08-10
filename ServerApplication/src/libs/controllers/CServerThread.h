@@ -19,11 +19,11 @@ signals:
 
    public slots:
     void ReadyRead();
-    void Disconected();
+    void ConnectionLosted();
 
    private:
     QTcpSocket *mSocket;
-    int mScocketDescriptor;
+    int mSocketDescriptor;
 };
 
 #endif // CSERVERTHREAD_H
