@@ -4,8 +4,9 @@
 #include <QThread>
 #include <QDebug>
 #include <QTcpSocket>
+#include <QObject>
 
-class CServerThread : public QThread  {
+class CServerThread : QObject {
 
     Q_OBJECT
 

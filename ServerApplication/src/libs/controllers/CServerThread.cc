@@ -1,8 +1,8 @@
 #include "CServerThread.h"
 
 CServerThread::CServerThread(int aId, QObject *aParent)
-    : QThread(aParent),
-    mSocketDescriptor(aId){
+    :mSocketDescriptor(aId){
+    Q_UNUSED(aParent)
 }
 
 void CServerThread::Run()
@@ -15,12 +15,12 @@ void CServerThread::Run()
       return;
     }
 
-    connect( mSocket, SIGNAL(readyRead()), this, SLOT(ReadyRead()),
-             Qt::DirectConnection);
-    connect( mSocket, SIGNAL(disconnected()), this, SLOT(ConnectionLosted()),
-             Qt::DirectConnection);
+//    QObject::connect(mSocket, SIGNAL(readyRead()), this, SLOT(ReadyRead()),
+//             Qt::DirectConnection);
+//    QObject::connect(mSocket, SIGNAL(disconnected()), this, SLOT(ConnectionLosted()),
+//             Qt::DirectConnection);
     qDebug() << mSocketDescriptor << "Połączony... ";
-    exec();
+    //exec();
 }
 
 void CServerThread::ReadyRead()
