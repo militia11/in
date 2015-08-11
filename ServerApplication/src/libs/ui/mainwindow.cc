@@ -19,7 +19,6 @@ MainWindow::~MainWindow()
 void MainWindow::DisplayData(QByteArray aData)
 {
     mUi->textEdit->setText(aData);
-    qDebug() << "run display data";
 }
 
 void MainWindow::on_pushButton_clicked()
