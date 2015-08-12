@@ -21,7 +21,6 @@ signals:
     void SendData(QByteArray aData);
 
 private:
-
     QTcpSocket *mSocket;
     //CServerThread * mServerThread;
 };

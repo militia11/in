@@ -10,18 +10,17 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-public:
-  explicit MainWindow(QWidget *parent = 0);
-  ~MainWindow();
 
+public:
+  explicit MainWindow(QWidget *aParent = 0);
+  ~MainWindow();
 private slots:
   void DisplayData(QByteArray aData);
-
-  void on_pushButton_clicked();
+  void ONmPushButtonRunClicked();
 
 private:
-    Ui::MainWindow *mUi;
-    CServer *mServer;
+  Ui::MainWindow *ui;
+  CServer *mServer;
 };
 
 #endif // MAINWINDOW_H

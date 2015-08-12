@@ -14,9 +14,12 @@ TARGET = ui
 TEMPLATE = lib
 CONFIG += staticlib
 
-SOURCES  += mainwindow.cc
+SOURCES  += \
+    mainwindow.cc
 
-HEADERS  += mainwindow.h
+HEADERS  += \
+    mainwindow.h
 
-FORMS    += mainwindow.ui
+FORMS    += \
+    mainwindow.ui
 
