@@ -2,7 +2,7 @@
 
 CServer::CServer(QObject *parent) :
     QTcpServer(parent),
-    mSocket(0)
+    mSocket(NULL)
 {
     connect(this, SIGNAL(newConnection()),this, SLOT(IncomingConnection()));
 }
