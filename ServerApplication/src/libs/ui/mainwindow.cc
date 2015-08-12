@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *aParent) :
   ui(new Ui::MainWindow)
 {
   ui->setupUi(this);
-  ONmPushButtonRunClicked();
+  on_mPushButtonRun_clicked();
   connect(mServer, SIGNAL(SendData(QByteArray)), this,
          SLOT(DisplayData(QByteArray))) ;
 }
@@ -16,15 +16,16 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
-void MainWindow::ONmPushButtonRunClicked()
+void MainWindow::DisplayData(QByteArray aData)
+{
+    ui->mTextEdit->setText(aData);
+}
+
+void MainWindow::on_mPushButtonRun_clicked()
 {
   mServer = new CServer(this);
   mServer->Run();
 // później dołożyć tu ma byc nie w konsturktorze !!!!!!!!!
 //   connect(mServer, SIGNAL(SendData(QByteArray)), this,
 //            SLOT(DisplayData(QByteArray))) ;
-}
-void MainWindow::DisplayData(QByteArray aData)
-{
-    ui->mTextEdit->sSSetText(aData);
 }

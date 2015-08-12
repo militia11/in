@@ -14,9 +14,10 @@ class MainWindow : public QMainWindow
 public:
   explicit MainWindow(QWidget *aParent = 0);
   ~MainWindow();
+
 private slots:
   void DisplayData(QByteArray aData);
-  void ONmPushButtonRunClicked();
+  void on_mPushButtonRun_clicked();
 
 private:
   Ui::MainWindow *ui;
