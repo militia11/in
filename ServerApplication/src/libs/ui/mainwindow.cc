@@ -18,6 +18,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::DisplayData(QByteArray aData)
 {
+    ui->mListWidget->insertItem(0, aData);
     ui->mTextEdit->setText(aData);
 }
 
