@@ -10,7 +10,7 @@ class CClient : public QObject
 public:
     explicit CClient(QObject *parent = 0);
     void SendData(char *aData);
-    void SetSocket(QTcpSocket * aSocket);
+    void Connect(QTcpSocket * aSocket);
     QTcpSocket *GetSocket() const;
 
 signals:
@@ -24,7 +24,14 @@ signals:
     void ReadData(QByteArray aData);
 
 public slots:
-    void ReadyRead();
+
+    /**
+     * @brief Method called on new incomming data
+     *
+     * @param aData is QByteArray buffer
+     * @param aLen length of new data
+     */
+    void NewData();
 
 private:
     QTcpSocket *mSocket;

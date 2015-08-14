@@ -1,4 +1,4 @@
-#include "CClient.h"
+          #include "CClient.h"
 
 CClient::CClient(QObject *parent) :
     mSocket(NULL),
@@ -9,11 +9,11 @@ CClient::CClient(QObject *parent) :
 {
 }
 
-void CClient::SetSocket(QTcpSocket *aSocket)
+void CClient::Connect(QTcpSocket *aSocket)
 {
     if(aSocket) {
         mSocket = aSocket;
-        QObject::connect(mSocket, SIGNAL(readyRead()), this, SLOT(ReadyRead()));
+        QObject::connect(mSocket, SIGNAL(readyRead()), this, SLOT(NewData()));
     } else {
         emit mSocket->error();
     }
@@ -30,7 +30,7 @@ void CClient::SendData(char *aData)
     mSocket->write(aData);
 }
 
-void CClient::ReadyRead()
+void CClient::NewData()
 {
     QByteArray vData = mSocket->readAll();
 
