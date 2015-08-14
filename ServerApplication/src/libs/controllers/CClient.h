@@ -58,7 +58,7 @@ private:
     bool HasMessageCorrectFormat(QByteArray aData);
 
 private:
-    void RouteData(ReceiveDataMode mReceiveDataMode, char aData);
+    void RouteData(ReceiveDataMode mReceiveDataMode, char aData, int i);
 
 signals:
     void Error(QTcpSocket::SocketError aSocketError);
