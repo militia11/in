@@ -14,10 +14,9 @@ CONFIG += staticlib
 INCLUDEPATH += ../..
 
 HEADERS += \
-    CServer.h \
-    CClient.h
+    CClient.h \
+    CServer.h
 
 SOURCES += \
-    CServer.cpp \
-    CServer.cpp \
-    CClient.cpp
+    CClient.cpp \
+    CServer.cpp
