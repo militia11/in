@@ -52,7 +52,7 @@ public slots:
     bool HasMessageCorrectFormat(QByteArray aData);
 
 private:
-    void RouteData(ReceiveDataMode mReceiveDataMode, QByteRef aData);
+    void RouteData(ReceiveDataMode mReceiveDataMode, char aData);
 
 signals:
     void Error(QTcpSocket::SocketError aSocketError);

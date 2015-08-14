@@ -61,27 +61,12 @@ void CClient::NewData()
                 mReceiveByteCnt = 0;
             }
 
+            char x = vData[i];
             mReceiveBuffer[mReceiveByteCnt] = vData[i];
             ++mReceiveByteCnt;
 
-            //RouteData(mReceiveDataMode, vData[i]);
-            switch (mReceiveDataMode) {
-            case Mode_Receive_FileList:
+            RouteData(mReceiveDataMode, x);
 
-
-                break;
-            case Mode_Receive_Files:
-                if (vData[i] == 0x0A) {
-                    ServeReceivedMessage(mReceiveBuffer); //, mReceiveByteCnt
-                    mReceiveByteCnt = 0;
-                }
-                break;
-            case Mode_UnknownData:
-                break;
-
-            default:
-                break;
-            }
         }
 
       /* nie konieczne*/mSocket->write("Odebrano dane :");
@@ -141,23 +126,23 @@ bool CClient::HasMessageCorrectFormat(QByteArray aData)
     return vCorrect;
 }
 
-void CClient::RouteData(ReceiveDataMode mReceiveDataMode, QByteRef aData)
+void CClient::RouteData(ReceiveDataMode mReceiveDataMode, char aData)
 {
-//    switch (mReceiveDataMode) {
-//    case Mode_Receive_FileList:
+    switch (mReceiveDataMode) {
+    case Mode_Receive_FileList:
 
 
-//        break;
-//    case Mode_Receive_Files:
-//        if (aData[i] == 0x0A) {
-//            ServeReceivedMessage(mReceiveBuffer); //, mReceiveByteCnt
-//            mReceiveByteCnt = 0;
-//        }
-//        break;
-//    case Mode_UnknownData:
-//        break;
+        break;
+    case Mode_Receive_Files:
+        if (aData == 0x0A) {
+            ServeReceivedMessage(mReceiveBuffer); //, mReceiveByteCnt
+            mReceiveByteCnt = 0;
+        }
+        break;
+    case Mode_UnknownData:
+        break;
 
-//    default:
-//        break;
-//    }
+    default:
+        break;
+    }
 }
