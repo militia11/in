@@ -11,6 +11,11 @@ CClient::CClient(QObject *aParent) :
     mReceiveDataMode = Mode_UnknownData;
 }
 
+CClient::~CClient()
+{
+     //u suniecie i zrobic funkcje diskonekted    mfiledata delete
+}
+
 void CClient::Connect(QTcpSocket *aSocket)
 {
     if(aSocket) {
@@ -36,49 +41,91 @@ void CClient::NewData()
 {
     QByteArray vData = mSocket->readAll();
 
-    if (!vData.isEmpty()) { // nie wiem czy ten if ma sens?
-
-        for (int i = 0; i < vData.length(); i++) {
-            char vTargetData = vData[i];
-            qDebug() << vData[i];
-            switch (vTargetData) {
-
-            case '>':
-                mReceiveDataMode = Mode_Receive_Files;
-                mReceiveByteCnt = 0;
-                break;
-
-            case '^':
-                mReceiveDataMode = Mode_Receive_FileList;
-                mReceiveByteCnt = 0;
-                break;
-
-            default:
-                break;
+    for (int i = 0; i < vData.length(); i++) {
+        if (vData[i].operator ==(0x0A)) {
+            // ServeReceivedMessage(); //, mReceiveByteCnt
+            mReceiveByteCnt = 0;
+            qDebug() << "koniec";
+            for (int i = 0; i < vData.length(); i++) {
+                qDebug() <<  "u" << vData[i];
             }
-
-            if (mReceiveByteCnt >= 1023) { // Prevent buffer overflow
-                mReceiveByteCnt = 0;
-            }
-
-            char vRouteTarget = vData[i];
-            mReceiveBuffer[mReceiveByteCnt] = vData[i];
-            ++mReceiveByteCnt;
-
-            RouteData(mReceiveDataMode, vRouteTarget);
-
         }
 
-      /* nie konieczne*/mSocket->write("Odebrano dane :");
-      /* nie konieczne*/mSocket->write(vData);
-    }
+        if (!vData.isEmpty()) { // nie wiem czy ten if ma sens?
 
-    emit ReadData(vData);
+            for (int i = 0; i < vData.length(); i++) {
+
+                char vTargetData = vData[i];
+                switch (vTargetData) {
+
+                case '>':
+                    mReceiveDataMode = Mode_Receive_Files;
+                    mReceiveByteCnt = 0;
+                    break;
+
+                case '^':
+                    mReceiveDataMode = Mode_Receive_FileList;
+                    mReceiveByteCnt = 0;
+                    break;
+
+                default:
+                    break;
+                }
+
+                if (mReceiveByteCnt >= 1023) { // Prevent buffer overflow
+                    mReceiveByteCnt = 0;
+                }
+
+                char vRouteTarget = vData[i];
+
+                mReceiveBuffer[mReceiveByteCnt] = vData[i];
+                ++mReceiveByteCnt;
+
+                RouteData(mReceiveDataMode, vRouteTarget);
+            }
+
+        ///* nie konieczne*/mSocket->write("Odebrano dane :");
+        /* nie konieczne*/mSocket->write(vData);
+        }
+
+        emit ReadData(vData);
+    }
 }
 
-void CClient::ServeReceivedMessage(QByteArray aData)
+void CClient::Disconnected(){
+    qDebug() << " Rozłączono";
+
+    mSocket->deleteLater();
+    exit(0);
+}
+
+void CClient::RouteData(ReceiveDataMode mReceiveDataMode, char aData)
 {
-    if (!HasMessageCorrectFormat(aData)) { //aData.length()
+    switch (mReceiveDataMode) {
+
+    case Mode_Receive_FileList:
+
+        break;
+
+    case Mode_Receive_Files:
+        if (aData == 0x0A) {
+            ServeReceivedMessage(); //, mReceiveByteCnt
+            mReceiveByteCnt = 0;
+        }
+        break;
+
+    case Mode_UnknownData:
+        break;
+
+    default:
+        break;
+    }
+}
+
+void CClient::ServeReceivedMessage()
+{
+    if (!HasMessageCorrectFormat(mReceiveBuffer)) { //aData.length()
+        qDebug() << ":IncorrectMessageFormat: ";
         //PrintMessage(":" + GetDeviceName() + ":IncorrectMessageFormat: ", aData, aLen);
         ++mReceiveFrameNOKCnt;
         return;
@@ -90,7 +137,6 @@ void CClient::ServeReceivedMessage(QByteArray aData)
 //		return;
 //	}
 
-//	CMutexHelper vMutexHelper(&mMsgMutex);
 //	BYTE* vAsciiDataBegin = aData+2;  // 2 bytes of header
 //	int vAsciiMessageDataLength = aLen-6;  // 2 bytes of header, 2 of checksum, CR, LF
 //	ConvertHexAsciiToBinary(vAsciiDataBegin, vAsciiMessageDataLength, mBinaryMessageData);
@@ -111,9 +157,12 @@ bool CClient::HasMessageCorrectFormat(QByteArray aData)
     } else if (aData[1] != 'L' && aData[1] != 'D') {
         vCorrect = false;
         qDebug() << "b";
-    } else if ((aData[vDataLen-2] != 0x0D) || (aData[vDataLen-1] != 0x0A)) {  // CR LF
+        qDebug() << aData[1];
+    } else if ((aData[vDataLen-2].operator !=(0x0D)) || (aData[vDataLen-1].operator !=(0x0A))) {  // CR LF
         vCorrect = false;
         qDebug() << "c";
+         qDebug() << aData[vDataLen-2];
+         qDebug() <<aData[vDataLen-1];
     } else {
         for (int i = 2; i < vDataAndChecksumLength; ++i) {
             if (!isxdigit(aData[i])) {
@@ -124,25 +173,4 @@ bool CClient::HasMessageCorrectFormat(QByteArray aData)
     }
 
     return vCorrect;
-}
-
-void CClient::RouteData(ReceiveDataMode mReceiveDataMode, char aData)
-{
-    switch (mReceiveDataMode) {
-    case Mode_Receive_FileList:
-
-
-        break;
-    case Mode_Receive_Files:
-        if (aData == 0x0A) {
-            ServeReceivedMessage(mReceiveBuffer); //, mReceiveByteCnt
-            mReceiveByteCnt = 0;
-        }
-        break;
-    case Mode_UnknownData:
-        break;
-
-    default:
-        break;
-    }
 }

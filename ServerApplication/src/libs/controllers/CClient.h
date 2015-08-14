@@ -16,8 +16,10 @@ class CClient : public QObject
 
 public:
     explicit CClient(QObject *aParent = 0);
+    ~ CClient();
     void SendData(char *aData);
     void Connect(QTcpSocket * aSocket);
+
     QTcpSocket *GetSocket() const;
 
 public slots:
@@ -30,10 +32,14 @@ public slots:
      */
     void NewData();
 
+private slots:
+    void Disconnected();
+
+private:
     /**
      * @brief Serve single received message
      */
-    void ServeReceivedMessage(QByteArray aData); //int aReceiveByteCnt
+    void ServeReceivedMessage(); //int aReceiveByteCnt
 
     /**
      * @brief Check has message correct format
