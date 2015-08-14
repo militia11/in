@@ -2,8 +2,8 @@
 #define CSERVER_H
 
 #include <QTcpServer>
-#include <QTcpSocket>
 #include "libs/controllers/CServerThread.h"
+#include "libs/controllers/CClient.h"
 
 class CServer : public QTcpServer {
 
@@ -62,10 +62,7 @@ signals:
     void SendData(QByteArray aData);
 
 private:
-    QTcpSocket *mSocket;
-    QByteArray mReceiveBuffer;
-    int mReceiveByteCnt;
-    int mReceiveFrameNOKCnt;
+    CClient *mClient;
 };
 
 #endif // CSERVER_H
