@@ -18,5 +18,5 @@ HEADERS += \
     CServerThread.h
 
 SOURCES += \
-    CServer.cc \
-    CServerThread.cc
+    CServer.cpp \
+    CServerThread.cpp

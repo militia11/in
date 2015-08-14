@@ -15,7 +15,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 SOURCES  += \
-    mainwindow.cc
+    mainwindow.cpp
 
 HEADERS  += \
     mainwindow.h
