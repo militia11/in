@@ -19,11 +19,6 @@ void CServer::Run()
     }
 }
 
-void CServer::ServeReceivedMessage(QByteArray aData)
-{
-
-}
-
 CClient *CServer::GetClient() const
 {
     return mClient;
@@ -34,6 +29,6 @@ void CServer::IncomingConnection()
     mClient = new CClient();
     QTcpSocket *vSocket = nextPendingConnection();
     mClient->Connect(vSocket);
-    char vWelcome[] =  "Witaj kliencie";
+    char vWelcome[] =  "Witaj kliencie\n";
     mClient->SendData(vWelcome);
 }
