@@ -35,11 +35,12 @@ void CClient::SendData(char *aData)
 void CClient::NewData()
 {
     QByteArray vData = mSocket->readAll();
+
     if (!vData.isEmpty()) { // nie wiem czy ten if ma sens?
 
         for (int i = 0; i < vData.length(); i++) {
             char vTargetData = vData[i];
-
+            qDebug() << vData[i];
             switch (vTargetData) {
 
             case '>':
@@ -63,7 +64,24 @@ void CClient::NewData()
             mReceiveBuffer[mReceiveByteCnt] = vData[i];
             ++mReceiveByteCnt;
 
-            RouteData(mReceiveDataMode, vData[i]);
+            //RouteData(mReceiveDataMode, vData[i]);
+            switch (mReceiveDataMode) {
+            case Mode_Receive_FileList:
+
+
+                break;
+            case Mode_Receive_Files:
+                if (vData[i] == 0x0A) {
+                    ServeReceivedMessage(mReceiveBuffer); //, mReceiveByteCnt
+                    mReceiveByteCnt = 0;
+                }
+                break;
+            case Mode_UnknownData:
+                break;
+
+            default:
+                break;
+            }
         }
 
       /* nie konieczne*/mSocket->write("Odebrano dane :");
@@ -125,21 +143,21 @@ bool CClient::HasMessageCorrectFormat(QByteArray aData)
 
 void CClient::RouteData(ReceiveDataMode mReceiveDataMode, QByteRef aData)
 {
-    switch (mReceiveDataMode) {
-    case Mode_Receive_FileList:
+//    switch (mReceiveDataMode) {
+//    case Mode_Receive_FileList:
 
 
-        break;
-    case Mode_Receive_Files:
-        if (aData[i] == 0x0A) {
-            ServeReceivedMessage(mReceiveBuffer); //, mReceiveByteCnt
-            mReceiveByteCnt = 0;
-        }
-        break;
-    case Mode_UnknownData:
-        break;
+//        break;
+//    case Mode_Receive_Files:
+//        if (aData[i] == 0x0A) {
+//            ServeReceivedMessage(mReceiveBuffer); //, mReceiveByteCnt
+//            mReceiveByteCnt = 0;
+//        }
+//        break;
+//    case Mode_UnknownData:
+//        break;
 
-    default:
-        break;
-    }
+//    default:
+//        break;
+//    }
 }
