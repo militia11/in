@@ -10,9 +10,7 @@ TARGET = dao
 TEMPLATE = lib
 CONFIG += staticlib
 
-HEADERS += \
-    CSocket.h
+HEADERS +=
 
-SOURCES += \
-    CSocket.cpp
+SOURCES +=
 
