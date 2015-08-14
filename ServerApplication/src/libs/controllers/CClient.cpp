@@ -61,11 +61,11 @@ void CClient::NewData()
                 mReceiveByteCnt = 0;
             }
 
-            char x = vData[i];
+            char vRouteTarget = vData[i];
             mReceiveBuffer[mReceiveByteCnt] = vData[i];
             ++mReceiveByteCnt;
 
-            RouteData(mReceiveDataMode, x);
+            RouteData(mReceiveDataMode, vRouteTarget);
 
         }
 
