@@ -25,7 +25,7 @@ void CServer::ServeReceivedMessage(QByteArray aData)
 
 }
 
-CClient *CServer::getClient() const
+CClient *CServer::GetClient() const
 {
     return mClient;
 }
@@ -33,9 +33,10 @@ CClient *CServer::getClient() const
 
 void CServer::IncomingConnection()
 {
-    mClient = dynamic_cast<CClient*>(this->nextPendingConnection());
-    qDebug() << mClient->canReadLine();
-   // mClient->write("Witaj kliencie");
+    mClient = new CClient();
+    QTcpSocket * vSocket = nextPendingConnection();
+    mClient->SetSocket(vSocket);
+    mClient->SendData("Witaj kliencie");
 }
 
 void CServer::NewData()

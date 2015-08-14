@@ -41,7 +41,7 @@ public:
      */
     bool HasMessageCorrectFormat(QByteArray aData);
 
-    CClient* getClient() const;
+    CClient* GetClient() const;
 
 public slots:
     void IncomingConnection();
