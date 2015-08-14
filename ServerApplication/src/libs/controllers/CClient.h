@@ -16,6 +16,8 @@ class CClient : public QObject
 
 public:
     explicit CClient(QObject *aParent = 0);
+    ~CClient();
+
     void SendData(char *aData);
     void Connect(QTcpSocket * aSocket);
     QTcpSocket *GetSocket() const;
@@ -66,7 +68,7 @@ signals:
 
 private:
     QTcpSocket *mSocket;
-    QByteArray mReceiveBuffer;
+    char* mReceiveBuffer;
     ReceiveDataMode mReceiveDataMode;
     int mReceiveByteCnt;
     int mReceiveFrameNOKCnt;
