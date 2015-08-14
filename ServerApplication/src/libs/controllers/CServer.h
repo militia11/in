@@ -41,6 +41,8 @@ public:
      */
     bool HasMessageCorrectFormat(QByteArray aData);
 
+    CClient* getClient() const;
+
 public slots:
     void IncomingConnection();
 
@@ -59,7 +61,7 @@ signals:
      *
      * @param aData is QByteArray data which is sending
      */
-    void SendData(QByteArray aData);
+    //void SendData(QByteArray aData);
 
 private:
     CClient *mClient;

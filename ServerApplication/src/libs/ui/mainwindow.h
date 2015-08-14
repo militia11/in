@@ -20,6 +20,7 @@ public:
 private slots:
   void DisplayData(QByteArray aData);
   void on_mPushButtonRun_clicked();
+  void ClientConnected();
 
 private:
   Ui::MainWindow *ui;

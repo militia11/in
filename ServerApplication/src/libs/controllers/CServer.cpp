@@ -1,5 +1,6 @@
 #include "CServer.h"
 #include <QTcpSocket>
+#include <QDebug>
 
 CServer::CServer(QObject *parent)
     : mClient(NULL),
@@ -24,11 +25,17 @@ void CServer::ServeReceivedMessage(QByteArray aData)
 
 }
 
+CClient *CServer::getClient() const
+{
+    return mClient;
+}
+
 
 void CServer::IncomingConnection()
 {
     mClient = dynamic_cast<CClient*>(this->nextPendingConnection());
-    mClient->write("Witaj kliencie");
+    qDebug() << mClient->canReadLine();
+   // mClient->write("Witaj kliencie");
 }
 
 void CServer::NewData()
