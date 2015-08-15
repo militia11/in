@@ -2,6 +2,7 @@
 #include <QDebug>
 
 CClient::CClient(QObject *aParent) :
+
 		QObject(aParent),
 		mSocket(NULL),
 		mReceiveBuffer(0),
@@ -132,7 +133,6 @@ void CClient::ServeReceivedMessage() {
 		//  RouteMessage(mBinaryMessageData, vAsciiMessageDataLength/2, aData);
 }
 
-
 bool CClient::HasMessageCorrectChecksum(QByteArray aData) {
 		int vAsciiMessageHeaderPlusDataLength = aData.length() -
 																						4; // 4, because 2 bytes of checksum, CR and LF
@@ -185,3 +185,4 @@ bool CClient::HasMessageCorrectFormat(QByteArray aData) {
 
 		return vCorrect;
 }
+

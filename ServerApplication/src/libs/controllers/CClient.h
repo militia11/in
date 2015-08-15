@@ -116,6 +116,7 @@ class CClient : public QObject {
 		int mReceiveByteCnt;
 		int mReceiveFrameNOKCnt;
 		int mReceiveFrameFaultCnt;
+
 };
 
 #endif // CCLIENT_H
