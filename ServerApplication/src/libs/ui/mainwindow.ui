@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>774</width>
-    <height>274</height>
+    <height>446</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -54,6 +54,7 @@
     <property name="title">
      <string>Ustawienia</string>
     </property>
+    <addaction name="ActionDataBaseConnection"/>
    </widget>
    <widget class="QMenu" name="menuSerwer">
     <property name="title">
@@ -83,7 +84,7 @@
     <string>Uruchom serwer</string>
    </property>
    <property name="toolTip">
-    <string>Wystartuj serwer by nasłuchiwał</string>
+    <string>Przełącz serwer w tryb nasłuchiwania</string>
    </property>
    <property name="shortcut">
     <string>Shift+N</string>
@@ -91,13 +92,24 @@
   </action>
   <action name="ActionCloseEvent">
    <property name="text">
-    <string>Zamknij</string>
+    <string>Zamknij </string>
    </property>
    <property name="toolTip">
     <string>Zamknij program</string>
    </property>
    <property name="shortcut">
     <string>Esc</string>
+   </property>
+  </action>
+  <action name="ActionDataBaseConnection">
+   <property name="text">
+    <string>Połączenie z bazą danych </string>
+   </property>
+   <property name="toolTip">
+    <string>Ustawienie połączenia z bazą danych</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
    </property>
   </action>
  </widget>

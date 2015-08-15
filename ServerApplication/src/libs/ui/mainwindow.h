@@ -28,8 +28,7 @@ class MainWindow : public QMainWindow {
 		void ShowStatus(const char* aMessageStatus, int aTimeMsc);
 		void RunServer();
 
-
-  private:
+private:
     Ui::MainWindow *ui;
     CServer *mServer;
 };

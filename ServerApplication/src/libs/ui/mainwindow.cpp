@@ -51,7 +51,11 @@ void MainWindow::ShowStatus(const char *aMessageStatus, int aTimeMsc) {
 }
 
 void MainWindow::RunServer() {
+
 		mServer = new CServer(this);
+
+		connect(mServer, SIGNAL(MessageStatus(const char *, int)),
+						this, SLOT(ShowStatus(const char *, int)));
+
 		mServer->Run();
-		ShowStatus("Serwer nasłuchuje ...", 2400);
 }

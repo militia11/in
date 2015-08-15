@@ -37,6 +37,7 @@ class CServer : public QTcpServer {
 
 	signals:
 		void CreateClient();
+		void MessageStatus(const char* aMessage, int aTimeMsc);
 
 	private:
 		CClient *mClient;

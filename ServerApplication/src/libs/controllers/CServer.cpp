@@ -5,7 +5,8 @@
 
 CServer::CServer(QObject *aParent)
 		: QTcpServer(aParent),
-			mClient(NULL) {
+			mClient(NULL)
+{
 		connect(this, SIGNAL(newConnection()), this, SLOT(IncomingConnection()));
 }
 
@@ -14,15 +15,15 @@ CServer::~CServer() {
 }
 
 void CServer::Run() {
-		if (!listen(QHostAddress::Any, 1234)) {
-				qDebug() << "Nie można wystartować serwera";
+		if(listen(QHostAddress::Any, 1234)) {
+				MessageStatus("Nie można wystartować serwera", 2400);
 		} else {
-				qDebug() << "Serwer nasłuchuje ...";
+			MessageStatus("Serwer uruchomiony", 2400);
 		}
 }
 
 CClient *CServer::GetClient() const {
-		return mClient;
+	return mClient;
 }
 
 void CServer::IncomingConnection() {
@@ -32,6 +33,6 @@ void CServer::IncomingConnection() {
 		QTcpSocket *vSocket = nextPendingConnection();
 		mClient->Connect(vSocket);
 
-		char vMessage[] = "Witaj kliencie\n";
+		const char* vMessage = "Witaj kliencie\n";
 		mClient->ResponeToClient(vMessage);
 }
