@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QCloseEvent>
 
 #include "libs/controllers/CServer.h"
 
@@ -9,22 +10,28 @@ namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
-public:
-  explicit MainWindow(QWidget *aParent = 0);
-  ~MainWindow();
+  public:
+    explicit MainWindow(QWidget *aParent = 0);
+    ~MainWindow();
 
-private slots:
-  void DisplayData(QByteArray aData);
-  void on_mPushButtonRun_clicked();
-  void ClientConnected();
+		void CloseEvent(QCloseEvent *aEvent);
 
-private:
-  Ui::MainWindow *ui;
-  CServer *mServer;
+  signals:
+
+  private slots:
+    void DisplayData(QByteArray aData);
+    void ClientConnected();
+		void ClientCreated();
+		void ShowStatus(const char* aMessageStatus, int aTimeMsc);
+		void RunServer();
+
+
+  private:
+    Ui::MainWindow *ui;
+    CServer *mServer;
 };
 
 #endif // MAINWINDOW_H
