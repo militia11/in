@@ -34,19 +34,6 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>180</y>
-      <width>99</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="mMenubar">
    <property name="geometry">
@@ -61,6 +48,7 @@
     <property name="title">
      <string>Plik</string>
     </property>
+    <addaction name="separator"/>
     <addaction name="ActionCloseEvent"/>
    </widget>
    <widget class="QMenu" name="menuUstawienia">
@@ -75,6 +63,7 @@
     </property>
     <addaction name="ActionRunServer"/>
     <addaction name="ActionStopServer"/>
+    <addaction name="separator"/>
     <addaction name="ActionServerSettings"/>
    </widget>
    <addaction name="menuPlik"/>

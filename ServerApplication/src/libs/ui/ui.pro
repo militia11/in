@@ -16,13 +16,16 @@ CONFIG += staticlib
 
 SOURCES  += \
     mainwindow.cpp \
-    CServerSettingsDialog.cpp
+    CServerSettingsDialog.cpp \
+    CDatabaseConnectionDialog.cpp
 
 HEADERS  += \
     mainwindow.h \
-    CServerSettingsDialog.h
+    CServerSettingsDialog.h \
+    CDatabaseConnectionDialog.h
 
 FORMS    += \
     mainwindow.ui \
-    CServerSettingsDialog.ui
+    CServerSettingsDialog.ui \
+    CDatabaseConnectionDialog.ui
 

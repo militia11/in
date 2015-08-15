@@ -5,13 +5,11 @@
 #include "libs/controllers/CClient.h"
 
 /**
- * @brief The CJanus class represents Selex Janus device.
+ * @brief The CServer class represents server for synchronize data from Android device.
  *
- * @details Janus FF system consists of a Panoramic Sensor Unit (PSU), an electronics unit (EU) and a different set of cables.
- * The PSU in mainly composed of a cluster of Day-Night vision sensors and a LRF integrated into a viewing platform
- * stabilized on two axes: to refine the performance of image stabilization, the reidue resulting from the electromechanical
- * stabilization process is further reduced through a process of electronic stabilization.
- * The Janus system allows for observation, description, and tracking of ground targets and aircraft.
+ * @details CServer class inherits from QTcpServer. CServer listening for incoming connection.
+ * When client connected to the specify port server pause listening and resume accepting
+ * incoming connections when client disconnected. @todo dopisać później
  */
 class CServer : public QTcpServer {
 
@@ -29,18 +27,18 @@ class CServer : public QTcpServer {
 
 		CClient *GetClient() const;
 
-	public slots:
+	signals:
+		void CreateClient();
+		void MessageStatus(const char *aMessage, int aTimeMsc);
+
+	private slots:
 		/**
 		 * @brief Slot called when new incoming connection come
 		 */
 		void IncomingConnection();
-
-	private slots:
 		void ResumeAccepting();
 
-	signals:
-		void CreateClient();
-		void MessageStatus(const char* aMessage, int aTimeMsc);
+
 
 	private:
 		CClient *mClient;

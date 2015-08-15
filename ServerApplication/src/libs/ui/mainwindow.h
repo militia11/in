@@ -11,12 +11,14 @@ class MainWindow;
 }
 
 class MainWindow : public QMainWindow {
-    Q_OBJECT
+
+		Q_OBJECT
 
   public:
     explicit MainWindow(QWidget *aParent = 0);
     ~MainWindow();
 
+		///	@todo
 		void CloseEvent(QCloseEvent *aEvent);
 
   signals:
@@ -25,12 +27,13 @@ class MainWindow : public QMainWindow {
     void DisplayData(QByteArray aData);
     void ClientConnected();
 		void ClientCreated();
-		void ShowStatus(const char* aMessageStatus, int aTimeMsc);
+		void ShowStatus(const char *aMessageStatus, int aTimeMsc);
 		void RunServer();
 		void StopServer(); // stop listening
 		void ServerSettings();
+		void DatabaseConnectionSettings();
 
-private:
+	private:
     Ui::MainWindow *ui;
     CServer *mServer;
 };

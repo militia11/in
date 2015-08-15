@@ -1,12 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "CDatabaseConnectionDialog.h"
 #include "CServerSettingsDialog.h"
 
 MainWindow::MainWindow(QWidget *aParent) :
     QMainWindow(aParent),
     ui(new Ui::MainWindow) {
     ui->setupUi(this);
-	//	RunServer(false);  // na koniec usunąć
+		//	RunServer(false);  // na koniec usunąć
 
 		connect(ui->ActionRunServer, SIGNAL(triggered()),
 						this, SLOT(RunServer()));
@@ -16,23 +17,23 @@ MainWindow::MainWindow(QWidget *aParent) :
 		connect(ui->ActionServerSettings, SIGNAL(triggered()),
 						this, SLOT(ServerSettings()));
 
-	//	 pauseAccepting() and resumeAccepting().
-//		connect(ui->ActionCloseEvent, SIGNAL(triggered()),
-//						this, SLOT(CloseEvent(QCloseEvent*)));
+		//	 pauseAccepting() and resumeAccepting().
+		//		connect(ui->ActionCloseEvent, SIGNAL(triggered()),
+		//						this, SLOT(CloseEvent(QCloseEvent*)));
 }
 
 MainWindow::~MainWindow() {
-	delete ui;
+		delete ui;
 }
 
-void MainWindow::CloseEvent(QCloseEvent *aEvent)
-{
-	int aa = 10;
-	if(aa==0){
-		aEvent->ignore();
-	}
-	else
-		aEvent->accept();
+void MainWindow::CloseEvent(QCloseEvent *aEvent) {
+		int aa = 10;
+
+		if (aa == 0) {
+				aEvent->ignore();
+		} else {
+				aEvent->accept();
+		}
 }
 
 void MainWindow::DisplayData(QByteArray aData) {
@@ -72,17 +73,24 @@ void MainWindow::RunServer() {
 		ui->ActionStopServer->setChecked(false);
 }
 
-void MainWindow::StopServer()
-{
+void MainWindow::StopServer() {
 		mServer->StopListening();
 
 		ui->ActionRunServer->setChecked(false);
 }
 
-void MainWindow::ServerSettings()
-{
-	CServerSettingsDialog dialog;
+void MainWindow::ServerSettings() {
+		CServerSettingsDialog dialog;
+
+		if(dialog.exec() == true ) {
+				qDebug() << " srv settings"; // TAK JAK ACCEPTED DZIAŁA
+		}
+}
+
+void MainWindow::DatabaseConnectionSettings() {
+	CDatabaseConnectionDialog dialog;
+
 	if(dialog.exec() == true ) {
-		qDebug() << " srv settings"; // TAK JAK ACCEPTED DZIAŁA
+			qDebug() << " srv settings"; // TAK JAK ACCEPTED DZIAŁA
 	}
 }

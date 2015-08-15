@@ -12,14 +12,12 @@ enum ReceiveDataMode {
 };
 
 /**
- * @brief The CJanus class represents Selex Janus device.
+ * @brief The CClient class represents client in client-server architecture.
  *
- * @details Janus FF system consists of a Panoramic Sensor Unit (PSU), an electronics unit (EU) and a different set of cables.
- * The PSU in mainly composed of a cluster of Day-Night vision sensors and a LRF integrated into a viewing platform
- * stabilized on two axes: to refine the performance of image stabilization, the reidue resulting from the electromechanical
- * stabilization process is further reduced through a process of electronic stabilization.
- * The Janus system allows for observation, description, and tracking of ground targets and aircraft.
- */
+ * @details CClient class inherits from QObject. This class have responsibility of coordinate
+ * communication with client from Android device.
+ * @todo dopisac pozniej
+ * */
 class CClient : public QObject {
 
 		Q_OBJECT
@@ -29,7 +27,7 @@ class CClient : public QObject {
 		~ CClient();
 
 		void Connect(QTcpSocket *aSocket);
-		void ResponeToClient(const char* aMessage, QByteArray aData = 0);
+		void ResponeToClient(const char *aMessage, QByteArray aData = 0);
 
 		QTcpSocket *GetSocket() const;
 
@@ -40,28 +38,27 @@ class CClient : public QObject {
 		 */
 		void NewData();
 
-signals:
-	void Disconnect();
+	signals:
+		void Disconnect();
 
-	/**
-	* @brief Signal emited when error ocured socket
-	*
-	* @param aSocketError is a QTcpSocket::SocketError
-	*/
-	void Error(QTcpSocket::SocketError aSocketError);
+		/**
+		* @brief Signal emited when error ocured socket
+		*
+		* @param aSocketError is a QTcpSocket::SocketError
+		*/
+		void Error(QTcpSocket::SocketError aSocketError);
 
-	/**
-	* @brief Signal emited when was read data
-	*
-	* @param aData is a QByteArray data which was read
-	*/
-	void ReadData(QByteArray aData);
+		/**
+		* @brief Signal emited when was read data
+		*
+		* @param aData is a QByteArray data which was read
+		*/
+		void ReadData(QByteArray aData);
 
 
-	void MessageStatus(const char* aMessage, int aTimeMsc);
+		void MessageStatus(const char *aMessage, int aTimeMsc);
 
 	private slots:
-
 		void Disconnected();
 
 	private:
