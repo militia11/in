@@ -15,6 +15,13 @@ public:
 	explicit CServerSettingsDialog(QWidget *parent = 0);
 	~CServerSettingsDialog();
 
+private slots:
+	void on_mPushButtonResetDefault_clicked();
+
+	void on_mButtonBoxOkCancel_accepted();
+
+	void on_mButtonBoxOkCancel_rejected();
+
 private:
 	Ui::CServerSettingsDialog *ui;
 };

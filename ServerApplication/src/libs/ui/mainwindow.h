@@ -19,22 +19,26 @@ class MainWindow : public QMainWindow {
     ~MainWindow();
 
 		///	@todo
-		void CloseEvent(QCloseEvent *aEvent);
+		inline void CloseEvent(QCloseEvent *aEvent);
 
   signals:
 
   private slots:
-    void DisplayData(QByteArray aData);
-    void ClientConnected();
+		void DisplayData(QByteArray aData);
+		void ClientConnected();
 		void ClientCreated();
 		void ShowStatus(const char *aMessageStatus, int aTimeMsc);
 		void RunServer();
 		void StopServer(); // stop listening
 		void ServerSettings();
 		void DatabaseConnectionSettings();
+		void ChangeActionServerStatus();
 
 	private:
-    Ui::MainWindow *ui;
+		inline void ConnectServerSignals();
+		inline void ConnectActionsSignals();
+
+		Ui::MainWindow *ui;
     CServer *mServer;
 };
 

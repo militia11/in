@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CServerSettingsDialog</class>
- <widget class="QDialog" name="CServerSettingsDialog">
+ <class>PortDialog</class>
+ <widget class="QDialog" name="PortDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>275</width>
-    <height>263</height>
+    <width>342</width>
+    <height>245</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Ustawienia serwera</string>
+   <string>Ustawienia Portu</string>
   </property>
-  <widget class="QDialogButtonBox" name="mButtonBoxOkCancel">
+  <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>-80</x>
-     <y>210</y>
+     <x>-20</x>
+     <y>190</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -33,55 +33,31 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>40</y>
-     <width>241</width>
-     <height>161</height>
+     <y>20</y>
+     <width>301</width>
+     <height>151</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout">
     <item row="0" column="0">
-     <widget class="QLabel" name="mLabelPortNum">
+     <widget class="QLabel" name="label">
       <property name="text">
-       <string>Numer portu:         </string>
+       <string>Numer portu:               </string>
       </property>
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QSpinBox" name="mSpinBoxPortNum">
-      <property name="maximum">
-       <number>9999</number>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0" colspan="2">
-     <widget class="QPushButton" name="mPushButtonResetDefault">
-      <property name="text">
-       <string>Przywróć ustawienia domyślne</string>
-      </property>
-     </widget>
+     <widget class="QLCDNumber" name="lcdNumber"/>
     </item>
    </layout>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>10</y>
-     <width>281</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>moze ostrzegawczy jak w pracy wb schro</string>
-   </property>
   </widget>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>mButtonBoxOkCancel</sender>
+   <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>CServerSettingsDialog</receiver>
+   <receiver>PortDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -95,9 +71,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>mButtonBoxOkCancel</sender>
+   <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>CServerSettingsDialog</receiver>
+   <receiver>PortDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

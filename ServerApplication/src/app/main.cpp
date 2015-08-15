@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
 
 		QApplication::setOrganizationName("Mateusz Michniewski");
 		QApplication::setOrganizationDomain("Moja Domena");
-		QApplication::setApplicationName("Synchronization Tool");
+		QApplication::setApplicationName("Android Synchronizator");
 
     MainWindow w;
     w.show();

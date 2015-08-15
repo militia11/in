@@ -2,13 +2,11 @@
 #include "ui_CDatabaseConnectionDialog.h"
 
 CDatabaseConnectionDialog::CDatabaseConnectionDialog(QWidget *parent) :
-	QDialog(parent),
-	ui(new Ui::CDatabaseConnectionDialog)
-{
-	ui->setupUi(this);
+		QDialog(parent),
+		ui(new Ui::CDatabaseConnectionDialog) {
+		ui->setupUi(this);
 }
 
-CDatabaseConnectionDialog::~CDatabaseConnectionDialog()
-{
-	delete ui;
+CDatabaseConnectionDialog::~CDatabaseConnectionDialog() {
+		delete ui;
 }

@@ -19,6 +19,8 @@ TestInitServerTest::TestInitServerTest()
 
 void TestInitServerTest::testCas()
 {
+	// Verify if function Run() works fine and
+	// checks status of listening
 //	CServer *vServer = new CServer;
 //	vServer->Run();
 //	QVERIFY(vServer.isListening());

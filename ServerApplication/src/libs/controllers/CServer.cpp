@@ -5,8 +5,7 @@
 
 CServer::CServer(QObject *aParent)
 		: QTcpServer(aParent),
-			mClient(NULL)
-{
+			mClient(NULL) {
 		connect(this, SIGNAL(newConnection()), this, SLOT(IncomingConnection()));
 }
 
@@ -15,21 +14,21 @@ CServer::~CServer() {
 }
 
 void CServer::Run() {
-		if(!this->listen(QHostAddress::Any, 1222)){
-			MessageStatus("Nie można wystartować serwera", 2400);
-		} else{
-			MessageStatus("Serwer nasłuchuje ...", 2400);
+		if (!this->listen(QHostAddress::Any, 1222)) {
+				MessageStatus("Nie można wystartować serwera", 2400);
+		} else {
+				MessageStatus("Serwer nasłuchuje ...", 2400);
 		}
 }
 
 void CServer::StopListening() {
-	MessageStatus("Wyłączono nasłuchiwanie serwera", 2400);
+		MessageStatus("Wyłączone nasłuchiwanie serwera", 2400);
 
-	close();
+		close();
 }
 
 CClient *CServer::GetClient() const {
-	return mClient;
+		return mClient;
 }
 
 void CServer::IncomingConnection() {
@@ -40,16 +39,26 @@ void CServer::IncomingConnection() {
 		QTcpSocket *vSocket = nextPendingConnection();
 		mClient->Connect(vSocket);
 
-		pauseAccepting();
+		PauseAccepting();
 
-		connect(mClient, SIGNAL(Disconnect()), this, SLOT(ResumeAccepting()),
-										 Qt::DirectConnection);
-
-		const char* vMessage = "Witaj kliencie\n";
+		const char *vMessage = "Witaj kliencie\n";
 		mClient->ResponeToClient(vMessage);
 }
 
-void CServer::ResumeAccepting()
-{
-	QTcpServer::resumeAccepting();
+void CServer::ResumeAccepting() {
+		emit ChangeServerStatus();
+		QTcpServer::resumeAccepting();		
+}
+
+void CServer::PauseAccepting() {
+		emit ChangeServerStatus();
+		QTcpServer::pauseAccepting();
+}
+
+void CServer::ConnectClientSignals() {
+		connect(mClient, SIGNAL(Disconnect()), this, SLOT(ResumeAccepting()),
+						Qt::DirectConnection);
+
+		connect(mClient, SIGNAL(Connected()), this, SLOT(PauseAccepting()),
+						Qt::DirectConnection);
 }

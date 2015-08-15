@@ -19,22 +19,20 @@ CClient::~CClient() {
 
 void CClient::Connect(QTcpSocket *aSocket) {
 		if (aSocket) {
-				qDebug() << "Połączono";
+				const char *vMessage = "Klient połączony. Nasłuchiwanie serwera wyłączone";
+				qDebug() << vMessage;
 
-				emit MessageStatus("Połączono", 2200);
+				emit MessageStatus(vMessage, 2200);
 
 				mSocket = aSocket;
 
-				QObject::connect(mSocket, SIGNAL(disconnected()), this, SLOT(Disconnected()),
-												 Qt::DirectConnection);
-
-				QObject::connect(mSocket, SIGNAL(readyRead()), this, SLOT(NewData()),
-												 Qt::DirectConnection);
+				ConnectSocketSignals();
 
 		} else {
-				qDebug() << "Nie można połączyć";
+				const char *vMessage = "Nie można połączyć";
+				qDebug() << vMessage;
 
-				emit MessageStatus("Nie można połączyć", 2200);
+				emit MessageStatus(vMessage, 2200);
 
 				emit mSocket->error();
 		}
@@ -47,56 +45,55 @@ QTcpSocket *CClient::GetSocket() const {
 void CClient::NewData() {
 		QByteArray vData = mSocket->readAll();
 
-		if (!vData.isEmpty()) { // nie wiem czy ten if ma sens?
 
-				for (int i = 0; i < vData.length(); i++) {
+		QDataStream in(vData);    // read the data serialized from the file
+		QString str;
+		in >> str;           // extract "the answer is" and 42
 
-						char vTargetData = vData[i];
+		qDebug() << str << "du" ;
+		//		if (!vData.isEmpty()) { // nie wiem czy ten if ma sens?
 
-						switch (vTargetData) {
+		//				for (int i = 0; i < vData.length(); i++) {
 
-								case '>':
-										mReceiveDataMode = Mode_Receive_Files;
-										mReceiveByteCnt = 0;
-										break;
+		//						char vTargetData = vData[i];
 
-								case '^':
-										mReceiveDataMode = Mode_Receive_FileList;
-										mReceiveByteCnt = 0;
-										break;
+		//						switch (vTargetData) {
 
-								default:
-										break;
-						}
+		//								case '>':
+		//										mReceiveDataMode = Mode_Receive_Files;
+		//										mReceiveByteCnt = 0;
+		//										break;
 
-						if (mReceiveByteCnt >= 1023) { // Prevent buffer overflow
-								mReceiveByteCnt = 0;
-						}
+		//								case '^':
+		//										mReceiveDataMode = Mode_Receive_FileList;
+		//										mReceiveByteCnt = 0;
+		//										break;
 
-						char vRouteTarget = vData[i];
+		//								default:
+		//										break;
+		//						}
 
-						if (vData[i].operator != (0)) { // pomyśleć zmianę tego
-								mReceiveBuffer[mReceiveByteCnt] = vData[i];
-								++mReceiveByteCnt;
-						}
+		//						if (mReceiveByteCnt >= 1023) { // Prevent buffer overflow
+		//								mReceiveByteCnt = 0;
+		//						}
 
-						RouteData(mReceiveDataMode, vRouteTarget);
-				}
+		//						char vRouteTarget = vData[i];
 
-				char vMessage[] = "Odebrano dane : ";
-				ResponeToClient(vMessage, vData);
-		}
+		//						//if (vData[i].operator != (0)) { // pomyśleć zmianę tego
+		//						mReceiveBuffer[mReceiveByteCnt] = vData[i];
+		//						++mReceiveByteCnt;
+		//						//}
+
+		//						RouteData(mReceiveDataMode, vRouteTarget);
+		//				}
+
+		//				const char *vMessage = "Odebrano dane : ";
+		//				ResponeToClient(vMessage, vData);
+		//		}
 
 		emit ReadData(vData);
 }
 
-void CClient::Disconnected() {
-		qDebug() << "Rozłączono";
-
-		emit MessageStatus("Rozłączono", 2200);
-		emit Disconnect();
-		mSocket->deleteLater();
-}
 
 void CClient::RouteData(ReceiveDataMode mReceiveDataMode, char aData) {
 		switch (mReceiveDataMode) {
@@ -142,6 +139,28 @@ void CClient::ServeReceivedMessage() {
 		//  RouteMessage(mBinaryMessageData, vAsciiMessageDataLength/2, aData);
 }
 
+void CClient::ConnectSocketSignals() {
+		QObject::connect(mSocket, SIGNAL(disconnected()), this, SLOT(Disconnected()),
+										 Qt::DirectConnection);
+
+		QObject::connect(mSocket, SIGNAL(readyRead()), this, SLOT(NewData()),
+										 Qt::DirectConnection);
+}
+
+void CClient::Disconnected() {
+		const char *vMessage = "Rozłączono";
+		qDebug() << vMessage;
+
+		emit MessageStatus(vMessage, 2200);
+		emit Disconnect();
+		mSocket->deleteLater();
+}
+
+void CClient::ResponeToClient(const char *aMessage, QByteArray aData) {
+		mSocket->write(aMessage);
+		mSocket->write(aData);
+}
+
 bool CClient::HasMessageCorrectChecksum(QByteArray aData) {
 		int vAsciiMessageHeaderPlusDataLength = aData.length() -
 																						4; // 4, because 2 bytes of checksum, CR and LF
@@ -156,12 +175,7 @@ bool CClient::HasMessageCorrectChecksum(QByteArray aData) {
 		//        CalculateMessageChecksum(aData, vAsciiMessageHeaderPlusDataLength);
 
 		//    return vCalculatedChecksum == vExpectedChecksum;
-		return 0;
-}
-
-void CClient::ResponeToClient(const char *aMessage, QByteArray aData) {
-		mSocket->write(aMessage);
-		mSocket->write(aData);
+		return 0; ///@todo
 }
 
 bool CClient::HasMessageCorrectFormat(QByteArray aData) {
@@ -176,6 +190,10 @@ bool CClient::HasMessageCorrectFormat(QByteArray aData) {
 		} else if (aData[1] != 'L' && aData[1] != 'D') {
 				vCorrect = false;
 				qDebug() << "b";
+				//				for(int i=0;i<aData.length();i++){
+				//					qDebug() << "bi";
+				//					qDebug() << aData[i];
+				//				}
 				qDebug() << aData[1];
 		} else if ((aData[vDataLen - 2].operator != (0x0D)) ||
 							 (aData[vDataLen - 1].operator != (0x0A))) { // CR LF

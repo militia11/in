@@ -18,9 +18,15 @@ TestListeningSpecifyPort::TestListeningSpecifyPort()
 
 void TestListeningSpecifyPort::testCase()
 {
+	//  Verify status of listening
 	//	CServer *vServer = new CServer;
-	//	bool vIsListen = vServer->listen(QHostAddress::Any, 1234);
+	//  quit16 vPortNum = 1234;
+	//	bool vIsListen = vServer->listen(QHostAddress::Any, vPortNum4);
 	//	QVERIFY(vIsListen);
+
+	//  Verify port number
+	//  quit16 vPortNumFromServer =  vServer->serverPort();
+	//  QCOMPARE(vPortNum, vPortNumFromServer);
 }
 
 QTEST_APPLESS_MAIN(TestListeningSpecifyPort)

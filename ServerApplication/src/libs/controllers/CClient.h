@@ -26,13 +26,25 @@ class CClient : public QObject {
 		explicit CClient(QObject *aParent = 0);
 		~ CClient();
 
+		/**
+		 * @brief Method called when server receive incoming connection,
+		 *  client want to connect.
+		 */
 		void Connect(QTcpSocket *aSocket);
+
+		/**
+		 * @brief Method to respone some information to client
+		 */
 		void ResponeToClient(const char *aMessage, QByteArray aData = 0);
 
+		/**
+		 * @brief Method called to get CClient class member mSocket
+		 * which represent socket
+		 */
 		QTcpSocket *GetSocket() const;
 
-	public slots:
 
+	public slots:
 		/**
 		 * @brief Method called on new incomming data
 		 */
@@ -42,7 +54,7 @@ class CClient : public QObject {
 		void Disconnect();
 
 		/**
-		* @brief Signal emited when error ocured socket
+		* @brief Signal emited when error occured a socket
 		*
 		* @param aSocketError is a QTcpSocket::SocketError
 		*/
@@ -56,9 +68,15 @@ class CClient : public QObject {
 		void ReadData(QByteArray aData);
 
 
+		/**
+		 * @brief Method called to display status on the main status bar
+		 */
 		void MessageStatus(const char *aMessage, int aTimeMsc);
 
 	private slots:
+		/**
+		 * @brief Slot called when connection closed
+		 */
 		void Disconnected();
 
 	private:
@@ -111,6 +129,8 @@ class CClient : public QObject {
 		//uint8_t CalculateMessageChecksum(BYTE *aData, int aLen);
 
 	private:
+		inline void ConnectSocketSignals();
+
 		QTcpSocket *mSocket;
 		QByteArray mReceiveBuffer;
 		ReceiveDataMode mReceiveDataMode;

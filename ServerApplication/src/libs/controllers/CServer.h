@@ -23,24 +23,41 @@ class CServer : public QTcpServer {
 		 * @brief Method called to start server
 		 */
 		void Run();
+
+		/**
+		 * @brief Method called to stop listening server
+		 */
 		void StopListening();
 
+		/**
+		 * @brief Method return CClient member of the class
+		 */
 		CClient *GetClient() const;
 
 	signals:
 		void CreateClient();
 		void MessageStatus(const char *aMessage, int aTimeMsc);
+		void ChangeServerStatus();
 
 	private slots:
 		/**
 		 * @brief Slot called when new incoming connection come
 		 */
 		void IncomingConnection();
+
+		/**
+		 * @brief Method called to unblock incoming connection
+		 */
 		void ResumeAccepting();
 
-
+		/**
+		 * @brief Method called to block incoming connection
+		 */
+		void PauseAccepting();
 
 	private:
+		inline void ConnectClientSignals();
+
 		CClient *mClient;
 };
 

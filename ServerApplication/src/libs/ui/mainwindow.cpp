@@ -7,22 +7,17 @@ MainWindow::MainWindow(QWidget *aParent) :
     QMainWindow(aParent),
     ui(new Ui::MainWindow) {
     ui->setupUi(this);
-		//	RunServer(false);  // na koniec usunąć
+		//RunServer();  // na koniec usunąć
 
-		connect(ui->ActionRunServer, SIGNAL(triggered()),
-						this, SLOT(RunServer()));
-		connect(ui->ActionStopServer, SIGNAL(triggered()),
-						this, SLOT(StopServer()));
+		ConnectActionsSignals();
+		ui->ActionStopServer->setEnabled(false);
+		ui->ActionStopServer->setChecked(true);
 
-		connect(ui->ActionServerSettings, SIGNAL(triggered()),
-						this, SLOT(ServerSettings()));
-
-		//	 pauseAccepting() and resumeAccepting().
-		//		connect(ui->ActionCloseEvent, SIGNAL(triggered()),
-		//						this, SLOT(CloseEvent(QCloseEvent*)));
+		ShowStatus("Wyłączone nasłuchiwanie serwera", 2400);
 }
 
 MainWindow::~MainWindow() {
+		delete mServer;
 		delete ui;
 }
 
@@ -35,7 +30,6 @@ void MainWindow::CloseEvent(QCloseEvent *aEvent) {
 				aEvent->accept();
 		}
 }
-
 void MainWindow::DisplayData(QByteArray aData) {
     ui->mListWidget->insertItem(0, aData);
     ui->mTextEdit->setText(aData);
@@ -56,9 +50,52 @@ void MainWindow::ShowStatus(const char *aMessageStatus, int aTimeMsc) {
 }
 
 void MainWindow::RunServer() {
-
 		mServer = new CServer(this);
 
+		ConnectServerSignals();
+
+		mServer->Run();
+
+		ui->ActionStopServer->setChecked(false);
+		ui->ActionRunServer->setEnabled(false);
+		ui->ActionStopServer->setEnabled(true);
+}
+
+void MainWindow::StopServer() {
+		mServer->StopListening();
+
+		ui->ActionRunServer->setChecked(false);
+		ui->ActionStopServer->setEnabled(false);
+		ui->ActionRunServer->setEnabled(true);
+}
+
+void MainWindow::ServerSettings() {
+		CServerSettingsDialog dialog;
+
+		if (dialog.exec() == true ) {
+				// TAK JAK ACCEPTED DZIAŁA
+		}
+}
+
+void MainWindow::DatabaseConnectionSettings() {
+		CDatabaseConnectionDialog dialog;
+
+		if (dialog.exec() == true ) {
+				// TAK JAK ACCEPTED DZIAŁA
+		}
+}
+
+void MainWindow::ChangeActionServerStatus() {
+		bool vStatus = ui->ActionRunServer->isChecked();
+
+		ui->ActionRunServer->setEnabled(vStatus);
+		ui->ActionStopServer->setEnabled(!vStatus);
+
+		ui->ActionRunServer->setChecked(!vStatus);
+		ui->ActionStopServer->setChecked(vStatus);
+}
+
+void MainWindow::ConnectServerSignals() {
 		connect(mServer, SIGNAL(MessageStatus(const char *, int)),
 						this, SLOT(ShowStatus(const char *, int)));
 
@@ -68,29 +105,23 @@ void MainWindow::RunServer() {
 		connect(mServer, SIGNAL(CreateClient()), this,
 						SLOT(ClientCreated()));
 
-		mServer->Run();
-
-		ui->ActionStopServer->setChecked(false);
+		connect(mServer, SIGNAL(ChangeServerStatus()), this,
+						SLOT(ChangeActionServerStatus()));
 }
 
-void MainWindow::StopServer() {
-		mServer->StopListening();
+void MainWindow::ConnectActionsSignals() {
+		connect(ui->ActionRunServer, SIGNAL(triggered()),
+						this, SLOT(RunServer()));
 
-		ui->ActionRunServer->setChecked(false);
-}
+		connect(ui->ActionStopServer, SIGNAL(triggered()),
+						this, SLOT(StopServer()));
 
-void MainWindow::ServerSettings() {
-		CServerSettingsDialog dialog;
+		connect(ui->ActionServerSettings, SIGNAL(triggered()),
+						this, SLOT(ServerSettings()));
 
-		if(dialog.exec() == true ) {
-				qDebug() << " srv settings"; // TAK JAK ACCEPTED DZIAŁA
-		}
-}
+		connect(ui->ActionDataBaseConnection, SIGNAL(triggered()),
+						this, SLOT(DatabaseConnectionSettings()));
 
-void MainWindow::DatabaseConnectionSettings() {
-	CDatabaseConnectionDialog dialog;
-
-	if(dialog.exec() == true ) {
-			qDebug() << " srv settings"; // TAK JAK ACCEPTED DZIAŁA
-	}
+		//		connect(ui->ActionCloseEvent, SIGNAL(triggered()),
+		//						this, SLOT(CloseEvent(QCloseEvent*)));
 }

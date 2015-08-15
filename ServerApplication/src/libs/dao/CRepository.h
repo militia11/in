@@ -1,7 +1,6 @@
 #ifndef CREPOSITORY_H
 #define CREPOSITORY_H
 
-
 class CRepository
 {
 public:
