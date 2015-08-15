@@ -1,18 +1,22 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "CServerSettingsDialog.h"
 
 MainWindow::MainWindow(QWidget *aParent) :
     QMainWindow(aParent),
     ui(new Ui::MainWindow) {
     ui->setupUi(this);
-		RunServer();  // na koniec usunąć
-    connect(mServer, SIGNAL(newConnection()), this,
-						SLOT(ClientConnected()));
-		connect(mServer, SIGNAL(CreateClient()), this,
-						SLOT(ClientCreated()));
+	//	RunServer(false);  // na koniec usunąć
 
 		connect(ui->ActionRunServer, SIGNAL(triggered()),
 						this, SLOT(RunServer()));
+		connect(ui->ActionStopServer, SIGNAL(triggered()),
+						this, SLOT(StopServer()));
+
+		connect(ui->ActionServerSettings, SIGNAL(triggered()),
+						this, SLOT(ServerSettings()));
+
+	//	 pauseAccepting() and resumeAccepting().
 //		connect(ui->ActionCloseEvent, SIGNAL(triggered()),
 //						this, SLOT(CloseEvent(QCloseEvent*)));
 }
@@ -57,5 +61,28 @@ void MainWindow::RunServer() {
 		connect(mServer, SIGNAL(MessageStatus(const char *, int)),
 						this, SLOT(ShowStatus(const char *, int)));
 
+		connect(mServer, SIGNAL(newConnection()), this,
+						SLOT(ClientConnected()));
+
+		connect(mServer, SIGNAL(CreateClient()), this,
+						SLOT(ClientCreated()));
+
 		mServer->Run();
+
+		ui->ActionStopServer->setChecked(false);
+}
+
+void MainWindow::StopServer()
+{
+		mServer->StopListening();
+
+		ui->ActionRunServer->setChecked(false);
+}
+
+void MainWindow::ServerSettings()
+{
+	CServerSettingsDialog dialog;
+	if(dialog.exec() == true ) {
+		qDebug() << " srv settings"; // TAK JAK ACCEPTED DZIAŁA
+	}
 }

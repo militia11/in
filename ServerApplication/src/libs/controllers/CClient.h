@@ -27,6 +27,7 @@ class CClient : public QObject {
 	public:
 		explicit CClient(QObject *aParent = 0);
 		~ CClient();
+
 		void Connect(QTcpSocket *aSocket);
 		void ResponeToClient(const char* aMessage, QByteArray aData = 0);
 
@@ -39,7 +40,28 @@ class CClient : public QObject {
 		 */
 		void NewData();
 
+signals:
+	void Disconnect();
+
+	/**
+	* @brief Signal emited when error ocured socket
+	*
+	* @param aSocketError is a QTcpSocket::SocketError
+	*/
+	void Error(QTcpSocket::SocketError aSocketError);
+
+	/**
+	* @brief Signal emited when was read data
+	*
+	* @param aData is a QByteArray data which was read
+	*/
+	void ReadData(QByteArray aData);
+
+
+	void MessageStatus(const char* aMessage, int aTimeMsc);
+
 	private slots:
+
 		void Disconnected();
 
 	private:
@@ -91,24 +113,6 @@ class CClient : public QObject {
 		 */
 		//uint8_t CalculateMessageChecksum(BYTE *aData, int aLen);
 
-	signals:
-		/**
-		* @brief Signal emited when error ocured socket
-		*
-		* @param aSocketError is a QTcpSocket::SocketError
-		*/
-		void Error(QTcpSocket::SocketError aSocketError);
-
-		/**
-		* @brief Signal emited when was read data
-		*
-		* @param aData is a QByteArray data which was read
-		*/
-		void ReadData(QByteArray aData);
-
-
-		void MessageStatus(const char* aMessage, int aTimeMsc);
-
 	private:
 		QTcpSocket *mSocket;
 		QByteArray mReceiveBuffer;
@@ -116,7 +120,6 @@ class CClient : public QObject {
 		int mReceiveByteCnt;
 		int mReceiveFrameNOKCnt;
 		int mReceiveFrameFaultCnt;
-
 };
 
 #endif // CCLIENT_H

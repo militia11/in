@@ -15,11 +15,14 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 SOURCES  += \
-    mainwindow.cpp
+    mainwindow.cpp \
+    CServerSettingsDialog.cpp
 
 HEADERS  += \
-    mainwindow.h
+    mainwindow.h \
+    CServerSettingsDialog.h
 
 FORMS    += \
-    mainwindow.ui
+    mainwindow.ui \
+    CServerSettingsDialog.ui
 

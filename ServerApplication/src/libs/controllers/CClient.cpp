@@ -20,16 +20,24 @@ CClient::~CClient() {
 void CClient::Connect(QTcpSocket *aSocket) {
 		if (aSocket) {
 				qDebug() << "Połączono";
+
 				emit MessageStatus("Połączono", 2200);
+
 				mSocket = aSocket;
+
 				QObject::connect(mSocket, SIGNAL(disconnected()), this, SLOT(Disconnected()),
 												 Qt::DirectConnection);
+
 				QObject::connect(mSocket, SIGNAL(readyRead()), this, SLOT(NewData()),
 												 Qt::DirectConnection);
+
 		} else {
+				qDebug() << "Nie można połączyć";
+
+				emit MessageStatus("Nie można połączyć", 2200);
+
 				emit mSocket->error();
 		}
-
 }
 
 QTcpSocket *CClient::GetSocket() const {
@@ -84,8 +92,9 @@ void CClient::NewData() {
 
 void CClient::Disconnected() {
 		qDebug() << "Rozłączono";
-		emit MessageStatus("Rozłączono", 2200);
 
+		emit MessageStatus("Rozłączono", 2200);
+		emit Disconnect();
 		mSocket->deleteLater();
 }
 

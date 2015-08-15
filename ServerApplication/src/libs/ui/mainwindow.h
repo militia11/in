@@ -27,6 +27,8 @@ class MainWindow : public QMainWindow {
 		void ClientCreated();
 		void ShowStatus(const char* aMessageStatus, int aTimeMsc);
 		void RunServer();
+		void StopServer(); // stop listening
+		void ServerSettings();
 
 private:
     Ui::MainWindow *ui;

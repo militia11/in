@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>774</width>
-    <height>446</height>
+    <width>622</width>
+    <height>285</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,13 +34,26 @@
      </rect>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>180</y>
+      <width>99</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="mMenubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>774</width>
+     <width>622</width>
      <height>25</height>
     </rect>
    </property>
@@ -61,6 +74,8 @@
      <string>Serwer</string>
     </property>
     <addaction name="ActionRunServer"/>
+    <addaction name="ActionStopServer"/>
+    <addaction name="ActionServerSettings"/>
    </widget>
    <addaction name="menuPlik"/>
    <addaction name="menuSerwer"/>
@@ -78,10 +93,14 @@
     <bool>false</bool>
    </attribute>
    <addaction name="ActionRunServer"/>
+   <addaction name="ActionStopServer"/>
   </widget>
   <action name="ActionRunServer">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>Uruchom serwer</string>
+    <string>Start serwer</string>
    </property>
    <property name="toolTip">
     <string>Przełącz serwer w tryb nasłuchiwania</string>
@@ -110,6 +129,31 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="ActionServerSettings">
+   <property name="text">
+    <string>Ustawienia</string>
+   </property>
+   <property name="toolTip">
+    <string>Ustawienia komunikacji i portu</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="ActionStopServer">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Stop serwer</string>
+   </property>
+   <property name="toolTip">
+    <string>Zastopuj serwer. Przerwij nasłuchiwanie</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
    </property>
   </action>
  </widget>

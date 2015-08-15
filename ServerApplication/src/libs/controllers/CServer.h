@@ -25,15 +25,18 @@ class CServer : public QTcpServer {
 		 * @brief Method called to start server
 		 */
 		void Run();
+		void StopListening();
 
 		CClient *GetClient() const;
-
 
 	public slots:
 		/**
 		 * @brief Slot called when new incoming connection come
 		 */
 		void IncomingConnection();
+
+	private slots:
+		void ResumeAccepting();
 
 	signals:
 		void CreateClient();

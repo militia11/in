@@ -15,11 +15,17 @@ CServer::~CServer() {
 }
 
 void CServer::Run() {
-		if(listen(QHostAddress::Any, 1234)) {
-				MessageStatus("Nie można wystartować serwera", 2400);
-		} else {
-			MessageStatus("Serwer uruchomiony", 2400);
+		if(!this->listen(QHostAddress::Any, 1222)){
+			MessageStatus("Nie można wystartować serwera", 2400);
+		} else{
+			MessageStatus("Serwer nasłuchuje ...", 2400);
 		}
+}
+
+void CServer::StopListening() {
+	MessageStatus("Wyłączono nasłuchiwanie serwera", 2400);
+
+	close();
 }
 
 CClient *CServer::GetClient() const {
@@ -28,11 +34,22 @@ CClient *CServer::GetClient() const {
 
 void CServer::IncomingConnection() {
 		mClient = new CClient();
+
 		emit CreateClient();
 
 		QTcpSocket *vSocket = nextPendingConnection();
 		mClient->Connect(vSocket);
 
+		pauseAccepting();
+
+		connect(mClient, SIGNAL(Disconnect()), this, SLOT(ResumeAccepting()),
+										 Qt::DirectConnection);
+
 		const char* vMessage = "Witaj kliencie\n";
 		mClient->ResponeToClient(vMessage);
+}
+
+void CServer::ResumeAccepting()
+{
+	QTcpServer::resumeAccepting();
 }
