@@ -15,8 +15,10 @@ INCLUDEPATH += ../..
 
 HEADERS += \
     CClient.h \
-    CServer.h
+    CServer.h \
+    CSettings.h
 
 SOURCES += \
     CClient.cpp \
-    CServer.cpp
+    CServer.cpp \
+    CSettings.cpp
