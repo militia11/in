@@ -1,7 +1,7 @@
 #include <QString>
 #include <QtTest>
 
-//#include "libs/controllers/CClient.h"
+#include "libs/controllers/CClient.h"
 
 class TestReceiveNewData : public QObject
 {
@@ -22,8 +22,8 @@ void TestReceiveNewData::testCase()
 {
 	//	CClient * vClient = new CClient;
 	//	const char *vData = ">D02035780D0A";
-	//	vClient->NewData(vData);
-	//	vClient->GetCosmRes
+		/// @todo pomyslec jak newdata nie ma parametru
+
 	QVERIFY2(true, "Failure");
 }
 

@@ -12,7 +12,14 @@ class CDatabaseConnectionDialog : public QDialog
 	Q_OBJECT
 
 public:
-	explicit CDatabaseConnectionDialog(QWidget *parent = 0);
+	/**
+	 * @brief CDatabaseConnectionDialog constructor.
+	 */
+	explicit CDatabaseConnectionDialog(QWidget *aParent = 0);
+
+	/**
+	 * @brief CDatabaseConnectionDialog destructor.
+	 */
 	~CDatabaseConnectionDialog();
 
 private:

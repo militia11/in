@@ -2,4 +2,6 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     TestInitServer \
-    TestListeningPort
+    TestListeningPort \
+    TestExpectNoListening \
+    TestListeningPortWrongNum

@@ -158,5 +158,22 @@
   </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>ActionCloseEvent</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>310</x>
+     <y>142</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>310</x>
+     <y>142</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

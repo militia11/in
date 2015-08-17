@@ -4,7 +4,7 @@
 #
 #------------------------------------------------
 
-QT       += testlib
+QT       += testlib network
 
 QT       -= gui
 
@@ -14,10 +14,12 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../..
+
+INCLUDEPATH += ../../../../../src
 
 SOURCES += tst_TestReceiveNewData.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
-
-#LIBS += -L../libs/controllers -lcontrollers
+LIBS += -L../../../../../src/libs/ui -lui
+LIBS += -L../../../../../src/libs/dao -ldao
+LIBS += -L../../../../../src/libs/controllers -lcontrollers

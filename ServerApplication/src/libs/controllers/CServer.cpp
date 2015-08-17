@@ -14,7 +14,7 @@ CServer::~CServer() {
 }
 
 void CServer::Run() {
-		if (!this->listen(QHostAddress::Any, 1222)) {
+		if (!this->listen(QHostAddress::Any, 1234)) {
 				MessageStatus("Nie można wystartować serwera", 2400);
 		} else {
 				MessageStatus("Serwer nasłuchuje ...", 2400);

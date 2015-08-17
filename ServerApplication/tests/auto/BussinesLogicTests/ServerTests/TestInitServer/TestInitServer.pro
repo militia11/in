@@ -14,7 +14,11 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../../../..
+INCLUDEPATH += ../../../../../src
 
 SOURCES += tst_TestInitServerTest.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
+
+LIBS += -L../../../../../src/libs/ui -lui
+LIBS += -L../../../../../src/libs/dao -ldao
+LIBS += -L../../../../../src/libs/controllers -lcontrollers

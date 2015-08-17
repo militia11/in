@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
+#include <QMessageBox>
+
 #include "CDatabaseConnectionDialog.h"
 #include "CServerSettingsDialog.h"
 
@@ -21,14 +24,18 @@ MainWindow::~MainWindow() {
 		delete ui;
 }
 
-void MainWindow::CloseEvent(QCloseEvent *aEvent) {
-		int aa = 10;
+void MainWindow::closeEvent(QCloseEvent *aEvent) {
+		QString vMessage = "<center>Wszystkie niezapisane zmiany zostaną utracone."
+											 "Czy na pewno chcesz zamknąć program?";
+		bool vAnswer = QMessageBox::warning( this, "WARNING", vMessage ,
+																				 QMessageBox::Yes | QMessageBox::No);
 
-		if (aa == 0) {
-				aEvent->ignore();
-		} else {
+		if ( vAnswer == true) {
 				aEvent->accept();
+		} else {
+				aEvent->ignore();
 		}
+
 }
 void MainWindow::DisplayData(QByteArray aData) {
     ui->mListWidget->insertItem(0, aData);
@@ -96,8 +103,8 @@ void MainWindow::ChangeActionServerStatus() {
 }
 
 void MainWindow::ConnectServerSignals() {
-		connect(mServer, SIGNAL(MessageStatus(const char *, int)),
-						this, SLOT(ShowStatus(const char *, int)));
+		connect(mServer, SIGNAL(MessageStatus(const char *, int)), this,
+						SLOT(ShowStatus(const char *, int)));
 
 		connect(mServer, SIGNAL(newConnection()), this,
 						SLOT(ClientConnected()));
@@ -110,18 +117,18 @@ void MainWindow::ConnectServerSignals() {
 }
 
 void MainWindow::ConnectActionsSignals() {
-		connect(ui->ActionRunServer, SIGNAL(triggered()),
-						this, SLOT(RunServer()));
+		connect(ui->ActionRunServer, SIGNAL(triggered()), this,
+						SLOT(RunServer()));
 
-		connect(ui->ActionStopServer, SIGNAL(triggered()),
-						this, SLOT(StopServer()));
+		connect(ui->ActionStopServer, SIGNAL(triggered()), this,
+						SLOT(StopServer()));
 
-		connect(ui->ActionServerSettings, SIGNAL(triggered()),
-						this, SLOT(ServerSettings()));
+		connect(ui->ActionServerSettings, SIGNAL(triggered()), this,
+						SLOT(ServerSettings()));
 
-		connect(ui->ActionDataBaseConnection, SIGNAL(triggered()),
-						this, SLOT(DatabaseConnectionSettings()));
+		connect(ui->ActionDataBaseConnection, SIGNAL(triggered()), this,
+						SLOT(DatabaseConnectionSettings()));
 
-		//		connect(ui->ActionCloseEvent, SIGNAL(triggered()),
-		//						this, SLOT(CloseEvent(QCloseEvent*)));
+		//		connect(ui->ActionCloseEvent, SIGNAL(triggered()), this,
+		//            SLOT(CloseEvent(QCloseEvent*)));
 }

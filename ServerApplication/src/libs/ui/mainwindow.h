@@ -15,11 +15,18 @@ class MainWindow : public QMainWindow {
 		Q_OBJECT
 
   public:
+
+		/**
+		* @brief MainWindow constructor.
+		*/
     explicit MainWindow(QWidget *aParent = 0);
+
+		/**
+		* @brief MainWindow desstructor.
+		*/
     ~MainWindow();
 
-		///	@todo
-		inline void CloseEvent(QCloseEvent *aEvent);
+
 
   signals:
 
@@ -33,6 +40,13 @@ class MainWindow : public QMainWindow {
 		void ServerSettings();
 		void DatabaseConnectionSettings();
 		void ChangeActionServerStatus();
+
+		///	@todo
+		/**
+		* @brief Close Application event communicate with user and question if
+		* we really sure to close application.
+		*/
+		void closeEvent(QCloseEvent *aEvent);
 
 	private:
 		inline void ConnectServerSignals();

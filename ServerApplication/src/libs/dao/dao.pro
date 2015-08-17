@@ -4,11 +4,15 @@
 #
 #-------------------------------------------------
 
-QT       -= core gui
+include(../../../../AutogenerowanePoprawka.pri)
 
+QT       -= gui
+QT	 += core
 TARGET = dao
 TEMPLATE = lib
 CONFIG += staticlib
+
+INCLUDEPATH += ../..
 
 HEADERS += \
     CRepository.h

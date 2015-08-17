@@ -1,6 +1,8 @@
 #include <QString>
 #include <QtTest>
 
+#include "libs/controllers/CServer.h"
+
 class TestInitServerTest : public QObject
 {
 	Q_OBJECT
@@ -14,16 +16,15 @@ private Q_SLOTS:
 
 TestInitServerTest::TestInitServerTest()
 {
-
 }
 
 void TestInitServerTest::testCas()
 {
-	// Verify if function Run() works fine and
-	// checks status of listening
-//	CServer *vServer = new CServer;
-//	vServer->Run();
-//	QVERIFY(vServer.isListening());
+	// Verify function Run()
+	// If works fine status of listening is true
+	CServer *vServer = new CServer;
+	vServer->Run();
+	QVERIFY(vServer->isListening());
 }
 
 QTEST_APPLESS_MAIN(TestInitServerTest)

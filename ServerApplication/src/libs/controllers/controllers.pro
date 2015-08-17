@@ -4,8 +4,10 @@
 #
 #-------------------------------------------------
 
-QT       -= core gui
-QT       += network
+include(../../../../AutogenerowanePoprawka.pri)
+
+QT       -= gui
+QT       += network core
 
 TARGET = controllers
 TEMPLATE = lib

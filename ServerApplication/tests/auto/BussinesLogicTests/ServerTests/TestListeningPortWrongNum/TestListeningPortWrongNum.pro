@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-08-15T04:18:26
+# Project created by QtCreator 2015-08-16T20:50:17
 #
 #-------------------------------------------------
 
@@ -8,15 +8,15 @@ QT       += network testlib
 
 QT       -= gui
 
-TARGET = tst_TestListeningSpecifyPort
+TARGET = tst_TestListeningPortWrongNumberTest
 CONFIG   += console
 CONFIG   -= app_bundle
 
-TEMPLATE = app\
+TEMPLATE = app
 
 INCLUDEPATH += ../../../../../src
 
-SOURCES += tst_TestListeningSpecifyPort.cpp
+SOURCES += tst_TestListeningPortWrongNumberTest.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 LIBS += -L../../../../../src/libs/ui -lui

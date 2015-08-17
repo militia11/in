@@ -87,8 +87,8 @@ void CClient::NewData() {
 		//						RouteData(mReceiveDataMode, vRouteTarget);
 		//				}
 
-		//				const char *vMessage = "Odebrano dane : ";
-		//				ResponeToClient(vMessage, vData);
+						const char *vMessage = "Odebrano dane : ";
+						ResponeToClient(vMessage, vData);
 		//		}
 
 		emit ReadData(vData);
@@ -99,7 +99,7 @@ void CClient::RouteData(ReceiveDataMode mReceiveDataMode, char aData) {
 		switch (mReceiveDataMode) {
 
 				case Mode_Receive_FileList:
-
+						///@todo
 						break;
 
 				case Mode_Receive_Files:
@@ -130,7 +130,7 @@ void CClient::ServeReceivedMessage() {
 				++mReceiveFrameFaultCnt;
 				return;
 		}
-
+///@todo
 		//  BYTE* vAsciiDataBegin = aData+2;  // 2 bytes of header
 		//  int vAsciiMessageDataLength = aLen-6;  // 2 bytes of header, 2 of checksum, CR, LF
 		//  ConvertHexAsciiToBinary(vAsciiDataBegin, vAsciiMessageDataLength, mBinaryMessageData);

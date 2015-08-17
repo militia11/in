@@ -5,6 +5,10 @@
 #include <QTcpSocket>
 #include <QObject>
 
+/**
+ * @brief The ReceiveDataMode enum, enumeration of kinds receive data
+ *  modes for Client
+ */
 enum ReceiveDataMode {
 		Mode_UnknownData      = 0,
 		Mode_Receive_FileList = 1,
@@ -23,7 +27,14 @@ class CClient : public QObject {
 		Q_OBJECT
 
 	public:
+		/**
+		* @brief CClient constructor.
+		*/
 		explicit CClient(QObject *aParent = 0);
+
+		/**
+		* @brief CClient destructor.
+		*/
 		~ CClient();
 
 		/**
@@ -33,49 +44,52 @@ class CClient : public QObject {
 		void Connect(QTcpSocket *aSocket);
 
 		/**
-		 * @brief Method to respone some information to client
+		 * @brief Method to respone some information to client.
 		 */
 		void ResponeToClient(const char *aMessage, QByteArray aData = 0);
 
 		/**
 		 * @brief Method called to get CClient class member mSocket
-		 * which represent socket
+		 * which represent socket.
 		 */
 		QTcpSocket *GetSocket() const;
 
 
 	public slots:
 		/**
-		 * @brief Method called on new incomming data
+		 * @brief Method called on new incomming data.
 		 */
 		void NewData();
 
 	signals:
+
+		/**
+		* @brief Signal emited when client disconnect from server.
+		*/
 		void Disconnect();
 
 		/**
-		* @brief Signal emited when error occured a socket
+		* @brief Signal emited when error occured a socket.
 		*
-		* @param aSocketError is a QTcpSocket::SocketError
+		* @param aSocketError is a QTcpSocket::SocketError.
 		*/
 		void Error(QTcpSocket::SocketError aSocketError);
 
 		/**
-		* @brief Signal emited when was read data
+		* @brief Signal emited when was read data.
 		*
-		* @param aData is a QByteArray data which was read
+		* @param aData is a QByteArray data which was read.
 		*/
 		void ReadData(QByteArray aData);
 
-
 		/**
-		 * @brief Method called to display status on the main status bar
+		 * @brief Signal emited to send status for mainly to the main status bar.
 		 */
 		void MessageStatus(const char *aMessage, int aTimeMsc);
 
 	private slots:
 		/**
-		 * @brief Slot called when connection closed
+		 * @brief Slot called when connection closed.
 		 */
 		void Disconnected();
 
@@ -83,12 +97,12 @@ class CClient : public QObject {
 		void RouteData(ReceiveDataMode mReceiveDataMode, char aData);
 
 		/**
-		 * @brief Serve single received message
+		 * @brief Serve single received message.
 		 */
 		void ServeReceivedMessage(); //int aReceiveByteCnt
 
 		/**
-		 * @brief Check has message correct format
+		 * @brief Check has message correct format.
 		 *
 		 * Message should consist from:
 		 * - message begin char: ">"
@@ -97,18 +111,18 @@ class CClient : public QObject {
 		 *      - "D" for files data
 		 * - data as hex-ascii string
 		 * - checksum (1 byte) as 2 hex-ascii chars
-		 * - new line as CR LF
+		 * - new line as CR LF.
 		 *
-		 * @return TRUE for correct format, FALSE for incorrect
+		 * @return TRUE for correct format, FALSE for incorrect.
 		 */
 		bool HasMessageCorrectFormat(QByteArray aData);
 
 		/**
-		 * @brief Validate message checksum
+		 * @brief Validate message checksum.
 		 *
-		 * @param aData message to check in binary form
+		 * @param aData message to check in binary form.
 		 *
-		 * @return TRUE for correct checksum, FALSE if incorrect
+		 * @return TRUE for correct checksum, FALSE if incorrect.
 		 */
 		bool HasMessageCorrectChecksum(QByteArray aData);
 
@@ -122,9 +136,9 @@ class CClient : public QObject {
 		//void ConvertHexAsciiToBinary(BYTE *aData, int aLen, BYTE *aBinaryMessageData);
 
 		/**
-		 * @brief Calculate message checksum to compare with expected
+		 * @brief Calculate message checksum to compare with expected.
 		 *
-		 * @return Checksum calculated as youngest byte of sum of all bytes
+		 * @return Checksum calculated as youngest byte of sum of all bytes.
 		 */
 		//uint8_t CalculateMessageChecksum(BYTE *aData, int aLen);
 

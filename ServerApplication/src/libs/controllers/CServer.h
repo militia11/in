@@ -16,21 +16,28 @@ class CServer : public QTcpServer {
 		Q_OBJECT
 
 	public:
-		explicit CServer(QObject *parent = 0);
+		/**
+		* @brief CServer constructor.
+		*/
+		explicit CServer(QObject *aParent = 0);
+
+		/**
+		* @brief CServer destructor.
+		*/
 		~CServer();
 
 		/**
-		 * @brief Method called to start server
+		 * @brief Method called to start server.
 		 */
 		void Run();
 
 		/**
-		 * @brief Method called to stop listening server
+		 * @brief Method called to stop listening server.
 		 */
 		void StopListening();
 
 		/**
-		 * @brief Method return CClient member of the class
+		 * @brief Method return CClient member of the class.
 		 */
 		CClient *GetClient() const;
 
@@ -41,17 +48,17 @@ class CServer : public QTcpServer {
 
 	private slots:
 		/**
-		 * @brief Slot called when new incoming connection come
+		 * @brief Slot called when new incoming connection come.
 		 */
 		void IncomingConnection();
 
 		/**
-		 * @brief Method called to unblock incoming connection
+		 * @brief Method called to unblock incoming connection.
 		 */
 		void ResumeAccepting();
 
 		/**
-		 * @brief Method called to block incoming connection
+		 * @brief Method called to block incoming connection.
 		 */
 		void PauseAccepting();
 

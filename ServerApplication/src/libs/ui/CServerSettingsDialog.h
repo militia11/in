@@ -12,7 +12,14 @@ class CServerSettingsDialog : public QDialog
 	Q_OBJECT
 
 public:
-	explicit CServerSettingsDialog(QWidget *parent = 0);
+	/**
+	 * @brief CServerSettingsDialog constructor.
+	 */
+	explicit CServerSettingsDialog(QWidget *aParent = 0);
+
+	/**
+	 * @brief CServerSettingsDialog destructor.
+	 */
 	~CServerSettingsDialog();
 
 private slots:
