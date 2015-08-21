@@ -22,16 +22,11 @@ void TestListeningPortWrongNumberTest::testCase()
 {
 	// Verify status of listening
 	CServer *vServer = new CServer;
-	quint16 vPortNum = 1234;
+	quint16 vPortNum = 21; // wrong number
 	bool vIsListen = vServer->listen(QHostAddress::Any, vPortNum);
+	QEXPECT_FAIL("", "Serwer nie powinien wystartować na tym innym porcie"
+							 "Za mała liczba", Continue);
 	QVERIFY(vIsListen);
-
-	// Verify port number
-	quint16 vPortNumFromServer =  vServer->serverPort();
-
-	quint16 vWrongPortNum = 2221;
-	QEXPECT_FAIL("", "Serwer wystartował na innym porcie", Continue);
-	QCOMPARE(vWrongPortNum, vPortNumFromServer);
 }
 
 QTEST_APPLESS_MAIN(TestListeningPortWrongNumberTest)

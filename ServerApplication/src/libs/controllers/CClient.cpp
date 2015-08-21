@@ -45,7 +45,6 @@ QTcpSocket *CClient::GetSocket() const {
 void CClient::NewData() {
 		QByteArray vData = mSocket->readAll();
 
-
 		QDataStream in(vData);    // read the data serialized from the file
 		QString str;
 		in >> str;           // extract "the answer is" and 42

@@ -2,6 +2,7 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     src \
-    tests
+    tests \
+    share
 
 tests.depends += src

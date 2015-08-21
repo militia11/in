@@ -3,6 +3,10 @@
 
 #include <QDialog>
 
+#include "libs/dao/CRepository.h"
+
+extern CRepository gRepository;
+
 namespace Ui {
 class CDatabaseConnectionDialog;
 }
@@ -22,7 +26,45 @@ public:
 	 */
 	~CDatabaseConnectionDialog();
 
+	QString GetHost() const;
+	QString GetDriver() const;
+	QString GetDatabaseName() const;
+	QString GetUser() const;
+	QString GetPassword() const;
+
+private slots:
+	/**
+	 * @brief on_mButtonBoxOkCancel_accepted slot call when form is accepted.
+	 */
+	void on_mButtonBoxOkCancel_accepted();
+
+	/**
+	 * @brief on_mButtonBoxOkCancel_rejected slot when form is rejected.
+	 */
+	void on_mButtonBoxOkCancel_rejected();
+
 private:
+	/**
+	 * @brief Method update database settings from configuration file 
+	 * to form labels.
+	 */
+	void UpdateSettings();
+	
+	/**
+	 * @brief Method save database settings to configuration file.
+	 */
+	void SaveSettings();
+	
+	/**
+	 * @brief Method update class members to actual form labels.
+	 */
+	void UpdateMembers();
+
+	QString mHost;
+	QString mUser;
+	QString mDatabaseName;
+	QString mPassword;
+	QString mDriver;
 	Ui::CDatabaseConnectionDialog *ui;
 };
 

@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "CMainwindow.h"
 #include "ui_mainwindow.h"
 
 #include <QMessageBox>
@@ -6,25 +6,40 @@
 #include "CDatabaseConnectionDialog.h"
 #include "CServerSettingsDialog.h"
 
-MainWindow::MainWindow(QWidget *aParent) :
+extern CRepository gRepository;
+
+CMainWindow::CMainWindow(QWidget *aParent) :
     QMainWindow(aParent),
-    ui(new Ui::MainWindow) {
+		ui(new Ui::MainWindow) {
     ui->setupUi(this);
 		//RunServer();  // na koniec usunąć
 
 		ConnectActionsSignals();
 		ui->ActionStopServer->setEnabled(false);
 		ui->ActionStopServer->setChecked(true);
-
 		ShowStatus("Wyłączone nasłuchiwanie serwera", 2400);
 }
 
-MainWindow::~MainWindow() {
+CMainWindow::~CMainWindow() {
 		delete mServer;
-		delete ui;
+	delete ui;
 }
 
-void MainWindow::closeEvent(QCloseEvent *aEvent) {
+bool CMainWindow::ConnectToDatabaseAgain()
+{
+	gRepository.Disconnect();
+	gRepository.Connect();
+
+	if (gRepository.GetDatabase()) {
+		gRepository.PopulateDatabase();
+		return true;
+	} else {
+		DatabaseConnectionSettings();
+		return false;
+	}
+}
+
+void CMainWindow::closeEvent(QCloseEvent *aEvent) {
 		QString vMessage = "<center>Wszystkie niezapisane zmiany zostaną utracone."
 											 "Czy na pewno chcesz zamknąć program?";
 		bool vAnswer = QMessageBox::warning( this, "WARNING", vMessage ,
@@ -37,26 +52,26 @@ void MainWindow::closeEvent(QCloseEvent *aEvent) {
 		}
 
 }
-void MainWindow::DisplayData(QByteArray aData) {
+void CMainWindow::DisplayData(QByteArray aData) {
     ui->mListWidget->insertItem(0, aData);
     ui->mTextEdit->setText(aData);
 }
 
-void MainWindow::ClientConnected() {
+void CMainWindow::ClientConnected() {
     connect(mServer->GetClient(), SIGNAL(ReadData(QByteArray)), this,
 						SLOT(DisplayData(QByteArray))) ;
 }
 
-void MainWindow::ClientCreated() {
+void CMainWindow::ClientCreated() {
 		connect(mServer->GetClient(), SIGNAL(MessageStatus(const char *, int)),
 						this, SLOT(ShowStatus(const char *, int)));
 }
 
-void MainWindow::ShowStatus(const char *aMessageStatus, int aTimeMsc) {
+void CMainWindow::ShowStatus(const char *aMessageStatus, int aTimeMsc) {
 		ui->mStatusbar->showMessage(aMessageStatus, aTimeMsc);
 }
 
-void MainWindow::RunServer() {
+void CMainWindow::RunServer() {
 		mServer = new CServer(this);
 
 		ConnectServerSignals();
@@ -68,7 +83,7 @@ void MainWindow::RunServer() {
 		ui->ActionStopServer->setEnabled(true);
 }
 
-void MainWindow::StopServer() {
+void CMainWindow::StopServer() {
 		mServer->StopListening();
 
 		ui->ActionRunServer->setChecked(false);
@@ -76,7 +91,7 @@ void MainWindow::StopServer() {
 		ui->ActionRunServer->setEnabled(true);
 }
 
-void MainWindow::ServerSettings() {
+void CMainWindow::ServerSettings() {
 		CServerSettingsDialog dialog;
 
 		if (dialog.exec() == true ) {
@@ -84,15 +99,28 @@ void MainWindow::ServerSettings() {
 		}
 }
 
-void MainWindow::DatabaseConnectionSettings() {
+void CMainWindow::DatabaseConnectionSettings() {
 		CDatabaseConnectionDialog dialog;
 
-		if (dialog.exec() == true ) {
-				// TAK JAK ACCEPTED DZIAŁA
+		if (dialog.exec() == QDialog::Accepted ) {
+			QSettings vQSetting;
+			vQSetting.beginGroup("database");
+
+			vQSetting.setValue("host", dialog.GetHost());
+			vQSetting.setValue("user", dialog.GetUser());
+			vQSetting.setValue("databaseName", dialog.GetDatabaseName());
+			vQSetting.setValue("password", dialog.GetPassword());
+			vQSetting.setValue("driver", dialog.GetDriver());
+
+			CSettings vSettings;
+			gRepository.SetSettings(vSettings.GetDriver(), vSettings.GetConnectionString());
+
+			vQSetting.endGroup();
 		}
+		ConnectToDatabaseAgain();
 }
 
-void MainWindow::ChangeActionServerStatus() {
+void CMainWindow::ChangeActionServerStatus() {
 		bool vStatus = ui->ActionRunServer->isChecked();
 
 		ui->ActionRunServer->setEnabled(vStatus);
@@ -102,7 +130,7 @@ void MainWindow::ChangeActionServerStatus() {
 		ui->ActionStopServer->setChecked(vStatus);
 }
 
-void MainWindow::ConnectServerSignals() {
+void CMainWindow::ConnectServerSignals() {
 		connect(mServer, SIGNAL(MessageStatus(const char *, int)), this,
 						SLOT(ShowStatus(const char *, int)));
 
@@ -116,7 +144,7 @@ void MainWindow::ConnectServerSignals() {
 						SLOT(ChangeActionServerStatus()));
 }
 
-void MainWindow::ConnectActionsSignals() {
+void CMainWindow::ConnectActionsSignals() {
 		connect(ui->ActionRunServer, SIGNAL(triggered()), this,
 						SLOT(RunServer()));
 
@@ -128,7 +156,4 @@ void MainWindow::ConnectActionsSignals() {
 
 		connect(ui->ActionDataBaseConnection, SIGNAL(triggered()), this,
 						SLOT(DatabaseConnectionSettings()));
-
-		//		connect(ui->ActionCloseEvent, SIGNAL(triggered()), this,
-		//            SLOT(CloseEvent(QCloseEvent*)));
 }

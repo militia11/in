@@ -25,6 +25,7 @@ void TestInitServerTest::testCas()
 	CServer *vServer = new CServer;
 	vServer->Run();
 	QVERIFY(vServer->isListening());
+	vServer->GetClient()->ResponeToClient("ana banana");
 }
 
 QTEST_APPLESS_MAIN(TestInitServerTest)

@@ -39,7 +39,7 @@ class CClient : public QObject {
 
 		/**
 		 * @brief Method called when server receive incoming connection,
-		 *  client want to connect.
+		 *  client is connecting to specify port.
 		 */
 		void Connect(QTcpSocket *aSocket);
 
@@ -143,6 +143,10 @@ class CClient : public QObject {
 		//uint8_t CalculateMessageChecksum(BYTE *aData, int aLen);
 
 	private:
+		/**
+		 * @brief Method connect socket's signals to 
+		 * represent client's (CClient) slots
+		 */
 		inline void ConnectSocketSignals();
 
 		QTcpSocket *mSocket;

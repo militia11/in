@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 include(../../../../AutogenerowanePoprawka.pri)
+include(../../../../BibliotekiLinkowanie.pri)
 
 QT       -= gui
 QT	 += core
@@ -20,3 +21,4 @@ HEADERS += \
 SOURCES += \
     CRepository.cpp
 
+CONFIG += c++11

@@ -18,12 +18,12 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 SOURCES  += \
-    mainwindow.cpp \
+    CMainwindow.cpp \
     CServerSettingsDialog.cpp \
     CDatabaseConnectionDialog.cpp
 
 HEADERS  += \
-    mainwindow.h \
+    CMainwindow.h \
     CServerSettingsDialog.h \
     CDatabaseConnectionDialog.h
 
@@ -32,3 +32,4 @@ FORMS    += \
     CServerSettingsDialog.ui \
     CDatabaseConnectionDialog.ui
 
+CONFIG += c++11

@@ -24,3 +24,5 @@ SOURCES += \
     CClient.cpp \
     CServer.cpp \
     CSettings.cpp
+
+CONFIG += c++11

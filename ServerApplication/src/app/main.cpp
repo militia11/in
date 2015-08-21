@@ -1,4 +1,4 @@
-#include "libs/ui/mainwindow.h"
+#include "libs/ui/CMainwindow.h"
 
 #include <QApplication>
 
@@ -8,20 +8,19 @@
 extern CRepository gRepository;
 
 int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
+		QApplication vApplication(argc, argv);
 
 		QApplication::setOrganizationName("Mateusz Michniewski");
 		QApplication::setOrganizationDomain("Moja Domena");
 		QApplication::setApplicationName("Android Synchronizator Serwer");
 
 		CSettings vSettings;
-		vSettings.SaveSettings();
+		vSettings.SaveSettings();  /// @todo usunąć na koniec
 		gRepository.SetSettings(vSettings.GetDriver(), vSettings.GetConnectionString());
-		gRepository.Connect();
-		gRepository.PopulateDatabase();
 
-    MainWindow w;
-    w.show();
+		CMainWindow vMainWindow;
+		vMainWindow.show();
+		// vMainWindow.ConnectToDatabaseAgain();
 
-    return a.exec();
+		return vApplication.exec();
 }

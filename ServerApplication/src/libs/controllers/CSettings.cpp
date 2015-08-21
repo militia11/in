@@ -7,52 +7,52 @@ CSettings::CSettings() {
 }
 
 QString CSettings::GetDriver() const {
-	QSettings setting;
-	setting.beginGroup("database");
-	QString driver = setting.value("driver").toString();
-	setting.endGroup();
+	QSettings vSetting;
+	vSetting.beginGroup("database");
+	QString driver = vSetting.value("driver").toString();
+	vSetting.endGroup();
 
 	return driver;
 }
 
 QString CSettings::GetConnectionString() const {
-	QString connString;
-	QSettings setting;
-	setting.beginGroup("database");
+	QString vConnString;
+	QSettings vSetting;
+	vSetting.beginGroup("database");
 
 	if (GetDriver() == "mysql") {
-		connString = QString("host=%1;user=%2;password=%3;database=%4")
+		vConnString = QString("host=%1;user=%2;password=%3;database=%4")
 			.arg(
-				setting.value("host").toString(),
-				setting.value("user").toString(),
-				setting.value("password").toString(),
-				setting.value("databaseName").toString()
+				vSetting.value("host").toString(),
+				vSetting.value("user").toString(),
+				vSetting.value("password").toString(),
+				vSetting.value("databaseName").toString()
 			);
  } else if (GetDriver() == "sqlite3") {
-	connString = QString("database=%1")
+	vConnString = QString("database=%1")
 			.arg(
-				setting.value("databaseName").toString()
+				vSetting.value("databaseName").toString()
 			);
  } else {
 	 throw std::runtime_error("Nieobsługiwany silnik");
  }
 
-	setting.endGroup();
-	return connString;
+	vSetting.endGroup();
+	return vConnString;
 }
 
 void CSettings::SaveSettings() {
-	QSettings setting;
+	QSettings vSetting;
 
-	setting.beginGroup("database");
+	vSetting.beginGroup("database");
 
-	setting.setValue("driver", "mysql");
-	setting.setValue("host", "localhost");
-	setting.setValue("user", "mmichniewski");
-	setting.setValue("databaseName", "dokumenty");
-	setting.setValue("password", "end");
+	vSetting.setValue("driver", "mysql");
+	vSetting.setValue("host", "localhost");
+	vSetting.setValue("user", "mmichniewski");
+	vSetting.setValue("databaseName", "dokumenty");
+	vSetting.setValue("password", "end");
 
-	setting.endGroup();
+	vSetting.endGroup();
 
 	qDebug() << "Saved";  // usunąć na koniec
 }

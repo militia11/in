@@ -38,12 +38,30 @@ class CServer : public QTcpServer {
 
 		/**
 		 * @brief Method return CClient member of the class.
+		 *
+		 * @return Object which represent  client class (CClient).
 		 */
 		CClient *GetClient() const;
 
 	signals:
+		/**
+		 * @brief CreateClient signal is emitted when
+		 * server create client.
+		 */
 		void CreateClient();
+
+		/**
+		 * @brief MessageStatus signal is emmitted when important
+		 * status of server changed.
+		 * @param aMessage is text given to CMainWindow.
+		 * @param aTimeMsc parameter is time while message being shown.
+		 */
 		void MessageStatus(const char *aMessage, int aTimeMsc);
+
+		/**
+		 * @brief ChangeServerStatus emitted when server status
+		 * changed.
+		 */
 		void ChangeServerStatus();
 
 	private slots:
@@ -63,6 +81,9 @@ class CServer : public QTcpServer {
 		void PauseAccepting();
 
 	private:
+		/**
+		 * @brief Method connect client's signals to server's slots
+		 */
 		inline void ConnectClientSignals();
 
 		CClient *mClient;
