@@ -92,7 +92,9 @@ class CClient : public QObject {
      */
     void Disconnected();
 
-  private:
+	private:
+		void ServeFileData();
+
     int32_t ByteArrayToInt(QByteArray aData);
 
 		void RouteData(char aData);

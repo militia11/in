@@ -48,12 +48,9 @@ QTcpSocket *CClient::GetSocket() const {
 }
 
 void CClient::NewData() {
-		//int32_t vCurrentSize = *mSize;
-
 		while (mSocket->bytesAvailable() > 0) {
 				QByteArray vData = mSocket->readAll();
-				mBuffer->append(vData); //przeniesc nizej
-				qDebug() << "11";
+				mBuffer->append(vData);
 
 				for (int i = 0; i < vData.length(); i++) {
 
@@ -97,52 +94,10 @@ int32_t CClient::ByteArrayToInt(QByteArray aData) {
 
 }
 void CClient::RouteData(char aData) {
-		qDebug() << "bu";
-
 		switch (mReceiveDataMode) {
 
 				case Mode_Receive_File_Data : {
-						int32_t vCurrentSize = *mSize;
-						qDebug() << "zu";
-
-						while ((vCurrentSize == 0 && mBuffer->size() >= 4) || (vCurrentSize > 0 &&
-										mBuffer->size() >= vCurrentSize)) { //While can process data, process it
-								if (vCurrentSize == 0 &&
-												mBuffer->size() >=
-												4) { //if size of data has received completely, then store it on our global variable
-										vCurrentSize = ByteArrayToInt(mBuffer->left(4)); // było mid(0,4)
-										*mSize = vCurrentSize;
-										mBuffer->remove(0, 4);
-								}
-
-								if (vCurrentSize > 0 && mBuffer->size() >=
-												vCurrentSize) { // If data has received completely, then emit our SIGNAL with the data
-										QByteArray vData = mBuffer->left(vCurrentSize);  // było mid(0,vcurrentsize )
-										mBuffer->remove(0, vCurrentSize);
-										vCurrentSize = 0;
-										*mSize = vCurrentSize;
-										QFile vFile("/home/mmichniewski/b.txt");//pobranyPies.jpg");
-
-										if (!vFile.open(QIODevice::WriteOnly)) {
-												qDebug() << "Nie można otworzyć pliku";
-										};
-
-										QDataStream out(&vFile);
-
-										out << vData;
-
-										vFile.close();
-
-										qDebug() << vData;
-
-										const char *vMessage = "Odebrano dane : ";
-
-										ResponeToClient(vMessage, vData);
-
-										emit ReadData(vData);;
-								}
-						}
-
+						ServeFileData();
 						break;
 				}
 
@@ -200,6 +155,50 @@ void CClient::Disconnected() {
 		mSocket->deleteLater();
 		delete mBuffer;
 		delete mSize;
+}
+
+void CClient::ServeFileData()
+{
+	int32_t vCurrentSize = *mSize;
+
+	while ((vCurrentSize == 0 && mBuffer->size() >= 4) || (vCurrentSize > 0 &&
+					mBuffer->size() >= vCurrentSize)) { //While can process data, process it
+			if (vCurrentSize == 0 &&
+							mBuffer->size() >=
+							4) { //if size of data has received completely, then store it on our global variable
+					vCurrentSize = ByteArrayToInt(mBuffer->left(4)); // było mid(0,4)
+					*mSize = vCurrentSize;
+					mBuffer->remove(0, 4);
+			}
+
+			if (vCurrentSize > 0 && mBuffer->size() >=
+							vCurrentSize) { // If data has received completely, then emit our SIGNAL with the data
+					QByteArray vData = mBuffer->left(vCurrentSize);  // było mid(0,vcurrentsize )
+					mBuffer->remove(0, vCurrentSize);
+					vCurrentSize = 0;
+					*mSize = vCurrentSize;
+					QFile vFile("/home/mmichniewski/b.txt");//pobranyPies.jpg");
+
+					if (!vFile.open(QIODevice::WriteOnly)) {
+							qDebug() << "Nie można otworzyć pliku";
+					};
+
+					QDataStream out(&vFile);
+
+					out << vData;
+
+					vFile.close();
+
+					qDebug() << vData;
+
+					const char *vMessage = "Odebrano dane : ";
+
+					ResponeToClient(vMessage, vData);
+
+					emit ReadData(vData);;
+			}
+	}
+
 }
 
 void CClient::ResponeToClient(const char *aMessage, QByteArray aData) {
