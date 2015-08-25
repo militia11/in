@@ -1,20 +1,22 @@
 #include "CClient.h"
 #include <QDebug>
+#include <QFile>
 
 CClient::CClient(QObject *aParent) :
 
 		QObject(aParent),
 		mSocket(NULL),
+		mBuffer(NULL),
+		mSize(NULL),
 		mReceiveBuffer(0),
 		mReceiveByteCnt(0),
 		mReceiveFrameNOKCnt(0),
 		mReceiveFrameFaultCnt(0) {
-		mReceiveDataMode = Mode_UnknownData;
+		mReceiveDataMode = Mode_Receive_File_Data;
 }
 
 CClient::~CClient() {
 		Disconnected();
-		//i zrobic  mfiledata delete jakby jakis new był
 }
 
 void CClient::Connect(QTcpSocket *aSocket) {
@@ -25,6 +27,9 @@ void CClient::Connect(QTcpSocket *aSocket) {
 				emit MessageStatus(vMessage, 2200);
 
 				mSocket = aSocket;
+
+				mSize = new qint32(0);
+				mBuffer = new QByteArray();
 
 				ConnectSocketSignals();
 
@@ -43,74 +48,113 @@ QTcpSocket *CClient::GetSocket() const {
 }
 
 void CClient::NewData() {
-		QByteArray vData = mSocket->readAll();
+		//int32_t vCurrentSize = *mSize;
 
-		QDataStream in(vData);    // read the data serialized from the file
-		QString str;
-		in >> str;           // extract "the answer is" and 42
+		while (mSocket->bytesAvailable() > 0) {
+				QByteArray vData = mSocket->readAll();
+				mBuffer->append(vData); //przeniesc nizej
+				qDebug() << "11";
 
-		qDebug() << str << "du" ;
-		//		if (!vData.isEmpty()) { // nie wiem czy ten if ma sens?
+				for (int i = 0; i < vData.length(); i++) {
 
-		//				for (int i = 0; i < vData.length(); i++) {
+						char vTargetData = vData[i];
 
-		//						char vTargetData = vData[i];
+						switch (vTargetData) {
+								case '>':
+										mReceiveDataMode = Mode_Receive_File_CheckSum;
+										mReceiveByteCnt = 0;
+										break;
 
-		//						switch (vTargetData) {
+								case '^':
+										mReceiveDataMode = Mode_Receive_File_Data;
+										mReceiveByteCnt = 0;
+										break;
 
-		//								case '>':
-		//										mReceiveDataMode = Mode_Receive_Files;
-		//										mReceiveByteCnt = 0;
-		//										break;
+								default:
+										break;
+						}
 
-		//								case '^':
-		//										mReceiveDataMode = Mode_Receive_FileList;
-		//										mReceiveByteCnt = 0;
-		//										break;
+						if (mReceiveByteCnt >= 1023) { // Prevent buffer overflow
+								mReceiveByteCnt = 0;
+						}
 
-		//								default:
-		//										break;
-		//						}
+						char vRouteTarget = vData[i];
 
-		//						if (mReceiveByteCnt >= 1023) { // Prevent buffer overflow
-		//								mReceiveByteCnt = 0;
-		//						}
+						//if (vData[i].operator != (0)) { // pomyśleć zmianę tego
+						mReceiveBuffer[mReceiveByteCnt] = vData[i];
+						++mReceiveByteCnt;
+						//}
 
-		//						char vRouteTarget = vData[i];
-
-		//						//if (vData[i].operator != (0)) { // pomyśleć zmianę tego
-		//						mReceiveBuffer[mReceiveByteCnt] = vData[i];
-		//						++mReceiveByteCnt;
-		//						//}
-
-		//						RouteData(mReceiveDataMode, vRouteTarget);
-		//				}
-
-						const char *vMessage = "Odebrano dane : ";
-						ResponeToClient(vMessage, vData);
-		//		}
-
-		emit ReadData(vData);
+						RouteData(vRouteTarget);
+				}
+		}
 }
+int32_t CClient::ByteArrayToInt(QByteArray aData) {
+		int32_t vResult;
+		QDataStream vData(&aData, QIODevice::ReadWrite);
+		vData >> vResult;
+		return vResult;
 
+}
+void CClient::RouteData(char aData) {
+		qDebug() << "bu";
 
-void CClient::RouteData(ReceiveDataMode mReceiveDataMode, char aData) {
 		switch (mReceiveDataMode) {
 
-				case Mode_Receive_FileList:
-						///@todo
-						break;
+				case Mode_Receive_File_Data : {
+						int32_t vCurrentSize = *mSize;
+						qDebug() << "zu";
 
-				case Mode_Receive_Files:
+						while ((vCurrentSize == 0 && mBuffer->size() >= 4) || (vCurrentSize > 0 &&
+										mBuffer->size() >= vCurrentSize)) { //While can process data, process it
+								if (vCurrentSize == 0 &&
+												mBuffer->size() >=
+												4) { //if size of data has received completely, then store it on our global variable
+										vCurrentSize = ByteArrayToInt(mBuffer->left(4)); // było mid(0,4)
+										*mSize = vCurrentSize;
+										mBuffer->remove(0, 4);
+								}
+
+								if (vCurrentSize > 0 && mBuffer->size() >=
+												vCurrentSize) { // If data has received completely, then emit our SIGNAL with the data
+										QByteArray vData = mBuffer->left(vCurrentSize);  // było mid(0,vcurrentsize )
+										mBuffer->remove(0, vCurrentSize);
+										vCurrentSize = 0;
+										*mSize = vCurrentSize;
+										QFile vFile("/home/mmichniewski/b.txt");//pobranyPies.jpg");
+
+										if (!vFile.open(QIODevice::WriteOnly)) {
+												qDebug() << "Nie można otworzyć pliku";
+										};
+
+										QDataStream out(&vFile);
+
+										out << vData;
+
+										vFile.close();
+
+										qDebug() << vData;
+
+										const char *vMessage = "Odebrano dane : ";
+
+										ResponeToClient(vMessage, vData);
+
+										emit ReadData(vData);;
+								}
+						}
+
+						break;
+				}
+
+				case Mode_Receive_File_CheckSum: {
 						if (aData == 0x0A) {
 								ServeReceivedMessage(); //, mReceiveByteCnt
+								mReceiveDataMode = Mode_Receive_File_Data;
 								mReceiveByteCnt = 0;
 						}
 
 						break;
-
-				case Mode_UnknownData:
-						break;
+				}
 
 				default:
 						break;
@@ -129,7 +173,8 @@ void CClient::ServeReceivedMessage() {
 				++mReceiveFrameFaultCnt;
 				return;
 		}
-///@todo
+
+		///@todo
 		//  BYTE* vAsciiDataBegin = aData+2;  // 2 bytes of header
 		//  int vAsciiMessageDataLength = aLen-6;  // 2 bytes of header, 2 of checksum, CR, LF
 		//  ConvertHexAsciiToBinary(vAsciiDataBegin, vAsciiMessageDataLength, mBinaryMessageData);
@@ -153,6 +198,8 @@ void CClient::Disconnected() {
 		emit MessageStatus(vMessage, 2200);
 		emit Disconnect();
 		mSocket->deleteLater();
+		delete mBuffer;
+		delete mSize;
 }
 
 void CClient::ResponeToClient(const char *aMessage, QByteArray aData) {

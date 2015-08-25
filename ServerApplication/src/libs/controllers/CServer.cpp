@@ -47,7 +47,7 @@ void CServer::IncomingConnection() {
 
 void CServer::ResumeAccepting() {
 		emit ChangeServerStatus();
-		QTcpServer::resumeAccepting();		
+		QTcpServer::resumeAccepting();
 }
 
 void CServer::PauseAccepting() {

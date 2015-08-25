@@ -3,32 +3,29 @@
 
 #include "libs/controllers/CServer.h"
 
-class TestSrvStopListening : public QObject
-{
-	Q_OBJECT
+class TestSrvStopListening : public QObject {
+    Q_OBJECT
 
-public:
-	TestSrvStopListening();
+  public:
+    TestSrvStopListening();
 
-private Q_SLOTS:
-	void testCase();
+  private Q_SLOTS:
+    void testCase();
 };
 
-TestSrvStopListening::TestSrvStopListening()
-{
+TestSrvStopListening::TestSrvStopListening() {
 }
 
-void TestSrvStopListening::testCase()
-{
-	// Start listening
-	CServer *vServer = new CServer;
-	vServer->Run();
-	QVERIFY(vServer->isListening());
+void TestSrvStopListening::testCase() {
+    // Start listening
+    CServer *vServer = new CServer;
+    vServer->Run();
+    QVERIFY(vServer->isListening());
 
-	// Verify if listening stop
-	vServer->StopListening();
-	QEXPECT_FAIL("", "Serwer nie powinien nasłuchiwać", Continue);
-	QVERIFY(vServer->isListening());
+    // Verify if listening stop
+    vServer->StopListening();
+    QEXPECT_FAIL("", "Serwer nie powinien nasłuchiwać", Continue);
+    QVERIFY(vServer->isListening());
 }
 
 QTEST_APPLESS_MAIN(TestSrvStopListening)

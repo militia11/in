@@ -12,7 +12,6 @@ CMainWindow::CMainWindow(QWidget *aParent) :
     QMainWindow(aParent),
 		ui(new Ui::MainWindow) {
     ui->setupUi(this);
-		//RunServer();  // na koniec usunąć
 
 		ConnectActionsSignals();
 		ui->ActionStopServer->setEnabled(false);
@@ -22,35 +21,33 @@ CMainWindow::CMainWindow(QWidget *aParent) :
 
 CMainWindow::~CMainWindow() {
 		delete mServer;
-	delete ui;
+		delete ui;
 }
 
-bool CMainWindow::ConnectToDatabaseAgain()
-{
-	gRepository.Disconnect();
-	gRepository.Connect();
+bool CMainWindow::ConnectToDatabaseAgain() {
+		gRepository.Disconnect();
+		gRepository.Connect();
 
-	if (gRepository.GetDatabase()) {
-		gRepository.PopulateDatabase();
-		return true;
-	} else {
-		DatabaseConnectionSettings();
+		//	if (gRepository.GetDatabase()) {
+		//		gRepository.PopulateDatabase();
+		//		return true;
+		//	} else {
+		//		DatabaseConnectionSettings();
 		return false;
-	}
+		//	}
 }
 
 void CMainWindow::closeEvent(QCloseEvent *aEvent) {
-		QString vMessage = "<center>Wszystkie niezapisane zmiany zostaną utracone."
-											 "Czy na pewno chcesz zamknąć program?";
-		bool vAnswer = QMessageBox::warning( this, "WARNING", vMessage ,
-																				 QMessageBox::Yes | QMessageBox::No);
+//		QString vMessage = "<center>Wszystkie niezapisane zmiany zostaną utracone."
+//											 "Czy na pewno chcesz zamknąć program?";
+//		int vAnswerButton = QMessageBox::warning( this, "WARNING", vMessage ,
+//												QMessageBox::Yes | QMessageBox::No);
 
-		if ( vAnswer == true) {
-				aEvent->accept();
-		} else {
-				aEvent->ignore();
-		}
-
+//		if (vAnswerButton == QMessageBox::Yes) {
+//				aEvent->accept();
+//		} else {
+//				aEvent->ignore();
+//		}
 }
 void CMainWindow::DisplayData(QByteArray aData) {
     ui->mListWidget->insertItem(0, aData);
@@ -103,20 +100,22 @@ void CMainWindow::DatabaseConnectionSettings() {
 		CDatabaseConnectionDialog dialog;
 
 		if (dialog.exec() == QDialog::Accepted ) {
-			QSettings vQSetting;
-			vQSetting.beginGroup("database");
+				QSettings vQSetting;
+				vQSetting.beginGroup("database");
 
-			vQSetting.setValue("host", dialog.GetHost());
-			vQSetting.setValue("user", dialog.GetUser());
-			vQSetting.setValue("databaseName", dialog.GetDatabaseName());
-			vQSetting.setValue("password", dialog.GetPassword());
-			vQSetting.setValue("driver", dialog.GetDriver());
+				vQSetting.setValue("host", dialog.GetHost());
+				vQSetting.setValue("user", dialog.GetUser());
+				vQSetting.setValue("databaseName", dialog.GetDatabaseName());
+				vQSetting.setValue("password", dialog.GetPassword());
+				vQSetting.setValue("driver", dialog.GetDriver());
 
-			CSettings vSettings;
-			gRepository.SetSettings(vSettings.GetDriver(), vSettings.GetConnectionString());
+				CSettings vSettings;
+				gRepository.SetSettings(vSettings.GetDriver(), vSettings.GetHost(),
+																vSettings.GetDatabaseName(), vSettings.GetUser(), vSettings.GetPassword());
 
-			vQSetting.endGroup();
+				vQSetting.endGroup();
 		}
+
 		ConnectToDatabaseAgain();
 }
 

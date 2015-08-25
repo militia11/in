@@ -1,24 +1,21 @@
 #include <QString>
 #include <QtTest>
 
-class TestConnectionDB : public QObject
-{
-	Q_OBJECT
+class TestConnectionDB : public QObject {
+    Q_OBJECT
 
-public:
-	TestConnectionDB();
+  public:
+    TestConnectionDB();
 
-private Q_SLOTS:
-	void testCase();
+  private Q_SLOTS:
+    void testCase();
 };
 
-TestConnectionDB::TestConnectionDB()
-{
+TestConnectionDB::TestConnectionDB() {
 }
 
-void TestConnectionDB::testCase()
-{
-	QVERIFY2(true, "Failure");
+void TestConnectionDB::testCase() {
+    QVERIFY2(true, "Failure");
 }
 
 QTEST_APPLESS_MAIN(TestConnectionDB)

@@ -3,29 +3,26 @@
 
 #include "libs/controllers/CServer.h"
 
-class TestInitServerTest : public QObject
-{
-	Q_OBJECT
+class TestInitServerTest : public QObject {
+    Q_OBJECT
 
-public:
-	TestInitServerTest();
+  public:
+    TestInitServerTest();
 
-private Q_SLOTS:
-	void testCas();
+  private Q_SLOTS:
+    void testCas();
 };
 
-TestInitServerTest::TestInitServerTest()
-{
+TestInitServerTest::TestInitServerTest() {
 }
 
-void TestInitServerTest::testCas()
-{
-	// Verify function Run()
-	// If works fine status of listening is true
-	CServer *vServer = new CServer;
-	vServer->Run();
-	QVERIFY(vServer->isListening());
-	vServer->GetClient()->ResponeToClient("ana banana");
+void TestInitServerTest::testCas() {
+    // Verify function Run()
+    // If works fine status of listening is true
+    CServer *vServer = new CServer;
+    vServer->Run();
+    QVERIFY(vServer->isListening());
+    vServer->GetClient()->ResponeToClient("ana banana");
 }
 
 QTEST_APPLESS_MAIN(TestInitServerTest)

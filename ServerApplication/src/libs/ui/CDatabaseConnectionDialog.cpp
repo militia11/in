@@ -16,8 +16,11 @@ CDatabaseConnectionDialog::CDatabaseConnectionDialog(QWidget *aParent) :
 		mDriverList << "MySql" << "SQLite";
 		ui->mComboBoxDriver->addItems(mDriverList);
 		ui->mComboBoxDriver->setCurrentText("");
+
 		CSettings vSettings;
-		gRepository.SetSettings(vSettings.GetDriver(), vSettings.GetConnectionString());
+		gRepository.SetSettings(vSettings.GetDriver(), vSettings.GetHost(),
+														vSettings.GetDatabaseName(),
+														vSettings.GetDatabaseName(), vSettings.GetPassword());
 		UpdateSettings();
 }
 
@@ -30,7 +33,8 @@ void CDatabaseConnectionDialog::on_mButtonBoxOkCancel_accepted() {
 		SaveSettings();
 
 		CSettings vSettings;
-		gRepository.SetSettings(vSettings.GetDriver(), vSettings.GetConnectionString());
+		gRepository.SetSettings(vSettings.GetDriver(), vSettings.GetHost(),
+														vSettings.GetDatabaseName(), vSettings.GetUser(), vSettings.GetPassword());
 
 		accept();
 }
@@ -86,15 +90,15 @@ QString CDatabaseConnectionDialog::GetHost() const {
 		return mHost;
 }
 
-QString CDatabaseConnectionDialog::GetDriver() const{
+QString CDatabaseConnectionDialog::GetDriver() const {
 		return mDriver;
 }
 
-QString CDatabaseConnectionDialog::GetDatabaseName() const{
+QString CDatabaseConnectionDialog::GetDatabaseName() const {
 		return mDatabaseName;
 }
 
-QString CDatabaseConnectionDialog::GetUser() const{
+QString CDatabaseConnectionDialog::GetUser() const {
 		return mUser;
 }
 

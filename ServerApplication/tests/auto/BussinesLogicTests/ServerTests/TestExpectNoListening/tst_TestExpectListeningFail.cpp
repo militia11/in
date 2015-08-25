@@ -4,25 +4,25 @@
 #include "libs/controllers/CServer.h"
 
 class TestExpectListeningFail : public QObject {
-		Q_OBJECT
+    Q_OBJECT
 
-	public:
-		TestExpectListeningFail();
+  public:
+    TestExpectListeningFail();
 
-	private Q_SLOTS:
-		void testCase();
+  private Q_SLOTS:
+    void testCase();
 };
 
 TestExpectListeningFail::TestExpectListeningFail() {
 }
 
 void TestExpectListeningFail::testCase() {
-		// Check status of listening
-		CServer *vServer = new CServer;
+    // Check status of listening
+    CServer *vServer = new CServer;
 
-		QEXPECT_FAIL("", "Serwer nie uruchomiony "
-								 "nie powinien nasłuchiwać", Continue);
-		QVERIFY(vServer->isListening());
+    QEXPECT_FAIL("", "Serwer nie uruchomiony "
+                 "nie powinien nasłuchiwać", Continue);
+    QVERIFY(vServer->isListening());
 }
 
 QTEST_APPLESS_MAIN(TestExpectListeningFail)

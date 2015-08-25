@@ -7,41 +7,42 @@ namespace Ui {
 class CServerSettingsDialog;
 }
 
-class CServerSettingsDialog : public QDialog
-{
-	Q_OBJECT
+class CServerSettingsDialog : public QDialog {
+		Q_OBJECT
 
-public:
-	/**
-	 * @brief CServerSettingsDialog constructor.
-	 */
-	explicit CServerSettingsDialog(QWidget *aParent = 0);
+	public:
+		/**
+		 * @brief CServerSettingsDialog constructor.
+		 */
+		explicit CServerSettingsDialog(QWidget *aParent = 0);
 
-	/**
-	 * @brief CServerSettingsDialog destructor.
-	 */
-	~CServerSettingsDialog();
+		/**
+		 * @brief CServerSettingsDialog destructor.
+		 */
+		~CServerSettingsDialog();
 
-private slots:
+	private slots:
 
-	/**
-	 * @brief on_mPushButtonResetDefault_clicked slot call when
-	 * mPushButtonResetDefault clicked.
-	 */
-	void on_mPushButtonResetDefault_clicked();
+		/**
+		 * @brief on_mPushButtonResetDefault_clicked slot call when
+		 * mPushButtonResetDefault clicked.
+		 */
+		void on_mPushButtonResetDefault_clicked();
 
-	/**
-	 * @brief on_mPushButtonResetDefault_clicked slot call when form is accepted.
-	 */
-	void on_mButtonBoxOkCancel_accepted();
+		/**
+		 * @brief on_mPushButtonResetDefault_clicked slot call when form is accepted.
+		 */
+		void on_mButtonBoxOkCancel_accepted();
 
-	/**
-	 * @brief on_mButtonBoxOkCancel_rejected slot call when form is rejected.
-	 */
-	void on_mButtonBoxOkCancel_rejected();
+		/**
+		 * @brief on_mButtonBoxOkCancel_rejected slot call when form is rejected.
+		 */
+		void on_mButtonBoxOkCancel_rejected();
 
-private:
-	Ui::CServerSettingsDialog *ui;
+	private:
+		void UpdateServerSettings();
+
+		Ui::CServerSettingsDialog *ui;
 };
 
 #endif // CSERVERSETTINGSDIALOG_H

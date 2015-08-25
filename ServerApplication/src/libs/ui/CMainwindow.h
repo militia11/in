@@ -41,57 +41,57 @@ class CMainWindow : public QMainWindow {
   signals:
 
   private slots:
-		/**
-		 * @brief DisplayData is slot to Display data in main window.
-		 * @param aData is data to show.
-		 */
+    /**
+     * @brief DisplayData is slot to Display data in main window.
+     * @param aData is data to show.
+     */
     void DisplayData(QByteArray aData);
 
-		/**
-		 * @brief ClientConnected slot is call when server emited signal
-		 * incoming connection. This method connect client signal ReadData
-		 * to send data to CMainWindow.
-		 */
+    /**
+     * @brief ClientConnected slot is call when server emited signal
+     * incoming connection. This method connect client signal ReadData
+     * to send data to CMainWindow.
+     */
     void ClientConnected();
 
-		/**
-		 * @brief ClientCreated slot is call when client was created.
-		 */
+    /**
+     * @brief ClientCreated slot is call when client was created.
+     */
     void ClientCreated();
 
-		/**
-		 * @brief ShowStatus
-		 * @param aMessageStatus
-		 * @param aTimeMsc
-		 */
+    /**
+     * @brief ShowStatus
+     * @param aMessageStatus
+     * @param aTimeMsc
+     */
     void ShowStatus(const char *aMessageStatus, int aTimeMsc);
 
-		/**
-		 * @brief RunServer slot is call to run server. Start listening
-		 * on specify port. Default 1234.
-		 */
+    /**
+     * @brief RunServer slot is call to run server. Start listening
+     * on specify port. Default 1234.
+     */
     void RunServer();
 
-		/**
-		 * @brief StopServer method stop listening on specify port.
-		 */
-		void StopServer();
+    /**
+     * @brief StopServer method stop listening on specify port.
+     */
+    void StopServer();
 
-		/**
-		 * @brief ServerSettings display form to manage server.
-		 */
+    /**
+     * @brief ServerSettings display form to manage server.
+     */
     void ServerSettings();
 
-		/**
-		 * @brief DatabaseConnectionSettings slot display form to
-		 * change database connection options.
-		 */
+    /**
+     * @brief DatabaseConnectionSettings slot display form to
+     * change database connection options.
+     */
     void DatabaseConnectionSettings();
 
-		/**
-		 * @brief ChangeActionServerStatus method enable buttons
-		 * which should be active and disable non active.
-		 */
+    /**
+     * @brief ChangeActionServerStatus method enable buttons
+     * which should be active and disable non active.
+     */
     void ChangeActionServerStatus();
 
     ///	@todo
@@ -102,16 +102,16 @@ class CMainWindow : public QMainWindow {
     void closeEvent(QCloseEvent *aEvent);
 
   private:
-		/**
-		 * @brief Method connect server signals to CMainWindow slots
-		 */
+    /**
+     * @brief Method connect server signals to CMainWindow slots
+     */
     inline void ConnectServerSignals();
-    
-		/**
-		 * @brief Method connect signals represents actions
-		 *  to CMainWindow slots
-		 */
-		inline void ConnectActionsSignals();
+
+    /**
+     * @brief Method connect signals represents actions
+     *  to CMainWindow slots
+     */
+    inline void ConnectActionsSignals();
 
     Ui::MainWindow *ui;
     CServer *mServer;
