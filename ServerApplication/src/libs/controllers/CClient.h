@@ -102,7 +102,7 @@ class CClient : public QObject {
     /**
      * @brief Serve single received message.
      */
-    void ServeReceivedMessage(); //int aReceiveByteCnt
+		void ServeReceivedMessage(); //int aReceiveByteCnt
 
     /**
      * @brief Check has message correct format.
@@ -127,7 +127,7 @@ class CClient : public QObject {
      *
      * @return TRUE for correct checksum, FALSE if incorrect.
      */
-    bool HasMessageCorrectChecksum(QByteArray aData);
+		bool HasMessageCorrectChecksum(QByteArray aData);
 
     /**
      * @brief Convert hex-ascii string into binary data
@@ -136,14 +136,13 @@ class CClient : public QObject {
      * @param aLen length of hex-ascii string
      * @param mBinaryMessageData output parameter - pointer to output byte array
      */
-    //void ConvertHexAsciiToBinary(BYTE *aData, int aLen, BYTE *aBinaryMessageData);
 
     /**
      * @brief Calculate message checksum to compare with expected.
      *
      * @return Checksum calculated as youngest byte of sum of all bytes.
      */
-    //uint8_t CalculateMessageChecksum(BYTE *aData, int aLen);
+		uint8_t CalculateMessageChecksum(QByteArray aData);
 
   private:
     /**
@@ -151,12 +150,12 @@ class CClient : public QObject {
      * represent client's (CClient) slots
      */
     inline void ConnectSocketSignals();
-
+		void C();
     QTcpSocket *mSocket;
-    QByteArray *mBuffer;
-    int32_t *mSize;
-    QByteArray mReceiveBuffer;
+		QByteArray *mReceiveBuffer;
+		int32_t *mSize;
     ReceiveDataMode mReceiveDataMode;
+		QByteArray mMessageClntFileChecksum;
     int mReceiveByteCnt;
     int mReceiveFrameNOKCnt;
     int mReceiveFrameFaultCnt;

@@ -16,9 +16,11 @@ CONFIG += staticlib
 INCLUDEPATH += ../..
 
 HEADERS += \
-    CRepository.h
+    CRepository.h \
+    CCheckSumList.h
 
 SOURCES += \
-    CRepository.cpp
+    CRepository.cpp \
+    CCheckSumList.cpp
 
 CONFIG += c++11
