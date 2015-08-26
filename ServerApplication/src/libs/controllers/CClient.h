@@ -150,12 +150,13 @@ class CClient : public QObject {
      * represent client's (CClient) slots
      */
     inline void ConnectSocketSignals();
-		void C();
     QTcpSocket *mSocket;
 		QByteArray *mReceiveBuffer;
 		int32_t *mSize;
     ReceiveDataMode mReceiveDataMode;
-		QByteArray mMessageClntFileChecksum;
+		char mMessageClntFileChecksum[1024];
+		int s;
+		//char mMessageBuffer[1024];
     int mReceiveByteCnt;
     int mReceiveFrameNOKCnt;
     int mReceiveFrameFaultCnt;
