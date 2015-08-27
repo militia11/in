@@ -118,7 +118,7 @@ class CClient : public QObject {
      *
      * @return TRUE for correct format, FALSE for incorrect.
      */
-    bool HasMessageCorrectFormat(QByteArray aData);
+		bool HasMessageCorrectFormat(char *aMessage);
 
     /**
      * @brief Validate message checksum.

@@ -1,7 +1,7 @@
 #include "CClient.h"
 
-#include <stdio.h> // convert array to int
-#include <ctype.h>
+#include <stdio.h> // convert array to int function
+#include <ctype.h> // isdigit function
 #include <QDebug>
 #include <QFile>
 
@@ -54,7 +54,6 @@ void CClient::NewData() {
 		while (mSocket->bytesAvailable() > 0) {
 				QByteArray vData = mSocket->readAll();
 				mReceiveBuffer->append(vData);
-				qDebug() << "size" << mReceiveBuffer->length() << "x";
 
 				for (int i = 0; i < vData.length(); i++) {
 
@@ -80,14 +79,11 @@ void CClient::RouteData(char aData) {
 		switch (mReceiveDataMode) {
 
 				case Mode_Receive_File_Data : {
-						qDebug() << "jestem w route case ---file data---";
 						ServeFileData();
 						break;
 				}
 
 				case Mode_Receive_File_CheckSum: {
-						qDebug() << "jestem w route case ---chcks---";
-
 						mMessageClntFileChecksum[mReceiveByteCnt] = aData;
 						mReceiveByteCnt++;
 
@@ -95,12 +91,12 @@ void CClient::RouteData(char aData) {
 								mReceiveByteCnt = 0;
 						}
 
-						if (aData == '<') {		//0x0A
-								qDebug() << "jestem w routeData  w case chcks w if";
+						// lub CR LF 0x0A 0x0D
+						if (aData == '<') {		    // koniec komunikatu "suma pliku"
 								mMessageSize = mReceiveByteCnt;
 								mReceiveByteCnt = 0;
 								ServeReceivedMessage();
-								mReceiveDataMode = Mode_Receive_File_Data; //mReceiveByteCnt = 0;
+								mReceiveDataMode = Mode_Receive_File_Data;
 						}
 
 						break;
@@ -112,11 +108,11 @@ void CClient::RouteData(char aData) {
 }
 
 void CClient::ServeReceivedMessage() {
-		//    if (!HasMessageCorrectFormat(*mReceiveBuffer)) {
-		//        qDebug() << ":IncorrectMessageFormat: ";
-		//        ++mReceiveFrameNOKCnt;
-		//        return;
-		//    }
+		if (!HasMessageCorrectFormat(mMessageClntFileChecksum)) {
+				qDebug() << ":IncorrectMessageFormat: ";
+				++mReceiveFrameNOKCnt;
+				return;
+		}
 
 		//		if (!HasMessageCorrectChecksum(*mReceiveBuffer)) {
 		//				qDebug() << ":IncorrectMessageChecksum: ";
@@ -152,24 +148,22 @@ void CClient::ServeReceivedMessage() {
 		//  RouteMessage(mBinaryMessageData, vAsciiMessageDataLength/2, aData);
 }
 
-bool CClient::HasMessageCorrectFormat(QByteArray aData) {
+bool CClient::HasMessageCorrectFormat(char *aMessage) {
 		bool vCorrect = true;
-		int vDataLen = aData.length();
 
-		int vChecksumLength = vDataLen - 2; // 2 bytes of header, CR, LF
-		qDebug() << "d:" << aData;
-		qDebug() << "len:" << aData.length();
-
-		if (aData[0] != '>') {  // begin character
+		int vChecksumLength = mMessageSize - 2; // 2 bytes of header, CR, LF
+		qDebug() << "mes:" << aMessage;
+		qDebug() << mMessageSize << "messize";
+		if (aMessage[0] != '>') {  // begin character
 				vCorrect =  false;
-				qDebug() << "a" << aData[0] << "len" << aData.length();
-		} else if ((aData[vDataLen - 1].operator != ('<'))) { // CR LF
+				qDebug() << "a" << aMessage[0] ;
+		} else if ((aMessage[mMessageSize - 1] != ('<'))) {
 				vCorrect = false;
 				qDebug() << "c";
-				qDebug() << aData[vDataLen - 1];
+				qDebug() << aMessage[mMessageSize - 1];
 		} else {
-				for (int i = 1; i < vChecksumLength; ++i) {
-						if (!isxdigit(aData[i])) {
+				for (int i = 1; i < vChecksumLength + 1; ++i) {
+						if (!isxdigit(aMessage[i])) {
 								vCorrect = false;
 								qDebug() << "d";
 						}
