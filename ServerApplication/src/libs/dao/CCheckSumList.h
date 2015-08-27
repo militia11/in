@@ -10,7 +10,6 @@ class CCheckSumList {
 
 	private:
 		QList<int> mCheckSumList;
-
 };
 
 #endif // CCHECKSUMLIST_H

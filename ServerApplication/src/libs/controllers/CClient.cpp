@@ -1,7 +1,7 @@
 #include "CClient.h"
 
 #include <stdio.h> // convert array to int
-
+#include <ctype.h>
 #include <QDebug>
 #include <QFile>
 
@@ -10,12 +10,12 @@ CClient::CClient(QObject *aParent) :
 		QObject(aParent),
 		mSocket(NULL),
 		mReceiveBuffer(NULL),
-		mSize(NULL),
+		mDataSize(NULL),
+		mReceiveDataMode(Mode_Receive_File_Data),
+		mMessageSize(0),
 		mReceiveByteCnt(0),
 		mReceiveFrameNOKCnt(0),
-		s(0),
 		mReceiveFrameFaultCnt(0) {
-		mReceiveDataMode = Mode_Receive_File_Data;
 }
 
 CClient::~CClient() {
@@ -31,7 +31,7 @@ void CClient::Connect(QTcpSocket *aSocket) {
 
 				mSocket = aSocket;
 
-				mSize = new qint32(0);
+				mDataSize = new qint32(0);
 				mReceiveBuffer = new QByteArray();
 
 				ConnectSocketSignals();
@@ -97,10 +97,10 @@ void CClient::RouteData(char aData) {
 
 						if (aData == '<') {		//0x0A
 								qDebug() << "jestem w routeData  w case chcks w if";
-								s = mReceiveByteCnt;
+								mMessageSize = mReceiveByteCnt;
 								mReceiveByteCnt = 0;
 								ServeReceivedMessage();
-								//mReceiveDataMode = Mode_Receive_File_Data; //mReceiveByteCnt = 0;
+								mReceiveDataMode = Mode_Receive_File_Data; //mReceiveByteCnt = 0;
 						}
 
 						break;
@@ -112,26 +112,38 @@ void CClient::RouteData(char aData) {
 }
 
 void CClient::ServeReceivedMessage() {
-		qDebug() << "serveee len" << s;
-
-		std::string str(mMessageClntFileChecksum);
-		std::string res = str.substr(1,s-2);
-		qDebug() << "kup" << QString::fromStdString(res);
-		for (int i = 0; i < s; i++) {
-				qDebug() << "medd" << mMessageClntFileChecksum[i];
-		}
-
-		if (!HasMessageCorrectFormat(*mReceiveBuffer)) {
-				qDebug() << ":IncorrectMessageFormat: ";
-				++mReceiveFrameNOKCnt;
-				return;
-		}
+		//    if (!HasMessageCorrectFormat(*mReceiveBuffer)) {
+		//        qDebug() << ":IncorrectMessageFormat: ";
+		//        ++mReceiveFrameNOKCnt;
+		//        return;
+		//    }
 
 		//		if (!HasMessageCorrectChecksum(*mReceiveBuffer)) {
 		//				qDebug() << ":IncorrectMessageChecksum: ";
 		//				++mReceiveFrameFaultCnt;
 		//				return;
 		//		}
+		QString vNumAsString;
+
+		// wyodrębnienie liczyby-string z tablicy i konwersja na int
+		// wersja 1:
+		for (int i = 0; i < mMessageSize; i++) {
+				if (isdigit(mMessageClntFileChecksum[i])) {
+						vNumAsString.append(mMessageClntFileChecksum[i]);
+				}
+		}
+
+		int vValidNum = vNumAsString.toInt();
+		mReceiveBuffer->remove(0, mMessageSize);
+
+		QByteArray vDataToSend = vNumAsString.toUtf8(); //?
+		emit ReadData(vNumAsString.toUtf8());
+		qDebug() << vValidNum;
+		// wersja alternatywna:
+		//		std::string vStringFromArray(mMessageClntFileChecksum);
+		//		std::string vNumAsString = vStringFromArray.substr(1, mMessageSize-2);
+		//		int vNum = QString::fromStdString(vNumAsString).toInt();
+
 		///@todo //  BYTE* vAsciiDataBegin = aData+2;  // 2 bytes of header
 		//  int vAsciiMessageDataLength = aLen-6;  // 2 bytes of header, 2 of checksum, CR, LF
 		//  ConvertHexAsciiToBinary(vAsciiDataBegin, vAsciiMessageDataLength, mBinaryMessageData);
@@ -146,7 +158,7 @@ bool CClient::HasMessageCorrectFormat(QByteArray aData) {
 
 		int vChecksumLength = vDataLen - 2; // 2 bytes of header, CR, LF
 		qDebug() << "d:" << aData;
-		qDebug() 	 << "len:" << aData.length();
+		qDebug() << "len:" << aData.length();
 
 		if (aData[0] != '>') {  // begin character
 				vCorrect =  false;
@@ -168,7 +180,7 @@ bool CClient::HasMessageCorrectFormat(QByteArray aData) {
 }
 
 void CClient::ServeFileData() {
-		int32_t vCurrentSize = *mSize;
+		int32_t vCurrentSize = *mDataSize;
 
 		while ((vCurrentSize == 0 && mReceiveBuffer->size() >= 4) ||
 						(vCurrentSize > 0 &&
@@ -177,7 +189,7 @@ void CClient::ServeFileData() {
 								mReceiveBuffer->size() >=
 								4) { //if size of data has received completely, then store it on our global variable
 						vCurrentSize = ByteArrayToInt(mReceiveBuffer->left(4)); // było mid(0,4)
-						*mSize = vCurrentSize;
+						*mDataSize = vCurrentSize;
 						mReceiveBuffer->remove(0, 4);
 				}
 
@@ -189,7 +201,7 @@ void CClient::ServeFileData() {
 						mReceiveBuffer->remove(0, vCurrentSize);
 						qDebug() << *mReceiveBuffer;
 						vCurrentSize = 0;
-						*mSize = vCurrentSize;
+						*mDataSize = vCurrentSize;
 
 						qDebug() << "suma:" <<	CalculateMessageChecksum(vData);
 
@@ -207,9 +219,9 @@ void CClient::ServeFileData() {
 
 						qDebug() << vData;
 
-						const char *vMessage = "Odebrano dane : ";
+						//const char *vMessage = "Odebrano dane : ";
 
-						ResponeToClient(vMessage, vData);
+						//ResponeToClient(vMessage, vData);
 
 						emit ReadData(vData);;
 				}
@@ -267,7 +279,7 @@ void CClient::Disconnected() {
 
 		mSocket->deleteLater();
 		delete mReceiveBuffer;
-		delete mSize;
+		delete mDataSize;
 }
 
 void CClient::ResponeToClient(const char *aMessage, QByteArray aData) {

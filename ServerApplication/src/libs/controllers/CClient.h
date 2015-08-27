@@ -152,14 +152,14 @@ class CClient : public QObject {
     inline void ConnectSocketSignals();
     QTcpSocket *mSocket;
 		QByteArray *mReceiveBuffer;
-		int32_t *mSize;
+		int32_t *mDataSize;
     ReceiveDataMode mReceiveDataMode;
 		char mMessageClntFileChecksum[1024];
-		int s;
-		//char mMessageBuffer[1024];
+		int mMessageSize;
     int mReceiveByteCnt;
     int mReceiveFrameNOKCnt;
-    int mReceiveFrameFaultCnt;
+		int mReceiveFrameFaultCnt;
+
 };
 
 #endif // CCLIENT_H
