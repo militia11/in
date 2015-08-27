@@ -21,5 +21,6 @@ DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 INCLUDEPATH += ../../../../../src
 LIBS += -L../../../../../src/libs/ui -lui
-LIBS += -L../../../../../src/libs/dao -ldao
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
+LIBS += -L../../../../../src/libs/dao -ldao
+

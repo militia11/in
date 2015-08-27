@@ -43,7 +43,6 @@ void CRepository::Connect() {
     //        ///bazaDanych = nullptr;
     //    }
 
-    ///  Qx:
     //		qx::QxSqlDatabase::clearAllDatabases();
     //		mDatabase = qx::QxSqlDatabase::getSingleton();
 

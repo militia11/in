@@ -5,8 +5,9 @@
 #include <QDebug>
 #include <QFile>
 
-CClient::CClient(QObject *aParent) :
+extern CCheckSumList gCheckSumList;
 
+CClient::CClient(QObject *aParent) :
 		QObject(aParent),
 		mSocket(NULL),
 		mReceiveBuffer(NULL),
@@ -30,7 +31,6 @@ void CClient::Connect(QTcpSocket *aSocket) {
 				emit MessageStatus(vMessage, 2200);
 
 				mSocket = aSocket;
-
 				mDataSize = new qint32(0);
 				mReceiveBuffer = new QByteArray();
 
@@ -41,7 +41,6 @@ void CClient::Connect(QTcpSocket *aSocket) {
 				qDebug() << vMessage;
 
 				emit MessageStatus(vMessage, 2200);
-
 				emit mSocket->error();
 		}
 }
@@ -117,7 +116,7 @@ void CClient::ServeReceivedMessage() {
 				return;
 		}
 
-		// wyodrębnienie liczyby-string z tablicy i konwersja na int
+		// wyodrębnienie liczyby-stringa z tablicy i konwersja na int
 		// wersja 1:
 		QString vNumAsString;
 
@@ -127,8 +126,6 @@ void CClient::ServeReceivedMessage() {
 				}
 		}
 
-		int vValidNum = vNumAsString.toInt();
-
 		// wersja alternatywna:
 		//		std::string vStringFromArray(mMessageClntFileChecksum);
 		//		std::string vNumAsString = vStringFromArray.substr(1, mMessageSize-2);
@@ -136,8 +133,16 @@ void CClient::ServeReceivedMessage() {
 
 		mReceiveBuffer->remove(0, mMessageSize);
 
-		QByteArray vDataToSend = vNumAsString.toUtf8(); //?
-		emit ReadData(vNumAsString.toUtf8());
+		int vValidNum = vNumAsString.toInt();
+
+		bool vIsCheckSumInSrv = gCheckSumList.CheckFileCheckSum(vValidNum);
+
+		if (!vIsCheckSumInSrv) {
+				; ///@todo wyslij clientowi zeby go pobrał
+		}
+
+		QByteArray vDataToSend = vNumAsString.toUtf8();
+		emit ReadData(vDataToSend);
 
 		qDebug() << vValidNum;
 }
@@ -180,8 +185,7 @@ void CClient::ServeFileData() {
 
 				if (vCurrentSize > 0 && mReceiveBuffer->size() >=
 								vCurrentSize) { // If data has received completely, then emit our SIGNAL with the data
-						QByteArray vData = mReceiveBuffer->left(
-																	 vCurrentSize);  // było mid(0,vcurrentsize )
+						QByteArray vData = mReceiveBuffer->left(vCurrentSize);
 
 						mReceiveBuffer->remove(0, vCurrentSize);
 						vCurrentSize = 0;
@@ -204,6 +208,7 @@ void CClient::ServeFileData() {
 						vFile.close();
 
 						const char *vMessage = "Odebrano dane : ";
+
 						ResponeToClient(vMessage, vData);
 
 						emit ReadData(vData);

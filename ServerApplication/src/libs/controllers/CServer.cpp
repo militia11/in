@@ -1,11 +1,16 @@
 
 #include "CServer.h"
+
+#include "libs/controllers/CSettings.h"
+
 #include <QTcpSocket>
 #include <QDebug>
 
-CServer::CServer(QObject *aParent)
-		: QTcpServer(aParent),
-			mClient(NULL) {
+CServer::CServer(QObject *aParent) :
+		QTcpServer(aParent),
+		mClient(NULL) {
+		UpdatePortNum();
+
 		connect(this, SIGNAL(newConnection()), this, SLOT(IncomingConnection()));
 }
 
@@ -14,7 +19,7 @@ CServer::~CServer() {
 }
 
 void CServer::Run() {
-		if (!this->listen(QHostAddress::Any, 1234)) {
+		if (!this->listen(QHostAddress::Any, mPortNum)) {
 				MessageStatus("Nie można wystartować serwera", 2400);
 		} else {
 				MessageStatus("Serwer nasłuchuje ...", 2400);
@@ -61,4 +66,9 @@ void CServer::ConnectClientSignals() {
 
 		connect(mClient, SIGNAL(Connected()), this, SLOT(PauseAccepting()),
 						Qt::DirectConnection);
+}
+
+void CServer::UpdatePortNum() {
+	CSettings vSettings;
+	mPortNum = vSettings.GetPortNum();
 }

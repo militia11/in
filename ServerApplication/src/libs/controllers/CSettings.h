@@ -21,6 +21,7 @@ class CSettings {
     QString GetDatabaseName() const;
     QString GetUser() const;
     QString GetPassword() const;
+		int GetPortNum() const;
     /**
      * @brief GetConnectionString method read settings from
      * configuration file.

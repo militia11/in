@@ -1,6 +1,8 @@
 #ifndef CCLIENT_H
 #define CCLIENT_H
 
+#include "libs/dao/CCheckSumList.h"
+
 #include <inttypes.h> //uint_t* and int_t* types
 #include <QTcpSocket>
 #include <QObject>
@@ -52,7 +54,6 @@ class CClient : public QObject {
      * which represent socket.
      */
     QTcpSocket *GetSocket() const;
-
 
   public slots:
     /**

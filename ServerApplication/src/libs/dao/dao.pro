@@ -9,6 +9,7 @@ include(../../../../BibliotekiLinkowanie.pri)
 
 QT       -= gui
 QT	 += core
+
 TARGET = dao
 TEMPLATE = lib
 CONFIG += staticlib

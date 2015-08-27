@@ -2,8 +2,9 @@
 
 #include <QApplication>
 
-#include <libs/dao/CRepository.h>
+#include "libs/dao/CRepository.h"
 #include "libs/controllers/CSettings.h"
+#include "libs/dao/CCheckSumList.h"
 
 extern CRepository gRepository;
 

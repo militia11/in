@@ -8,8 +8,6 @@
 #include "libs/dao/CRepository.h"
 #include "libs/controllers/CSettings.h"
 
-//#include "libs/ui/ustawieniaform.h"
-
 namespace Ui {
 class MainWindow;
 }

@@ -19,6 +19,5 @@ SOURCES += tst_TestConnectionDB.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 LIBS += -L../../../../../src/libs/ui -lui
-LIBS += -L../../../../../src/libs/dao -ldao
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
-
+LIBS += -L../../../../../src/libs/dao -ldao

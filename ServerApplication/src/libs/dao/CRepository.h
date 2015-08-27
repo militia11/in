@@ -64,8 +64,6 @@ class CRepository {
     QString mDatabaseName;
     QString mUser;
     QString mPassword;
-
-
 };
 
 #endif // CREPOSITORY_H

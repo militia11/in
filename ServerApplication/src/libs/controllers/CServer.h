@@ -83,10 +83,17 @@ class CServer : public QTcpServer {
   private:
     /**
      * @brief Method connect client's signals to server's slots
-     */
+		 */
     inline void ConnectClientSignals();
 
+		/**
+		 * @brief UpdatePortNum get and update actually port number
+		 * from programm config file to application.
+		 */
+		inline void UpdatePortNum();
+
     CClient *mClient;
+		int mPortNum;
 };
 
 #endif // CSERVER_H
