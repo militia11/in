@@ -87,7 +87,8 @@ void CClient::RouteData(char aData) {
 						mMessageClntFileChecksum[mReceiveByteCnt] = aData;
 						mReceiveByteCnt++;
 
-						if (mReceiveByteCnt >= 1023) { // Prevent buffer overflow
+						// Zabezpieczenie przeładowania buforu
+						if (mReceiveByteCnt >= 1023) {
 								mReceiveByteCnt = 0;
 						}
 
@@ -109,20 +110,17 @@ void CClient::RouteData(char aData) {
 
 void CClient::ServeReceivedMessage() {
 		if (!HasMessageCorrectFormat(mMessageClntFileChecksum)) {
-				qDebug() << ":IncorrectMessageFormat: ";
+				const char *vMessage = "Nieprawidłowy format wiadomości";
+				MessageStatus(vMessage, 2200);
+				qDebug() << vMessage;
 				++mReceiveFrameNOKCnt;
 				return;
 		}
 
-		//		if (!HasMessageCorrectChecksum(*mReceiveBuffer)) {
-		//				qDebug() << ":IncorrectMessageChecksum: ";
-		//				++mReceiveFrameFaultCnt;
-		//				return;
-		//		}
-		QString vNumAsString;
-
 		// wyodrębnienie liczyby-string z tablicy i konwersja na int
 		// wersja 1:
+		QString vNumAsString;
+
 		for (int i = 0; i < mMessageSize; i++) {
 				if (isdigit(mMessageClntFileChecksum[i])) {
 						vNumAsString.append(mMessageClntFileChecksum[i]);
@@ -130,42 +128,33 @@ void CClient::ServeReceivedMessage() {
 		}
 
 		int vValidNum = vNumAsString.toInt();
-		mReceiveBuffer->remove(0, mMessageSize);
 
-		QByteArray vDataToSend = vNumAsString.toUtf8(); //?
-		emit ReadData(vNumAsString.toUtf8());
-		qDebug() << vValidNum;
 		// wersja alternatywna:
 		//		std::string vStringFromArray(mMessageClntFileChecksum);
 		//		std::string vNumAsString = vStringFromArray.substr(1, mMessageSize-2);
 		//		int vNum = QString::fromStdString(vNumAsString).toInt();
 
-		///@todo //  BYTE* vAsciiDataBegin = aData+2;  // 2 bytes of header
-		//  int vAsciiMessageDataLength = aLen-6;  // 2 bytes of header, 2 of checksum, CR, LF
-		//  ConvertHexAsciiToBinary(vAsciiDataBegin, vAsciiMessageDataLength, mBinaryMessageData);
+		mReceiveBuffer->remove(0, mMessageSize);
 
-		//  ++mReceiveFrameOKCnt;
-		//  RouteMessage(mBinaryMessageData, vAsciiMessageDataLength/2, aData);
+		QByteArray vDataToSend = vNumAsString.toUtf8(); //?
+		emit ReadData(vNumAsString.toUtf8());
+
+		qDebug() << vValidNum;
 }
 
 bool CClient::HasMessageCorrectFormat(char *aMessage) {
 		bool vCorrect = true;
+		int vChecksumLength = mMessageSize - 2; // 2 bajty znaki '>' i '<'
 
-		int vChecksumLength = mMessageSize - 2; // 2 bytes of header, CR, LF
-		qDebug() << "mes:" << aMessage;
-		qDebug() << mMessageSize << "messize";
-		if (aMessage[0] != '>') {  // begin character
+		if (aMessage[0] != '>') {  // początek komunikatu
 				vCorrect =  false;
-				qDebug() << "a" << aMessage[0] ;
 		} else if ((aMessage[mMessageSize - 1] != ('<'))) {
 				vCorrect = false;
-				qDebug() << "c";
-				qDebug() << aMessage[mMessageSize - 1];
+
 		} else {
 				for (int i = 1; i < vChecksumLength + 1; ++i) {
 						if (!isxdigit(aMessage[i])) {
 								vCorrect = false;
-								qDebug() << "d";
 						}
 				}
 		}
@@ -176,13 +165,15 @@ bool CClient::HasMessageCorrectFormat(char *aMessage) {
 void CClient::ServeFileData() {
 		int32_t vCurrentSize = *mDataSize;
 
+		// Jeśli można pobierać dane pobieraj
 		while ((vCurrentSize == 0 && mReceiveBuffer->size() >= 4) ||
 						(vCurrentSize > 0 &&
-						 mReceiveBuffer->size() >= vCurrentSize)) { //While can process data, process it
+						 mReceiveBuffer->size() >= vCurrentSize)) {
+
 				if (vCurrentSize == 0 &&
 								mReceiveBuffer->size() >=
 								4) { //if size of data has received completely, then store it on our global variable
-						vCurrentSize = ByteArrayToInt(mReceiveBuffer->left(4)); // było mid(0,4)
+						vCurrentSize = ByteArrayToInt(mReceiveBuffer->left(4));
 						*mDataSize = vCurrentSize;
 						mReceiveBuffer->remove(0, 4);
 				}
@@ -191,18 +182,19 @@ void CClient::ServeFileData() {
 								vCurrentSize) { // If data has received completely, then emit our SIGNAL with the data
 						QByteArray vData = mReceiveBuffer->left(
 																	 vCurrentSize);  // było mid(0,vcurrentsize )
-						qDebug() << *mReceiveBuffer << "sex" << vData;
+
 						mReceiveBuffer->remove(0, vCurrentSize);
-						qDebug() << *mReceiveBuffer;
 						vCurrentSize = 0;
 						*mDataSize = vCurrentSize;
 
-						qDebug() << "suma:" <<	CalculateMessageChecksum(vData);
+						qDebug() << "suma:" <<	CalculateFileDataChecksum(vData);
 
 						QFile vFile("/home/mmichniewski/b.txt");//pobranyPies.jpg");
 
 						if (!vFile.open(QIODevice::WriteOnly)) {
-								qDebug() << "Nie można otworzyć pliku";
+								const char *vMessage = "Nie można otworzyć pliku";
+								MessageStatus(vMessage, 2200);
+								qDebug() << vMessage;
 						};
 
 						QDataStream out(&vFile);
@@ -211,35 +203,15 @@ void CClient::ServeFileData() {
 
 						vFile.close();
 
-						qDebug() << vData;
+						const char *vMessage = "Odebrano dane : ";
+						ResponeToClient(vMessage, vData);
 
-						//const char *vMessage = "Odebrano dane : ";
-
-						//ResponeToClient(vMessage, vData);
-
-						emit ReadData(vData);;
+						emit ReadData(vData);
 				}
 		}
 }
 
-bool CClient::HasMessageCorrectChecksum(QByteArray aData) {
-		int vAsciiMessageHeaderPlusDataLength = aData.length() -
-																						4; // 4, because 2 bytes of checksum, CR and LF
-
-		QByteArray vAsciiChecksumBegin = aData;
-		vAsciiChecksumBegin += vAsciiMessageHeaderPlusDataLength;
-
-		//    uint8_t vExpectedChecksum = 0;
-		//    ConvertHexAsciiToBinary(vAsciiChecksumBegin, 2/*checksum length*/, &vExpectedChecksum);
-
-		//    uint8_t vCalculatedChecksum =
-		//        CalculateMessageChecksum(aData, vAsciiMessageHeaderPlusDataLength);
-
-		//    return vCalculatedChecksum == vExpectedChecksum;
-		return 0; ///@todo
-}
-
-uint8_t CClient::CalculateMessageChecksum(QByteArray aData) {
+uint8_t CClient::CalculateFileDataChecksum(QByteArray aData) {
 		uint8_t vSum = 0;
 
 		for (int i = 0; i < aData.length(); ++i) {

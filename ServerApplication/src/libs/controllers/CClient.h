@@ -1,7 +1,7 @@
 #ifndef CCLIENT_H
 #define CCLIENT_H
 
-#include <inttypes.h>
+#include <inttypes.h> //uint_t* and int_t* types
 #include <QTcpSocket>
 #include <QObject>
 
@@ -93,56 +93,47 @@ class CClient : public QObject {
     void Disconnected();
 
 	private:
+		/**
+		 * @brief ServeFileData serve file data.
+		 *  from incoming connection.
+		 */
 		void ServeFileData();
 
     int32_t ByteArrayToInt(QByteArray aData);
 
+		/**
+		 * @brief RouteData function switch data to
+		 * CCheckSumList class or file data to save
+		 * in server.
+		 *
+		 * @param aData is data to route.
+		 */
 		void RouteData(char aData);
 
     /**
      * @brief Serve single received message.
      */
-		void ServeReceivedMessage(); //int aReceiveByteCnt
+		void ServeReceivedMessage();
 
     /**
      * @brief Check has message correct format.
      *
      * Message should consist from:
      * - message begin char: ">"
-     * - module id:
-     *      - "L" for list of files
-     *      - "D" for files data
      * - data as hex-ascii string
-     * - checksum (1 byte) as 2 hex-ascii chars
-     * - new line as CR LF.
+			 * - end message char: "<"
      *
-     * @return TRUE for correct format, FALSE for incorrect.
+		 * @return TRUE for correct format, FALSE for incorrect.
      */
 		bool HasMessageCorrectFormat(char *aMessage);
 
-    /**
-     * @brief Validate message checksum.
-     *
-     * @param aData message to check in binary form.
-     *
-     * @return TRUE for correct checksum, FALSE if incorrect.
-     */
-		bool HasMessageCorrectChecksum(QByteArray aData);
-
-    /**
-     * @brief Convert hex-ascii string into binary data
-     *
-     * @param aData hex-ascii string
-     * @param aLen length of hex-ascii string
-     * @param mBinaryMessageData output parameter - pointer to output byte array
-     */
-
-    /**
-     * @brief Calculate message checksum to compare with expected.
-     *
-     * @return Checksum calculated as youngest byte of sum of all bytes.
-     */
-		uint8_t CalculateMessageChecksum(QByteArray aData);
+		/**
+		* @brief CalculateFileDataChecksum calculate message checksum
+		* to compare with expected.
+		*
+		* @return Checksum calculated as youngest byte of sum of all bytes.
+		*/
+		uint8_t CalculateFileDataChecksum(QByteArray aData);
 
   private:
     /**
@@ -150,6 +141,7 @@ class CClient : public QObject {
      * represent client's (CClient) slots
      */
     inline void ConnectSocketSignals();
+
     QTcpSocket *mSocket;
 		QByteArray *mReceiveBuffer;
 		int32_t *mDataSize;
