@@ -192,6 +192,7 @@ void CClient::ServeFileData() {
 						*mDataSize = vCurrentSize;
 
 						qDebug() << "suma:" <<	CalculateFileDataChecksum(vData);
+            // porównać z sumą w kliencie zrobioną !!!!!!
 
 						QFile vFile("/home/mmichniewski/b.txt");//pobranyPies.jpg");
 
@@ -255,5 +256,6 @@ void CClient::Disconnected() {
 
 void CClient::ResponeToClient(const char *aMessage, QByteArray aData) {
 		mSocket->write(aMessage);
+    // pokombinować tu odwrót
 		mSocket->write(aData);
 }

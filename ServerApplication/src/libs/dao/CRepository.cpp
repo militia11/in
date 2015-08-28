@@ -6,6 +6,7 @@
 
 CRepository gRepository;
 
+using namespace server;
 //Model gModel;
 
 CRepository::CRepository()   { //: mDatabase(0)
@@ -45,7 +46,7 @@ void CRepository::Refresh() { //QString nazwa jak wiele
   //   }
 }
 
-server::database *CRepository::GetDatabase() {//const
+server::database *CRepository::GetDatabase() { //const //wyproboj
   return mDatabase;
 }
 
@@ -54,19 +55,19 @@ void CRepository::Connect() {
     mDatabase = new server::database(driver.toStdString(),
                                      connectionString.toStdString());
     PopulateDatabase();
-    odswiezWszystko();
+    Refresh();
 
-    lastConnectionError = false;
-  } catch (std::exception e) {
+    mLastConnectionError = false;
+  } catch (std::exception vException) {
 
-    lastConnectionError = true;
-    bazaDanych = nullptr;
+    mLastConnectionError = true;
+    mDatabase = nullptr;
   }
 }
 
 void CRepository::PopulateDatabase() {
-  if (bazaDanych->needsUpgrade()) {
-    bazaDanych->upgrade();
+  if (mDatabase->needsUpgrade()) {
+    mDatabase->upgrade();
   }
 }
 

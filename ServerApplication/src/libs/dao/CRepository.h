@@ -27,15 +27,19 @@ class CRepository {
     /**
     * @brief Set database settings.
     */
-    void SetSettings(setSettings(const QString &driver,
-                                              const QString &connectionString));
+    void SetSettings(const QString &aDriver,
+                     const QString &aConnectionString);
 
+    /**
+     * @brief Refresh function refresh update data from
+     * database to model
+     */
     void Refresh();
     /**
      * @brief GetDatabase method is getter to
      * database connection object.
      *
-     * @return qx::QxSqlDatabase is pointer to
+     * @return server::database is pointer to
      * the actual database.
      */
     server::database *GetDatabase();
