@@ -3,7 +3,9 @@
 
 #include "libs/controllers/CSettings.h"
 
-//#include <QxOrm.h>
+#include <litesql.hpp>
+
+#include <QAbstractTableModel>
 
 class CSettings;
 
@@ -21,12 +23,14 @@ class CRepository {
      */
     CRepository();
 
+    virtual ~CRepository();
     /**
     * @brief Set database settings.
     */
-    void SetSettings(const QString &aDriver, const QString &aHost,
-                     const QString &aDatabaseName, const QString &aUser, const QString &aPassword);
+    void SetSettings(setSettings(const QString &driver,
+                                              const QString &connectionString));
 
+    void Refresh();
     /**
      * @brief GetDatabase method is getter to
      * database connection object.
@@ -34,7 +38,7 @@ class CRepository {
      * @return qx::QxSqlDatabase is pointer to
      * the actual database.
      */
-    //qx::QxSqlDatabase *GetDatabase();
+    server::database *GetDatabase();
 
     /**
      * @brief Method create database tables.
@@ -57,13 +61,14 @@ class CRepository {
     /**
      * @brief mDatabase represent database connection object.
      */
-    //qx::QxSqlDatabase *mDatabase;
-
+    server::database *mDatabase;
     QString mDriver;
-    QString mHost;
-    QString mDatabaseName;
-    QString mUser;
-    QString mPassword;
+    QString mConnectionString;
+    //QJakisTableModel *mModel;
+//    QString mHost;
+//    QString mDatabaseName;
+//    QString mUser;
+//    QString mPassword;
 };
 
 #endif // CREPOSITORY_H

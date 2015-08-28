@@ -17,10 +17,7 @@ class CSettings {
      * @return QString driver name.
      */
     QString GetDriver() const;
-    QString GetHost() const;
-    QString GetDatabaseName() const;
-    QString GetUser() const;
-    QString GetPassword() const;
+
 		int GetPortNum() const;
     /**
      * @brief GetConnectionString method read settings from
@@ -37,4 +34,8 @@ class CSettings {
     void SaveSettings();
 };
 
+//    QString GetHost() const;
+//    QString GetDatabaseName() const;
+//    QString GetUser() const;
+//    QString GetPassword() const;
 #endif // CSETTINGS_H

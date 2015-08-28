@@ -6,77 +6,72 @@
 
 CRepository gRepository;
 
+//Model gModel;
+
 CRepository::CRepository()   { //: mDatabase(0)
-    mLastConnectionError = false;
+
+  mLastConnectionError = false;
 }
 
-void CRepository::SetSettings(
-    const QString &aDriver,
-    const QString &aHost,
-    const QString &aDatabaseName,
-    const QString &aUser,
-    const QString &aPassword
-) {
-    this->mDriver = aDriver;
-    this->mHost = aHost;
-    this->mDatabaseName = aDatabaseName;
-    this->mUser = aUser;
-    this->mPassword = aPassword;
+CRepository::~CRepository() {
+  //delete model;
 }
 
-//qx::QxSqlDatabase *CRepository::GetDatabase() {//const
-//		return mDatabase;
-//}
+void CRepository::SetSettings(const QString &aDriver,
+                              const QString &aConnectionString) {
+  this->mDriver = aDriver;
+  this->mConnectionString = aConnectionString;
+}
+
+void CRepository::Refresh() { //QString nazwa jak wiele
+  //  QAbstractTableModel *modelAbstrakcyjny = archiwum.pobierzModel(nazwa);
+
+  //   ModelPsy *modelPsy = dynamic_cast<ModelPsy *>(modelAbstrakcyjny);
+
+  //   if (modelPsy) {
+  //     modelPsy->odswiez();
+  //   }
+
+  //   ModelKlienci *modelKlienci = dynamic_cast<ModelKlienci *>(modelAbstrakcyjny);
+
+  //   if (modelKlienci) {
+  //     modelKlienci->odswiez();
+  //   }
+
+  //   ModelRejestr *modelRejestr = dynamic_cast<ModelRejestr *>(modelAbstrakcyjny);
+
+  //   if (modelRejestr) {
+  //     modelRejestr->odswiez();
+  //   }
+}
+
+server::database *CRepository::GetDatabase() {//const
+  return mDatabase;
+}
 
 void CRepository::Connect() {
-    //    /// @todo
-    //    try {
-    //        //    bazaDanych = new schro::schronisko(driver.toStdString(),
-    //        //                                     connectionString.toStdString());
-    //        //    wypelnijBazeDanych();
-    //        //    odswiezWszystko();
+  try {
+    mDatabase = new server::database(driver.toStdString(),
+                                     connectionString.toStdString());
+    PopulateDatabase();
+    odswiezWszystko();
 
-    //        mLastConnectionError = false;
-    //    } catch (std::exception aException) {
+    lastConnectionError = false;
+  } catch (std::exception e) {
 
-    //        mLastConnectionError = true;
-    //        ///bazaDanych = nullptr;
-    //    }
-
-    //		qx::QxSqlDatabase::clearAllDatabases();
-    //		mDatabase = qx::QxSqlDatabase::getSingleton();
-
-    //		mLastConnectionError = false;
-    //		mDatabase->setDriverName(driver);
-    //		mDatabase->setHostName(host);
-    //		mDatabase->setDatabaseName(databaseName);
-    //		mDatabase->setUserName(user);
-    //		mDatabase->setPassword(password);
-
-    //		if (!mDatabase->getDatabase().open()) {
-    //				mDatabase = NULL;
-    //				mLastConnectionError = true;
-    //		}
+    lastConnectionError = true;
+    bazaDanych = nullptr;
+  }
 }
 
 void CRepository::PopulateDatabase() {
-    /*
-     * @TODO: Wersjonowanie schematu bazy
-     *
-     * To nie może tak zostać!
-     *
-     *    http://www.qxorm.com/doxygen/html/group___qx_dao.html#gacdaac47549d0e850cf5d6a16315efaab
-     *
-     * Zamiast tego powinno być wersjonowanie bazy danych
-     */
-    /*qx::dao::create_table<Pies>();
-    qx::dao::create_table<Material>();
-    qx::dao::create_table<Wydanie>();*/
-    //qx::dao::create_table<Klient>();
+  if (bazaDanych->needsUpgrade()) {
+    bazaDanych->upgrade();
+  }
 }
 
 void CRepository::Disconnect() {
-    //		delete mDatabase;
-    //		mDatabase = 0;
+  delete mDatabase;
+  mDatabase = 0;
 }
 

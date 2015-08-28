@@ -3,8 +3,16 @@
 
 #include <QList>
 
+/**
+ * @brief The CCheckSumList class represents list of file checksum.
+ *
+ * @details @todo dopisać
+ */
 class CCheckSumList {
-	public:
+  public:
+    /**
+     * @brief CCheckSumList constructor.
+     */
 		CCheckSumList();
 		/**
 		 * @brief AddFileCheckSum add new file data checksum
@@ -19,6 +27,13 @@ class CCheckSumList {
 		 */
 		void PopulateCheckSumFromDB();
 
+    /**
+     * @brief CheckFileCheckSum compare checksum in parameter to checksums in server
+     * which we import to list in class CCheckSumList.
+     * @param aCheckSum is checksum we compare to
+     * checksum from server.
+     * @return TRUE if checksum is the same in another in server.
+     */
 		bool CheckFileCheckSum(int aCheckSum);
 
 	private:
