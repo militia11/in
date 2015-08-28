@@ -49,22 +49,6 @@ QString CSettings::GetConnectionString() const {
     return vConnString;
 }
 
-void CSettings::SaveSettings() {
-    QSettings vSetting;
-
-    vSetting.beginGroup("database");
-    vSetting.setValue("driver", "mysql");
-    vSetting.setValue("host", "localhost");
-    vSetting.setValue("user", "mmichniewski");
-    vSetting.setValue("databaseName", "dokumenty");
-    vSetting.setValue("password", "end");
-    vSetting.endGroup();
-
-    vSetting.beginGroup("server");
-    vSetting.setValue("port", "1234");
-    vSetting.endGroup();
-}
-
 //QString CSettings::GetHost() const {
 //		QSettings vSetting;
 //		vSetting.beginGroup("database");

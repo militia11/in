@@ -16,13 +16,12 @@ int main(int argc, char *argv[]) {
 		QApplication::setApplicationName("Android Synchronizator Serwer");
 
 		CSettings vSettings;
-		vSettings.SaveSettings();  /// @todo usunąć na koniec
 		gRepository.SetSettings(vSettings.GetDriver(),
 														vSettings.GetConnectionString());
 
 		CMainWindow vMainWindow;
 		vMainWindow.show();
-		// vMainWindow.ConnectToDatabaseAgain();
+		vMainWindow.ConnectToDatabaseAgain();
 
 		return vApplication.exec();
 }

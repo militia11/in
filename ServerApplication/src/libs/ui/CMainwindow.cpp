@@ -28,13 +28,13 @@ bool CMainWindow::ConnectToDatabaseAgain() {
 		gRepository.Disconnect();
 		gRepository.Connect();
 
-		//	if (gRepository.GetDatabase()) {
-		//		gRepository.PopulateDatabase();
-		//		return true;
-		//	} else {
-		//		DatabaseConnectionSettings();
+			if (gRepository.GetDatabase()) {
+				gRepository.PopulateDatabase();
+				return true;
+			} else {
+				DatabaseConnectionSettings();
 		return false;
-		//	}
+			}
 }
 
 void CMainWindow::closeEvent(QCloseEvent *aEvent) {

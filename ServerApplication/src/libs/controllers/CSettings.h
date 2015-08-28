@@ -31,7 +31,6 @@ class CSettings {
      * @brief SaveSettings method save database settings
      * to configuration file.
      */
-    void SaveSettings();
 };
 
 //    QString GetHost() const;

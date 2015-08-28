@@ -7,13 +7,13 @@ const std::string Document::table__("Document_");
 const std::string Document::sequence__("Document_seq");
 const litesql::FieldType Document::Id("id_",A_field_type_integer,table__);
 const litesql::FieldType Document::Type("type_",A_field_type_string,table__);
-const litesql::FieldType Document::Data("data_",A_field_type_integer,table__);
+const litesql::FieldType Document::Data("data_",A_field_type_blob,table__);
 const litesql::FieldType Document::Checksum("checksum_",A_field_type_integer,table__);
 void Document::initValues() {
 }
 void Document::defaults() {
     id = 0;
-    data = 0;
+    data = Blob();
     checksum = 0;
 }
 Document::Document(const litesql::Database& db)
@@ -27,7 +27,7 @@ Document::Document(const litesql::Database& db, const litesql::Record& rec)
     switch(size) {
     case 4: checksum = convert<const std::string&, int>(rec[3]);
         checksum.setModified(false);
-    case 3: data = convert<const std::string&, int>(rec[2]);
+    case 3: data = convert<const std::string&, litesql::Blob>(rec[2]);
         data.setModified(false);
     case 2: type = convert<const std::string&, std::string>(rec[1]);
         type.setModified(false);
@@ -160,7 +160,7 @@ std::vector<litesql::Database::SchemaItem> AndroidDocDatabase::getSchema() const
     if (backend->supportsSequences()) {
         res.push_back(Database::SchemaItem("Document_seq","sequence",backend->getCreateSequenceSQL("Document_seq")));
     }
-    res.push_back(Database::SchemaItem("Document_","table","CREATE TABLE Document_ (id_ " + rowIdType + ",type_ " + backend->getSQLType(A_field_type_string,"") + "" +",data_ " + backend->getSQLType(A_field_type_integer,"") + "" +",checksum_ " + backend->getSQLType(A_field_type_integer,"") + "" +")"));
+    res.push_back(Database::SchemaItem("Document_","table","CREATE TABLE Document_ (id_ " + rowIdType + ",type_ " + backend->getSQLType(A_field_type_string,"") + "" +",data_ " + backend->getSQLType(A_field_type_blob,"") + "" +",checksum_ " + backend->getSQLType(A_field_type_integer,"") + "" +")"));
     res.push_back(Database::SchemaItem("Document_id_idx","index","CREATE INDEX Document_id_idx ON Document_ (id_)"));
     return res;
 }

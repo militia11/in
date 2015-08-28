@@ -1,5 +1,4 @@
 #include "CAddDocumentToDatabaseTransaction.h"
 
-CAddDocumentToDatabaseTransaction::CAddDocumentToDatabaseTransaction()
-{
+CAddDocumentToDatabaseTransaction::CAddDocumentToDatabaseTransaction() {
 }
