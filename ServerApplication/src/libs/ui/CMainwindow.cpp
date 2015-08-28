@@ -38,7 +38,7 @@ bool CMainWindow::ConnectToDatabaseAgain() {
 }
 
 void CMainWindow::closeEvent(QCloseEvent *aEvent) {
-		//		QString vMessage = "<center>Wszystkie niezapisane zmiany zostaną utracone."
+		//		QString vMessage = "Wszystkie niezapisane zmiany zostaną utracone."
 		//											 "Czy na pewno chcesz zamknąć program?";
 		//		int vAnswerButton = QMessageBox::warning( this, "WARNING", vMessage ,
 		//												QMessageBox::Yes | QMessageBox::No);
@@ -91,30 +91,13 @@ void CMainWindow::StopServer() {
 void CMainWindow::ServerSettings() {
 		CServerSettingsDialog dialog;
 
-		if (dialog.exec() == true ) {
-				// TAK JAK ACCEPTED DZIAŁA
-		}
+		dialog.exec();
 }
 
 void CMainWindow::DatabaseConnectionSettings() {
 		CDatabaseConnectionDialog dialog;
 
-		if (dialog.exec() == QDialog::Accepted ) {
-				QSettings vQSetting;
-				vQSetting.beginGroup("database");
-
-				vQSetting.setValue("host", dialog.GetHost());
-				vQSetting.setValue("user", dialog.GetUser());
-				vQSetting.setValue("databaseName", dialog.GetDatabaseName());
-				vQSetting.setValue("password", dialog.GetPassword());
-				vQSetting.setValue("driver", dialog.GetDriver());
-
-				CSettings vSettings;
-				gRepository.SetSettings(vSettings.GetDriver(),
-																vSettings.GetConnectionString());
-
-				vQSetting.endGroup();
-		}
+		dialog.exec();
 
 		ConnectToDatabaseAgain();
 }

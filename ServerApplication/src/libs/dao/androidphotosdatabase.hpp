@@ -1,9 +1,9 @@
-#ifndef androiddocdatabase_hpp
-#define androiddocdatabase_hpp
+#ifndef androidphotosdatabase_hpp
+#define androidphotosdatabase_hpp
 #include "litesql.hpp"
 namespace server {
-class Document;
-class Document : public litesql::Persistent {
+class Photo;
+class Photo : public litesql::Persistent {
 public:
     class Own {
     public:
@@ -24,10 +24,10 @@ public:
 protected:
     void defaults();
 public:
-    Document(const litesql::Database& db);
-    Document(const litesql::Database& db, const litesql::Record& rec);
-    Document(const Document& obj);
-    const Document& operator=(const Document& obj);
+    Photo(const litesql::Database& db);
+    Photo(const litesql::Database& db, const litesql::Record& rec);
+    Photo(const Photo& obj);
+    const Photo& operator=(const Photo& obj);
 protected:
     std::string insert(litesql::Record& tables, litesql::Records& fieldRecs, litesql::Records& valueRecs);
     void create();
@@ -42,13 +42,13 @@ public:
     virtual void update();
     virtual void del();
     virtual bool typeIsCorrect() const;
-    std::auto_ptr<Document> upcast() const;
-    std::auto_ptr<Document> upcastCopy() const;
+    std::auto_ptr<Photo> upcast() const;
+    std::auto_ptr<Photo> upcastCopy() const;
 };
-std::ostream & operator<<(std::ostream& os, Document o);
-class AndroidDocDatabase : public litesql::Database {
+std::ostream & operator<<(std::ostream& os, Photo o);
+class AndroidPhotosDatabase : public litesql::Database {
 public:
-    AndroidDocDatabase(std::string backendType, std::string connInfo);
+    AndroidPhotosDatabase(std::string backendType, std::string connInfo);
 protected:
     virtual std::vector<litesql::Database::SchemaItem> getSchema() const;
     static void initialize();

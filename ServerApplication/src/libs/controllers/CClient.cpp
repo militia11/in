@@ -34,6 +34,8 @@ void CClient::Connect(QTcpSocket *aSocket) {
 				mDataSize = new qint32(0);
 				mReceiveBuffer = new QByteArray();
 
+				CAddToDBTransaction tr;
+				tr.Execute();
 				ConnectSocketSignals();
 
 		} else {

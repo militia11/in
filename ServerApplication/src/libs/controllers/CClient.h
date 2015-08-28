@@ -3,6 +3,8 @@
 
 #include "libs/dao/CCheckSumList.h"
 
+#include "libs/controllers/CAddToDBTransaction.h"
+
 #include <inttypes.h> //uint_t* and int_t* types
 #include <QTcpSocket>
 #include <QObject>
@@ -152,7 +154,6 @@ class CClient : public QObject {
     int mReceiveByteCnt;
     int mReceiveFrameNOKCnt;
 		int mReceiveFrameFaultCnt;
-
 };
 
 #endif // CCLIENT_H

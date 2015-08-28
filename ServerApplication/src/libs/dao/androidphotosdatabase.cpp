@@ -1,26 +1,26 @@
-#include "androiddocdatabase.hpp"
+#include "androidphotosdatabase.hpp"
 namespace server {
 using namespace litesql;
-const litesql::FieldType Document::Own::Id("id_",A_field_type_integer,"Document_");
-const std::string Document::type__("Document");
-const std::string Document::table__("Document_");
-const std::string Document::sequence__("Document_seq");
-const litesql::FieldType Document::Id("id_",A_field_type_integer,table__);
-const litesql::FieldType Document::Type("type_",A_field_type_string,table__);
-const litesql::FieldType Document::Data("data_",A_field_type_blob,table__);
-const litesql::FieldType Document::Checksum("checksum_",A_field_type_integer,table__);
-void Document::initValues() {
+const litesql::FieldType Photo::Own::Id("id_",A_field_type_integer,"Photo_");
+const std::string Photo::type__("Photo");
+const std::string Photo::table__("Photo_");
+const std::string Photo::sequence__("Photo_seq");
+const litesql::FieldType Photo::Id("id_",A_field_type_integer,table__);
+const litesql::FieldType Photo::Type("type_",A_field_type_string,table__);
+const litesql::FieldType Photo::Data("data_",A_field_type_blob,table__);
+const litesql::FieldType Photo::Checksum("checksum_",A_field_type_integer,table__);
+void Photo::initValues() {
 }
-void Document::defaults() {
+void Photo::defaults() {
     id = 0;
     data = Blob();
     checksum = 0;
 }
-Document::Document(const litesql::Database& db)
+Photo::Photo(const litesql::Database& db)
      : litesql::Persistent(db), id(Id), type(Type), data(Data), checksum(Checksum) {
     defaults();
 }
-Document::Document(const litesql::Database& db, const litesql::Record& rec)
+Photo::Photo(const litesql::Database& db, const litesql::Record& rec)
      : litesql::Persistent(db, rec), id(Id), type(Type), data(Data), checksum(Checksum) {
     defaults();
     size_t size = (rec.size() > 4) ? 4 : rec.size();
@@ -35,10 +35,10 @@ Document::Document(const litesql::Database& db, const litesql::Record& rec)
         id.setModified(false);
     }
 }
-Document::Document(const Document& obj)
+Photo::Photo(const Photo& obj)
      : litesql::Persistent(obj), id(obj.id), type(obj.type), data(obj.data), checksum(obj.checksum) {
 }
-const Document& Document::operator=(const Document& obj) {
+const Photo& Photo::operator=(const Photo& obj) {
     if (this != &obj) {
         id = obj.id;
         type = obj.type;
@@ -48,7 +48,7 @@ const Document& Document::operator=(const Document& obj) {
     litesql::Persistent::operator=(obj);
     return *this;
 }
-std::string Document::insert(litesql::Record& tables, litesql::Records& fieldRecs, litesql::Records& valueRecs) {
+std::string Photo::insert(litesql::Record& tables, litesql::Records& fieldRecs, litesql::Records& valueRecs) {
     tables.push_back(table__);
     litesql::Record fields;
     litesql::Record values;
@@ -68,7 +68,7 @@ std::string Document::insert(litesql::Record& tables, litesql::Records& fieldRec
     valueRecs.push_back(values);
     return litesql::Persistent::insert(tables, fieldRecs, valueRecs, sequence__);
 }
-void Document::create() {
+void Photo::create() {
     litesql::Record tables;
     litesql::Records fieldRecs;
     litesql::Records valueRecs;
@@ -77,27 +77,27 @@ void Document::create() {
     if (id == 0)
         id = newID;
 }
-void Document::addUpdates(Updates& updates) {
+void Photo::addUpdates(Updates& updates) {
     prepareUpdate(updates, table__);
     updateField(updates, table__, id);
     updateField(updates, table__, type);
     updateField(updates, table__, data);
     updateField(updates, table__, checksum);
 }
-void Document::addIDUpdates(Updates& updates) {
+void Photo::addIDUpdates(Updates& updates) {
 }
-void Document::getFieldTypes(std::vector<litesql::FieldType>& ftypes) {
+void Photo::getFieldTypes(std::vector<litesql::FieldType>& ftypes) {
     ftypes.push_back(Id);
     ftypes.push_back(Type);
     ftypes.push_back(Data);
     ftypes.push_back(Checksum);
 }
-void Document::delRecord() {
+void Photo::delRecord() {
     deleteFromTable(table__, id);
 }
-void Document::delRelations() {
+void Photo::delRelations() {
 }
-void Document::update() {
+void Photo::update() {
     if (!inDatabase) {
         create();
         return;
@@ -111,9 +111,9 @@ void Document::update() {
     litesql::Persistent::update(updates);
     oldKey = id;
 }
-void Document::del() {
+void Photo::del() {
     if (!typeIsCorrect()) {
-        std::auto_ptr<Document> p(upcastCopy());
+        std::auto_ptr<Photo> p(upcastCopy());
         p->delRelations();
         p->onDelete();
         p->delRecord();
@@ -124,22 +124,22 @@ void Document::del() {
     }
     inDatabase = false;
 }
-bool Document::typeIsCorrect() const {
+bool Photo::typeIsCorrect() const {
     return type == type__;
 }
-std::auto_ptr<Document> Document::upcast() const {
-    return auto_ptr<Document>(new Document(*this));
+std::auto_ptr<Photo> Photo::upcast() const {
+    return auto_ptr<Photo>(new Photo(*this));
 }
-std::auto_ptr<Document> Document::upcastCopy() const {
-    Document* np = new Document(*this);
+std::auto_ptr<Photo> Photo::upcastCopy() const {
+    Photo* np = new Photo(*this);
     np->id = id;
     np->type = type;
     np->data = data;
     np->checksum = checksum;
     np->inDatabase = inDatabase;
-    return auto_ptr<Document>(np);
+    return auto_ptr<Photo>(np);
 }
-std::ostream & operator<<(std::ostream& os, Document o) {
+std::ostream & operator<<(std::ostream& os, Photo o) {
     os << "-------------------------------------" << std::endl;
     os << o.id.name() << " = " << o.id << std::endl;
     os << o.type.name() << " = " << o.type << std::endl;
@@ -148,23 +148,23 @@ std::ostream & operator<<(std::ostream& os, Document o) {
     os << "-------------------------------------" << std::endl;
     return os;
 }
-AndroidDocDatabase::AndroidDocDatabase(std::string backendType, std::string connInfo)
+AndroidPhotosDatabase::AndroidPhotosDatabase(std::string backendType, std::string connInfo)
      : litesql::Database(backendType, connInfo) {
     initialize();
 }
-std::vector<litesql::Database::SchemaItem> AndroidDocDatabase::getSchema() const {
+std::vector<litesql::Database::SchemaItem> AndroidPhotosDatabase::getSchema() const {
     vector<Database::SchemaItem> res;
     string TEXT = backend->getSQLType(A_field_type_string);
     string rowIdType = backend->getRowIDType();
     res.push_back(Database::SchemaItem("schema_","table","CREATE TABLE schema_ (name_ "+TEXT+", type_ "+TEXT+", sql_ "+TEXT+")"));
     if (backend->supportsSequences()) {
-        res.push_back(Database::SchemaItem("Document_seq","sequence",backend->getCreateSequenceSQL("Document_seq")));
+        res.push_back(Database::SchemaItem("Photo_seq","sequence",backend->getCreateSequenceSQL("Photo_seq")));
     }
-    res.push_back(Database::SchemaItem("Document_","table","CREATE TABLE Document_ (id_ " + rowIdType + ",type_ " + backend->getSQLType(A_field_type_string,"") + "" +",data_ " + backend->getSQLType(A_field_type_blob,"") + "" +",checksum_ " + backend->getSQLType(A_field_type_integer,"") + "" +")"));
-    res.push_back(Database::SchemaItem("Document_id_idx","index","CREATE INDEX Document_id_idx ON Document_ (id_)"));
+    res.push_back(Database::SchemaItem("Photo_","table","CREATE TABLE Photo_ (id_ " + rowIdType + ",type_ " + backend->getSQLType(A_field_type_string,"") + "" +",data_ " + backend->getSQLType(A_field_type_blob,"") + "" +",checksum_ " + backend->getSQLType(A_field_type_integer,"") + "" +")"));
+    res.push_back(Database::SchemaItem("Photo_id_idx","index","CREATE INDEX Photo_id_idx ON Photo_ (id_)"));
     return res;
 }
-void AndroidDocDatabase::initialize() {
+void AndroidPhotosDatabase::initialize() {
     static bool initialized = false;
     if (initialized)
         return;

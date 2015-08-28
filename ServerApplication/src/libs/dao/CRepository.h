@@ -3,7 +3,7 @@
 
 #include "libs/controllers/CSettings.h"
 
-#include <libs/dao/androiddocdatabase.hpp>
+#include <libs/dao/androidphotosdatabase.hpp>
 
 #include <litesql.hpp>
 
@@ -41,10 +41,10 @@ class CRepository {
      * @brief GetDatabase method is getter to
      * database connection object.
      *
-		 * @return server::AndroidDocDatabase is pointer to
+		 * @return server::AndroidPhotosDatabase is pointer to
      * the actual database.
      */
-		server::AndroidDocDatabase *GetDatabase();
+		server::AndroidPhotosDatabase *GetDatabase();
 
     /**
      * @brief Method create database tables.
@@ -67,14 +67,10 @@ class CRepository {
     /**
      * @brief mDatabase represent database connection object.
      */
-		server::AndroidDocDatabase *mDatabase;
+		server::AndroidPhotosDatabase *mDatabase;
     QString mDriver;
     QString mConnectionString;
     //QJakisTableModel *mModel;
-//    QString mHost;
-//    QString mDatabaseName;
-//    QString mUser;
-//    QString mPassword;
 };
 
 #endif // CREPOSITORY_H

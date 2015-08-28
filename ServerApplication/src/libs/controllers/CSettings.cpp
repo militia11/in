@@ -48,39 +48,3 @@ QString CSettings::GetConnectionString() const {
     vSetting.endGroup();
     return vConnString;
 }
-
-//QString CSettings::GetHost() const {
-//		QSettings vSetting;
-//		vSetting.beginGroup("database");
-//		QString driver = vSetting.value("host").toString();
-//		vSetting.endGroup();
-
-//		return driver;
-//}
-
-//QString CSettings::GetDatabaseName() const {
-//		QSettings vSetting;
-//		vSetting.beginGroup("database");
-//		QString vDriver = vSetting.value("databaseName").toString();
-//		vSetting.endGroup();
-
-//		return vDriver;
-//}
-
-//QString CSettings::GetUser() const {
-//		QSettings vSetting;
-//		vSetting.beginGroup("database");
-//		QString vDriver = vSetting.value("user").toString();
-//		vSetting.endGroup();
-
-//		return vDriver;
-//}
-
-//QString CSettings::GetPassword() const {
-//		QSettings vSetting;
-//		vSetting.beginGroup("database");
-//		QString driver = vSetting.value("password").toString();
-//		vSetting.endGroup();
-
-//		return driver;
-//}

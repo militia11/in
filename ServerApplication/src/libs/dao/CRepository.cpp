@@ -6,7 +6,7 @@
 
 CRepository gRepository;
 
-using namespace server;
+using server::AndroidPhotosDatabase;
 //Model gModel;
 
 CRepository::CRepository()   { //: mDatabase(0)
@@ -34,25 +34,15 @@ void CRepository::Refresh() { //QString nazwa jak wiele
   //   }
 
   //   ModelKlienci *modelKlienci = dynamic_cast<ModelKlienci *>(modelAbstrakcyjny);
-
-  //   if (modelKlienci) {
-  //     modelKlienci->odswiez();
-  //   }
-
-  //   ModelRejestr *modelRejestr = dynamic_cast<ModelRejestr *>(modelAbstrakcyjny);
-
-  //   if (modelRejestr) {
-  //     modelRejestr->odswiez();
-  //   }
 }
 
-server::AndroidDocDatabase *CRepository::GetDatabase() { //const //wyproboj
+AndroidPhotosDatabase *CRepository::GetDatabase() { //const //wyproboj
   return mDatabase;
 }
 
 void CRepository::Connect() {
   try {
-		mDatabase = new server::AndroidDocDatabase(mDriver.toStdString(),
+		mDatabase = new server::AndroidPhotosDatabase(mDriver.toStdString(),
 																		 mConnectionString.toStdString());
     PopulateDatabase();
     Refresh();

@@ -4,9 +4,10 @@
 #
 #-------------------------------------------------
 
-QT       += network testlib
+include(../../../../../../AutogenerowanePoprawka.pri)
+include(../../../../../../BibliotekiLinkowanie.pri)
 
-QT       -= gui
+QT       += network testlib gui
 
 TARGET = tst_TestListeningSpecifyPort
 CONFIG   += console

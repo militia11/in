@@ -5,9 +5,9 @@
 #-------------------------------------------------
 
 include(../../../../AutogenerowanePoprawka.pri)
+include(../../../../BibliotekiLinkowanie.pri)
 
-QT       -= gui
-QT       += network core
+QT       += network core gui
 
 TARGET = controllers
 TEMPLATE = lib
@@ -19,12 +19,15 @@ HEADERS += \
     CClient.h \
     CServer.h \
     CSettings.h \
-    CAddDocumentToDatabaseTransaction.h
+    CAddToDBTransaction.h \
+    CTransaction.h \
+    CRetrieveFromDBTransaction.h
 
 SOURCES += \
     CClient.cpp \
     CServer.cpp \
     CSettings.cpp \
-    CAddDocumentToDatabaseTransaction.cpp
+    CAddToDBTransaction.cpp \
+    CRetrieveFromDBTransaction.cpp
 
 CONFIG += c++11

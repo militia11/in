@@ -4,9 +4,10 @@
 #
 #-------------------------------------------------
 
-QT       += network testlib
+QT       += network testlib gui
 
-QT       -= gui
+include(../../../../../../AutogenerowanePoprawka.pri)
+include(../../../../../../BibliotekiLinkowanie.pri)
 
 TARGET = tst_TestExpectListeningFail
 CONFIG   += console
@@ -20,6 +21,7 @@ SOURCES += tst_TestExpectListeningFail.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 INCLUDEPATH += ../../../../../src
+
 LIBS += -L../../../../../src/libs/ui -lui
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
 LIBS += -L../../../../../src/libs/dao -ldao

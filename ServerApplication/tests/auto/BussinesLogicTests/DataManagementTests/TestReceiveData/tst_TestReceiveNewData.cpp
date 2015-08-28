@@ -1,7 +1,7 @@
 #include <QString>
 #include <QtTest>
 
-//#include <libs/dao/androiddocdatabase.hpp>
+#include <libs/dao/androidphotosdatabase.hpp>
 
 #include "libs/controllers/CClient.h"
 

@@ -26,15 +26,5 @@ class CSettings {
      * @return QString of connection parameter.
      */
     QString GetConnectionString() const;
-
-    /**
-     * @brief SaveSettings method save database settings
-     * to configuration file.
-     */
 };
-
-//    QString GetHost() const;
-//    QString GetDatabaseName() const;
-//    QString GetUser() const;
-//    QString GetPassword() const;
 #endif // CSETTINGS_H
