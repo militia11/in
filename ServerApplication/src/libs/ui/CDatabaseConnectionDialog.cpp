@@ -18,9 +18,8 @@ CDatabaseConnectionDialog::CDatabaseConnectionDialog(QWidget *aParent) :
 		ui->mComboBoxDriver->setCurrentText("");
 
 		CSettings vSettings;
-		gRepository.SetSettings(vSettings.GetDriver(), vSettings.GetHost(),
-														vSettings.GetDatabaseName(),
-														vSettings.GetDatabaseName(), vSettings.GetPassword());
+		gRepository.SetSettings(vSettings.GetDriver(),
+														vSettings.GetConnectionString());
 		UpdateSettings();
 }
 
@@ -33,9 +32,8 @@ void CDatabaseConnectionDialog::on_mButtonBoxOkCancel_accepted() {
 		SaveSettings();
 
 		CSettings vSettings;
-		gRepository.SetSettings(vSettings.GetDriver(), vSettings.GetHost(),
-														vSettings.GetDatabaseName(), vSettings.GetUser(), vSettings.GetPassword());
-
+		gRepository.SetSettings(vSettings.GetDriver(),
+														vSettings.GetConnectionString());
 		accept();
 }
 

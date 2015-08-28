@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!DOCTYPE database SYSTEM "litesql.dtd"> 
+<database name="AndroidDocDatabase" namespace="server">
+    <object name="Document">
+        <field name="data" type="integer" />
+	<field name="checksum" type="integer" />
+    </object>
+</database>

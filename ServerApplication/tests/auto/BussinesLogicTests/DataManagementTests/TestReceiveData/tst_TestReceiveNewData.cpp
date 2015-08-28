@@ -1,6 +1,8 @@
 #include <QString>
 #include <QtTest>
 
+//#include <libs/dao/androiddocdatabase.hpp>
+
 #include "libs/controllers/CClient.h"
 
 class TestReceiveNewData : public QObject {

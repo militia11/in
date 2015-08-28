@@ -10,7 +10,7 @@ TARGET = share
 TEMPLATE = lib
 CONFIG += staticlib
 
-OTHER_FILES += \
-    Schronisko.qxee
-
 CONFIG += c++11
+
+OTHER_FILES += \
+    AndroidDocDatabase.xml

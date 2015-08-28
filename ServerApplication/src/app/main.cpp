@@ -17,9 +17,8 @@ int main(int argc, char *argv[]) {
 
 		CSettings vSettings;
 		vSettings.SaveSettings();  /// @todo usunąć na koniec
-		gRepository.SetSettings(vSettings.GetDriver(), vSettings.GetHost(),
-														vSettings.GetDatabaseName(),
-														vSettings.GetDatabaseName(), vSettings.GetPassword());
+		gRepository.SetSettings(vSettings.GetDriver(),
+														vSettings.GetConnectionString());
 
 		CMainWindow vMainWindow;
 		vMainWindow.show();

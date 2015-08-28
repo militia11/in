@@ -46,14 +46,14 @@ void CRepository::Refresh() { //QString nazwa jak wiele
   //   }
 }
 
-server::database *CRepository::GetDatabase() { //const //wyproboj
+server::AndroidDocDatabase *CRepository::GetDatabase() { //const //wyproboj
   return mDatabase;
 }
 
 void CRepository::Connect() {
   try {
-    mDatabase = new server::database(driver.toStdString(),
-                                     connectionString.toStdString());
+		mDatabase = new server::AndroidDocDatabase(mDriver.toStdString(),
+																		 mConnectionString.toStdString());
     PopulateDatabase();
     Refresh();
 

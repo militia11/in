@@ -3,6 +3,8 @@
 
 #include "libs/controllers/CSettings.h"
 
+#include <libs/dao/androiddocdatabase.hpp>
+
 #include <litesql.hpp>
 
 #include <QAbstractTableModel>
@@ -39,10 +41,10 @@ class CRepository {
      * @brief GetDatabase method is getter to
      * database connection object.
      *
-     * @return server::database is pointer to
+		 * @return server::AndroidDocDatabase is pointer to
      * the actual database.
      */
-    server::database *GetDatabase();
+		server::AndroidDocDatabase *GetDatabase();
 
     /**
      * @brief Method create database tables.
@@ -65,7 +67,7 @@ class CRepository {
     /**
      * @brief mDatabase represent database connection object.
      */
-    server::database *mDatabase;
+		server::AndroidDocDatabase *mDatabase;
     QString mDriver;
     QString mConnectionString;
     //QJakisTableModel *mModel;

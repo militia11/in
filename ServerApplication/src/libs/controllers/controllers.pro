@@ -18,11 +18,13 @@ INCLUDEPATH += ../..
 HEADERS += \
     CClient.h \
     CServer.h \
-    CSettings.h
+    CSettings.h \
+    CAddDocumentToDatabaseTransaction.h
 
 SOURCES += \
     CClient.cpp \
     CServer.cpp \
-    CSettings.cpp
+    CSettings.cpp \
+    CAddDocumentToDatabaseTransaction.cpp
 
 CONFIG += c++11
