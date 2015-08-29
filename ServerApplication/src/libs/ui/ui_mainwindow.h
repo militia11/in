@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
@@ -36,6 +37,7 @@ public:
     QWidget *mentralwidget;
     QTextEdit *mTextEdit;
     QListWidget *mListWidget;
+    QLabel *mImageLabel;
     QMenuBar *mMenubar;
     QMenu *menuPlik;
     QMenu *menuUstawienia;
@@ -48,7 +50,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(622, 285);
+        MainWindow->resize(622, 549);
         ActionRunServer = new QAction(MainWindow);
         ActionRunServer->setObjectName(QStringLiteral("ActionRunServer"));
         ActionRunServer->setCheckable(true);
@@ -65,10 +67,14 @@ public:
         mentralwidget->setObjectName(QStringLiteral("mentralwidget"));
         mTextEdit = new QTextEdit(mentralwidget);
         mTextEdit->setObjectName(QStringLiteral("mTextEdit"));
-        mTextEdit->setGeometry(QRect(350, 20, 201, 141));
+        mTextEdit->setGeometry(QRect(350, 20, 201, 121));
         mListWidget = new QListWidget(mentralwidget);
         mListWidget->setObjectName(QStringLiteral("mListWidget"));
-        mListWidget->setGeometry(QRect(10, 20, 321, 141));
+        mListWidget->setGeometry(QRect(10, 20, 321, 121));
+        mImageLabel = new QLabel(mentralwidget);
+        mImageLabel->setObjectName(QStringLiteral("mImageLabel"));
+        mImageLabel->setGeometry(QRect(16, 156, 531, 261));
+        mImageLabel->setScaledContents(true);
         MainWindow->setCentralWidget(mentralwidget);
         mMenubar = new QMenuBar(MainWindow);
         mMenubar->setObjectName(QStringLiteral("mMenubar"));
@@ -137,6 +143,7 @@ public:
         ActionStopServer->setToolTip(QApplication::translate("MainWindow", "Zastopuj serwer. Przerwij nas\305\202uchiwanie", 0));
 #endif // QT_NO_TOOLTIP
         ActionStopServer->setShortcut(QApplication::translate("MainWindow", "Ctrl+X", 0));
+        mImageLabel->setText(QString());
         menuPlik->setTitle(QApplication::translate("MainWindow", "Plik", 0));
         menuUstawienia->setTitle(QApplication::translate("MainWindow", "Ustawienia", 0));
         menuSerwer->setTitle(QApplication::translate("MainWindow", "Serwer", 0));

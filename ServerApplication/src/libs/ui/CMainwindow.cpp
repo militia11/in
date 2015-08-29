@@ -5,6 +5,8 @@
 
 #include "CDatabaseConnectionDialog.h"
 #include "CServerSettingsDialog.h"
+#include <QImage>
+#include <QImageReader>
 
 extern CRepository gRepository;
 
@@ -28,13 +30,13 @@ bool CMainWindow::ConnectToDatabaseAgain() {
 		gRepository.Disconnect();
 		gRepository.Connect();
 
-			if (gRepository.GetDatabase()) {
+		if (gRepository.GetDatabase()) {
 				gRepository.PopulateDatabase();
 				return true;
-			} else {
+		} else {
 				DatabaseConnectionSettings();
-		return false;
-			}
+				return false;
+		}
 }
 
 void CMainWindow::closeEvent(QCloseEvent *aEvent) {
@@ -50,8 +52,20 @@ void CMainWindow::closeEvent(QCloseEvent *aEvent) {
 		//		}
 }
 void CMainWindow::DisplayData(QByteArray aData) {
-    ui->mListWidget->insertItem(0, aData);
-    ui->mTextEdit->setText(aData);
+
+	QBuffer buffer(&aData);
+	qDebug() << buffer.size() << "buuuuuuuf";
+	buffer.open( QIODevice::ReadOnly );
+	QImageReader reader(&buffer, "JPEG");
+	QImage vImage = reader.read();
+
+		ui->mImageLabel->setPixmap(
+				QPixmap::fromImage(vImage));
+				//		QPixmap::fromImage(
+				//        images.getImage( imageIds[ currentImage ] ) ) );
+
+				ui->mListWidget->insertItem(0, aData);
+				ui->mTextEdit->setText(aData);
 }
 
 void CMainWindow::ClientConnected() {

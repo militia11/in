@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>622</width>
-    <height>285</height>
+    <height>549</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>350</x>
       <y>20</y>
       <width>201</width>
-      <height>141</height>
+      <height>121</height>
      </rect>
     </property>
    </widget>
@@ -30,8 +30,24 @@
       <x>10</x>
       <y>20</y>
       <width>321</width>
-      <height>141</height>
+      <height>121</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="mImageLabel">
+    <property name="geometry">
+     <rect>
+      <x>16</x>
+      <y>156</y>
+      <width>531</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
