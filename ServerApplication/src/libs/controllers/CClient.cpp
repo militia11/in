@@ -34,8 +34,6 @@ void CClient::Connect(QTcpSocket *aSocket) {
 				mDataSize = new qint32(0);
 				mReceiveBuffer = new QByteArray();
 
-				CAddToDBTransaction tr;
-				tr.Execute();
 				ConnectSocketSignals();
 
 		} else {
@@ -193,8 +191,10 @@ void CClient::ServeFileData() {
 						vCurrentSize = 0;
 						*mDataSize = vCurrentSize;
 
-						qDebug() << "suma:" <<	CalculateFileDataChecksum(vData);
-            // porównać z sumą w kliencie zrobioną !!!!!!
+						u_int8_t vChecksum =	CalculateFileDataChecksum(vData);
+
+						CAddToDBTransaction tr(vData, vChecksum);
+						tr.Execute();
 
 						QFile vFile("/home/mmichniewski/b.txt");//pobranyPies.jpg");
 

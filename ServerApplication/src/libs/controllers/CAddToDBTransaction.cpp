@@ -1,30 +1,48 @@
 #include "CAddToDBTransaction.h"
 #include "libs/dao/CRepository.h"
 
-#include <QBuffer>
 #include <QImageWriter>
+#include <QImageReader>
 #include <QImage>
-
+#include <QDebug>
 using server::AndroidPhotosDatabase;
 using server::Photo;
 
 extern CRepository gRepository;
 
-CAddToDBTransaction::CAddToDBTransaction() :
-		mChecksum(0) {
+CAddToDBTransaction::CAddToDBTransaction(QByteArray aData, int aChecksum) :
+		mData(aData),
+		mChecksum(aChecksum) {
 }
 
 void CAddToDBTransaction::Execute() {
 
-		QImage vImage; // from data load
+		QImage vImage = QImage ("/home/mmichniewski/pies.jpg", "JPG"); // from data load
 		QBuffer vBuffer;
+
 		QImageWriter vWriter(&vBuffer, "JPG");
 		vWriter.write(vImage);
+		 qDebug() << vImage.size() <<"im1";
+
+		QByteArray tab = vBuffer.data();
+		qDebug() << tab.size() <<"tab";
+
+		QBuffer buffer(&tab);
+		buffer.open( QIODevice::ReadOnly );
+		QImageReader reader(&buffer, "JPG");
+		QImage image = reader.read();
+
+		qDebug() << image.size() <<"im2";
 
 		server::AndroidPhotosDatabase *mDatabase  = gRepository.GetDatabase();
-
 		Photo vPhoto(*mDatabase);
-		vPhoto.checksum = 3; //mChecksum
+		vPhoto.checksum = mChecksum; //mChecksum
+		std::string stdString(tab.constData(), tab.length());
+		vPhoto.data = stdString ;
+		//QString temp = QString::number(mData.toInt());
+		//const std::string aa = "sas";
+		//qDebug() << QString::fromStdString(aa);
+		 // temp.toStdString();//.to//imie.toUtf8(); toUtf8().constData();
 		vPhoto.update();
 
 		//	model->odswiez();
