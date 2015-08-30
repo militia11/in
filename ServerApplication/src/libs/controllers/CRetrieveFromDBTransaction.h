@@ -2,6 +2,9 @@
 #define CRETRIEVEFROMDBTRANSACTION_H
 
 #include"libs/controllers/CTransaction.h"
+
+#include "libs/dao/androidphotosdatabase.hpp"
+
 #include <QByteArray>
 
 using server::Photo;

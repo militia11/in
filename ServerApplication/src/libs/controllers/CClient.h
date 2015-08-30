@@ -1,7 +1,7 @@
 #ifndef CCLIENT_H
 #define CCLIENT_H
 
-#include "libs/dao/CCheckSumList.h"
+#include "libs/dao/CChecksumList.h"
 
 #include "libs/controllers/CAddToDBTransaction.h"
 #include "libs/controllers/CRetrieveFromDBTransaction.h"
@@ -97,13 +97,13 @@ class CClient : public QObject {
     void Disconnected();
 
 	private:
-    int ConverMessageArraytToInt();
+		int ConverMessageArraytToInt();
 
 		/**
 		 * @brief ServeFileData serve file data.
 		 *  from incoming connection.
 		 */
-		void ServeFileData();
+		void ServeReceivedFileData();
 
     int32_t ByteArrayToInt(QByteArray aData);
 

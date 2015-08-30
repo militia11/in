@@ -14,7 +14,8 @@ using litesql::Blob;
 
 extern CRepository gRepository;
 
-CAddToDBTransaction::CAddToDBTransaction(QByteArray aData, int aDataSize, int aChecksum) :
+CAddToDBTransaction::CAddToDBTransaction(QByteArray aData, int aDataSize,
+				int aChecksum) :
 		mData(aData),
 		mDataSize(aDataSize),
 		mChecksum(aChecksum) {
@@ -23,19 +24,21 @@ CAddToDBTransaction::CAddToDBTransaction(QByteArray aData, int aDataSize, int aC
 void CAddToDBTransaction::Execute() {
 		server::AndroidPhotosDatabase *mDatabase  = gRepository.GetDatabase();
 
-		Photo vPhoto(*mDatabase);
+		Photo *vPhoto = new Photo(*mDatabase);
 
-        SetAtributtes(vPhoto);
+		SetAtributtesAddToDB(vPhoto);
 
-		vPhoto.update();
-        //	model->odswiez();
+		vPhoto->update();
+
+		delete vPhoto;
+		//	model->odswiez();
 }
 
-void CAddToDBTransaction::SetAtributtes(server::Photo aPhoto) {
-    aPhoto.checksum = mChecksum;
-    aPhoto.datasize = mDataSize;
+void CAddToDBTransaction::SetAtributtesAddToDB(server::Photo *aPhoto) {
+		aPhoto->checksum = mChecksum;
+		aPhoto->datasize = mDataSize;
 
     const char *vDataChar = mData.constData();
     Blob vDataIn(vDataChar, mDataSize);
-    aPhoto.data = vDataIn;
+		aPhoto->data = vDataIn;
 }

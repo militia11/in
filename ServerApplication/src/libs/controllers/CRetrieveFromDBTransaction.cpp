@@ -1,7 +1,6 @@
 #include "CRetrieveFromDBTransaction.h"
 
 #include <litesql.hpp>
-#include "libs/dao/androidphotosdatabase.hpp"
 
 #include "libs/dao/CRepository.h"
 

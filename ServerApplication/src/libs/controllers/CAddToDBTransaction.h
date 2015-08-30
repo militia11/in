@@ -15,8 +15,8 @@ class CAddToDBTransaction : public CTransaction {
 		CAddToDBTransaction(QByteArray aData, int aDataSize, int aChecksum);
 		void Execute();
 
-    private:
-        void SetAtributtes(Photo aPhoto);
+	private:
+		void SetAtributtesAddToDB(server::Photo *aPhoto);
 
 		QByteArray mData;
 		int mDataSize;

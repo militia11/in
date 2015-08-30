@@ -1,26 +1,62 @@
-#include "CCheckSumList.h"
+#include "CChecksumList.h"
 
-CChecksumList gChecksumList;
+#include "libs/dao/CRepository.h"
+
+#include <litesql.hpp>
+
+#include "libs/dao/androidphotosdatabase.hpp"
+
+#include <vector>
+
+#include <QDebug>
+
+using server::AndroidPhotosDatabase;
+using server::Photo;
+
+extern CRepository gRepository;
+
+using namespace litesql;
 
 CChecksumList::CChecksumList() {
-		// sztucznie wypełniona narazie
-        mChecksumList.append(183);
+		ReceiveChecksumsFromDB();
 }
 
 void CChecksumList::AddFileChecksum(int aChecksum) {
-        mChecksumList.append(aChecksum);
+		mChecksumList.append(aChecksum);
 }
 
-void CChecksumList::PopulateChecksumFromDB() {
-		/// @todo
+void CChecksumList::ReceiveChecksumsFromDB() {
+		server::AndroidPhotosDatabase *vDatabase  = gRepository.GetDatabase();
+
+		if (vDatabase) {
+				std::vector<Photo> vPhotosDatabase;
+
+				vPhotosDatabase = select<Photo>(*vDatabase).all();
+
+				for (std::vector<Photo>::iterator vIt = vPhotosDatabase.begin();
+								vIt != vPhotosDatabase.end(); ++vIt) {
+						mChecksumList.append((*vIt).checksum.value());
+				}
+		}
 }
-bool CChecksumList::CheckFileChecksum(int aCheckSum) {
-        for (QList<int>::iterator vIter = mChecksumList.begin();
-                        vIter != mChecksumList.end(); ++vIter) {
-                if (aChecksum == *vIter) {
+bool CChecksumList::CheckFileChecksum(int aChecksum) {
+		for (QList<int>::iterator vIter = mChecksumList.begin();
+						vIter != mChecksumList.end(); ++vIter) {
+				if (aChecksum == *vIter) {
 						return true;
 				}
 		}
 
 		return false;
+}
+
+void CChecksumList::DisplayChecksum() {
+		qDebug() << "aChecksum";
+		foreach (int aChecksum, mChecksumList) {
+				qDebug() << aChecksum;
+		}
+}
+
+void CChecksumList::Clear() {
+		mChecksumList.clear();
 }

@@ -4,7 +4,7 @@
 
 #include "libs/dao/CRepository.h"
 #include "libs/controllers/CSettings.h"
-#include "libs/dao/CCheckSumList.h"
+#include "libs/dao/CChecksumList.h"
 
 extern CRepository gRepository;
 

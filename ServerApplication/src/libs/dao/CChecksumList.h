@@ -13,19 +13,19 @@ class CChecksumList {
     /**
      * @brief CChecksumList constructor.
      */
-        CChecksumList();
+		CChecksumList();
 		/**
-         * @brief AddFileChecksum add new file data checksum
+		 * @brief AddFileChecksum add new file data checksum
 		 * to checksum list.
-         * @param aChecksum is new checksum value.
+		 * @param aChecksum is new checksum value.
 		 */
-        void AddFileChecksum(int aChecksum);
+		void AddFileChecksum(int aChecksum);
 
 		/**
-         * @brief PopulateChecksumFromDB function add checksum file list
+		 * @brief PopulateChecksumFromDB function add checksum file list
 		 * of actually server files.
 		 */
-        void PopulateChecksumFromDB();
+		void ReceiveChecksumsFromDB();
 
     /**
      * @brief CheckFileCheckSum compare checksum in parameter to checksums in server
@@ -34,10 +34,13 @@ class CChecksumList {
      * checksum from server.
      * @return TRUE if checksum is the same in another in server.
      */
-		bool CheckFileChecksum(int aCheckSum);
+		bool CheckFileChecksum(int aChecksum);
 
+		void DisplayChecksum();
+
+		void Clear();
 	private:
-        QList<int> mChecksumList;
+		QList<int> mChecksumList;
 };
 
 #endif // CCHECKSUMLIST_H
