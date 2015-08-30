@@ -119,25 +119,8 @@ void CClient::ServeReceivedMessage() {
 				++mReceiveFrameNOKCnt;
 				return;
 		}
-
-		// wyodrębnienie liczyby-stringa z tablicy i konwersja na int
-		// wersja 1:
-		QString vNumAsString;
-
-		for (int i = 0; i < mMessageSize; i++) {
-				if (isdigit(mMessageClntFileChecksum[i])) {
-						vNumAsString.append(mMessageClntFileChecksum[i]);
-				}
-		}
-
-		// wersja alternatywna:
-		//		std::string vStringFromArray(mMessageClntFileChecksum);
-		//		std::string vNumAsString = vStringFromArray.substr(1, mMessageSize-2);
-		//		int vNum = QString::fromStdString(vNumAsString).toInt();
-
-		mReceiveBuffer->remove(0, mMessageSize);
-
-		int vValidNum = vNumAsString.toInt();
+        int vValidNum = ConverMessageArraytToInt();
+        mReceiveBuffer->remove(0, mMessageSize);
 
 		bool vIsCheckSumInSrv = gCheckSumList.CheckFileCheckSum(vValidNum);
 
@@ -245,7 +228,27 @@ void CClient::Disconnected() {
 
 		mSocket->deleteLater();
 		delete mReceiveBuffer;
-		delete mDataSize;
+        delete mDataSize;
+}
+
+int CClient::ConverMessageArraytToInt() {
+    // wyodrębnienie liczyby-stringa z tablicy i konwersja na int
+    // wersja 1:
+
+    QString vNumAsString;
+
+    for (int i = 0; i < mMessageSize; i++) {
+            if (isdigit(mMessageClntFileChecksum[i])) {
+                    vNumAsString.append(mMessageClntFileChecksum[i]);
+            }
+    }
+
+    return vNumAsString.toInt();
+
+    // wersja alternatywna:
+    //		std::string vStringFromArray(mMessageClntFileChecksum);
+    //		std::string vNumAsString = vStringFromArray.substr(1, mMessageSize-2);
+    //		int vNum = QString::fromStdString(vNumAsString).toInt();
 }
 
 void CClient::ResponeToClient(const char *aMessage, QByteArray aData) {

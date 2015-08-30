@@ -15,7 +15,7 @@
  *  modes for Client
  */
 enum ReceiveDataMode {
-		Mode_Receive_File_Data					= 1,
+        Mode_Receive_File_Data				= 1,
 		Mode_Receive_File_CheckSum			= 2
 };
 
@@ -97,6 +97,8 @@ class CClient : public QObject {
     void Disconnected();
 
 	private:
+    int ConverMessageArraytToInt();
+
 		/**
 		 * @brief ServeFileData serve file data.
 		 *  from incoming connection.

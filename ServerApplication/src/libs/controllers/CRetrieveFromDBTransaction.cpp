@@ -10,10 +10,8 @@
 #include <QDebug>
 
 using server::AndroidPhotosDatabase;
-using server::Photo;
 using litesql::Blob;
-// NOT !!! using namespace litesql; dużo zeszło mi z tym
-//szukanie gdzie w bibliotece zaawansowanymi sposobami linuxa
+
 using namespace litesql;
 
 extern CRepository gRepository;
@@ -25,23 +23,27 @@ CRetrieveFromDBTransaction::CRetrieveFromDBTransaction(int aChecksum) :
 void CRetrieveFromDBTransaction::Execute() {
 		server::AndroidPhotosDatabase *mDatabase  = gRepository.GetDatabase();
 
-
 		Photo vPhoto = select<Photo>(*mDatabase,
-																 Photo::Checksum == mChecksum).one();
+                                     Photo::Checksum == mChecksum).one();
 
-		Blob vBlob = vPhoto.data.value();
-
-		if (vBlob.isNull()) {
-				qDebug() << "Obiekt o podanej sumie kontrolnej jest pusty";
-		}
-
-		int vBuffSize = 25002;
-		u8_t *vBuffer = new u8_t[vBuffSize];
-
-		vBlob.getData(vBuffer, vBuffSize);
-		mData = QByteArray(reinterpret_cast<char *>(vBuffer), vBuffSize);
+        RetrieveData(vPhoto);
 }
 
 QByteArray CRetrieveFromDBTransaction::getData() const {
-		return mData;
+    return mData;
+}
+
+void CRetrieveFromDBTransaction::RetrieveData(Photo aPhoto)
+{
+    Blob vBlob = aPhoto.data.value();
+
+    if (vBlob.isNull()) {
+            qDebug() << "Obiekt o podanej sumie kontrolnej jest pusty";
+    }
+
+    int vBuffSize = aPhoto.datasize.value(); // 25002;
+    u8_t *vBuffer = new u8_t[vBuffSize];
+
+    vBlob.getData(vBuffer, vBuffSize);
+    mData = QByteArray(reinterpret_cast<char *>(vBuffer), vBuffSize);
 }

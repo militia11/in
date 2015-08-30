@@ -10,7 +10,6 @@
 #include <QDebug>
 
 using server::AndroidPhotosDatabase;
-using server::Photo;
 using litesql::Blob;
 
 extern CRepository gRepository;
@@ -26,12 +25,17 @@ void CAddToDBTransaction::Execute() {
 
 		Photo vPhoto(*mDatabase);
 
-		vPhoto.checksum = mChecksum;
-		vPhoto.datasize = mDataSize;
-		const char *vDataChar = mData.constData();
-		Blob vDataIn(vDataChar, mDataSize);
-		vPhoto.data = vDataIn;
+        SetAtributtes(vPhoto);
 
 		vPhoto.update();
-		//	model->odswiez();
+        //	model->odswiez();
+}
+
+void CAddToDBTransaction::SetAtributtes(server::Photo aPhoto) {
+    aPhoto.checksum = mChecksum;
+    aPhoto.datasize = mDataSize;
+
+    const char *vDataChar = mData.constData();
+    Blob vDataIn(vDataChar, mDataSize);
+    aPhoto.data = vDataIn;
 }

@@ -7,10 +7,10 @@ CSettings::CSettings() {
 }
 
 QString CSettings::GetDriver() const {
-		QSettings vSetting;
-		vSetting.beginGroup("database");
+    QSettings vSetting;
+    vSetting.beginGroup("database");
     QString vDriver = vSetting.value("driver").toString();
-		vSetting.endGroup();
+    vSetting.endGroup();
 
     return vDriver;
 }

@@ -8,12 +8,16 @@
 #include "libs/dao/androidphotosdatabase.hpp"
 #include <QBuffer>
 
+using server::Photo;
+
 class CAddToDBTransaction : public CTransaction {
 	public:
 		CAddToDBTransaction(QByteArray aData, int aDataSize, int aChecksum);
 		void Execute();
 
-private:
+    private:
+        void SetAtributtes(Photo aPhoto);
+
 		QByteArray mData;
 		int mDataSize;
 		int mChecksum;

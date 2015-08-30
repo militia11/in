@@ -4,15 +4,19 @@
 #include"libs/controllers/CTransaction.h"
 #include <QByteArray>
 
+using server::Photo;
+
 class CRetrieveFromDBTransaction : CTransaction {
 	public:
 		CRetrieveFromDBTransaction(int aChecksum);
 		void Execute();
 		QByteArray getData() const ;
 
-	private:
+    private:
+       void RetrieveData(Photo aPhoto);
+
 		int mChecksum;
-		QByteArray mData;
+        QByteArray mData;
 };
 
 #endif // CRETRIEVEFROMDBTRANSACTION_H
