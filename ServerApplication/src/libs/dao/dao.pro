@@ -18,12 +18,12 @@ INCLUDEPATH += ../..
 
 HEADERS += \
     CRepository.h \
-    CCheckSumList.h \
+    CChecksumList.h \
     androidphotosdatabase.hpp
 
 SOURCES += \
     CRepository.cpp \
-    CCheckSumList.cpp \
+    CChecksumList.cpp \
     androidphotosdatabase.cpp
 
 CONFIG += c++11

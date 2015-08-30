@@ -1,23 +1,23 @@
 #include "CCheckSumList.h"
 
-CCheckSumList gCheckSumList;
+CChecksumList gChecksumList;
 
-CCheckSumList::CCheckSumList() {
+CChecksumList::CChecksumList() {
 		// sztucznie wypełniona narazie
-		mCheckSumList.append(183);
+        mChecksumList.append(183);
 }
 
-void CCheckSumList::AddFileCheckSum(int aCheckSum) {
-		mCheckSumList.append(aCheckSum);
+void CChecksumList::AddFileChecksum(int aChecksum) {
+        mChecksumList.append(aChecksum);
 }
 
-void CCheckSumList::PopulateCheckSumFromDB() {
+void CChecksumList::PopulateChecksumFromDB() {
 		/// @todo
 }
-bool CCheckSumList::CheckFileCheckSum(int aCheckSum) {
-		for (QList<int>::iterator vIter = mCheckSumList.begin();
-						vIter != mCheckSumList.end(); ++vIter) {
-				if (aCheckSum == *vIter) {
+bool CChecksumList::CheckFileChecksum(int aCheckSum) {
+        for (QList<int>::iterator vIter = mChecksumList.begin();
+                        vIter != mChecksumList.end(); ++vIter) {
+                if (aChecksum == *vIter) {
 						return true;
 				}
 		}

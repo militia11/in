@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QFile>
 
-extern CCheckSumList gCheckSumList;
+extern CChecksumList gChecksumList;
 
 CClient::CClient(QObject *aParent) :
 		QObject(aParent),
@@ -122,9 +122,9 @@ void CClient::ServeReceivedMessage() {
         int vValidNum = ConverMessageArraytToInt();
         mReceiveBuffer->remove(0, mMessageSize);
 
-		bool vIsCheckSumInSrv = gCheckSumList.CheckFileCheckSum(vValidNum);
+        bool vIsChecksumInSrv = gChecksumList.CheckFileChecksum(vValidNum);
 
-		if (!vIsCheckSumInSrv) {
+        if (!vIsChecksumInSrv) {
 				; ///@todo wyslij clientowi zeby go pobrał
 		}
 
@@ -182,6 +182,7 @@ void CClient::ServeFileData() {
 
 						CAddToDBTransaction AddToDBTransaction(vData, vData.size(), vChecksum);
 						AddToDBTransaction.Execute();
+
 						CRetrieveFromDBTransaction vRetrieveTransaction(221);
 						vRetrieveTransaction.Execute();
 						QByteArray vRetrieveData =  vRetrieveTransaction.getData();

@@ -38,7 +38,7 @@ void CRetrieveFromDBTransaction::RetrieveData(Photo aPhoto)
     Blob vBlob = aPhoto.data.value();
 
     if (vBlob.isNull()) {
-            qDebug() << "Obiekt o podanej sumie kontrolnej jest pusty";
+            qDebug() << "Obiekt o podanej sumie kontrolnej nie istnieje";
     }
 
     int vBuffSize = aPhoto.datasize.value(); // 25002;

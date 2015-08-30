@@ -4,28 +4,28 @@
 #include <QList>
 
 /**
- * @brief The CCheckSumList class represents list of file checksum.
+ * @brief The CChecksumList class represents list of file checksum.
  *
  * @details @todo dopisać
  */
-class CCheckSumList {
+class CChecksumList {
   public:
     /**
-     * @brief CCheckSumList constructor.
+     * @brief CChecksumList constructor.
      */
-		CCheckSumList();
+        CChecksumList();
 		/**
-		 * @brief AddFileCheckSum add new file data checksum
+         * @brief AddFileChecksum add new file data checksum
 		 * to checksum list.
-		 * @param aCheckSum is new checksum value.
+         * @param aChecksum is new checksum value.
 		 */
-		void AddFileCheckSum(int aCheckSum);
+        void AddFileChecksum(int aChecksum);
 
 		/**
-		 * @brief PopulateCheckSumFromDB function add checksum file list
+         * @brief PopulateChecksumFromDB function add checksum file list
 		 * of actually server files.
 		 */
-		void PopulateCheckSumFromDB();
+        void PopulateChecksumFromDB();
 
     /**
      * @brief CheckFileCheckSum compare checksum in parameter to checksums in server
@@ -34,10 +34,10 @@ class CCheckSumList {
      * checksum from server.
      * @return TRUE if checksum is the same in another in server.
      */
-		bool CheckFileCheckSum(int aCheckSum);
+		bool CheckFileChecksum(int aCheckSum);
 
 	private:
-		QList<int> mCheckSumList;
+        QList<int> mChecksumList;
 };
 
 #endif // CCHECKSUMLIST_H
