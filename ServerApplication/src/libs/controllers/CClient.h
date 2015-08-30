@@ -4,6 +4,7 @@
 #include "libs/dao/CCheckSumList.h"
 
 #include "libs/controllers/CAddToDBTransaction.h"
+#include "libs/controllers/CRetrieveFromDBTransaction.h"
 
 #include <inttypes.h> //uint_t* and int_t* types
 #include <QTcpSocket>

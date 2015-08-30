@@ -8,25 +8,29 @@ const std::string Photo::sequence__("Photo_seq");
 const litesql::FieldType Photo::Id("id_",A_field_type_integer,table__);
 const litesql::FieldType Photo::Type("type_",A_field_type_string,table__);
 const litesql::FieldType Photo::Data("data_",A_field_type_blob,table__);
+const litesql::FieldType Photo::Datasize("datasize_",A_field_type_integer,table__);
 const litesql::FieldType Photo::Checksum("checksum_",A_field_type_integer,table__);
 void Photo::initValues() {
 }
 void Photo::defaults() {
     id = 0;
     data = Blob();
+    datasize = 0;
     checksum = 0;
 }
 Photo::Photo(const litesql::Database& db)
-     : litesql::Persistent(db), id(Id), type(Type), data(Data), checksum(Checksum) {
+     : litesql::Persistent(db), id(Id), type(Type), data(Data), datasize(Datasize), checksum(Checksum) {
     defaults();
 }
 Photo::Photo(const litesql::Database& db, const litesql::Record& rec)
-     : litesql::Persistent(db, rec), id(Id), type(Type), data(Data), checksum(Checksum) {
+     : litesql::Persistent(db, rec), id(Id), type(Type), data(Data), datasize(Datasize), checksum(Checksum) {
     defaults();
-    size_t size = (rec.size() > 4) ? 4 : rec.size();
+    size_t size = (rec.size() > 5) ? 5 : rec.size();
     switch(size) {
-    case 4: checksum = convert<const std::string&, int>(rec[3]);
+    case 5: checksum = convert<const std::string&, int>(rec[4]);
         checksum.setModified(false);
+    case 4: datasize = convert<const std::string&, int>(rec[3]);
+        datasize.setModified(false);
     case 3: data = convert<const std::string&, litesql::Blob>(rec[2]);
         data.setModified(false);
     case 2: type = convert<const std::string&, std::string>(rec[1]);
@@ -36,13 +40,14 @@ Photo::Photo(const litesql::Database& db, const litesql::Record& rec)
     }
 }
 Photo::Photo(const Photo& obj)
-     : litesql::Persistent(obj), id(obj.id), type(obj.type), data(obj.data), checksum(obj.checksum) {
+     : litesql::Persistent(obj), id(obj.id), type(obj.type), data(obj.data), datasize(obj.datasize), checksum(obj.checksum) {
 }
 const Photo& Photo::operator=(const Photo& obj) {
     if (this != &obj) {
         id = obj.id;
         type = obj.type;
         data = obj.data;
+        datasize = obj.datasize;
         checksum = obj.checksum;
     }
     litesql::Persistent::operator=(obj);
@@ -61,6 +66,9 @@ std::string Photo::insert(litesql::Record& tables, litesql::Records& fieldRecs, 
     fields.push_back(data.name());
     values.push_back(data);
     data.setModified(false);
+    fields.push_back(datasize.name());
+    values.push_back(datasize);
+    datasize.setModified(false);
     fields.push_back(checksum.name());
     values.push_back(checksum);
     checksum.setModified(false);
@@ -82,6 +90,7 @@ void Photo::addUpdates(Updates& updates) {
     updateField(updates, table__, id);
     updateField(updates, table__, type);
     updateField(updates, table__, data);
+    updateField(updates, table__, datasize);
     updateField(updates, table__, checksum);
 }
 void Photo::addIDUpdates(Updates& updates) {
@@ -90,6 +99,7 @@ void Photo::getFieldTypes(std::vector<litesql::FieldType>& ftypes) {
     ftypes.push_back(Id);
     ftypes.push_back(Type);
     ftypes.push_back(Data);
+    ftypes.push_back(Datasize);
     ftypes.push_back(Checksum);
 }
 void Photo::delRecord() {
@@ -135,6 +145,7 @@ std::auto_ptr<Photo> Photo::upcastCopy() const {
     np->id = id;
     np->type = type;
     np->data = data;
+    np->datasize = datasize;
     np->checksum = checksum;
     np->inDatabase = inDatabase;
     return auto_ptr<Photo>(np);
@@ -144,6 +155,7 @@ std::ostream & operator<<(std::ostream& os, Photo o) {
     os << o.id.name() << " = " << o.id << std::endl;
     os << o.type.name() << " = " << o.type << std::endl;
     os << o.data.name() << " = " << o.data << std::endl;
+    os << o.datasize.name() << " = " << o.datasize << std::endl;
     os << o.checksum.name() << " = " << o.checksum << std::endl;
     os << "-------------------------------------" << std::endl;
     return os;
@@ -160,7 +172,7 @@ std::vector<litesql::Database::SchemaItem> AndroidPhotosDatabase::getSchema() co
     if (backend->supportsSequences()) {
         res.push_back(Database::SchemaItem("Photo_seq","sequence",backend->getCreateSequenceSQL("Photo_seq")));
     }
-    res.push_back(Database::SchemaItem("Photo_","table","CREATE TABLE Photo_ (id_ " + rowIdType + ",type_ " + backend->getSQLType(A_field_type_string,"") + "" +",data_ " + backend->getSQLType(A_field_type_blob,"") + "" +",checksum_ " + backend->getSQLType(A_field_type_integer,"") + "" +")"));
+    res.push_back(Database::SchemaItem("Photo_","table","CREATE TABLE Photo_ (id_ " + rowIdType + ",type_ " + backend->getSQLType(A_field_type_string,"") + "" +",data_ " + backend->getSQLType(A_field_type_blob,"") + "" +",datasize_ " + backend->getSQLType(A_field_type_integer,"") + "" +",checksum_ " + backend->getSQLType(A_field_type_integer,"") + "" +")"));
     res.push_back(Database::SchemaItem("Photo_id_idx","index","CREATE INDEX Photo_id_idx ON Photo_ (id_)"));
     return res;
 }

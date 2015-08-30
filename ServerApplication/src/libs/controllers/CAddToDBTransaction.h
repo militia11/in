@@ -10,11 +10,12 @@
 
 class CAddToDBTransaction : public CTransaction {
 	public:
-		CAddToDBTransaction(QByteArray aData, int aChecksum);
+		CAddToDBTransaction(QByteArray aData, int aDataSize, int aChecksum);
 		void Execute();
 
 private:
 		QByteArray mData;
+		int mDataSize;
 		int mChecksum;
 };
 

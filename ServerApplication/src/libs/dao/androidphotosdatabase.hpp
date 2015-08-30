@@ -18,6 +18,8 @@ public:
     litesql::Field<std::string> type;
     static const litesql::FieldType Data;
     litesql::Field<litesql::Blob> data;
+    static const litesql::FieldType Datasize;
+    litesql::Field<int> datasize;
     static const litesql::FieldType Checksum;
     litesql::Field<int> checksum;
     static void initValues();

@@ -2,11 +2,17 @@
 #define CRETRIEVEFROMDBTRANSACTION_H
 
 #include"libs/controllers/CTransaction.h"
+#include <QByteArray>
 
-class CRetrieveFromDBTransaction : public CTransaction {
+class CRetrieveFromDBTransaction : CTransaction {
 	public:
-		CRetrieveFromDBTransaction();
+		CRetrieveFromDBTransaction(int aChecksum);
 		void Execute();
+		QByteArray getData() const ;
+
+	private:
+		int mChecksum;
+		QByteArray mData;
 };
 
 #endif // CRETRIEVEFROMDBTRANSACTION_H

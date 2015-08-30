@@ -1,20 +1,47 @@
 #include "CRetrieveFromDBTransaction.h"
 
-CRetrieveFromDBTransaction::CRetrieveFromDBTransaction() {
+#include <litesql.hpp>
+#include "libs/dao/androidphotosdatabase.hpp"
+
+#include "libs/dao/CRepository.h"
+
+#include <QImageReader>
+#include <QImage>
+#include <QDebug>
+
+using server::AndroidPhotosDatabase;
+using server::Photo;
+using litesql::Blob;
+// NOT !!! using namespace litesql; dużo zeszło mi z tym
+//szukanie gdzie w bibliotece zaawansowanymi sposobami linuxa
+using namespace litesql;
+
+extern CRepository gRepository;
+
+CRetrieveFromDBTransaction::CRetrieveFromDBTransaction(int aChecksum) :
+		mChecksum(aChecksum) {
 }
 
 void CRetrieveFromDBTransaction::Execute() {
-//	QSqlQuery qry;
-//	qry.prepare( "SELECT data FROM images WHERE id = :id" );
-//	qry.bindValue( ":id", id );CHAPTER 13 ■ DATABASES
-//	if( !qry.exec() )
-//	qFatal( "Failed to get image" );
-//	if( !qry.next() )
-//	qFatal( "Failed to get image id" );
-//	QByteArray array = qry.value(0).toByteArray();
-//	QBuffer buffer(&array);
-//	buffer.open( QIODevice::ReadOnly );
-//	QImageReader reader(&buffer, "PNG");
-//	QImage image = reader.read();
-//	return image;
+		server::AndroidPhotosDatabase *mDatabase  = gRepository.GetDatabase();
+
+
+		Photo vPhoto = select<Photo>(*mDatabase,
+																 Photo::Checksum == mChecksum).one();
+
+		Blob vBlob = vPhoto.data.value();
+
+		if (vBlob.isNull()) {
+				qDebug() << "Obiekt o podanej sumie kontrolnej jest pusty";
+		}
+
+		int vBuffSize = 25002;
+		u8_t *vBuffer = new u8_t[vBuffSize];
+
+		vBlob.getData(vBuffer, vBuffSize);
+		mData = QByteArray(reinterpret_cast<char *>(vBuffer), vBuffSize);
+}
+
+QByteArray CRetrieveFromDBTransaction::getData() const {
+		return mData;
 }

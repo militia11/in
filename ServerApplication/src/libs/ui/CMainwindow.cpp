@@ -53,19 +53,15 @@ void CMainWindow::closeEvent(QCloseEvent *aEvent) {
 }
 void CMainWindow::DisplayData(QByteArray aData) {
 
-	QBuffer buffer(&aData);
-	qDebug() << buffer.size() << "buuuuuuuf";
-	buffer.open( QIODevice::ReadOnly );
-	QImageReader reader(&buffer, "JPEG");
-	QImage vImage = reader.read();
+		QBuffer vBuffer(&aData);
+		vBuffer.open( QIODevice::ReadOnly );
+		QImageReader vReader(&vBuffer, "JPEG");
+		QImage vImage = vReader.read();
 
 		ui->mImageLabel->setPixmap(
 				QPixmap::fromImage(vImage));
-				//		QPixmap::fromImage(
-				//        images.getImage( imageIds[ currentImage ] ) ) );
-
-				ui->mListWidget->insertItem(0, aData);
-				ui->mTextEdit->setText(aData);
+		ui->mListWidget->insertItem(0, aData);
+		ui->mTextEdit->setText(aData);
 }
 
 void CMainWindow::ClientConnected() {

@@ -58,16 +58,16 @@ void CClient::NewData() {
 
 						char vTargetSign = vData[i];
 
-//						switch (vTargetSign) {
+						//						switch (vTargetSign) {
 
-//								case '>':					// początek komunikatu "suma pliku"
-//										mReceiveDataMode = Mode_Receive_File_CheckSum;
-//										mReceiveByteCnt = 0;
-//										break;
+						//								case '>':					// początek komunikatu "suma pliku"
+						//										mReceiveDataMode = Mode_Receive_File_CheckSum;
+						//										mReceiveByteCnt = 0;
+						//										break;
 
-//								default:
-//										break;
-//						}
+						//								default:
+						//										break;
+						//						}
 
 						RouteData(vTargetSign);
 				}
@@ -108,9 +108,9 @@ void CClient::RouteData(char aData) {
 }
 
 void CClient::ServeReceivedMessage() {
-	for(int i=0;i<mMessageSize;i++){
-		qDebug()<< mMessageClntFileChecksum[i];
-	}
+		for (int i = 0; i < mMessageSize; i++) {
+				qDebug() << mMessageClntFileChecksum[i];
+		}
 
 		if (!HasMessageCorrectFormat(mMessageClntFileChecksum)) {
 				const char *vMessage = "Nieprawidłowy format wiadomości";
@@ -197,29 +197,16 @@ void CClient::ServeFileData() {
 
 						u_int8_t vChecksum =	CalculateFileDataChecksum(vData);
 
-						CAddToDBTransaction tr(vData, vChecksum);
-						tr.Execute();
-
-						QFile vFile("/home/mmichniewski/b.txt");//pobranyPies.jpg");
-
-						if (!vFile.open(QIODevice::WriteOnly)) {
-								const char *vMessage = "Nie można otworzyć pliku";
-								MessageStatus(vMessage, 2200);
-								qDebug() << vMessage;
-						};
-
-						QDataStream out(&vFile);
-
-						out << vData;
-
-						vFile.close();
+						CAddToDBTransaction AddToDBTransaction(vData, vData.size(), vChecksum);
+						AddToDBTransaction.Execute();
+						CRetrieveFromDBTransaction vRetrieveTransaction(221);
+						vRetrieveTransaction.Execute();
+						QByteArray vRetrieveData =  vRetrieveTransaction.getData();
 
 						const char *vMessage = "Odebrano dane : ";
-
 						ResponeToClient(vMessage, vData);
 
-						///@todo odznaczyc kom na koniec sprawdzic co i jak
-						emit ReadData(vData);
+						emit ReadData(vRetrieveData);///@todo odznaczyc kom na koniec sprawdzic co i jak
 				}
 		}
 }
