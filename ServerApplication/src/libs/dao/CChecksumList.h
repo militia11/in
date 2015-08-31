@@ -36,9 +36,11 @@ class CChecksumList {
      */
 		bool CheckFileChecksum(int aChecksum);
 
-		void DisplayChecksum();
+    /**
+     * @brief Clear function is a facade for clear function in Qlist class.
+     */
+    void Clear();
 
-		void Clear();
 	private:
 		QList<int> mChecksumList;
 };

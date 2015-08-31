@@ -124,12 +124,13 @@ void CClient::ServeReceivedMessage() {
 		bool vIsChecksumInSrv = vChecksumList->CheckFileChecksum(vChecksum);
 		qDebug() << vIsChecksumInSrv;
 
-		vChecksumList->DisplayChecksum();
-
 		if (!vIsChecksumInSrv) {
 				qDebug() << "nie ma sumy w bazie";
-				; ///@todo wyslij clientowi zeby go pobrał
-		}
+        ResponeToClient("Pobierz"); // i klient zapamietuje co wysylal jaka sume wiec ten plik wysyla
+        //alternatywa:
+//        QString vClientMessage = PrepareSendingToClientMessage(vChecksum);
+//        ResponeToClient(vClientMessage);
+    }
 }
 
 bool CClient::HasMessageCorrectFormat(char *aMessage) {
@@ -228,7 +229,14 @@ void CClient::Disconnected() {
 
 		mSocket->deleteLater();
 		delete mReceiveBuffer;
-		delete mDataSize;
+    delete mDataSize;
+}
+
+QString CClient::PrepareSendingToClientMessage(int aChecksum)
+{
+  QString vResultMessage(">");
+  vResultMessage.append(aChecksum);
+  vResultMessage.append("<");
 }
 
 int CClient::ConverMessageArraytToInt() {
@@ -251,8 +259,6 @@ int CClient::ConverMessageArraytToInt() {
     //		int vNum = QString::fromStdString(vNumAsString).toInt();
 }
 
-void CClient::ResponeToClient(const char *aMessage, QByteArray aData) {
-		mSocket->write(aMessage);
-		///@todo pokombinować tu odwrót
+void CClient::ResponeToClient(QByteArray aData) {
 		mSocket->write(aData);
 }

@@ -50,13 +50,6 @@ bool CChecksumList::CheckFileChecksum(int aChecksum) {
 		return false;
 }
 
-void CChecksumList::DisplayChecksum() {
-		qDebug() << "aChecksum";
-		foreach (int aChecksum, mChecksumList) {
-				qDebug() << aChecksum;
-		}
-}
-
 void CChecksumList::Clear() {
 		mChecksumList.clear();
 }

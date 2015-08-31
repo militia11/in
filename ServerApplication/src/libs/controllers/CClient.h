@@ -11,11 +11,11 @@
 #include <QObject>
 
 /**
- * @brief The ReceiveDataMode enum, enumeration of kinds receive data
+ * @brief The ReceiveDataMode is enumeration of kinds receive data
  *  modes for Client
  */
 enum ReceiveDataMode {
-        Mode_Receive_File_Data				= 1,
+    Mode_Receive_File_Data          = 1,
 		Mode_Receive_File_CheckSum			= 2
 };
 
@@ -50,7 +50,7 @@ class CClient : public QObject {
     /**
      * @brief Method to respone some information to client.
      */
-    void ResponeToClient(const char *aMessage, QByteArray aData = 0);
+    void ResponeToClient(QByteArray aData = 0);
 
     /**
      * @brief Method called to get CClient class member mSocket
@@ -97,6 +97,8 @@ class CClient : public QObject {
     void Disconnected();
 
 	private:
+    QString PrepareSendingToClientMessage(int aChecksum);
+
 		int ConverMessageArraytToInt();
 
 		/**
@@ -141,7 +143,6 @@ class CClient : public QObject {
 		*/
 		uint8_t CalculateFileDataChecksum(QByteArray aData);
 
-  private:
     /**
      * @brief Method connect socket's signals to
      * represent client's (CClient) slots
