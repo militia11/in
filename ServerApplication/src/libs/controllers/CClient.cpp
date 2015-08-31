@@ -50,6 +50,25 @@ QTcpSocket *CClient::GetSocket() const {
 		return mSocket;
 }
 
+void CClient::ConvertHexAsciiToBinary(const char *aData, int aLen,
+																			char *aTarget) {
+		for (int i = 0; i < aLen - 1; i += 2) {
+				char hex[3] = {aData[i], aData[i + 1], 0x00};
+				aTarget[i / 2] = static_cast<char>(strtol(hex, NULL, 16));
+		}
+}
+
+void CClient::ConvertBinaryToHexAscii(const char *aData, int aLen,
+																			char *aTarget) {
+		char buffer[3];
+
+		for (int i = 0; i < aLen; ++i) {
+				snprintf(buffer, 3, "%02X", aData[i]);
+				aTarget[2 * i] = buffer[0];
+				aTarget[2 * i + 1] = buffer[1];
+		}
+}
+
 void CClient::NewData() {
 		while (mSocket->bytesAvailable() > 0) {
 				QByteArray vData = mSocket->readAll();

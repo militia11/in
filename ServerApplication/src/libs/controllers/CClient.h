@@ -97,6 +97,10 @@ class CClient : public QObject {
     void Disconnected();
 
 	private:
+		void ConvertHexAsciiToBinary(const char *aData, int aLen,
+																					char *aTarget);
+		void ConvertBinaryToHexAscii(const char *aData, int aLen,
+																 char *aTarget);
     QString PrepareSendingToClientMessage(int aChecksum);
 
 		int ConverMessageArraytToInt();
