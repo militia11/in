@@ -4,7 +4,7 @@
 class CTransaction {
 	public:
 		CTransaction() {}
-		virtual void Execute() = 0;
+    virtual void Execute() = 0;
 };
 
 #endif // CTRANSACTION_H
