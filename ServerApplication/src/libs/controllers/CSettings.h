@@ -18,7 +18,7 @@ class CSettings {
      */
     QString GetDriver() const;
 
-		int GetPortNum() const;
+    int GetPortNum() const;
     /**
      * @brief GetConnectionString method read settings from
      * configuration file.

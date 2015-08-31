@@ -5,53 +5,53 @@
 #include <QMessageBox>
 
 CServerSettingsDialog::CServerSettingsDialog(QWidget *aParent) :
-		QDialog(aParent),
-		ui(new Ui::CServerSettingsDialog) {
-		ui->setupUi(this);
+    QDialog(aParent),
+    ui(new Ui::CServerSettingsDialog) {
+    ui->setupUi(this);
 
-		UpdateServerSettings();
+    UpdateServerSettings();
 }
 
 CServerSettingsDialog::~CServerSettingsDialog() {
-		delete ui;
+    delete ui;
 }
 
 void CServerSettingsDialog::on_mPushButtonResetDefault_clicked() {
 
-		QString vMessage = "Czy na pewno przywrócić ustawienia domyślne?";
-		int vAnswer = QMessageBox::question(this, "Uwaga", vMessage,
-																				QMessageBox::Yes | QMessageBox::No);
+    QString vMessage = "Czy na pewno przywrócić ustawienia domyślne?";
+    int vAnswer = QMessageBox::question(this, "Uwaga", vMessage,
+                                        QMessageBox::Yes | QMessageBox::No);
 
-		if (vAnswer == QMessageBox::Yes) {
-				const int vDefaultPortNum = 1234;
-				ui->mSpinBoxPortNum->setValue(vDefaultPortNum);
+    if (vAnswer == QMessageBox::Yes) {
+        const int vDefaultPortNum = 1234;
+        ui->mSpinBoxPortNum->setValue(vDefaultPortNum);
 
-				QSettings vQSetting;
-				vQSetting.beginGroup("server");
-				vQSetting.setValue("port", vDefaultPortNum);
-				vQSetting.endGroup();
-		}
+        QSettings vQSetting;
+        vQSetting.beginGroup("server");
+        vQSetting.setValue("port", vDefaultPortNum);
+        vQSetting.endGroup();
+    }
 }
 
 void CServerSettingsDialog::on_mButtonBoxOkCancel_accepted() {
-		QSettings vQSetting;
-		vQSetting.beginGroup("server");
+    QSettings vQSetting;
+    vQSetting.beginGroup("server");
 
-		int vPortNum = ui->mSpinBoxPortNum->value();
-		vQSetting.setValue("port", QString::number(vPortNum));
+    int vPortNum = ui->mSpinBoxPortNum->value();
+    vQSetting.setValue("port", QString::number(vPortNum));
 
-		vQSetting.endGroup();
+    vQSetting.endGroup();
 }
 
 void CServerSettingsDialog::on_mButtonBoxOkCancel_rejected() {
-		reject();
+    reject();
 }
 
 void CServerSettingsDialog::UpdateServerSettings() {
-		QSettings vSettings;
-		vSettings.beginGroup("server");
-		QString vHostNum = vSettings.value("port").toString();
+    QSettings vSettings;
+    vSettings.beginGroup("server");
+    QString vHostNum = vSettings.value("port").toString();
 
-		ui->mSpinBoxPortNum->setValue(vHostNum.toInt());
-		vSettings.endGroup();
+    ui->mSpinBoxPortNum->setValue(vHostNum.toInt());
+    vSettings.endGroup();
 }

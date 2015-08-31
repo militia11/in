@@ -2,8 +2,8 @@
 #define CTRANSACTION_H
 
 class CTransaction {
-	public:
-		CTransaction() {}
+  public:
+    CTransaction() {}
     virtual void Execute() = 0;
 };
 

@@ -129,9 +129,9 @@ class CClient : public QObject {
      * Message should consist from:
      * - message begin char: ">"
      * - data as hex-ascii string
-			 * - end message char: "<"
+				 * - end message char: "<"
      *
-		 * @return TRUE for correct format, FALSE for incorrect.
+			 * @return TRUE for correct format, FALSE for incorrect.
      */
 		bool HasMessageCorrectFormat(char *aMessage);
 

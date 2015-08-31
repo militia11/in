@@ -7,68 +7,68 @@
 #include <QDebug>
 
 CServer::CServer(QObject *aParent) :
-		QTcpServer(aParent),
-		mClient(NULL) {
-		UpdatePortNum();
+    QTcpServer(aParent),
+    mClient(NULL) {
+    UpdatePortNum();
 
-		connect(this, SIGNAL(newConnection()), this, SLOT(IncomingConnection()));
+    connect(this, SIGNAL(newConnection()), this, SLOT(IncomingConnection()));
 }
 
 CServer::~CServer() {
-		delete mClient;
+    delete mClient;
 }
 
 void CServer::Run() {
-		if (!this->listen(QHostAddress::Any, mPortNum)) {
-				MessageStatus("Nie można wystartować serwera", 2400);
-		} else {
-				MessageStatus("Serwer nasłuchuje ...", 2400);
-		}
+    if (!this->listen(QHostAddress::Any, mPortNum)) {
+        MessageStatus("Nie można wystartować serwera", 2400);
+    } else {
+        MessageStatus("Serwer nasłuchuje ...", 2400);
+    }
 }
 
 void CServer::StopListening() {
-		MessageStatus("Wyłączone nasłuchiwanie serwera", 2400);
+    MessageStatus("Wyłączone nasłuchiwanie serwera", 2400);
 
-		close();
+    close();
 }
 
 CClient *CServer::GetClient() const {
-		return mClient;
+    return mClient;
 }
 
 void CServer::IncomingConnection() {
-		mClient = new CClient();
+    mClient = new CClient();
 
-		emit CreateClient();
+    emit CreateClient();
 
-		QTcpSocket *vSocket = nextPendingConnection();
-		mClient->Connect(vSocket);
+    QTcpSocket *vSocket = nextPendingConnection();
+    mClient->Connect(vSocket);
 
-		PauseAccepting();
+    PauseAccepting();
 
-		const char *vMessage = "Witaj kliencie\n";
-		mClient->ResponeToClient(vMessage);
+    const char *vMessage = "Witaj kliencie\n";
+    mClient->ResponeToClient(vMessage);
 }
 
 void CServer::ResumeAccepting() {
-		emit ChangeServerStatus();
-		QTcpServer::resumeAccepting();
+    emit ChangeServerStatus();
+    QTcpServer::resumeAccepting();
 }
 
 void CServer::PauseAccepting() {
-		emit ChangeServerStatus();
-		QTcpServer::pauseAccepting();
+    emit ChangeServerStatus();
+    QTcpServer::pauseAccepting();
 }
 
 void CServer::ConnectClientSignals() {
-		connect(mClient, SIGNAL(Disconnect()), this, SLOT(ResumeAccepting()),
-						Qt::DirectConnection);
+    connect(mClient, SIGNAL(Disconnect()), this, SLOT(ResumeAccepting()),
+            Qt::DirectConnection);
 
-		connect(mClient, SIGNAL(Connected()), this, SLOT(PauseAccepting()),
-						Qt::DirectConnection);
+    connect(mClient, SIGNAL(Connected()), this, SLOT(PauseAccepting()),
+            Qt::DirectConnection);
 }
 
 void CServer::UpdatePortNum() {
-	CSettings vSettings;
-	mPortNum = vSettings.GetPortNum();
+    CSettings vSettings;
+    mPortNum = vSettings.GetPortNum();
 }

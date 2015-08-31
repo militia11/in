@@ -14,25 +14,25 @@ using server::Photo;
  * from database.
  */
 class CRetrieveFromDBTransaction : CTransaction {
-	public:
-		CRetrieveFromDBTransaction(int aChecksum);
+  public:
+    CRetrieveFromDBTransaction(int aChecksum);
 
     /**
      * @brief Execute method is call to confirm transaction.
      */
-		void Execute();
+    void Execute();
 
     /**
      * @brief getData
      * @return array of bytes.
      */
-		QByteArray getData() const ;
+    QByteArray getData() const ;
 
-    private:
-       void RetrieveData(Photo aPhoto);
+  private:
+    void RetrieveData(Photo aPhoto);
 
-		int mChecksum;
-        QByteArray mData;
+    int mChecksum;
+    QByteArray mData;
 };
 
 #endif // CRETRIEVEFROMDBTRANSACTION_H

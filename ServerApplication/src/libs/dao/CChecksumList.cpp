@@ -18,38 +18,38 @@ extern CRepository gRepository;
 using namespace litesql;
 
 CChecksumList::CChecksumList() {
-		ReceiveChecksumsFromDB();
+    ReceiveChecksumsFromDB();
 }
 
 void CChecksumList::AddFileChecksum(int aChecksum) {
-		mChecksumList.append(aChecksum);
+    mChecksumList.append(aChecksum);
 }
 
 void CChecksumList::ReceiveChecksumsFromDB() {
-		server::AndroidPhotosDatabase *vDatabase  = gRepository.GetDatabase();
+    server::AndroidPhotosDatabase *vDatabase  = gRepository.GetDatabase();
 
-		if (vDatabase) {
-				std::vector<Photo> vPhotosDatabase;
+    if (vDatabase) {
+        std::vector<Photo> vPhotosDatabase;
 
-				vPhotosDatabase = select<Photo>(*vDatabase).all();
+        vPhotosDatabase = select<Photo>(*vDatabase).all();
 
-				for (std::vector<Photo>::iterator vIt = vPhotosDatabase.begin();
-								vIt != vPhotosDatabase.end(); ++vIt) {
-						mChecksumList.append((*vIt).checksum.value());
-				}
-		}
+        for (std::vector<Photo>::iterator vIt = vPhotosDatabase.begin();
+                vIt != vPhotosDatabase.end(); ++vIt) {
+            mChecksumList.append((*vIt).checksum.value());
+        }
+    }
 }
 bool CChecksumList::CheckFileChecksum(int aChecksum) {
-		for (QList<int>::iterator vIter = mChecksumList.begin();
-						vIter != mChecksumList.end(); ++vIter) {
-				if (aChecksum == *vIter) {
-						return true;
-				}
-		}
+    for (QList<int>::iterator vIter = mChecksumList.begin();
+            vIter != mChecksumList.end(); ++vIter) {
+        if (aChecksum == *vIter) {
+            return true;
+        }
+    }
 
-		return false;
+    return false;
 }
 
 void CChecksumList::Clear() {
-		mChecksumList.clear();
+    mChecksumList.clear();
 }

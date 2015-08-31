@@ -38,16 +38,16 @@ class CRepository {
      * @brief Refresh function refresh update data from
      * database to model
      */
-		void RefreshModel();
+    void RefreshModel();
     /**
      * @brief GetDatabase method is getter to
      * database connection object.
      *
-		 * @return server::AndroidPhotosDatabase is pointer to
+    	 * @return server::AndroidPhotosDatabase is pointer to
      * the actual database.
      */
-		server::AndroidPhotosDatabase *GetDatabase() const;
-		CChecksumList *GetChecksumList() const;
+    server::AndroidPhotosDatabase *GetDatabase() const;
+    CChecksumList *GetChecksumList() const;
 
     /**
      * @brief Method create database tables.
@@ -67,12 +67,12 @@ class CRepository {
     bool mLastConnectionError;
 
   private:
-		void RefreshChecksums();
+    void RefreshChecksums();
     /**
      * @brief mDatabase represent database connection object.
      */
-		server::AndroidPhotosDatabase *mDatabase;
-		CChecksumList *mChecksumList;
+    server::AndroidPhotosDatabase *mDatabase;
+    CChecksumList *mChecksumList;
     QString mDriver;
     QString mConnectionString;
     //QJakisTableModel *mModel;

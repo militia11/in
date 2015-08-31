@@ -16,20 +16,25 @@ using server::Photo;
  * to database.
  */
 class CAddToDBTransaction : public CTransaction {
-	public:
-		CAddToDBTransaction(QByteArray aData, int aDataSize, int aChecksum);
+  public:
+    CAddToDBTransaction(QByteArray aData, int aDataSize, int aChecksum);
 
     /**
      * @brief Execute method is call to confirm transaction.
      */
-		void Execute();
+    void Execute();
 
-	private:
-		void SetAtributtesAddToDB(server::Photo *aPhoto);
+  private:
+		/**
+		 * @brief SetAtributtesAddToDB set attribures for new document .
+		 * @param aPhoto represents Photo Document stored in
+		 * database.
+		 */
+    void SetAtributtesAddToDB(server::Photo *aPhoto);
 
-		QByteArray mData;
-		int mDataSize;
-		int mChecksum;
+    QByteArray mData;
+    int mDataSize;
+    int mChecksum;
 };
 
 #endif // CADDTODBTRANSACTION_H

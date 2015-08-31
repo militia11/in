@@ -125,11 +125,13 @@ void CClient::ServeReceivedMessage() {
 		qDebug() << vIsChecksumInSrv;
 
 		if (!vIsChecksumInSrv) {
-				qDebug() << "nie ma sumy w bazie";
-        ResponeToClient("Pobierz"); // i klient zapamietuje co wysylal jaka sume wiec ten plik wysyla
-        //alternatywa:
-//        QString vClientMessage = PrepareSendingToClientMessage(vChecksum);
-//        ResponeToClient(vClientMessage);
+				QByteArray vMessage("SEND");
+				ResponeToClient(vMessage);
+				// i klient zapamietuje co wysylal jaka sume wiec ten plik wysyla
+
+				//				alternatywa:
+				//        QString vClientMessage = PrepareSendingToClientMessage(vChecksum);
+				//        ResponeToClient(vClientMessage);
     }
 }
 
@@ -232,11 +234,10 @@ void CClient::Disconnected() {
     delete mDataSize;
 }
 
-QString CClient::PrepareSendingToClientMessage(int aChecksum)
-{
-  QString vResultMessage(">");
-  vResultMessage.append(aChecksum);
-  vResultMessage.append("<");
+QString CClient::PrepareSendingToClientMessage(int aChecksum) {
+		QString vResultMessage(">");
+		vResultMessage.append(aChecksum);
+		vResultMessage.append("<");
 }
 
 int CClient::ConverMessageArraytToInt() {
