@@ -71,12 +71,13 @@ void CClient::ConvertBinaryToHexAscii(const char *aData, int aLen,
 }
 
 void CClient::NewData() {
+
 		while (mSocket->bytesAvailable() > 0) {
 				QByteArray vData = mSocket->readAll();
 				mReceiveBuffer->append(vData);
 
 				for (int i = 0; i < vData.length(); i++) {
-
+						qDebug() << "MODE" << mReceiveDataMode;
 						char vTargetSign = vData[i];
 
 						switch (vTargetSign) {
@@ -121,10 +122,12 @@ void CClient::RouteData(char aData) {
 						}
 
 						if (aData == '<') {		    // koniec komunikatu "suma pliku"
+								mReceiveDataMode = Mode_Receive_File_Data;
 								mMessageSize = mReceiveByteCnt;
+								//mReceiveBuffer->clear();
+								mReceiveBuffer->remove(0, mMessageSize);
 								mReceiveByteCnt = 0;
 								ServeReceivedMessage();
-								mReceiveDataMode = Mode_Receive_File_Data;
 						}
 
 						break;
@@ -136,7 +139,7 @@ void CClient::RouteData(char aData) {
 		}
 }
 void CClient::ServeReceivedMessage() {
-		qDebug() << "serveee";
+		qDebug() << "serve";
 
 		if (!HasMessageCorrectFormat(mMessageClntFileChecksum)) {
 				const char *vMessage = "Nieprawidłowy format wiadomości";
@@ -147,16 +150,22 @@ void CClient::ServeReceivedMessage() {
 		}
 
 		int vChecksum = ConverMessageArraytToInt();
-		mReceiveBuffer->remove(0, mMessageSize);
 
 		CChecksumList *vChecksumList = gRepository.GetChecksumList();
 		bool vIsChecksumInSrv = vChecksumList->CheckFileChecksum(vChecksum);
 		qDebug() << vIsChecksumInSrv;
 
+		mReceiveBuffer->clear();
+		delete mDataSize;
+		mDataSize  = new qint32(0);
+		mReceiveDataMode = Mode_Receive_File_Data;
+		mMessageSize = 0;
+		mReceiveByteCnt = 0;
+		mPreBeginMessageSign  = false;
 		if (!vIsChecksumInSrv) {
 				QByteArray vMessage("SEND");
 				ResponeToClient(vMessage);
-				// i klient zapamietuje co wysylal jaka sume wiec ten plik wysyla
+				//				i klient zapamietuje co wysylal jaka sume wiec ten plik wysyla
 
 				//				alternatywa:
 				//        QString vClientMessage = PrepareSendingToClientMessage(vChecksum);
