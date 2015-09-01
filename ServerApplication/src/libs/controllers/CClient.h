@@ -161,7 +161,9 @@ class CClient : public QObject {
 		int mMessageSize;
     int mReceiveByteCnt;
     int mReceiveFrameNOKCnt;
-		int mReceiveFrameFaultCnt;
+        int mReceiveFrameFaultCnt;
+        bool mCheckAnotherMessageBegin;
+        bool mCheckSecondMessageEnd;
 };
 
 #endif // CCLIENT_H
