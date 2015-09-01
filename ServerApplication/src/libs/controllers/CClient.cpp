@@ -17,9 +17,8 @@ CClient::CClient(QObject *aParent) :
 		mMessageSize(0),
 		mReceiveByteCnt(0),
 		mReceiveFrameNOKCnt(0),
-        mReceiveFrameFaultCnt(0),
-        mCheckAnotherMessageBegin(false),
-        mCheckSecondMessageEnd(false) {
+		mReceiveFrameFaultCnt(0),
+		mPreBeginMessageSign(false) {
 }
 
 CClient::~CClient() {
@@ -84,16 +83,18 @@ void CClient::NewData() {
 
 								case '>':					// początek komunikatu "suma pliku"
 
-                                    if(mCheckAnotherMessageBegin) {
-                                        mReceiveDataMode = Mode_Receive_File_CheckSum;
-                                        mReceiveByteCnt = 0;
-                                        mCheckAnotherMessageBegin = false;
-                                    } else {
-                                       mCheckAnotherMessageBegin = true;
-                                    }
-                                   break;
+										if (mPreBeginMessageSign) {
+												mReceiveDataMode = Mode_Receive_File_CheckSum;
+												mReceiveByteCnt = 0;
+												mPreBeginMessageSign = false;
+										} else {
+												mPreBeginMessageSign = true;
+										}
+
+										break;
 
 								default:
+										mPreBeginMessageSign = false;
 										break;
 						}
 
@@ -119,22 +120,11 @@ void CClient::RouteData(char aData) {
 								mReceiveByteCnt = 0;
 						}
 
-                        // lub CR LF 0x0A 0x0D if(mCheckAnotherMessageBegin) {
-                                        mReceiveDataMode = Mode_Receive_File_CheckSum;
-                                            mReceiveByteCnt = 0;
-                                    }
-
-                                   mCheckAnotherMessageBegin = true;
-                        if (aData == '<') {		    // koniec komunikatu "suma pliku"
-                                if(mCheckSecondMessageEnd) {
-                                        mMessageSize = mReceiveByteCnt;
-                                mReceiveByteCnt = 0;
-                                ServeReceivedMessage();
-                                mReceiveDataMode = Mode_Receive_File_Data;
-                                mCheckSecondMessageEnd  = false;
-                               } else {
-                                   mCheckSecondMessageEnd  = true;
-                                }
+						if (aData == '<') {		    // koniec komunikatu "suma pliku"
+								mMessageSize = mReceiveByteCnt;
+								mReceiveByteCnt = 0;
+								ServeReceivedMessage();
+								mReceiveDataMode = Mode_Receive_File_Data;
 						}
 
 						break;
@@ -142,10 +132,12 @@ void CClient::RouteData(char aData) {
 
 				default:
 						break;
+
 		}
 }
-
 void CClient::ServeReceivedMessage() {
+		qDebug() << "serveee";
+
 		if (!HasMessageCorrectFormat(mMessageClntFileChecksum)) {
 				const char *vMessage = "Nieprawidłowy format wiadomości";
 				MessageStatus(vMessage, 2200);
@@ -174,17 +166,22 @@ void CClient::ServeReceivedMessage() {
 
 bool CClient::HasMessageCorrectFormat(char *aMessage) {
 		bool vCorrect = true;
-		int vChecksumLength = mMessageSize - 2; // 2 bajty znaki '>' i '<'
+		qDebug() << "suma->" << aMessage;
+		int vChecksumLength = mMessageSize - 3; // 2 bajty znaki '>' i '<'
 
-        if (aMessage[0] != '>' || aMessage[1] != '>') {  // początek komunikatu
+		if (aMessage[0] != '>') {  // początek komunikatu
 				vCorrect =  false;
-        } else if ((aMessage[mMessageSize - 1] != ('<')) || (aMessage[mMessageSize - 2] != ('<'))) {
+				qDebug() << "a";
+		} else if ((aMessage[mMessageSize - 1] != ('<'))) {
 				vCorrect = false;
+				qDebug() << "b";
 
 		} else {
-                for (int i = 2; i < vChecksumLength + 2; ++i) {
+				for (int i = 1; i < vChecksumLength + 1; ++i) {
 						if (!isxdigit(aMessage[i])) {
+								qDebug() << "c";
 								vCorrect = false;
+								return vCorrect;
 						}
 				}
 		}
@@ -268,33 +265,33 @@ void CClient::Disconnected() {
 
 		mSocket->deleteLater();
 		delete mReceiveBuffer;
-    delete mDataSize;
+		delete mDataSize;
 }
 
 QString CClient::PrepareSendingToClientMessage(int aChecksum) {
-        QString vResultMessage(">>");
+		QString vResultMessage(">>");
 		vResultMessage.append(aChecksum);
-        vResultMessage.append("<<");
+		vResultMessage.append("<<");
 }
 
 int CClient::ConverMessageArraytToInt() {
-    // wyodrębnienie liczyby-stringa z tablicy i konwersja na int
-    // wersja 1:
+		// wyodrębnienie liczyby-stringa z tablicy i konwersja na int
+		// wersja 1:
 
-    QString vNumAsString;
+		QString vNumAsString;
 
-    for (int i = 0; i < mMessageSize; i++) {
+		for (int i = 0; i < mMessageSize; i++) {
 				if (isdigit(mMessageClntFileChecksum[i])) {
 						vNumAsString.append(mMessageClntFileChecksum[i]);
 				}
-    }
+		}
 
-    return vNumAsString.toInt();
+		return vNumAsString.toInt();
 
-    // wersja alternatywna:
-    //		std::string vStringFromArray(mMessageClntFileChecksum);
-    //		std::string vNumAsString = vStringFromArray.substr(2, mMessageSize-4);
-    //		int vNum = QString::fromStdString(vNumAsString).toInt();
+		// wersja alternatywna:
+		//		std::string vStringFromArray(mMessageClntFileChecksum);
+		//		std::string vNumAsString = vStringFromArray.substr(2, mMessageSize-4);
+		//		int vNum = QString::fromStdString(vNumAsString).toInt();
 }
 
 void CClient::ResponeToClient(QByteArray aData) {

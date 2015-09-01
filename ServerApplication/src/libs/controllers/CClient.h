@@ -98,7 +98,7 @@ class CClient : public QObject {
 
 	private:
 		void ConvertHexAsciiToBinary(const char *aData, int aLen,
-																					char *aTarget);
+																 char *aTarget);
 		void ConvertBinaryToHexAscii(const char *aData, int aLen,
 																 char *aTarget);
     QString PrepareSendingToClientMessage(int aChecksum);
@@ -133,9 +133,9 @@ class CClient : public QObject {
      * Message should consist from:
      * - message begin char: ">"
      * - data as hex-ascii string
-				 * - end message char: "<"
+					 * - end message char: "<"
      *
-			 * @return TRUE for correct format, FALSE for incorrect.
+				 * @return TRUE for correct format, FALSE for incorrect.
      */
 		bool HasMessageCorrectFormat(char *aMessage);
 
@@ -161,9 +161,9 @@ class CClient : public QObject {
 		int mMessageSize;
     int mReceiveByteCnt;
     int mReceiveFrameNOKCnt;
-        int mReceiveFrameFaultCnt;
-        bool mCheckAnotherMessageBegin;
-        bool mCheckSecondMessageEnd;
+		int mReceiveFrameFaultCnt;
+		bool mPreBeginMessageSign;
+
 };
 
 #endif // CCLIENT_H

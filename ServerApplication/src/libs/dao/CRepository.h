@@ -36,9 +36,10 @@ class CRepository {
 
     /**
      * @brief Refresh function refresh update data from
-     * database to model
+		 * database to model.
      */
     void RefreshModel();
+
     /**
      * @brief GetDatabase method is getter to
      * database connection object.
@@ -47,6 +48,11 @@ class CRepository {
      * the actual database.
      */
     server::AndroidPhotosDatabase *GetDatabase() const;
+
+		/**
+		 * @brief GetChecksumList
+		 * @return checksums list.
+		 */
     CChecksumList *GetChecksumList() const;
 
     /**
@@ -67,7 +73,12 @@ class CRepository {
     bool mLastConnectionError;
 
   private:
+		/**
+		 * @brief RefreshChecksums update checksum list represent as
+		 * mChecksumList variable.
+		 */
     void RefreshChecksums();
+
     /**
      * @brief mDatabase represent database connection object.
      */
