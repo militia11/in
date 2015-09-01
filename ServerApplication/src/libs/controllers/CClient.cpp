@@ -235,7 +235,7 @@ void CClient::ServeReceivedFileData() {
 						//						const char *vMessage = "Odebrano dane : ";
 						//						ResponeToClient(vMessage, vData);
 
-						//						emit ReadData(vRetrieveData);///@todo odznaczyc kom na koniec sprawdzic co i jak
+						emit ReadData(vData);///@todo odznaczyc kom na koniec sprawdzic co i jak
 				}
 		}
 }
