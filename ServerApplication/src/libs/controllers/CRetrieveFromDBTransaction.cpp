@@ -36,10 +36,11 @@ void CRetrieveFromDBTransaction::RetrieveData(Photo aPhoto) {
     Blob vBlob = aPhoto.data.value();
 
     if (vBlob.isNull()) {
-        qDebug() << "Obiekt o podanej sumie kontrolnej nie istnieje";
+        qDebug() << "Obiektu o podanej sumie kontrolnej nie ma w bazie";
+        return;
     }
 
-    int vBuffSize = aPhoto.datasize.value(); // 25002;
+    int vBuffSize = aPhoto.datasize.value();
     u8_t *vBuffer = new u8_t[vBuffSize];
 
     vBlob.getData(vBuffer, vBuffSize);

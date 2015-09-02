@@ -162,7 +162,7 @@ class CClient : public QObject {
     int mReceiveByteCnt;
     int mReceiveFrameNOKCnt;
 		int mReceiveFrameFaultCnt;
-		bool mPreBeginMessageSign;
+
 
 };
 

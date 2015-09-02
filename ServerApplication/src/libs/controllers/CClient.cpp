@@ -17,8 +17,8 @@ CClient::CClient(QObject *aParent) :
 		mMessageSize(0),
 		mReceiveByteCnt(0),
 		mReceiveFrameNOKCnt(0),
-		mReceiveFrameFaultCnt(0),
-		mPreBeginMessageSign(false) {
+        mReceiveFrameFaultCnt(0)
+         {
 }
 
 CClient::~CClient() {
@@ -77,30 +77,27 @@ void CClient::NewData() {
 				mReceiveBuffer->append(vData);
 
 				for (int i = 0; i < vData.length(); i++) {
-						qDebug() << "MODE" << mReceiveDataMode;
-						char vTargetSign = vData[i];
+                        char vTargetSign = vData[i];
 
 						switch (vTargetSign) {
 
 								case '>':					// początek komunikatu "suma pliku"
 
-										if (mPreBeginMessageSign) {
+                                      char vNextChar = vData[i+1];
+
+                                        if (vNextChar == '>') {
 												mReceiveDataMode = Mode_Receive_File_CheckSum;
 												mReceiveByteCnt = 0;
-												mPreBeginMessageSign = false;
-										} else {
-												mPreBeginMessageSign = true;
-										}
+                                        }
 
-										break;
+                                      break;
 
 								default:
-										mPreBeginMessageSign = false;
-										break;
+                                    break;
 						}
 
-						RouteData(vTargetSign);
-				}
+                        RouteData(vTargetSign);
+                }
 		}
 }
 
@@ -122,7 +119,7 @@ void CClient::RouteData(char aData) {
 						}
 
 						if (aData == '<') {		    // koniec komunikatu "suma pliku"
-								mReceiveDataMode = Mode_Receive_File_Data;
+                                mReceiveDataMode = Mode_Receive_File_Data;
 								mMessageSize = mReceiveByteCnt;
 								//mReceiveBuffer->clear();
 								mReceiveBuffer->remove(0, mMessageSize);
@@ -139,9 +136,7 @@ void CClient::RouteData(char aData) {
 		}
 }
 void CClient::ServeReceivedMessage() {
-		qDebug() << "serve";
-
-		if (!HasMessageCorrectFormat(mMessageClntFileChecksum)) {
+        if (!HasMessageCorrectFormat(mMessageClntFileChecksum)) {
 				const char *vMessage = "Nieprawidłowy format wiadomości";
 				MessageStatus(vMessage, 2200);
 				qDebug() << vMessage;
@@ -157,8 +152,8 @@ void CClient::ServeReceivedMessage() {
 
 		mReceiveBuffer->clear();
 		delete mDataSize;
-		mDataSize  = new qint32(0);
-		mReceiveDataMode = Mode_Receive_File_Data;
+        mDataSize = 0;
+        mDataSize  = new qint32(0);
 		mMessageSize = 0;
 		mReceiveByteCnt = 0;
 		mPreBeginMessageSign  = false;
@@ -175,21 +170,16 @@ void CClient::ServeReceivedMessage() {
 
 bool CClient::HasMessageCorrectFormat(char *aMessage) {
 		bool vCorrect = true;
-		qDebug() << "suma->" << aMessage;
-		int vChecksumLength = mMessageSize - 3; // 2 bajty znaki '>' i '<'
+                int vChecksumLength = mMessageSize - 3; // 2 bajty znaki '>' i '<'
 
 		if (aMessage[0] != '>') {  // początek komunikatu
 				vCorrect =  false;
-				qDebug() << "a";
-		} else if ((aMessage[mMessageSize - 1] != ('<'))) {
+                } else if ((aMessage[mMessageSize - 1] != ('<'))) {
 				vCorrect = false;
-				qDebug() << "b";
-
-		} else {
+                        } else {
 				for (int i = 1; i < vChecksumLength + 1; ++i) {
 						if (!isxdigit(aMessage[i])) {
-								qDebug() << "c";
-								vCorrect = false;
+                                                                vCorrect = false;
 								return vCorrect;
 						}
 				}
@@ -224,8 +214,7 @@ void CClient::ServeReceivedFileData() {
 
 						u_int8_t vChecksum =	CalculateFileDataChecksum(vData);
 
-						qDebug() << vData.size() << "size";
-						CAddToDBTransaction AddToDBTransaction(vData, vData.size(), vChecksum);
+                        CAddToDBTransaction AddToDBTransaction(vData, vData.size(), vChecksum);
 						AddToDBTransaction.Execute();
 
 						//						CRetrieveFromDBTransaction vRetrieveTransaction(221);

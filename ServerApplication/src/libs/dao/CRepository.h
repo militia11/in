@@ -61,7 +61,7 @@ class CRepository {
     void PopulateDatabase();
 
     /**
-     * @brief Connect to database.
+     * @brief Connect function call to connect to database.
      */
     void Connect();
 
