@@ -25,11 +25,11 @@ class CAddToDBTransaction : public CTransaction {
     void Execute();
 
   private:
-		/**
-		 * @brief SetAtributtesAddToDB set attribures for new document .
-		 * @param aPhoto represents Photo Document stored in
-		 * database.
-		 */
+    /**
+     * @brief SetAtributtesAddToDB set attribures for new document .
+     * @param aPhoto represents Photo Document stored in
+     * database.
+     */
     void SetAtributtesAddToDB(server::Photo *aPhoto);
 
     QByteArray mData;

@@ -17,8 +17,7 @@ CClient::CClient(QObject *aParent) :
 		mMessageSize(0),
 		mReceiveByteCnt(0),
 		mReceiveFrameNOKCnt(0),
-        mReceiveFrameFaultCnt(0)
-         {
+		mReceiveFrameFaultCnt(0) {
 }
 
 CClient::~CClient() {
@@ -75,29 +74,32 @@ void CClient::NewData() {
 		while (mSocket->bytesAvailable() > 0) {
 				QByteArray vData = mSocket->readAll();
 				mReceiveBuffer->append(vData);
+				qDebug() << "datanew" << vData.size();
+
 
 				for (int i = 0; i < vData.length(); i++) {
-                        char vTargetSign = vData[i];
+						char vTargetSign = vData[i];
 
 						switch (vTargetSign) {
 
-								case '>':					// początek komunikatu "suma pliku"
+								case '>': {					// początek komunikatu "suma pliku"
 
-                                      char vNextChar = vData[i+1];
+										char vNextChar = vData[i + 1];
 
-                                        if (vNextChar == '>') {
+										if (vNextChar == '>') {
 												mReceiveDataMode = Mode_Receive_File_CheckSum;
-												mReceiveByteCnt = 0;
-                                        }
+												//mReceiveByteCnt = 0;
+										}
 
-                                      break;
+										break;
+								}
 
 								default:
-                                    break;
+										break;
 						}
 
-                        RouteData(vTargetSign);
-                }
+						RouteData(vTargetSign);
+				}
 		}
 }
 
@@ -119,10 +121,11 @@ void CClient::RouteData(char aData) {
 						}
 
 						if (aData == '<') {		    // koniec komunikatu "suma pliku"
-                                mReceiveDataMode = Mode_Receive_File_Data;
+								mReceiveDataMode = Mode_Receive_File_Data;
 								mMessageSize = mReceiveByteCnt;
 								//mReceiveBuffer->clear();
-								mReceiveBuffer->remove(0, mMessageSize);
+								//mMessageClntFileChecksum.
+								mReceiveBuffer->clear();// ->remove(0, mMessageSize);
 								mReceiveByteCnt = 0;
 								ServeReceivedMessage();
 						}
@@ -136,7 +139,7 @@ void CClient::RouteData(char aData) {
 		}
 }
 void CClient::ServeReceivedMessage() {
-        if (!HasMessageCorrectFormat(mMessageClntFileChecksum)) {
+		if (!HasMessageCorrectFormat(mMessageClntFileChecksum)) {
 				const char *vMessage = "Nieprawidłowy format wiadomości";
 				MessageStatus(vMessage, 2200);
 				qDebug() << vMessage;
@@ -152,11 +155,11 @@ void CClient::ServeReceivedMessage() {
 
 		mReceiveBuffer->clear();
 		delete mDataSize;
-        mDataSize = 0;
-        mDataSize  = new qint32(0);
+		mDataSize = 0;
+		mDataSize  = new qint32(0);
 		mMessageSize = 0;
 		mReceiveByteCnt = 0;
-		mPreBeginMessageSign  = false;
+
 		if (!vIsChecksumInSrv) {
 				QByteArray vMessage("SEND");
 				ResponeToClient(vMessage);
@@ -170,16 +173,20 @@ void CClient::ServeReceivedMessage() {
 
 bool CClient::HasMessageCorrectFormat(char *aMessage) {
 		bool vCorrect = true;
-                int vChecksumLength = mMessageSize - 3; // 2 bajty znaki '>' i '<'
+		int vChecksumLength = mMessageSize - 3; // 2 bajty znaki '>' i '<'
+		qDebug() << "mes" << aMessage << sizeof(aMessage);
 
 		if (aMessage[0] != '>') {  // początek komunikatu
 				vCorrect =  false;
-                } else if ((aMessage[mMessageSize - 1] != ('<'))) {
+				qDebug() << "a";
+		} else if ((aMessage[mMessageSize - 1] != ('<'))) {
 				vCorrect = false;
-                        } else {
-				for (int i = 1; i < vChecksumLength + 1; ++i) {
+				qDebug() << "b";
+		} else {
+				for (int i = 2; i < vChecksumLength + 2; ++i) {
 						if (!isxdigit(aMessage[i])) {
-                                                                vCorrect = false;
+								vCorrect = false;
+								qDebug() << "c";
 								return vCorrect;
 						}
 				}
@@ -214,7 +221,7 @@ void CClient::ServeReceivedFileData() {
 
 						u_int8_t vChecksum =	CalculateFileDataChecksum(vData);
 
-                        CAddToDBTransaction AddToDBTransaction(vData, vData.size(), vChecksum);
+						CAddToDBTransaction AddToDBTransaction(vData, vData.size(), vChecksum);
 						AddToDBTransaction.Execute();
 
 						//						CRetrieveFromDBTransaction vRetrieveTransaction(221);
@@ -270,6 +277,7 @@ QString CClient::PrepareSendingToClientMessage(int aChecksum) {
 		QString vResultMessage(">>");
 		vResultMessage.append(aChecksum);
 		vResultMessage.append("<<");
+		return vResultMessage;
 }
 
 int CClient::ConverMessageArraytToInt() {

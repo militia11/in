@@ -36,7 +36,7 @@ class CRepository {
 
     /**
      * @brief Refresh function refresh update data from
-		 * database to model.
+    	 * database to model.
      */
     void RefreshModel();
 
@@ -49,10 +49,10 @@ class CRepository {
      */
     server::AndroidPhotosDatabase *GetDatabase() const;
 
-		/**
-		 * @brief GetChecksumList
-		 * @return checksums list.
-		 */
+    /**
+     * @brief GetChecksumList
+     * @return checksums list.
+     */
     CChecksumList *GetChecksumList() const;
 
     /**
@@ -73,10 +73,10 @@ class CRepository {
     bool mLastConnectionError;
 
   private:
-		/**
-		 * @brief RefreshChecksums update checksum list represent as
-		 * mChecksumList variable.
-		 */
+    /**
+     * @brief RefreshChecksums update checksum list represent as
+     * mChecksumList variable.
+     */
     void RefreshChecksums();
 
     /**

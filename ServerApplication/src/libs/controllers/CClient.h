@@ -16,7 +16,7 @@
  */
 enum ReceiveDataMode {
     Mode_Receive_File_Data          = 1,
-		Mode_Receive_File_CheckSum			= 2
+    Mode_Receive_File_CheckSum			= 2
 };
 
 /**
@@ -96,36 +96,36 @@ class CClient : public QObject {
      */
     void Disconnected();
 
-	private:
-		void ConvertHexAsciiToBinary(const char *aData, int aLen,
-																 char *aTarget);
-		void ConvertBinaryToHexAscii(const char *aData, int aLen,
-																 char *aTarget);
+  private:
+    void ConvertHexAsciiToBinary(const char *aData, int aLen,
+                                 char *aTarget);
+    void ConvertBinaryToHexAscii(const char *aData, int aLen,
+                                 char *aTarget);
     QString PrepareSendingToClientMessage(int aChecksum);
 
-		int ConverMessageArraytToInt();
+    int ConverMessageArraytToInt();
 
-		/**
-		 * @brief ServeFileData serve file data.
-		 *  from incoming connection.
-		 */
-		void ServeReceivedFileData();
+    /**
+     * @brief ServeFileData serve file data.
+     *  from incoming connection.
+     */
+    void ServeReceivedFileData();
 
     int32_t ByteArrayToInt(QByteArray aData);
 
-		/**
-		 * @brief RouteData function switch data to
-		 * CCheckSumList class or file data to save
-		 * in server.
-		 *
-		 * @param aData is data to route.
-		 */
-		void RouteData(char aData);
+    /**
+     * @brief RouteData function switch data to
+     * CCheckSumList class or file data to save
+     * in server.
+     *
+     * @param aData is data to route.
+     */
+    void RouteData(char aData);
 
     /**
      * @brief Serve single received message.
      */
-		void ServeReceivedMessage();
+    void ServeReceivedMessage();
 
     /**
      * @brief Check has message correct format.
@@ -133,19 +133,19 @@ class CClient : public QObject {
      * Message should consist from:
      * - message begin char: ">"
      * - data as hex-ascii string
-					 * - end message char: "<"
+    				 * - end message char: "<"
      *
-				 * @return TRUE for correct format, FALSE for incorrect.
+    			 * @return TRUE for correct format, FALSE for incorrect.
      */
-		bool HasMessageCorrectFormat(char *aMessage);
+    bool HasMessageCorrectFormat(char *aMessage);
 
-		/**
-		* @brief CalculateFileDataChecksum calculate message checksum
-		* to compare with expected.
-		*
-		* @return Checksum calculated as youngest byte of sum of all bytes.
-		*/
-		uint8_t CalculateFileDataChecksum(QByteArray aData);
+    /**
+    * @brief CalculateFileDataChecksum calculate message checksum
+    * to compare with expected.
+    *
+    * @return Checksum calculated as youngest byte of sum of all bytes.
+    */
+    uint8_t CalculateFileDataChecksum(QByteArray aData);
 
     /**
      * @brief Method connect socket's signals to
@@ -154,14 +154,14 @@ class CClient : public QObject {
     inline void ConnectSocketSignals();
 
     QTcpSocket *mSocket;
-		QByteArray *mReceiveBuffer;
-		int32_t *mDataSize;
+    QByteArray *mReceiveBuffer;
+    int32_t *mDataSize;
     ReceiveDataMode mReceiveDataMode;
-		char mMessageClntFileChecksum[1024];
-		int mMessageSize;
+    char mMessageClntFileChecksum[1024];
+    int mMessageSize;
     int mReceiveByteCnt;
     int mReceiveFrameNOKCnt;
-		int mReceiveFrameFaultCnt;
+    int mReceiveFrameFaultCnt;
 
 
 };
