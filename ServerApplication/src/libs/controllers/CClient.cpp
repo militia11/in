@@ -50,32 +50,12 @@ QTcpSocket *CClient::GetSocket() const {
 		return mSocket;
 }
 
-void CClient::ConvertHexAsciiToBinary(const char *aData, int aLen,
-																			char *aTarget) {
-		for (int i = 0; i < aLen - 1; i += 2) {
-				char hex[3] = {aData[i], aData[i + 1], 0x00};
-				aTarget[i / 2] = static_cast<char>(strtol(hex, NULL, 16));
-		}
-}
-
-void CClient::ConvertBinaryToHexAscii(const char *aData, int aLen,
-																			char *aTarget) {
-		char buffer[3];
-
-		for (int i = 0; i < aLen; ++i) {
-				snprintf(buffer, 3, "%02X", aData[i]);
-				aTarget[2 * i] = buffer[0];
-				aTarget[2 * i + 1] = buffer[1];
-		}
-}
-
 void CClient::NewData() {
 
 		while (mSocket->bytesAvailable() > 0) {
 				QByteArray vData = mSocket->readAll();
 				mReceiveBuffer->append(vData);
-				qDebug() << "datanew" << vData.size();
-
+				qDebug() << "datanew" << *mReceiveBuffer << "DLEM" << vData.length();
 
 				for (int i = 0; i < vData.length(); i++) {
 						char vTargetSign = vData[i];
@@ -88,7 +68,7 @@ void CClient::NewData() {
 
 										if (vNextChar == '>') {
 												mReceiveDataMode = Mode_Receive_File_CheckSum;
-												//mReceiveByteCnt = 0;
+												mReceiveByteCnt = 0; //pozniej usunac
 										}
 
 										break;
@@ -107,25 +87,28 @@ void CClient::RouteData(char aData) {
 		switch (mReceiveDataMode) {
 
 				case Mode_Receive_File_Data : {
+						qDebug() << "MODEDATA";
 						ServeReceivedFileData();
 						break;
 				}
 
 				case Mode_Receive_File_CheckSum: {
+						qDebug() << "MODECHECKSUM";
 						mMessageClntFileChecksum[mReceiveByteCnt] = aData;
+						qDebug() << "aa-->data" << aData;
 						mReceiveByteCnt++;
 
 						// Zabezpieczenie przeładowania buforu
-						if (mReceiveByteCnt >= 1023) {
-								mReceiveByteCnt = 0;
-						}
+						//						if (mReceiveByteCnt >= 1023) {
+						//								mReceiveByteCnt = 0;
+						//						}
 
 						if (aData == '<') {		    // koniec komunikatu "suma pliku"
 								mReceiveDataMode = Mode_Receive_File_Data;
 								mMessageSize = mReceiveByteCnt;
-								//mReceiveBuffer->clear();
+								mReceiveBuffer->clear();
 								//mMessageClntFileChecksum.
-								mReceiveBuffer->clear();// ->remove(0, mMessageSize);
+								//mReceiveBuffer->clear();// ->remove(0, mMessageSize);
 								mReceiveByteCnt = 0;
 								ServeReceivedMessage();
 						}
@@ -172,6 +155,10 @@ void CClient::ServeReceivedMessage() {
 }
 
 bool CClient::HasMessageCorrectFormat(char *aMessage) {
+		for (int i = 0; i < mMessageSize; i++) {
+				qDebug() << "x->>" << aMessage[i];
+		}
+
 		bool vCorrect = true;
 		int vChecksumLength = mMessageSize - 3; // 2 bajty znaki '>' i '<'
 		qDebug() << "mes" << aMessage << sizeof(aMessage);
@@ -197,6 +184,10 @@ bool CClient::HasMessageCorrectFormat(char *aMessage) {
 
 void CClient::ServeReceivedFileData() {
 		int32_t vCurrentSize = *mDataSize;
+		qDebug() << "bbbbuf";
+
+		qDebug() << "rec->>" << *mReceiveBuffer;
+
 
 		// Jeśli można pobierać dane pobieraj
 		while ((vCurrentSize == 0 && mReceiveBuffer->size() >= 4) ||
@@ -207,22 +198,28 @@ void CClient::ServeReceivedFileData() {
 								mReceiveBuffer->size() >=
 								4) { //if size of data has received completely, then store it on our global variable
 						vCurrentSize = ByteArrayToInt(mReceiveBuffer->left(4));
+						qDebug() << "vcu" << vCurrentSize;
 						*mDataSize = vCurrentSize;
 						mReceiveBuffer->remove(0, 4);
 				}
 
 				if (vCurrentSize > 0 && mReceiveBuffer->size() >=
 								vCurrentSize) { // If data has received completely, then emit our SIGNAL with the data
-						QByteArray vData = mReceiveBuffer->left(vCurrentSize);
+						if (vCurrentSize > 4/*punk*/) {
+								QByteArray vData = mReceiveBuffer->left(vCurrentSize);
+								qDebug() << "data przy add" << vData;
+								u_int8_t vChecksum =	CalculateFileDataChecksum(vData);
+
+								CAddToDBTransaction AddToDBTransaction(vData, vData.size(), vChecksum);
+								AddToDBTransaction.Execute();
+								emit ReadData(vData);///@todo odznaczyc kom na koniec sprawdzic co i jak
+						}
+
 
 						mReceiveBuffer->remove(0, vCurrentSize);
 						vCurrentSize = 0;
 						*mDataSize = vCurrentSize;
 
-						u_int8_t vChecksum =	CalculateFileDataChecksum(vData);
-
-						CAddToDBTransaction AddToDBTransaction(vData, vData.size(), vChecksum);
-						AddToDBTransaction.Execute();
 
 						//						CRetrieveFromDBTransaction vRetrieveTransaction(221);
 						//						vRetrieveTransaction.Execute();
@@ -231,7 +228,7 @@ void CClient::ServeReceivedFileData() {
 						//						const char *vMessage = "Odebrano dane : ";
 						//						ResponeToClient(vMessage, vData);
 
-						emit ReadData(vData);///@todo odznaczyc kom na koniec sprawdzic co i jak
+
 				}
 		}
 }
