@@ -1,0 +1,171 @@
+/**
+ * 
+ */
+package ServerTests;
+
+//Import Sikuli
+import org.sikuli.basics.SikuliScript;
+import org.sikuli.script.*;
+
+//Import JUnit
+import static org.junit.Assert.*;
+
+import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.sikuli.script.Pattern;
+import org.sikuli.script.Screen;
+
+import java.lang.Thread.State; ///// ?
+
+import java.util.Scanner;
+
+public class DatabaseSettingsTests {
+	//Computer screen object
+	private Screen screen;
+		
+	// Text next to found position
+	private String recogniseText;
+		
+	// Target fields
+	private Pattern targetSettings;	
+	private Pattern targetDBConnection;
+	private Pattern targetConnectionError;
+	private Pattern targetMySqlDriver;
+	private Pattern targetSqLiteDriver;
+	private Pattern targetDriverLabel;
+	private Pattern targetHostLabel;
+	private Pattern targetUserLabel;
+	private Pattern targetPasswordLabel;
+	private Pattern targetDatabaseLabel;
+	private Pattern targetOkButton;
+	private Pattern targetCancelButton;
+	
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception { 
+			screen = new Screen();
+            targetSettings = new Pattern("./images/1441463959035.png");
+            targetDBConnection = new Pattern("./images/114987846.png");
+            targetConnectionError = new Pattern("./images/1441466153038.png");
+            targetMySqlDriver = new Pattern("./images/1441466168272.png");
+            targetSqLiteDriver = new Pattern("./images/1441466197772.png");
+            targetDriverLabel = new Pattern("./images/1441466212864.png");
+            targetHostLabel = new Pattern("./images/1441466235010.png");
+            targetUserLabel = new Pattern("./images/1441466243744.png");
+            targetPasswordLabel = new Pattern("./images/1441466257040.png");
+            targetDatabaseLabel = new Pattern("./images/1441466276599.png");
+            targetOkButton = new Pattern("./images/1441466285584.png");
+            targetCancelButton = new Pattern("./images/1441466293670.png");
+	}
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+	}
+	
+	@Test
+	public void testCheckSetParameters() throws InterruptedException {				
+	    try {
+			screen.click(targetSettings);  
+		} catch (FindFailed e) {
+			System.out.print("Can't find 'Ustawienia' ");
+			fail();
+		}	    
+		
+		try {
+			screen.click(targetDBConnection);  
+		} catch (FindFailed e) {
+			System.out.print("Can't find 'Połączenie z bazą danych'");
+			fail();
+		}
+		
+		try {
+			Region r = screen.find(targetDatabaseLabel).right(24); 
+			screen.click(r);
+		} catch (FindFailed e) {
+			System.out.print("Can't find 'PoleLabelDB'");
+			fail();
+		}
+	}
+
+	@Test
+	public void testa() {
+		fail("Not yet implemented");
+	}	
+	
+//	@Test
+//	public void testb() {
+//		fail("Not yet implemented");
+//	}
+		
+//	@Test
+//	public void test() {
+//		fail("Not yet implemented");
+//	}
+//	
+//	@Test
+//	public void test() {
+//		fail("Not yet implemented");
+//	}	
+//	
+//	@Test
+//	public void test() {
+//		fail("Not yet implemented");
+//	}
+//	
+//	@Test
+//	public void test() {
+//		fail("Not yet implemented");
+//	}
+//	
+//	@Test
+//	public void test() {
+//		fail("Not yet implemented");
+//	}	
+//	
+//	@Test
+//	public void test() {
+//		fail("Not yet implemented");
+//	}
+//	
+//	@Test
+//	public void test() {
+//		fail("Not yet implemented");
+//	}
+//	
+//	@Test
+//	public void test() {
+//		fail("Not yet implemented");
+//	}	
+//	
+//	@Test
+//	public void test() {
+//		fail("Not yet implemented");
+//	}
+//	
+//	@Test
+//	public void test() {
+//		fail("Not yet implemented");
+//	}
+//	
+//	@Test
+//	public void test() {
+//		fail("Not yet implemented");
+//	}	
+//	
+//	@Test
+//	public void test() {
+//		fail("Not yet implemented");
+//	}
+//	
+//	@Test
+//	public void test() {
+//		fail("Not yet implemented");
+//	}	
+}

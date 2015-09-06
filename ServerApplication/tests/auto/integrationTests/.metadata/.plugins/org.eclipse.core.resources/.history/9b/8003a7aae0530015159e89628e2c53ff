@@ -1,0 +1,73 @@
+/**
+ * 
+ */
+package ServerTests;
+
+/**
+ * Import Sikuli
+ */
+import org.sikuli.basics.*;
+import org.sikuli.script.*;
+
+/**
+ * Import JUnit
+ */
+import static org.junit.Assert.*;
+import org.junit.*;
+
+import java.lang.Thread.State;
+
+import java.util.Scanner;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class DatabaseSettingsTests {
+	//Computer screen object
+	private Screen screen;
+		
+	// Text next to found position
+	private String recogniseText;
+		
+	// Target fields
+	private Pattern targetSettings;	
+	private Pattern targetDBConnection;
+	
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception { 
+			Settings.OcrTextRead = true;
+			Settings.OcrTextSearch = true;	 
+            
+			screen = new Screen();
+            targetSettings = new Pattern("./images/1441463959035.png");
+            targetDBConnection = new Pattern("./images/114987846.png");
+	}
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+	}
+	
+	@Test
+	public void testInit() throws InterruptedException {				
+	    try {
+			screen.click(targetSettings);  
+		} catch (FindFailed e) {
+			System.out.print("Can't find Ustawienia ");
+			fail();
+		}	    
+		
+		try {
+			screen.find(targetDBConnection);  
+		} catch (FindFailed e) {
+			System.out.print("Can't run Android Photo Archive. Please check path and make sure executable file exist");
+			fail();
+			// ZATRZYMANIE TESTOW !!!!!!!!!!111
+		}
+	}
+}
