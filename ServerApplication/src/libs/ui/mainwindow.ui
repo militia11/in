@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Android Synchronizator</string>
+   <string>Android Photos Archive</string>
   </property>
   <widget class="QWidget" name="mentralwidget">
    <widget class="QTextEdit" name="mTextEdit">
@@ -65,6 +65,8 @@
      <string>Plik</string>
     </property>
     <addaction name="separator"/>
+    <addaction name="ActionInfo"/>
+    <addaction name="separator"/>
     <addaction name="ActionCloseEvent"/>
    </widget>
    <widget class="QMenu" name="menuUstawienia">
@@ -110,6 +112,7 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="ActionInfo"/>
   </widget>
   <action name="ActionRunServer">
    <property name="checkable">
@@ -170,6 +173,17 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="ActionInfo">
+   <property name="text">
+    <string>O programie</string>
+   </property>
+   <property name="toolTip">
+    <string>Informacje o programie</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
    </property>
   </action>
  </widget>
