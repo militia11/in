@@ -3,4 +3,5 @@
 <fullyQualifiedTypeName name="java.lang.Thread"/>
 <fullyQualifiedTypeName name="org.sikuli.script.FindFailed"/>
 <fullyQualifiedTypeName name="org.sikuli.script.App"/>
+<fullyQualifiedTypeName name="org.sikuli.script.KeyModifier"/>
 </qualifiedTypeNameHistroy>

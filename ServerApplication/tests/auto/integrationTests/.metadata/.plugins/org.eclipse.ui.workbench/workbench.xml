@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="18" version="2.0">
+<workbench progressCount="20" version="2.0">
 <workbenchAdvisor/>
-<window height="407" maximized="true" width="996" x="224" y="201">
+<window height="542" maximized="true" width="996" x="332" y="71">
 <fastViewData fastViewLocation="1024">
 <orientation position="512" view="org.eclipse.ui.navigator.ProjectExplorer"/>
 <orientation position="512" view="org.eclipse.jdt.junit.ResultView"/>
@@ -46,29 +46,25 @@
 </folder>
 </info>
 </editorArea>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DatabaseSettingsTests.java" partName="DatabaseSettingsTests.java" path="/home/mmichniewski/integrationTests/ServerIntegrationTests/src/serverApplicationTests/DatabaseSettingsTests.java" title="DatabaseSettingsTests.java" tooltip="ServerIntegrationTests/src/serverApplicationTests/DatabaseSettingsTests.java" workbook="DefaultEditorWorkbook">
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DatabaseSettingsTests.java" partName="DatabaseSettingsTests.java" path="/home/mmichniewski/SynchronizationTool/ServerApplication/tests/auto/integrationTests/ServerIntegrationTests/src/serverApplicationTests/DatabaseSettingsTests.java" title="DatabaseSettingsTests.java" tooltip="ServerIntegrationTests/src/serverApplicationTests/DatabaseSettingsTests.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ServerIntegrationTests/src/serverApplicationTests/DatabaseSettingsTests.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="241" selectionTopPixel="231"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1136" selectionTopPixel="595"/>
 </editor>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AllTests.java" partName="AllTests.java" path="/home/mmichniewski/integrationTests/ServerIntegrationTests/src/ServerTests/AllTests.java" title="AllTests.java" tooltip="ServerIntegrationTests/src/ServerTests/AllTests.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ServerIntegrationTests/src/ServerTests/AllTests.java"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="248" selectionTopPixel="0"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="InitTest.java" partName="InitTest.java" path="/home/mmichniewski/integrationTests/ServerIntegrationTests/src/ServerTests/InitTest.java" title="InitTest.java" tooltip="ServerIntegrationTests/src/ServerTests/InitTest.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ServerIntegrationTests/src/ServerTests/InitTest.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="270" selectionOffset="1057" selectionTopPixel="538"/>
-</editor>
 <editor id="org.eclipse.jdt.ui.ClassFileEditorNoSource" name="Region.class" partName="Region.class" path="/tmp/Region.class173221482233321766.class" title="Region.class" tooltip="org.sikuli.script.Region" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" org.eclipse.jdt.ui.ClassFileIdentifier="=ServerIntegrationTests/\/home\/mmichniewski\/SikuliApp\/sikuli-ide.jar&lt;org.sikuli.script(Region.class"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ServerSettings.java" partName="ServerSettings.java" path="/home/mmichniewski/integrationTests/ServerIntegrationTests/src/serverApplicationTests/ServerSettings.java" title="ServerSettings.java" tooltip="ServerIntegrationTests/src/serverApplicationTests/ServerSettings.java" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ServerSettings.java" partName="ServerSettings.java" path="/home/mmichniewski/SynchronizationTool/ServerApplication/tests/auto/integrationTests/ServerIntegrationTests/src/serverApplicationTests/ServerSettings.java" title="ServerSettings.java" tooltip="ServerIntegrationTests/src/serverApplicationTests/ServerSettings.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ServerIntegrationTests/src/serverApplicationTests/ServerSettings.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="63" selectionOffset="253" selectionTopPixel="57"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="333" selectionTopPixel="6"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AllTests.java" partName="AllTests.java" path="/home/mmichniewski/integrationTests/ServerIntegrationTests/src/serverApplicationTests/AllTests.java" title="AllTests.java" tooltip="ServerIntegrationTests/src/serverApplicationTests/AllTests.java" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AllTests.java" partName="AllTests.java" path="/home/mmichniewski/SynchronizationTool/ServerApplication/tests/auto/integrationTests/ServerIntegrationTests/src/serverApplicationTests/AllTests.java" title="AllTests.java" tooltip="ServerIntegrationTests/src/serverApplicationTests/AllTests.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ServerIntegrationTests/src/serverApplicationTests/AllTests.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="182" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
@@ -81,7 +77,7 @@
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
-<category IMemento.internal.id="Warnings (9 items)"/>
+<category IMemento.internal.id="Errors"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="492" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
@@ -264,13 +260,13 @@
 <view id="org.eclipse.ui.views.ProblemView"/>
 <view id="org.eclipse.jdt.ui.JavadocView"/>
 <view id="org.eclipse.jdt.ui.SourceView"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.jdt.junit.ResultView"/>
 <view id="org.eclipse.jdt.ui.PackageExplorer"/>
 <fastViews>
 <view id="org.eclipse.ui.navigator.ProjectExplorer" ratio="0.3"/>
 <view id="org.eclipse.ui.views.ContentOutline" ratio="0.29970545"/>
 <view id="org.eclipse.pde.runtime.LogView" ratio="0.29970545"/>
-<view id="org.eclipse.ui.console.ConsoleView" ratio="0.185567"/>
 </fastViews>
 <fastViewBars/>
 <layout>
@@ -291,7 +287,7 @@
 </folder>
 </info>
 <info folder="true" part="org.eclipse.ui.internal.ViewStack@4fb53173" ratio="0.2379072" ratioLeft="241" ratioRight="772" relationship="2" relative="left">
-<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">
+<folder activePageID="org.eclipse.jdt.junit.ResultView" appearance="2" expanded="2">
 <page content="org.eclipse.jdt.junit.ResultView" label="JUnit"/>
 <page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
@@ -301,18 +297,19 @@
 </folder>
 </info>
 <info folder="true" part="bottom" ratio="0.9395425" ratioLeft="575" ratioRight="37" relationship="4" relative="org.eclipse.ui.internal.ViewStack@4fb53173">
-<folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
 <page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
-<page content="org.eclipse.ui.console.ConsoleView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.ProgressView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
+<part id="3"/>
 </presentation>
 </folder>
 </info>
@@ -332,170 +329,165 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ServerIntegrationTests/src/ServerTests/AllTests.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ServerIntegrationTests/src/ServerTests/DatabaseSettingsTests.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ServerIntegrationTests/src/ServerTests/InitTest.java"/>
-<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditorNoSource" org.eclipse.jdt.ui.ClassFileIdentifier="=ServerIntegrationTests/\/home\/mmichniewski\/SikuliApp\/sikuli-ide.jar&lt;org.sikuli.script(Region.class"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ServerIntegrationTests/src/ServerTests/InitTest.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ServerIntegrationTests/src/ServerTests/AllTests.java"/>
-<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditorNoSource" org.eclipse.jdt.ui.ClassFileIdentifier="=ServerIntegrationTests/\/home\/mmichniewski\/SikuliApp\/sikuli-ide.jar&lt;org.sikuli.script(Region.class"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ServerIntegrationTests/src/ServerTests/DatabaseSettingsTests.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ServerIntegrationTests/src/ServerTests/InitTest.java"/>
-<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditorNoSource" org.eclipse.jdt.ui.ClassFileIdentifier="=ServerIntegrationTests/\/home\/mmichniewski\/SikuliApp\/sikuli-ide.jar&lt;org.sikuli.script(Region.class"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ServerIntegrationTests/src/ServerTests/AllTests.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ServerIntegrationTests/src/serverApplicationTests/DatabaseSettingsTests.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ServerIntegrationTests/src/serverApplicationTests/ServerSettings.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ServerIntegrationTests/src/serverApplicationTests/AllTests.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ServerIntegrationTests/src/ServerTests/InitTest.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ServerIntegrationTests/src/serverApplicationTests/InitTest.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ServerIntegrationTests/src/serverApplicationTests/AllTests.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ServerIntegrationTests/src/serverApplicationTests/DatabaseSettingsTests.java"/>
 </editors>
-<item historyLabel="Region.class" index="3">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="InitTest.java" index="2">
-<position info="not_deleted" x="1528" y="0"/>
-</item>
-<item historyLabel="AllTests.java" index="0">
-<position info="not_deleted" x="248" y="0"/>
-</item>
-<item historyLabel="DatabaseSettingsTests.java" index="1">
-<position info="not_deleted" x="2171" y="0"/>
-</item>
-<item historyLabel="AllTests.java" index="0">
-<position info="not_deleted" x="248" y="0"/>
-</item>
-<item historyLabel="InitTest.java" index="2">
-<position info="not_deleted" x="1057" y="270"/>
-</item>
-<item historyLabel="AllTests.java" index="0">
-<position info="not_deleted" x="248" y="0"/>
-</item>
-<item historyLabel="DatabaseSettingsTests.java" index="1">
-<position info="not_deleted" x="2122" y="28"/>
-</item>
-<item historyLabel="InitTest.java" index="4">
-<position info="not_deleted" x="1057" y="270"/>
-</item>
-<item historyLabel="AllTests.java" index="5">
-<position info="not_deleted" x="248" y="0"/>
-</item>
-<item historyLabel="DatabaseSettingsTests.java" index="1">
-<position info="not_deleted" x="8466" y="0"/>
-</item>
-<item historyLabel="AllTests.java" index="5">
-<position info="not_deleted" x="248" y="0"/>
-</item>
-<item historyLabel="Region.class" index="6">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="DatabaseSettingsTests.java" index="1">
-<position info="not_deleted" x="4851" y="33"/>
-</item>
-<item historyLabel="DatabaseSettingsTests.java" index="1">
-<position info="not_deleted" x="4480" y="0"/>
-</item>
-<item historyLabel="AllTests.java" index="5">
-<position info="not_deleted" x="248" y="0"/>
-</item>
-<item historyLabel="DatabaseSettingsTests.java" index="1">
-<position info="not_deleted" x="4480" y="0"/>
-</item>
-<item historyLabel="DatabaseSettingsTests.java" index="1">
-<position/>
-</item>
-<item historyLabel="DatabaseSettingsTests.java" index="1">
-<position info="not_deleted" x="4840" y="0"/>
-</item>
-<item historyLabel="AllTests.java" index="5">
-<position info="not_deleted" x="248" y="0"/>
-</item>
-<item historyLabel="DatabaseSettingsTests.java" index="1">
-<position info="not_deleted" x="4911" y="23"/>
-</item>
-<item historyLabel="AllTests.java" index="5">
-<position info="not_deleted" x="248" y="0"/>
-</item>
-<item historyLabel="DatabaseSettingsTests.java" index="7">
-<position info="not_deleted" x="4903" y="23"/>
-</item>
-<item historyLabel="AllTests.java" index="5">
-<position info="not_deleted" x="248" y="0"/>
-</item>
-<item historyLabel="DatabaseSettingsTests.java" index="7">
-<position info="not_deleted" x="3484" y="0"/>
-</item>
-<item historyLabel="AllTests.java" index="5">
-<position info="not_deleted" x="248" y="0"/>
-</item>
-<item historyLabel="DatabaseSettingsTests.java" index="7">
-<position info="not_deleted" x="2122" y="28"/>
-</item>
-<item historyLabel="DatabaseSettingsTests.java" index="7">
-<position info="not_deleted" x="3510" y="38"/>
-</item>
-<item historyLabel="InitTest.java" index="8">
-<position info="not_deleted" x="1057" y="270"/>
-</item>
-<item historyLabel="Region.class" index="9">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="AllTests.java" index="10">
-<position info="not_deleted" x="248" y="0"/>
-</item>
-<item historyLabel="DatabaseSettingsTests.java" index="7">
-<position info="not_deleted" x="4018" y="11"/>
-</item>
-<item historyLabel="DatabaseSettingsTests.java" index="7">
-<position info="not_deleted" x="5250" y="2725"/>
-</item>
-<item historyLabel="AllTests.java" index="10">
-<position info="not_deleted" x="248" y="0"/>
-</item>
-<item historyLabel="DatabaseSettingsTests.java" index="7">
+<item historyLabel="DatabaseSettingsTests.java" index="0">
 <position info="not_deleted" x="5452" y="0"/>
 </item>
-<item historyLabel="AllTests.java" index="10">
+<item historyLabel="AllTests.java" index="1">
 <position info="not_deleted" x="248" y="0"/>
 </item>
-<item historyLabel="DatabaseSettingsTests.java" index="7">
+<item historyLabel="DatabaseSettingsTests.java" index="0">
 <position info="not_deleted" x="5452" y="0"/>
 </item>
-<item historyLabel="DatabaseSettingsTests.java" index="7">
+<item historyLabel="DatabaseSettingsTests.java" index="0">
 <position info="not_deleted" x="6113" y="0"/>
 </item>
-<item historyLabel="DatabaseSettingsTests.java" index="7">
+<item historyLabel="DatabaseSettingsTests.java" index="0">
 <position info="not_deleted" x="6967" y="0"/>
 </item>
-<item historyLabel="DatabaseSettingsTests.java" index="11">
+<item historyLabel="DatabaseSettingsTests.java" index="2">
 <position info="not_deleted" x="8946" y="0"/>
 </item>
-<item historyLabel="DatabaseSettingsTests.java" index="11">
+<item historyLabel="DatabaseSettingsTests.java" index="2">
 <position info="not_deleted" x="8957" y="0"/>
 </item>
-<item historyLabel="ServerSettings.java" index="12">
+<item historyLabel="ServerSettings.java" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="DatabaseSettingsTests.java" index="11">
+<item historyLabel="DatabaseSettingsTests.java" index="2">
 <position info="not_deleted" x="45" y="334"/>
 </item>
-<item historyLabel="ServerSettings.java" index="12">
+<item historyLabel="ServerSettings.java" index="3">
 <position info="not_deleted" x="316" y="0"/>
 </item>
-<item historyLabel="DatabaseSettingsTests.java" index="11">
+<item historyLabel="DatabaseSettingsTests.java" index="2">
 <position info="not_deleted" x="241" y="0"/>
 </item>
-<item historyLabel="ServerSettings.java" index="12">
+<item historyLabel="ServerSettings.java" index="3">
 <position info="not_deleted" x="316" y="0"/>
 </item>
-<item historyLabel="ServerSettings.java" index="12">
+<item historyLabel="ServerSettings.java" index="3">
 <position info="not_deleted" x="535" y="0"/>
 </item>
-<item historyLabel="DatabaseSettingsTests.java" index="11">
+<item historyLabel="DatabaseSettingsTests.java" index="2">
 <position info="not_deleted" x="241" y="0"/>
 </item>
-<item historyLabel="AllTests.java" index="13">
+<item historyLabel="AllTests.java" index="4">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item active="true" historyLabel="ServerSettings.java" index="12">
+<item historyLabel="ServerSettings.java" index="3">
 <position info="not_deleted" x="535" y="0"/>
+</item>
+<item historyLabel="ServerSettings.java" index="3">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="InitTest.java" index="5">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="InitTest.java" index="6">
+<position info="not_deleted" x="1792" y="0"/>
+</item>
+<item historyLabel="InitTest.java" index="6">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="InitTest.java" index="6">
+<position info="not_deleted" x="732" y="0"/>
+</item>
+<item historyLabel="InitTest.java" index="6">
+<position info="not_deleted" x="728" y="0"/>
+</item>
+<item historyLabel="InitTest.java" index="6">
+<position info="not_deleted" x="466" y="0"/>
+</item>
+<item historyLabel="InitTest.java" index="6">
+<position info="not_deleted" x="1064" y="11"/>
+</item>
+<item historyLabel="InitTest.java" index="6">
+<position info="not_deleted" x="1038" y="0"/>
+</item>
+<item historyLabel="InitTest.java" index="6">
+<position info="not_deleted" x="1411" y="0"/>
+</item>
+<item historyLabel="InitTest.java" index="6">
+<position info="not_deleted" x="1413" y="60"/>
+</item>
+<item historyLabel="InitTest.java" index="6">
+<position info="not_deleted" x="954" y="50"/>
+</item>
+<item historyLabel="InitTest.java" index="6">
+<position info="not_deleted" x="1041" y="0"/>
+</item>
+<item historyLabel="InitTest.java" index="6">
+<position info="not_deleted" x="1413" y="60"/>
+</item>
+<item historyLabel="AllTests.java" index="7">
+<position info="not_deleted" x="242" y="0"/>
+</item>
+<item historyLabel="AllTests.java" index="7">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="ServerSettings.java" index="3">
+<position info="not_deleted" x="462" y="0"/>
+</item>
+<item historyLabel="InitTest.java" index="6">
+<position info="not_deleted" x="1413" y="60"/>
+</item>
+<item historyLabel="DatabaseSettingsTests.java" index="8">
+<position info="not_deleted" x="11938" y="0"/>
+</item>
+<item historyLabel="DatabaseSettingsTests.java" index="8">
+<position info="not_deleted" x="651" y="0"/>
+</item>
+<item historyLabel="ServerSettings.java" index="3">
+<position info="not_deleted" x="333" y="0"/>
+</item>
+<item historyLabel="DatabaseSettingsTests.java" index="8">
+<position info="not_deleted" x="8208" y="0"/>
+</item>
+<item historyLabel="InitTest.java" index="6">
+<position info="not_deleted" x="348" y="488"/>
+</item>
+<item historyLabel="DatabaseSettingsTests.java" index="8">
+<position info="not_deleted" x="1613" y="0"/>
+</item>
+<item historyLabel="InitTest.java" index="6">
+<position/>
+</item>
+<item historyLabel="DatabaseSettingsTests.java" index="8">
+<position info="not_deleted" x="2656" y="0"/>
+</item>
+<item historyLabel="InitTest.java" index="6">
+<position/>
+</item>
+<item historyLabel="DatabaseSettingsTests.java" index="8">
+<position info="not_deleted" x="1567" y="0"/>
+</item>
+<item historyLabel="AllTests.java" index="7">
+<position info="not_deleted" x="182" y="0"/>
+</item>
+<item historyLabel="DatabaseSettingsTests.java" index="8">
+<position info="not_deleted" x="1567" y="0"/>
+</item>
+<item historyLabel="DatabaseSettingsTests.java" index="8">
+<position info="not_deleted" x="5829" y="27"/>
+</item>
+<item historyLabel="DatabaseSettingsTests.java" index="8">
+<position info="not_deleted" x="1236" y="60"/>
+</item>
+<item historyLabel="DatabaseSettingsTests.java" index="8">
+<position info="not_deleted" x="1340" y="0"/>
+</item>
+<item active="true" historyLabel="DatabaseSettingsTests.java" index="8">
+<position info="not_deleted" x="2572" y="50"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -514,6 +506,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="InitTest.java" tooltip="ServerIntegrationTests/src/serverApplicationTests/InitTest.java">
+<persistable path="/ServerIntegrationTests/src/serverApplicationTests/InitTest.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AllTests.java" tooltip="ServerIntegrationTests/src/serverApplicationTests/AllTests.java">
 <persistable path="/ServerIntegrationTests/src/serverApplicationTests/AllTests.java"/>
 </file>
