@@ -55,7 +55,6 @@ void CClient::NewData() {
 		while (mSocket->bytesAvailable() > 0) {
 				QByteArray vData = mSocket->readAll();
 				mReceiveBuffer->append(vData);
-				qDebug() << "datanew" << *mReceiveBuffer << "DLEM" << vData.length();
 
 				for (int i = 0; i < vData.length(); i++) {
 						char vTargetSign = vData[i];
@@ -87,28 +86,25 @@ void CClient::RouteData(char aData) {
 		switch (mReceiveDataMode) {
 
 				case Mode_Receive_File_Data : {
-						qDebug() << "MODEDATA";
+                        qDebug() << "MODE_RECEIVE_FILE_DATA";
 						ServeReceivedFileData();
 						break;
 				}
 
 				case Mode_Receive_File_CheckSum: {
-						qDebug() << "MODECHECKSUM";
+                        qDebug() << "MODE_RECEIVE_FILE_CHECKSUM";
 						mMessageClntFileChecksum[mReceiveByteCnt] = aData;
-						qDebug() << "aa-->data" << aData;
 						mReceiveByteCnt++;
 
 						// Zabezpieczenie przeładowania buforu
-						//						if (mReceiveByteCnt >= 1023) {
-						//								mReceiveByteCnt = 0;
-						//						}
+                        if (mReceiveByteCnt >= 1023) {
+                                mReceiveByteCnt = 0;
+                        }
 
 						if (aData == '<') {		    // koniec komunikatu "suma pliku"
 								mReceiveDataMode = Mode_Receive_File_Data;
 								mMessageSize = mReceiveByteCnt;
 								mReceiveBuffer->clear();
-								//mMessageClntFileChecksum.
-								//mReceiveBuffer->clear();// ->remove(0, mMessageSize);
 								mReceiveByteCnt = 0;
 								ServeReceivedMessage();
 						}
@@ -138,7 +134,6 @@ void CClient::ServeReceivedMessage() {
 
 		mReceiveBuffer->clear();
 		delete mDataSize;
-		mDataSize = 0;
 		mDataSize  = new qint32(0);
 		mMessageSize = 0;
 		mReceiveByteCnt = 0;
@@ -155,18 +150,13 @@ void CClient::ServeReceivedMessage() {
 }
 
 bool CClient::HasMessageCorrectFormat(char *aMessage) {
-		for (int i = 0; i < mMessageSize; i++) {
-				qDebug() << "x->>" << aMessage[i];
-		}
-
-		bool vCorrect = true;
-		int vChecksumLength = mMessageSize - 3; // 2 bajty znaki '>' i '<'
-		qDebug() << "mes" << aMessage << sizeof(aMessage);
+        bool vCorrect = true;///@todo sprawdzic ponizszy komentarz
+        int vChecksumLength = mMessageSize - 3; // 2 bajty znaki '>' i '<'
 
 		if (aMessage[0] != '>') {  // początek komunikatu
 				vCorrect =  false;
 				qDebug() << "a";
-		} else if ((aMessage[mMessageSize - 1] != ('<'))) {
+        } else if ((aMessage[mMessageSize - 1] != ('<'))) {
 				vCorrect = false;
 				qDebug() << "b";
 		} else {
@@ -184,10 +174,6 @@ bool CClient::HasMessageCorrectFormat(char *aMessage) {
 
 void CClient::ServeReceivedFileData() {
 		int32_t vCurrentSize = *mDataSize;
-		qDebug() << "bbbbuf";
-
-		qDebug() << "rec->>" << *mReceiveBuffer;
-
 
 		// Jeśli można pobierać dane pobieraj
 		while ((vCurrentSize == 0 && mReceiveBuffer->size() >= 4) ||
@@ -196,18 +182,17 @@ void CClient::ServeReceivedFileData() {
 
 				if (vCurrentSize == 0 &&
 								mReceiveBuffer->size() >=
-								4) { //if size of data has received completely, then store it on our global variable
-						vCurrentSize = ByteArrayToInt(mReceiveBuffer->left(4));
-						qDebug() << "vcu" << vCurrentSize;
+                                4) {
+                        vCurrentSize = ByteArrayToInt(mReceiveBuffer->left(4));
+
 						*mDataSize = vCurrentSize;
 						mReceiveBuffer->remove(0, 4);
 				}
 
 				if (vCurrentSize > 0 && mReceiveBuffer->size() >=
-								vCurrentSize) { // If data has received completely, then emit our SIGNAL with the data
+                                vCurrentSize) {
 						if (vCurrentSize > 4/*punk*/) {
 								QByteArray vData = mReceiveBuffer->left(vCurrentSize);
-								qDebug() << "data przy add" << vData;
 								u_int8_t vChecksum =	CalculateFileDataChecksum(vData);
 
 								CAddToDBTransaction AddToDBTransaction(vData, vData.size(), vChecksum);
@@ -227,8 +212,6 @@ void CClient::ServeReceivedFileData() {
 
 						//						const char *vMessage = "Odebrano dane : ";
 						//						ResponeToClient(vMessage, vData);
-
-
 				}
 		}
 }
@@ -266,8 +249,12 @@ void CClient::Disconnected() {
 		emit Disconnect();
 
 		mSocket->deleteLater();
-		delete mReceiveBuffer;
-		delete mDataSize;
+
+        delete mReceiveBuffer;
+        mReceiveBuffer = 0;
+
+        delete mDataSize;
+        mDataSize = 0;
 }
 
 QString CClient::PrepareSendingToClientMessage(int aChecksum) {

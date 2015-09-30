@@ -15,13 +15,14 @@ CServer::CServer(QObject *aParent) :
 
 CServer::~CServer() {
     delete mClient;
+    mClient = 0;
 }
 
 void CServer::Run() {
     if (!this->listen(QHostAddress::Any, mPortNum)) {
         MessageStatus("Nie można wystartować serwera", 2400);
     } else {
-        MessageStatus("Serwer nasłuchuje ...", 2400);
+        MessageStatus("Serwer nasłuchuje... ", 2400);
     }
 }
 

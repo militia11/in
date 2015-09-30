@@ -32,8 +32,19 @@ class CAddToDBTransaction : public CTransaction {
      */
     void SetAtributtesAddToDB(server::Photo *aPhoto);
 
+    /**
+     * @brief mData is data of photo file.
+     */
     QByteArray mData;
+
+    /**
+     * @brief mDataSize is data size of file.
+     */
     int mDataSize;
+
+    /**
+     * @brief mChecksum is checksum of file.
+     */
     int mChecksum;
 };
 

@@ -1,12 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
 #include <QCloseEvent>
+#include <QMainWindow>
 
 #include "libs/controllers/CServer.h"
-#include "libs/dao/CRepository.h"
 #include "libs/controllers/CSettings.h"
+#include "libs/dao/CRepository.h"
 
 namespace Ui {
 class MainWindow;
@@ -24,14 +24,14 @@ class CMainWindow : public QMainWindow {
     explicit CMainWindow(QWidget *aParent = 0);
 
     /**
-    * @brief MainWindow desstructor.
+    * @brief MainWindow destructor.
     */
     ~CMainWindow();
 
     /**
      * @brief Method connect to database one more time
      *
-     * @return TRUE if connection success, FALSE if is unable to
+     * @return True if connection success, False if is unable to
      * connect to specify database.
      */
     bool ConnectToDatabaseAgain();
@@ -41,6 +41,7 @@ class CMainWindow : public QMainWindow {
   private slots:
     /**
      * @brief DisplayData is slot to Display data in main window.
+     *
      * @param aData is data to show.
      */
     void DisplayData(QByteArray aData);
@@ -59,6 +60,7 @@ class CMainWindow : public QMainWindow {
 
     /**
      * @brief ShowStatus
+     *
      * @param aMessageStatus
      * @param aTimeMsc
      */
@@ -66,7 +68,7 @@ class CMainWindow : public QMainWindow {
 
     /**
      * @brief RunServer slot is call to run server. Start listening
-     * on specify port. Default 1234.
+     * on specify port. Default is 1234.
      */
     void RunServer();
 
@@ -107,7 +109,7 @@ class CMainWindow : public QMainWindow {
 
     /**
      * @brief Method connect signals represents actions
-     *  to CMainWindow slots
+     * to CMainWindow slots.
      */
     inline void ConnectActionsSignals();
 

@@ -23,7 +23,9 @@ CMainWindow::CMainWindow(QWidget *aParent) :
 
 CMainWindow::~CMainWindow() {
     delete mServer;
+    mServer = 0;
     delete ui;
+    ui = 0;
 }
 
 bool CMainWindow::ConnectToDatabaseAgain() {

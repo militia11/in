@@ -1,15 +1,13 @@
 #ifndef CREPOSITORY_H
 #define CREPOSITORY_H
 
-#include "libs/controllers/CSettings.h"
-
-#include "libs/dao/CChecksumList.h"
-
 #include <libs/dao/androidphotosdatabase.hpp>
-
 #include <litesql.hpp>
 
 #include <QAbstractTableModel>
+
+#include "libs/controllers/CSettings.h"
+#include "libs/dao/CChecksumList.h"
 
 class CSettings;
 
@@ -18,7 +16,7 @@ class CSettings;
  *  Data Access Object class.
  *
  * @details CRepository class is programm repository. This class
- *  initialize communication to database. @todo dopisać
+ * initialize communication to database. @todo dopisać
  */
 class CRepository {
   public:
@@ -70,6 +68,10 @@ class CRepository {
      */
     void Disconnect();
 
+    /**
+     * @brief mLastConnectionError whever we have error in last
+     * connection.
+     */
     bool mLastConnectionError;
 
   private:
@@ -83,8 +85,20 @@ class CRepository {
      * @brief mDatabase represent database connection object.
      */
     server::AndroidPhotosDatabase *mDatabase;
+
+    /**
+     * @brief mChecksumList is list of checksums.
+     */
     CChecksumList *mChecksumList;
+
+    /**
+     * @brief mDriver is database driver.
+     */
     QString mDriver;
+
+    /**
+     * @brief mConnectionString is string to connect to database.
+     */
     QString mConnectionString;
     //QJakisTableModel *mModel;
 };

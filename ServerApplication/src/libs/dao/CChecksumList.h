@@ -17,6 +17,7 @@ class CChecksumList {
     /**
      * @brief AddFileChecksum add new file data checksum
      * to checksum list.
+     *
      * @param aChecksum is new checksum value.
      */
     void AddFileChecksum(int aChecksum);
@@ -30,8 +31,10 @@ class CChecksumList {
     /**
      * @brief CheckFileCheckSum compare checksum in parameter to checksums in server
      * which we import to list in class CCheckSumList.
+     *
      * @param aCheckSum is checksum we compare to
      * checksum from server.
+     *
      * @return TRUE if checksum is the same in another in server.
      */
     bool CheckFileChecksum(int aChecksum);
@@ -42,6 +45,9 @@ class CChecksumList {
     void Clear();
 
   private:
+    /**
+     * @brief mChecksumList is list of checksums.
+     */
     QList<int> mChecksumList;
 };
 

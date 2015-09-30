@@ -23,15 +23,28 @@ class CRetrieveFromDBTransaction : CTransaction {
     void Execute();
 
     /**
-     * @brief getData
-     * @return array of bytes.
+     * @brief getData return array of bytes.
+     *
+     * @return Array of bytes.
      */
     QByteArray getData() const ;
 
   private:
+    /**
+     * @brief RetrieveData retrieve data from database.
+     *
+     * @param aPhoto is Photo data which indicate to correct photo.
+     */
     void RetrieveData(Photo aPhoto);
 
+    /**
+     * @brief mChecksum is checksum of file.
+     */
     int mChecksum;
+
+    /**
+     * @brief mData is data of photo file.
+     */
     QByteArray mData;
 };
 

@@ -3,19 +3,19 @@
 
 #include "libs/dao/CChecksumList.h"
 
-#include "libs/controllers/CAddToDBTransaction.h"
-#include "libs/controllers/CRetrieveFromDBTransaction.h"
-
 #include <inttypes.h> //uint_t* and int_t* types
+
 #include <QTcpSocket>
 #include <QObject>
 
+#include "libs/controllers/CAddToDBTransaction.h"
+#include "libs/controllers/CRetrieveFromDBTransaction.h"
 /**
  * @brief The ReceiveDataMode is enumeration of kinds receive data
  *  modes for Client
  */
 enum ReceiveDataMode {
-    Mode_Receive_File_Data          = 1,
+    Mode_Receive_File_Data              = 1,
     Mode_Receive_File_CheckSum			= 2
 };
 
@@ -55,6 +55,8 @@ class CClient : public QObject {
     /**
      * @brief Method called to get CClient class member mSocket
      * which represent socket.
+     *
+     * @return CCLient socket.
      */
     QTcpSocket *GetSocket() const;
 
@@ -111,6 +113,13 @@ class CClient : public QObject {
      */
     void ServeReceivedFileData();
 
+    /**
+     * @brief ByteArrayToInt convert array to int.
+     *
+     * @param aData array
+     *
+     * @return Integer number converted from array.
+     */
     int32_t ByteArrayToInt(QByteArray aData);
 
     /**
@@ -133,9 +142,9 @@ class CClient : public QObject {
      * Message should consist from:
      * - message begin char: ">"
      * - data as hex-ascii string
-    				 * - end message char: "<"
+     * - end message char: "<"
      *
-    			 * @return TRUE for correct format, FALSE for incorrect.
+     * @return True for correct format, False for incorrect.
      */
     bool HasMessageCorrectFormat(char *aMessage);
 
@@ -153,17 +162,43 @@ class CClient : public QObject {
      */
     inline void ConnectSocketSignals();
 
+    /**
+     * @brief mSocket of Client.
+     */
     QTcpSocket *mSocket;
+
+    /**
+     * @brief mReceiveBuffer is buffer of received data.
+     */
     QByteArray *mReceiveBuffer;
+
+    /**
+     * @brief mDataSize is size of receive buffer.
+     */
     int32_t *mDataSize;
+
+    /**
+     * @brief mReceiveDataMode is mode of receiving data.
+     */
     ReceiveDataMode mReceiveDataMode;
+
+    /**
+     * @brief mMessageClntFileChecksum is checksum of file sended from client.
+     */
     char mMessageClntFileChecksum[1024];
+
+    /**
+     * @brief mMessageSize is size of message sended from client.
+     */
     int mMessageSize;
+
+    /**
+     * @brief mReceiveByteCnt is counter of received bytes.
+     */
     int mReceiveByteCnt;
+
     int mReceiveFrameNOKCnt;
     int mReceiveFrameFaultCnt;
-
-
 };
 
 #endif // CCLIENT_H

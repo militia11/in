@@ -2,9 +2,9 @@
 
 #include <QApplication>
 
-#include "libs/dao/CRepository.h"
 #include "libs/controllers/CSettings.h"
 #include "libs/dao/CChecksumList.h"
+#include "libs/dao/CRepository.h"
 
 extern CRepository gRepository;
 
@@ -16,8 +16,9 @@ int main(int argc, char *argv[]) {
     QApplication::setApplicationName("Android Synchronizator Serwer");
 
     CSettings vSettings;
-    gRepository.SetSettings(vSettings.GetDriver(),
-                            vSettings.GetConnectionString());
+    gRepository.SetSettings(
+                vSettings.GetDriver(),
+                vSettings.GetConnectionString());
 
     CMainWindow vMainWindow;
     vMainWindow.show();

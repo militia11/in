@@ -51,8 +51,8 @@ class CServer : public QTcpServer {
     void CreateClient();
 
     /**
-     * @brief MessageStatus signal is emmitted when important
-     * status of server changed.
+     * @brief MessageStatus signal is emmitted when status of server changed.
+     *
      * @param aMessage is text given to CMainWindow.
      * @param aTimeMsc parameter is time while message being shown.
      */
@@ -82,8 +82,8 @@ class CServer : public QTcpServer {
 
   private:
     /**
-     * @brief Method connect client's signals to server's slots
-    	 */
+     * @brief Method connect client's signals to server's slots.
+     */
     inline void ConnectClientSignals();
 
     /**
@@ -92,7 +92,14 @@ class CServer : public QTcpServer {
      */
     inline void UpdatePortNum();
 
+    /**
+     * @brief mClient is client of server.
+     */
     CClient *mClient;
+
+    /**
+     * @brief mPortNum is port number which server listen.
+     */
     int mPortNum;
 };
 

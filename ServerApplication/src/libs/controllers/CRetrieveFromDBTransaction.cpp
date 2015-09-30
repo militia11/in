@@ -2,11 +2,11 @@
 
 #include <litesql.hpp>
 
-#include "libs/dao/CRepository.h"
-
-#include <QImageReader>
-#include <QImage>
 #include <QDebug>
+#include <QImage>
+#include <QImageReader>
+
+#include "libs/dao/CRepository.h"
 
 using server::AndroidPhotosDatabase;
 using litesql::Blob;
@@ -16,11 +16,13 @@ using namespace litesql;
 extern CRepository gRepository;
 
 CRetrieveFromDBTransaction::CRetrieveFromDBTransaction(int aChecksum) :
-    mChecksum(aChecksum) {
+    mChecksum(aChecksum)
+{
 }
 
-void CRetrieveFromDBTransaction::Execute() {
-    server::AndroidPhotosDatabase *mDatabase  = gRepository.GetDatabase();
+void CRetrieveFromDBTransaction::Execute()
+{
+    server::AndroidPhotosDatabase *mDatabase = gRepository.GetDatabase();
 
     Photo vPhoto = litesql::select<Photo>(*mDatabase,
                                           Photo::Checksum == mChecksum).one();
@@ -28,11 +30,13 @@ void CRetrieveFromDBTransaction::Execute() {
     RetrieveData(vPhoto);
 }
 
-QByteArray CRetrieveFromDBTransaction::getData() const {
+QByteArray CRetrieveFromDBTransaction::getData() const
+{
     return mData;
 }
 
-void CRetrieveFromDBTransaction::RetrieveData(Photo aPhoto) {
+void CRetrieveFromDBTransaction::RetrieveData(Photo aPhoto)
+{
     Blob vBlob = aPhoto.data.value();
 
     if (vBlob.isNull()) {
