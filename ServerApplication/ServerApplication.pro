@@ -6,3 +6,4 @@ SUBDIRS += \
     share
 
 tests.depends += src
+

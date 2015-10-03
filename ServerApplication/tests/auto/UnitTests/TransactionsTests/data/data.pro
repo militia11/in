@@ -1,19 +1,15 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-08-20T18:38:05
+# Project created by QtCreator 2015-10-04T01:28:28
 #
 #-------------------------------------------------
 
-QT       -= core gui
+QT       += core
+Qt	 -= gui
 
-TARGET = share
+TARGET = data
 TEMPLATE = lib
 CONFIG += staticlib
-
-CONFIG += c++11
-
-OTHER_FILES += \
-    AndroidDocDatabase.xml
 
 RESOURCES += \
     resources.qrc

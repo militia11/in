@@ -1,28 +1,23 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-08-16T20:36:21
+# Project created by QtCreator 2015-10-03T19:20:40
 #
 #-------------------------------------------------
 
-QT       += network testlib gui
+QT       += sql testlib gui
 
 include(../../../../../../AutogenerowanePoprawka.pri)
 include(../../../../../../BibliotekiLinkowanie.pri)
 
-TARGET = tst_TestExpectListeningFail
+TARGET = tst_StorePhoto
 CONFIG   += console
 CONFIG   -= app_bundle
 
-TEMPLATE = app
-
 INCLUDEPATH += ../../../../../src
 
-SOURCES += tst_TestExpectListeningFail.cpp
+SOURCES += tst_StorePhoto.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
-
-INCLUDEPATH += ../../../../../src
 
 LIBS += -L../../../../../src/libs/ui -lui
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
 LIBS += -L../../../../../src/libs/dao -ldao
-

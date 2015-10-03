@@ -1,15 +1,17 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-08-17T19:03:32
+# Project created by QtCreator 2015-10-03T19:41:52
 #
 #-------------------------------------------------
+
+QT       += sql testlib
+
+QT       -= gui
 
 include(../../../../../../AutogenerowanePoprawka.pri)
 include(../../../../../../BibliotekiLinkowanie.pri)
 
-QT       += network testlib gui
-
-TARGET = tst_TestSrvStopListening
+TARGET = tst_RetrievePhoto
 CONFIG   += console
 CONFIG   -= app_bundle
 
@@ -17,7 +19,7 @@ TEMPLATE = app
 
 INCLUDEPATH += ../../../../../src
 
-SOURCES += tst_TestSrvStopListening.cpp
+SOURCES += tst_RetrievePhoto.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 LIBS += -L../../../../../src/libs/ui -lui

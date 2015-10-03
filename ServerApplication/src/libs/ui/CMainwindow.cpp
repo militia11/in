@@ -24,7 +24,8 @@ CMainWindow::CMainWindow(QWidget *aParent) :
 CMainWindow::~CMainWindow() {
     delete mServer;
     mServer = 0;
-    delete ui;
+
+		delete ui;
     ui = 0;
 }
 
