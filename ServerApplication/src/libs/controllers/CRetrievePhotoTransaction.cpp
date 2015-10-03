@@ -1,4 +1,4 @@
-#include "CRetrieveFromDBTransaction.h"
+#include "CRetrievePhotoTransaction.h"
 
 #include <litesql.hpp>
 
@@ -15,12 +15,12 @@ using namespace litesql;
 
 extern CRepository gRepository;
 
-CRetrieveFromDBTransaction::CRetrieveFromDBTransaction(int aChecksum) :
+CRetrievePhotoTransaction::CRetrievePhotoTransaction(int aChecksum) :
     mChecksum(aChecksum)
 {
 }
 
-void CRetrieveFromDBTransaction::Execute()
+void CRetrievePhotoTransaction::Execute()
 {
     server::AndroidPhotosDatabase *mDatabase = gRepository.GetDatabase();
 
@@ -30,12 +30,12 @@ void CRetrieveFromDBTransaction::Execute()
     RetrieveData(vPhoto);
 }
 
-QByteArray CRetrieveFromDBTransaction::getData() const
+QByteArray CRetrievePhotoTransaction::GetData() const
 {
     return mData;
 }
 
-void CRetrieveFromDBTransaction::RetrieveData(Photo aPhoto)
+void CRetrievePhotoTransaction::RetrieveData(Photo aPhoto)
 {
     Blob vBlob = aPhoto.data.value();
 

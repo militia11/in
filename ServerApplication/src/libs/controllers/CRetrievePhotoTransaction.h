@@ -1,5 +1,5 @@
-#ifndef CRETRIEVEFROMDBTRANSACTION_H
-#define CRETRIEVEFROMDBTRANSACTION_H
+#ifndef CRETRIEVEPHOTOTRANSACTION_H
+#define CRETRIEVEPHOTOTRANSACTION_H
 
 #include"libs/controllers/CTransaction.h"
 
@@ -13,9 +13,9 @@ using server::Photo;
  * @brief The CRetrieveFromDBTransaction class retrieve blob data
  * from database.
  */
-class CRetrieveFromDBTransaction : CTransaction {
+class CRetrievePhotoTransaction : CTransaction {
   public:
-    CRetrieveFromDBTransaction(int aChecksum);
+		CRetrievePhotoTransaction(int aChecksum);
 
     /**
      * @brief Execute method is call to confirm transaction.
@@ -27,7 +27,7 @@ class CRetrieveFromDBTransaction : CTransaction {
      *
      * @return Array of bytes.
      */
-    QByteArray getData() const ;
+		QByteArray GetData() const ;
 
   private:
     /**
@@ -48,4 +48,4 @@ class CRetrieveFromDBTransaction : CTransaction {
     QByteArray mData;
 };
 
-#endif // CRETRIEVEFROMDBTRANSACTION_H
+#endif // CRETRIEVEPHOTOTRANSACTION_H

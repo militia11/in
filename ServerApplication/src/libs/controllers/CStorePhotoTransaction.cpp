@@ -1,4 +1,4 @@
-#include "CAddToDBTransaction.h"
+#include "CStorePhotoTransaction.h"
 
 #include <litesql.hpp>
 
@@ -14,14 +14,14 @@ using litesql::Blob;
 
 extern CRepository gRepository;
 
-CAddToDBTransaction::CAddToDBTransaction(QByteArray aData, int aDataSize,
+CStorePhotoTransaction::CStorePhotoTransaction(QByteArray aData, int aDataSize,
         int aChecksum) :
     mData(aData),
     mDataSize(aDataSize),
     mChecksum(aChecksum) {
 }
 
-void CAddToDBTransaction::Execute() {
+void CStorePhotoTransaction::Execute() {
     server::AndroidPhotosDatabase *mDatabase  = gRepository.GetDatabase();
 
     Photo *vPhoto = new Photo(*mDatabase);
@@ -34,7 +34,7 @@ void CAddToDBTransaction::Execute() {
     //	model->odswiez();
 }
 
-void CAddToDBTransaction::SetAtributtesAddToDB(server::Photo *aPhoto) {
+void CStorePhotoTransaction::SetAtributtesAddToDB(server::Photo *aPhoto) {
     aPhoto->checksum = mChecksum;
     aPhoto->datasize = mDataSize;
 

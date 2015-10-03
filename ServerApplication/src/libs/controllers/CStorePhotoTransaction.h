@@ -1,5 +1,5 @@
-#ifndef CADDTODBTRANSACTION_H
-#define CADDTODBTRANSACTION_H
+#ifndef CSTOREPHOTOTRANSACTION_H
+#define CSTOREPHOTOTRANSACTION_H
 
 #include "libs/controllers/CTransaction.h"
 
@@ -12,12 +12,12 @@
 using server::Photo;
 
 /**
- * @brief The CAddToDBTransaction class is transaction which add record
+ * @brief The CStorePhotoTransaction class is transaction which add record
  * to database.
  */
-class CAddToDBTransaction : public CTransaction {
+class CStorePhotoTransaction : public CTransaction {
   public:
-    CAddToDBTransaction(QByteArray aData, int aDataSize, int aChecksum);
+    CStorePhotoTransaction(QByteArray aData, int aDataSize, int aChecksum);
 
     /**
      * @brief Execute method is call to confirm transaction.
@@ -48,4 +48,4 @@ class CAddToDBTransaction : public CTransaction {
     int mChecksum;
 };
 
-#endif // CADDTODBTRANSACTION_H
+#endif // CSTOREPHOTOTRANSACTION_H

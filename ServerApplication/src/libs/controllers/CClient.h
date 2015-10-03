@@ -8,8 +8,9 @@
 #include <QTcpSocket>
 #include <QObject>
 
-#include "libs/controllers/CAddToDBTransaction.h"
-#include "libs/controllers/CRetrieveFromDBTransaction.h"
+#include "libs/controllers/CStorePhotoTransaction.h"
+#include "libs/controllers/CRetrievePhotoTransaction.h"
+
 /**
  * @brief The ReceiveDataMode is enumeration of kinds receive data
  *				modes for Client
@@ -68,7 +69,6 @@ class CClient : public QObject {
     void NewData();
 
   signals:
-
     /**
     * @brief Signal emited when client disconnect from server.
     */
@@ -159,7 +159,7 @@ class CClient : public QObject {
 
     /**
      * @brief Method connect socket's signals to
-		 *				represent client's (CClient) slots
+		 *				represent client's (CClient) slots.
      */
     inline void ConnectSocketSignals();
 

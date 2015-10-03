@@ -46,5 +46,6 @@ QString CSettings::GetConnectionString() const {
     }
 
     vSetting.endGroup();
+
     return vConnString;
 }

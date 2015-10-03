@@ -19,15 +19,15 @@ HEADERS += \
     CClient.h \
     CServer.h \
     CSettings.h \
-    CAddToDBTransaction.h \
     CTransaction.h \
-    CRetrieveFromDBTransaction.h
+    CRetrievePhotoTransaction.h \
+    CStorePhotoTransaction.h
 
 SOURCES += \
     CClient.cpp \
     CServer.cpp \
     CSettings.cpp \
-    CAddToDBTransaction.cpp \
-    CRetrieveFromDBTransaction.cpp
+    CRetrievePhotoTransaction.cpp \
+    CStorePhotoTransaction.cpp
 
 CONFIG += c++11

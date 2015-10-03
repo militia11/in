@@ -86,20 +86,20 @@ void CClient::RouteData(char aData) {
 		switch (mReceiveDataMode) {
 
 				case Mode_Receive_File_Data : {
-                        qDebug() << "MODE_RECEIVE_FILE_DATA";
+						qDebug() << "MODE_RECEIVE_FILE_DATA";
 						ServeReceivedFileData();
 						break;
 				}
 
 				case Mode_Receive_File_CheckSum: {
-                        qDebug() << "MODE_RECEIVE_FILE_CHECKSUM";
+						qDebug() << "MODE_RECEIVE_FILE_CHECKSUM";
 						mMessageClntFileChecksum[mReceiveByteCnt] = aData;
 						mReceiveByteCnt++;
 
 						// Zabezpieczenie przeładowania buforu
-                        if (mReceiveByteCnt >= 1023) {
-                                mReceiveByteCnt = 0;
-                        }
+						if (mReceiveByteCnt >= 1023) {
+								mReceiveByteCnt = 0;
+						}
 
 						if (aData == '<') {		    // koniec komunikatu "suma pliku"
 								mReceiveDataMode = Mode_Receive_File_Data;
@@ -122,7 +122,9 @@ void CClient::ServeReceivedMessage() {
 				const char *vMessage = "Nieprawidłowy format wiadomości";
 				MessageStatus(vMessage, 2200);
 				qDebug() << vMessage;
+
 				++mReceiveFrameNOKCnt;
+
 				return;
 		}
 
@@ -150,13 +152,13 @@ void CClient::ServeReceivedMessage() {
 }
 
 bool CClient::HasMessageCorrectFormat(char *aMessage) {
-        bool vCorrect = true;///@todo sprawdzic ponizszy komentarz
-        int vChecksumLength = mMessageSize - 3; // 2 bajty znaki '>' i '<'
+		bool vCorrect = true;///@todo sprawdzic ponizszy komentarz
+		int vChecksumLength = mMessageSize - 3; // 2 bajty znaki '>' i '<'
 
 		if (aMessage[0] != '>') {  // początek komunikatu
 				vCorrect =  false;
 				qDebug() << "a";
-        } else if ((aMessage[mMessageSize - 1] != ('<'))) {
+		} else if ((aMessage[mMessageSize - 1] != ('<'))) {
 				vCorrect = false;
 				qDebug() << "b";
 		} else {
@@ -182,20 +184,20 @@ void CClient::ServeReceivedFileData() {
 
 				if (vCurrentSize == 0 &&
 								mReceiveBuffer->size() >=
-                                4) {
-                        vCurrentSize = ByteArrayToInt(mReceiveBuffer->left(4));
+								4) {
+						vCurrentSize = ByteArrayToInt(mReceiveBuffer->left(4));
 
 						*mDataSize = vCurrentSize;
 						mReceiveBuffer->remove(0, 4);
 				}
 
 				if (vCurrentSize > 0 && mReceiveBuffer->size() >=
-                                vCurrentSize) {
+								vCurrentSize) {
 						if (vCurrentSize > 4/*punk*/) {
 								QByteArray vData = mReceiveBuffer->left(vCurrentSize);
 								u_int8_t vChecksum =	CalculateFileDataChecksum(vData);
 
-								CAddToDBTransaction AddToDBTransaction(vData, vData.size(), vChecksum);
+								CStorePhotoTransaction AddToDBTransaction(vData, vData.size(), vChecksum);
 								AddToDBTransaction.Execute();
 								emit ReadData(vData);///@todo odznaczyc kom na koniec sprawdzic co i jak
 						}
@@ -250,11 +252,11 @@ void CClient::Disconnected() {
 
 		mSocket->deleteLater();
 
-        delete mReceiveBuffer;
-        mReceiveBuffer = 0;
+		delete mReceiveBuffer;
+		mReceiveBuffer = 0;
 
-        delete mDataSize;
-        mDataSize = 0;
+		delete mDataSize;
+		mDataSize = 0;
 }
 
 QString CClient::PrepareSendingToClientMessage(int aChecksum) {

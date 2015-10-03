@@ -52,11 +52,13 @@ void CServer::IncomingConnection() {
 
 void CServer::ResumeAccepting() {
     emit ChangeServerStatus();
+
     QTcpServer::resumeAccepting();
 }
 
 void CServer::PauseAccepting() {
     emit ChangeServerStatus();
+
     QTcpServer::pauseAccepting();
 }
 
@@ -70,5 +72,6 @@ void CServer::ConnectClientSignals() {
 
 void CServer::UpdatePortNum() {
     CSettings vSettings;
+
     mPortNum = vSettings.GetPortNum();
 }
