@@ -107,9 +107,9 @@ void CMainWindow::ServerSettings() {
 }
 
 void CMainWindow::DatabaseConnectionSettings() {
-    CDatabaseConnectionDialog dialog;
+		CDatabaseConnectionDialog vDialog;
 
-    dialog.exec();
+		vDialog.exec();
 
     ConnectToDatabaseAgain();
 }
@@ -117,11 +117,11 @@ void CMainWindow::DatabaseConnectionSettings() {
 void CMainWindow::ChangeActionServerStatus() {
     bool vStatus = ui->ActionRunServer->isChecked();
 
-    ui->ActionRunServer->setEnabled(vStatus);
-    ui->ActionStopServer->setEnabled(!vStatus);
+		ui->ActionRunServer->setEnabled(!vStatus);
+		ui->ActionStopServer->setEnabled(vStatus);
 
-    ui->ActionRunServer->setChecked(!vStatus);
-    ui->ActionStopServer->setChecked(vStatus);
+		ui->ActionRunServer->setChecked(vStatus);
+		ui->ActionStopServer->setChecked(!vStatus);
 }
 
 void CMainWindow::ConnectServerSignals() {

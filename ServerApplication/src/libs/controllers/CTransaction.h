@@ -3,6 +3,7 @@
 
 /**
  * @brief The CTransaction class is interface of transaction.
+ *
  * This is command pattern.
  */
 class CTransaction {

@@ -7,7 +7,7 @@
 /**
  * @brief The CServer class represents server for synchronize data from Android device.
  *
- * @details CServer class inherits from QTcpServer. CServer listening for incoming connection.
+ * CServer class inherits from QTcpServer. CServer listening for incoming connection.
  * When client connected to the specify port server pause listening and resume accepting
  * incoming connections when client disconnected. @todo dopisać później
  */
@@ -46,12 +46,13 @@ class CServer : public QTcpServer {
   signals:
     /**
      * @brief CreateClient signal is emitted when
-     * server create client.
+		 *				server create client.
      */
     void CreateClient();
 
     /**
-     * @brief MessageStatus signal is emmitted when status of server changed.
+		 * @brief MessageStatus signal is emmitted when status
+		 *				of server changed.
      *
      * @param aMessage is text given to CMainWindow.
      * @param aTimeMsc parameter is time while message being shown.
@@ -60,7 +61,7 @@ class CServer : public QTcpServer {
 
     /**
      * @brief ChangeServerStatus emitted when server status
-     * changed.
+		 *				changed.
      */
     void ChangeServerStatus();
 
@@ -88,7 +89,7 @@ class CServer : public QTcpServer {
 
     /**
      * @brief UpdatePortNum get and update actually port number
-     * from programm config file to application.
+		 *				from programm config file to application.
      */
     inline void UpdatePortNum();
 
