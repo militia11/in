@@ -12,7 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = nienazwany
 TEMPLATE = app
 
-INCLUDEPATH += ..
+INCLUDEPATH += ../../../../../
 
 SOURCES += main.cpp\
         MainWindow.cpp
@@ -21,4 +21,4 @@ HEADERS  += MainWindow.h
 
 FORMS    += MainWindow.ui
 
-LIBS += -L../data -ldata
+LIBS += -L../../../../../share -lshare

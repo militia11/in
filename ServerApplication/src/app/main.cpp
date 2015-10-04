@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     CSettings vSettings;
     gRepository.SetSettings(
                 vSettings.GetDriver(),
-                vSettings.GetConnectionString());
+								vSettings.GetConnectionString());
 
     CMainWindow vMainWindow;
     vMainWindow.show();

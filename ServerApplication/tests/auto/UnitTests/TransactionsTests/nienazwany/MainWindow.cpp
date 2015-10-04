@@ -1,8 +1,8 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include <QImage>
-#include<QLibraryInfo>
-#include <QObject>
+//#include<QLibraryInfo>
+//#include <QObject>
 #include<QDebug>
 MainWindow::MainWindow(QWidget *parent) :
 		QMainWindow(parent),

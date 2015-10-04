@@ -5,5 +5,5 @@ SUBDIRS += \
     tests \
     share
 
-tests.depends += src
+tests.depends += src share
 

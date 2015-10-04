@@ -4,8 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       -= core gui
-
+QT       += core
+QT	 -= gui
 TARGET = share
 TEMPLATE = lib
 CONFIG += staticlib

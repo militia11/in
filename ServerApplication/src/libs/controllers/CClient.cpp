@@ -196,10 +196,13 @@ void CClient::ServeReceivedFileData() {
 						if (vCurrentSize > 4/*punk*/) {
 								QByteArray vData = mReceiveBuffer->left(vCurrentSize);
 								u_int8_t vChecksum =	CalculateFileDataChecksum(vData);
+								CRetrievePhotoTransaction vRetrieveTransaction(175);
+																				vRetrieveTransaction.Execute();
+																				QByteArray vRetrieveData =  vRetrieveTransaction.GetData();
 
-								CStorePhotoTransaction AddToDBTransaction(vData, vData.size(), vChecksum);
-								AddToDBTransaction.Execute();
-								emit ReadData(vData);///@todo odznaczyc kom na koniec sprawdzic co i jak
+//								CStorePhotoTransaction AddToDBTransaction(vData, vData.size(), vChecksum);
+//								AddToDBTransaction.Execute();
+								emit ReadData(vRetrieveData);///@todo odznaczyc kom na koniec sprawdzic co i jak
 						}
 
 
