@@ -8,7 +8,6 @@
 
 #include "libs/controllers/CRetrievePhotoTransaction.h"
 #include "libs/controllers/CStorePhotoTransaction.h"
-#include "libs/dao/androidphotosdatabase.hpp"
 #include "libs/dao/CRepository.h"
 
 extern CRepository gRepository;
@@ -24,48 +23,50 @@ class StorePhoto : public QObject {
 };
 
 void StorePhoto::TestStorePhoto() {
-		gRepository.SetSettings("sqlite3", "database=:memory:");
-		//gRepository.SetSettings("mysql", "host=;user=mmichniewski;password=Militia69;database=ap");
+		gRepository.SetSettings("sqlite3", "database=:memory:"); // dzięki temu, że w pamięci testy można w jenkinsie
 		gRepository.Connect();
 		gRepository.PopulateDatabase();
 
 		Q_INIT_RESOURCE(resources);
 
-		QImage vImage = QImage (":/sample_photo.jpeg", "JPEG");
+		QImage vAddedImage = QImage (":/sample_photo.jpeg", "JPEG");
 
-		// add image
+		// Add image
 		QBuffer vBuffer;
 
 		QImageWriter vWriter(&vBuffer, "JPEG");
-		vWriter.write(vImage);
+		vWriter.write(vAddedImage);
 
-		QByteArray vData = vBuffer.data();
+		QByteArray vAddedData = vBuffer.data();
+		u_int8_t vChecksumAddImage = CalculateFileDataChecksum(vAddedData);
 
-		CStorePhotoTransaction vStoreTransaction(vData, vData.size(), 176);
+		CStorePhotoTransaction vStoreTransaction(
+				vAddedData, vAddedData.size(), vChecksumAddImage);
 		vStoreTransaction.Execute();
 
-		server::AndroidPhotosDatabase *vDatabase = gRepository.GetDatabase();
-
-		CRetrievePhotoTransaction vRetrieveTransaction(176);
+		CRetrievePhotoTransaction vRetrieveTransaction(vChecksumAddImage);
 		vRetrieveTransaction.Execute();
-		QByteArray vRetrieveData =  vRetrieveTransaction.GetData();
 
-		// convert array of bytes to image
-		QBuffer vBuffer2(&vRetrieveData);
-		vBuffer2.open( QIODevice::ReadOnly );
-		QImageReader vReader(&vBuffer2, "JPEG");
-		QImage vImage2 = vReader.read();
+		QByteArray vRetrievedData =  vRetrieveTransaction.GetData();
 
-		u_int8_t vChecksumImage = CalculateFileDataChecksum(vData);
-		u_int8_t vChecksumImage2 = CalculateFileDataChecksum(vRetrieveData);
+		QCOMPARE(vAddedData, vRetrievedData);
 
-		QCOMPARE(vImage.size(), vImage2.size());
-		QCOMPARE(vImage.format(), vImage2.format());
-		QCOMPARE(vChecksumImage, vChecksumImage2);
-		QCOMPARE(vData, vRetrieveData);
+		// Convert array of bytes to image
+		QBuffer vBufferRetrieveData(&vRetrievedData);
+		vBufferRetrieveData.open(QIODevice::ReadOnly);
+
+		QImageReader vReader(&vBufferRetrieveData, "JPEG");
+		QImage vRetrievedImage = vReader.read();
+
+		QCOMPARE(vAddedImage.size(), vRetrievedImage.size());
+		QCOMPARE(vAddedImage.format(), vRetrievedImage.format());
+
+		u_int8_t vChecksumRetrievedImage = CalculateFileDataChecksum(vRetrievedData);
+
+		QCOMPARE(vChecksumAddImage, vChecksumRetrievedImage);
 
 		//QVERIFY(vImage2.operator==(vImage));  // porównanie qimage  w tym przypadku różne
-		// pixel compare  4281016857 != 4281016597
+		// pixel compare: różne 4281016857 != 4281016597
 }
 
 uint8_t StorePhoto::CalculateFileDataChecksum(QByteArray aData) {
@@ -77,7 +78,6 @@ uint8_t StorePhoto::CalculateFileDataChecksum(QByteArray aData) {
 
 		return vSum;
 }
-
 
 QTEST_APPLESS_MAIN(StorePhoto)
 

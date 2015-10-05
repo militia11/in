@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
 
     CMainWindow vMainWindow;
     vMainWindow.show();
-    vMainWindow.ConnectToDatabaseAgain();
+		vMainWindow.ConnectToDatabaseAgain();
 
     return vApplication.exec();
 }
