@@ -16,8 +16,8 @@
  *				modes for Client
  */
 enum ReceiveDataMode {
-		Mode_Receive_File_Data			= 1,
-		Mode_Receive_File_CheckSum	= 2
+    Mode_Receive_File_Data			= 1,
+    Mode_Receive_File_CheckSum	= 2
 };
 
 /**
@@ -45,7 +45,7 @@ class CClient : public QObject {
 
     /**
      * @brief Method called when server receive incoming connection,
-		 *				client is connecting to specify port.
+    	 *				client is connecting to specify port.
      */
     void Connect(QTcpSocket *aSocket);
 
@@ -56,7 +56,7 @@ class CClient : public QObject {
 
     /**
      * @brief Method called to get CClient class member mSocket
-		 *				which represent socket.
+    	 *				which represent socket.
      *
      * @return CCLient socket.
      */
@@ -110,7 +110,7 @@ class CClient : public QObject {
 
     /**
      * @brief ServeFileData serve file data.
-		 *				from incoming connection.
+    	 *				from incoming connection.
      */
     void ServeReceivedFileData();
 
@@ -125,8 +125,8 @@ class CClient : public QObject {
 
     /**
      * @brief RouteData function switch data to
-		 *				CCheckSumList class or file data to save
-		 *				in server.
+    	 *				CCheckSumList class or file data to save
+    	 *				in server.
      *
      * @param aData is data to route.
      */
@@ -151,7 +151,7 @@ class CClient : public QObject {
 
     /**
     * @brief CalculateFileDataChecksum calculate message checksum
-		*				 to compare with expected.
+    	*				 to compare with expected.
     *
     * @return Checksum calculated as youngest byte of sum of all bytes.
     */
@@ -159,7 +159,7 @@ class CClient : public QObject {
 
     /**
      * @brief Method connect socket's signals to
-		 *				represent client's (CClient) slots.
+    	 *				represent client's (CClient) slots.
      */
     inline void ConnectSocketSignals();
 

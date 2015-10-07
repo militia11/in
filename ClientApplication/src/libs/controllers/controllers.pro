@@ -4,12 +4,14 @@
 #
 #-------------------------------------------------
 
-QT       -= core gui
+QT       += core network gui
 
 TARGET = controllers
 TEMPLATE = lib
 CONFIG += staticlib
 
-SOURCES +=
+SOURCES += \
+    CClient.cpp
 
-HEADERS +=
+HEADERS += \
+    CClient.h

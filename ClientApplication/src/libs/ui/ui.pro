@@ -4,10 +4,25 @@
 #
 #-------------------------------------------------
 
+include(../../../../AutogenerowanePoprawka.pri)
+
+QT       += core gui network
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+INCLUDEPATH += ../..
+
 TARGET = ui
 TEMPLATE = lib
 CONFIG += staticlib
 
-SOURCES +=
+SOURCES += \
+    CMainWindow.cpp
 
-HEADERS +=
+HEADERS += \
+    CMainWindow.h
+
+FORMS += \
+    CMainWindow.ui
+
+CONFIG += c++11

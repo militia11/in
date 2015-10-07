@@ -6,9 +6,7 @@
 
 include(../../../../AutogenerowanePoprawka.pri)
 
-
-QT       += core gui
-QT       += network
+QT       += core gui network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 INCLUDEPATH += ../..

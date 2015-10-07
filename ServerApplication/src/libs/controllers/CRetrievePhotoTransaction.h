@@ -15,7 +15,7 @@ using server::Photo;
  */
 class CRetrievePhotoTransaction : CTransaction {
   public:
-		CRetrievePhotoTransaction(int aChecksum);
+    CRetrievePhotoTransaction(int aChecksum);
 
     /**
      * @brief Execute method is call to confirm transaction.
@@ -27,7 +27,7 @@ class CRetrievePhotoTransaction : CTransaction {
      *
      * @return Array of bytes.
      */
-		QByteArray GetData() const ;
+    QByteArray GetData() const ;
 
   private:
     /**

@@ -16,12 +16,10 @@ using namespace litesql;
 extern CRepository gRepository;
 
 CRetrievePhotoTransaction::CRetrievePhotoTransaction(int aChecksum) :
-    mChecksum(aChecksum)
-{
+    mChecksum(aChecksum) {
 }
 
-void CRetrievePhotoTransaction::Execute()
-{
+void CRetrievePhotoTransaction::Execute() {
     server::AndroidPhotosDatabase *mDatabase = gRepository.GetDatabase();
 
     Photo vPhoto = litesql::select<Photo>(*mDatabase,
@@ -30,13 +28,11 @@ void CRetrievePhotoTransaction::Execute()
     RetrieveData(vPhoto);
 }
 
-QByteArray CRetrievePhotoTransaction::GetData() const
-{
+QByteArray CRetrievePhotoTransaction::GetData() const {
     return mData;
 }
 
-void CRetrievePhotoTransaction::RetrieveData(Photo aPhoto)
-{
+void CRetrievePhotoTransaction::RetrieveData(Photo aPhoto) {
     Blob vBlob = aPhoto.data.value();
 
     if (vBlob.isNull()) {
