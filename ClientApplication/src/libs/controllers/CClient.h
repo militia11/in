@@ -12,7 +12,8 @@ class CClient : public QObject {
 
   public:
     explicit CClient(QObject *aParent = 0);
-    bool WriteData(QByteArray aData);
+
+		bool WriteData(QByteArray aData);
     bool WriteMessage(QByteArray aData);
     bool PrepareMessageData();
 

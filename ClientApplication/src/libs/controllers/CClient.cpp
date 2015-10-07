@@ -1,6 +1,7 @@
 #include "CClient.h"
 #include <QImage>
 #include <QImageWriter>
+
 static inline QByteArray IntToArray(int32_t aSource);
 
 CClient::CClient(QObject *aParent) : QObject(aParent) {
