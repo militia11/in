@@ -12,21 +12,6 @@ CMainWindow::CMainWindow(QWidget *aParent) :
 		QMainWindow(aParent),
 		ui(new Ui::CMainWindow) {
 		ui->setupUi(this);
-
-		//   image.loadFromData(QByteArray data);
-
-		// write
-		//		QFile File("/home/mmichniewski/b.txt");//pobranyPies.jpg");
-
-		//		if (!File.open(QIODevice::WriteOnly)) {
-		//				qDebug() << "Nie można otworzyć pliku";
-		//		}
-
-		//		QByteArray aData("pinsex");
-		//		QDataStream out(&File);
-		//		QByteArray s("slsus");
-		//		out << s;
-		//		File.close();
 }
 
 CMainWindow::~CMainWindow() {
@@ -35,8 +20,7 @@ CMainWindow::~CMainWindow() {
 }
 
 void CMainWindow::on_mPushButtonSendPhoto_clicked() {
-		//QImage vImage = QImage("/home/mmichniewski/b.jpeg", "JPEG");
-		QImage vImage = QImage(":/a.jpeg", "JPEG");
+        QImage vImage = QImage(":/sample_photo.jpeg", "JPEG");
 		QBuffer vBuffer;
 
 		QImageWriter vWriter(&vBuffer, "JPEG");
@@ -61,14 +45,12 @@ void CMainWindow::on_mPushButtonSendChecksum_clicked() {
 void CMainWindow::on_mPushButtonConnect_clicked() {
 		vClient = new CClient;
 		qDebug() << "Czy udało się połączyć z hostem: " <<
-						 vClient->ConnectToHost("5.172.247.219");
-		//192.168.56.1
+                         vClient->ConnectToHost("5.172.247.219"); //192.168.56.1
 }
 
 void CMainWindow::on_mPushButtonShowPhoto_clicked() {
-		QImage vImage = QImage (":/a.jpeg", "JPEG");
+        QImage vImage = QImage (":/sample_photo.jpeg", "JPEG");
 		ui->mLabelPhoto->setPixmap(QPixmap::fromImage(vImage));
-
 }
 
 uint8_t CMainWindow::CalculateFileDataChecksum(QByteArray aData) {
