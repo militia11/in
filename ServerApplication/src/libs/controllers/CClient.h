@@ -1,8 +1,6 @@
 #ifndef CCLIENT_H
 #define CCLIENT_H
 
-#include "libs/dao/CChecksumList.h"
-
 #include <inttypes.h> //uint_t* and int_t* types
 
 #include <QTcpSocket>
@@ -10,10 +8,11 @@
 
 #include "libs/controllers/CStorePhotoTransaction.h"
 #include "libs/controllers/CRetrievePhotoTransaction.h"
+#include "libs/dao/CChecksumList.h"
 
 /**
  * @brief The ReceiveDataMode is enumeration of kinds receive data
- *				modes for Client
+ *				modes for Client.
  */
 enum ReceiveDataMode {
     Mode_Receive_File_Data			= 1,
@@ -27,25 +26,24 @@ enum ReceiveDataMode {
  * of coordinate communication with client from Android device.
  *
  * @todo dopisac wiecej pozniej
- * */
+ */
 class CClient : public QObject {
-
     Q_OBJECT
 
   public:
-    /**
-    * @brief CClient constructor.
-    */
+		/**
+		 * @brief CClient constructor.
+		 */
     explicit CClient(QObject *aParent = 0);
 
-    /**
+		/**
     * @brief CClient destructor.
     */
     ~ CClient();
 
     /**
      * @brief Method called when server receive incoming connection,
-    	 *				client is connecting to specify port.
+			 *				client is connecting to specify port.
      */
     void Connect(QTcpSocket *aSocket);
 
@@ -56,7 +54,7 @@ class CClient : public QObject {
 
     /**
      * @brief Method called to get CClient class member mSocket
-    	 *				which represent socket.
+			 *				which represent socket.
      *
      * @return CCLient socket.
      */
@@ -69,23 +67,23 @@ class CClient : public QObject {
     void NewData();
 
   signals:
-    /**
-    * @brief Signal emited when client disconnect from server.
-    */
-    void Disconnect();
+		/**
+		 * @brief Signal emited when client disconnect from server.
+		 */
+		void Disconnect();
 
-    /**
-    * @brief Signal emited when error occured a socket.
-    *
-    * @param aSocketError is a QTcpSocket::SocketError.
-    */
+		/**
+		 * @brief Signal emited when error occured a socket.
+		 *
+		 * @param aSocketError is a QTcpSocket::SocketError.
+		 */
     void Error(QTcpSocket::SocketError aSocketError);
 
-    /**
-    * @brief Signal emited when was read data.
-    *
-    * @param aData is a QByteArray data which was read.
-    */
+		/**
+		 * @brief Signal emited when was read data.
+		 *
+		 * @param aData is a QByteArray data which was read.
+		 */
     void ReadData(QByteArray aData);
 
     /**
@@ -100,24 +98,21 @@ class CClient : public QObject {
     void Disconnected();
 
   private:
-    void ConvertHexAsciiToBinary(const char *aData, int aLen,
-                                 char *aTarget);
-    void ConvertBinaryToHexAscii(const char *aData, int aLen,
-                                 char *aTarget);
+		///@todo opis
     QString PrepareSendingToClientMessage(int aChecksum);
 
-    int ConverMessageArraytToInt();
+		int ConvertMessageArraytToInt();
 
     /**
-     * @brief ServeFileData serve file data.
-    	 *				from incoming connection.
+			 * @brief ServeFileData serve file data
+			 *			  from incoming connection.
      */
     void ServeReceivedFileData();
 
     /**
      * @brief ByteArrayToInt convert array to int.
      *
-     * @param aData array
+				 * @param aData array.
      *
      * @return Integer number converted from array.
      */
@@ -125,8 +120,8 @@ class CClient : public QObject {
 
     /**
      * @brief RouteData function switch data to
-    	 *				CCheckSumList class or file data to save
-    	 *				in server.
+			 *				CCheckSumList class or file data to save
+			 *				in server.
      *
      * @param aData is data to route.
      */
@@ -149,17 +144,17 @@ class CClient : public QObject {
      */
     bool HasMessageCorrectFormat(char *aMessage);
 
-    /**
-    * @brief CalculateFileDataChecksum calculate message checksum
-    	*				 to compare with expected.
-    *
-    * @return Checksum calculated as youngest byte of sum of all bytes.
-    */
+		/**
+		 * @brief CalculateFileDataChecksum calculate message checksum
+		 *				 to compare with expected.
+		 *
+		 * @return Checksum calculated as youngest byte of sum of all bytes.
+		 */
     uint8_t CalculateFileDataChecksum(QByteArray aData);
 
     /**
      * @brief Method connect socket's signals to
-    	 *				represent client's (CClient) slots.
+			 *				represent client's (CClient) slots.
      */
     inline void ConnectSocketSignals();
 

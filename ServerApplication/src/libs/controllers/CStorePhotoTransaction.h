@@ -13,22 +13,25 @@ using server::Photo;
 
 /**
  * @brief The CStorePhotoTransaction class is transaction which add record
- * to database.
+ *				to database.
  */
 class CStorePhotoTransaction : public CTransaction {
   public:
     CStorePhotoTransaction(QByteArray aData, int aDataSize, int aChecksum);
 
     /**
-     * @brief Execute method is call to confirm transaction.
+			 * @brief Store photo into database and update checksum list.
+			 *
+			 * Execute method is call to confirm transaction.
      */
     void Execute();
 
   private:
     /**
-     * @brief SetAtributtesAddToDB set attribures for new document .
+			 * @brief SetAtributtesAddToDB set attribures for new document.
+			 *
      * @param aPhoto represents Photo Document stored in
-     * database.
+			 *				database.
      */
     void SetAtributtesAddToDB(server::Photo *aPhoto);
 

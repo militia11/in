@@ -25,4 +25,6 @@ HEADERS += \
 FORMS += \
     CMainWindow.ui
 
+LIBS += -L../../../share -lshare
+
 CONFIG += c++11

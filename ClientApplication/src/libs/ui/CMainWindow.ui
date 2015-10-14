@@ -36,9 +36,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>130</y>
+      <y>120</y>
       <width>271</width>
-      <height>41</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
@@ -65,7 +65,7 @@
      </font>
     </property>
     <property name="text">
-     <string>zdjecie pokarz</string>
+     <string>wyświetl zdjecie</string>
     </property>
    </widget>
    <widget class="QPushButton" name="mPushButtonSendPhoto">
@@ -100,6 +100,24 @@
     </property>
     <property name="scaledContents">
      <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="mPushButtonArchivePhoto">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>260</y>
+      <width>271</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Archiwizuj zdjęcia</string>
     </property>
    </widget>
   </widget>

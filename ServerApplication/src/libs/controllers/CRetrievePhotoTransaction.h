@@ -18,7 +18,9 @@ class CRetrievePhotoTransaction : CTransaction {
     CRetrievePhotoTransaction(int aChecksum);
 
     /**
-     * @brief Execute method is call to confirm transaction.
+    	 * @brief Retrieve photo from database.
+    	 *
+    	 * Execute method is call to confirm transaction.
      */
     void Execute();
 

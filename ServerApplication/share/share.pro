@@ -16,4 +16,4 @@ OTHER_FILES += \
     AndroidDocDatabase.xml
 
 RESOURCES += \
-    resources.qrc
+    server_resources.qrc

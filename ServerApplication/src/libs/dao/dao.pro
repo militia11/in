@@ -7,8 +7,8 @@
 include(../../../../AutogenerowanePoprawka.pri)
 include(../../../../BibliotekiLinkowanie.pri)
 
-QT       -= gui
 QT	 += core
+QT       -= gui
 
 TARGET = dao
 TEMPLATE = lib

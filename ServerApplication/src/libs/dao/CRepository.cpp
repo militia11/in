@@ -16,6 +16,7 @@ CRepository::CRepository() : mDatabase(0),
 
 CRepository::~CRepository() {
     Disconnect();
+
     delete mChecksumList;
     mChecksumList = 0;
     //delete mModel;
@@ -30,9 +31,7 @@ void CRepository::SetSettings(const QString &aDriver,
 void CRepository::RefreshModel() { //QString nazwa jak wiele
 
     //  QAbstractTableModel *modelAbstrakcyjny = gRepository.GetModel(nazwa);
-
-    //   PhotoModel* vPhotoModel= dynamic_cast<PhotoModel*>(modelAbstrakcyjny);
-
+		//  PhotoModel* vPhotoModel= dynamic_cast<PhotoModel*>(modelAbstrakcyjny);
 }
 
 AndroidPhotosDatabase *CRepository::GetDatabase() const { //const //wyproboj

@@ -1,85 +1,83 @@
 #include "CClient.h"
 
+#include<stdlib.h>
+//#include<time.h>
+
+#include <QBuffer>
 #include <QImage>
 #include <QImageWriter>
 
-static inline QByteArray IntToArray(int32_t aSource);
+#include "libs/dao/CRepository.h"
 
-CClient::CClient(QObject *aParent) : QObject(aParent)
-{
+extern CRepository gRepository;
+
+CClient::CClient(QObject *aParent) : QObject(aParent) {
+
     mSocket = new QTcpSocket(this);
+
     mReceiveBuffer = 0;
-    mActualData = 0;
-    connect(mSocket, SIGNAL(readyRead()),
+		mFileToSend = false;
+
+		connect(mSocket, SIGNAL(readyRead()),
             this, SLOT(ReadData()), Qt::DirectConnection);
+		PrepareMessageData(384);
 }
 
-void CClient::ReadData()
-{
-    while (mSocket->bytesAvailable() > 0) {
+CClient::~CClient() {
+		delete  mSocket;
+		mSocket = 0;
+
+		delete mReceiveBuffer;
+		mReceiveBuffer = 0;
+}
+
+void CClient::ReadData() {
+		while (mSocket->bytesAvailable() > 0) {
         QByteArray vMessageData = mSocket->readAll();
         qDebug() << vMessageData;
 
-        if (vMessageData == QByteArray("SEND")) { // if wiadomość równa 'SEND'
-            //writeData(mActualData); // wyślij plik(jego dane binarne) aktualnie sprawdzanego pliku
-            //(sprawdzanej jego sumy)
-
-            //  int v = CalculateMessageChecksum(vData);
-            //  qDebug() << "suma->" << v;
-
-            WriteData(mSendBuffer);
+				if (vMessageData ==
+								QByteArray("ARCHIVE")) { // lub SEND jak nie będzie działac
+						mFileToSend = true;
+						//alternatywa wysylanie tu danych binarnych lecz utrudnienia
+						//actual trzeba by dawac i inne opoznienia
+						//WriteData(mActualData); // wyślij dane binarne aktualnie sprawdzanego pliku
+						// po sprawdzeniu jego sumy przez serwer
         }
     }
 }
 
-bool CClient::ConnectToHost(QString aHost)
-{
+bool CClient::ConnectToHost(QString aHost) {
     mSocket->connectToHost(aHost, 1234);
-    bool vConnected = mSocket->waitForConnected(90000);
+		bool vConnected = mSocket->waitForConnected(
+													90000); ///@todo komentarz skad ta liczba
 
     if (vConnected == false) {
         qDebug() << mSocket->error();
     }
 
-    return vConnected;
-}
-// może wyleci ta funkcja i Prepare:
-void CClient::ConvertBinaryToHexAscii(const char *aData, int aLen,
-                                      char *aTarget)
-{
-    char vBuffer[3];
-
-    for (int i = 0; i < aLen; ++i) {
-        snprintf(vBuffer, 3, "%02X", aData[i]);
-        aTarget[2 * i] = vBuffer[0];
-        aTarget[2 * i + 1] = vBuffer[1];
-    }
+		return vConnected;
 }
 
-bool CClient::PrepareMessageData()
-{
-    // narazie tak:
-    QImage vImage = QImage("/home/mmichniewski/b.jpeg", "JPEG");
-    QBuffer vBuffer;
+QByteArray CClient::ConvertImageToByteArray(QImage aImage) {
+		QBuffer vBuffer;
 
-    QImageWriter vWriter(&vBuffer, "JPEG");
-    vWriter.write(vImage);
-
-    QByteArray vData = vBuffer.data();
-
-    ConvertBinaryToHexAscii(vData, vData.length(), mSendBuffer + 2);
-
-    ///todo nie dokończone
-    //                              uint8_t vChecksum = CalculateMessageChecksum();
-    //                              // footer
-    //                              0x0D; // CR
-    //                              0x0A; // LF
-
-    return true;
+		QImageWriter vWriter(&vBuffer, "JPG");
+		vWriter.write(aImage);  // unikniecie vWriter.write(*(*vIterator));
+		return vBuffer.data();
 }
 
-bool CClient::WriteData(QByteArray aData)
-{
+QByteArray CClient::PrepareMessageData(int16_t aChecksum) {
+		const char *vChecksumAsString = qPrintable(QString::number(aChecksum));
+		QByteArray vData(vChecksumAsString);
+		vData.insert(0, '>');
+		vData.insert(1, '>');
+		vData.append("<");
+
+		return vData;
+}
+
+bool CClient::WriteData(QByteArray aData) {
     if (mSocket->state() == QAbstractSocket::ConnectedState) {
         mSocket->write(IntToArray(aData.length()));
         mSocket->write(aData);
@@ -91,15 +89,8 @@ bool CClient::WriteData(QByteArray aData)
     }
 }
 
-bool CClient::WriteMessage(QByteArray aData)
-{
+bool CClient::WriteMessage(QByteArray aData) {
     if (mSocket->state() == QAbstractSocket::ConnectedState) {
-
-        //   aData.insert(0, '>');
-        //   qDebug()<< aData;
-        //   u_int8_t vMessageCheckSum = CalculateMessageChecksum(aData);
-        //   qDebug()<< aData;
-
         mSocket->write(aData);
 
         return mSocket->waitForBytesWritten();
@@ -109,9 +100,8 @@ bool CClient::WriteMessage(QByteArray aData)
     }
 }
 
-uint8_t CClient::CalculateMessageChecksum(QByteArray aData)
-{
-    uint8_t vChecksum = 0;
+int16_t CClient::CalculateFileDataChecksum(QByteArray aData) {
+		int16_t vChecksum = 0;
 
     for (int i = 0; i < aData.length(); ++i) {
         vChecksum += aData[i];
@@ -120,12 +110,30 @@ uint8_t CClient::CalculateMessageChecksum(QByteArray aData)
     return vChecksum;
 }
 
-QByteArray IntToArray(int32_t
-                      aSource)
-{
+QByteArray CClient::IntToArray(int32_t aSource) {
+		QByteArray vData;
+		QDataStream vStream(&vData, QIODevice::ReadWrite);
+		vStream << aSource;
 
-    QByteArray vTemporaryData;
-    QDataStream vResult(&vTemporaryData, QIODevice::ReadWrite);
-    vResult << aSource;
-    return vTemporaryData;
+		return vData;
 }
+
+void CClient::UpdateServerPhotos() {
+		/*				QList<QImage> vImagesList = gRepository.GetImages();
+
+						for (QList<QImage>::iterator vIterator = vImagesList.begin();
+										vIterator != vImagesList.end(); ++vIterator) {
+								// lub mActualData = dół i wysyłanie w ReadData choć lepiej tu
+								QByteArray vData = ConvertImageToByteArray(*vIterator);
+								int16_t vFileChecksum = CalculateFileDataChecksum(vData);
+												QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
+												WriteMessage(vChecksumByte);
+								//sleep(3); // this->WaitForResult();
+
+								if (mFileToSend) {
+																WriteData(vData);
+										mFileToSend = false;
+								}
+						}*/
+}
+

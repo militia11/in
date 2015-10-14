@@ -4,12 +4,17 @@
 #
 #-------------------------------------------------
 
-QT       -= core gui
+QT       += core
+QT       -= gui
 
 TARGET = share
 TEMPLATE = lib
 CONFIG += staticlib
 
 RESOURCES += \
-    resources.qrc
+    client_resources.qrc
+
+HEADERS +=
+
+SOURCES +=
 

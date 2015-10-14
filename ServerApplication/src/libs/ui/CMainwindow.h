@@ -13,11 +13,9 @@ class MainWindow;
 }
 
 class CMainWindow : public QMainWindow {
-
     Q_OBJECT
 
   public:
-
     /**
     * @brief MainWindow constructor.
     */
@@ -31,12 +29,12 @@ class CMainWindow : public QMainWindow {
     /**
      * @brief Method connect to database one more time
      *
-     * @return True if connection success, False if is unable to
-     * connect to specify database.
+    	 * @return True if connection success, False if is unable to
+    	 *				 connect to specify database.
      */
     bool ConnectToDatabaseAgain();
 
-  signals:
+    //signals:
 
   private slots:
     /**
@@ -48,8 +46,8 @@ class CMainWindow : public QMainWindow {
 
     /**
      * @brief ClientConnected slot is call when server emited signal
-     * incoming connection. This method connect client signal ReadData
-     * to send data to CMainWindow.
+    	 *				incoming connection. This method connect client signal
+    	 *				ReadData to send data to CMainWindow.
      */
     void ClientConnected();
 
@@ -68,7 +66,7 @@ class CMainWindow : public QMainWindow {
 
     /**
      * @brief RunServer slot is call to run server. Start listening
-     * on specify port. Default is 1234.
+    	 *				on specify port. Default is 1234.
      */
     void RunServer();
 
@@ -84,20 +82,21 @@ class CMainWindow : public QMainWindow {
 
     /**
      * @brief DatabaseConnectionSettings slot display form to
-     * change database connection options.
+    	 *				change database connection options.
      */
     void DatabaseConnectionSettings();
 
     /**
      * @brief ChangeActionServerStatus method enable buttons
-     * which should be active and disable non active.
+    	 *				which should be active and disable non active.
      */
     void ChangeActionServerStatus();
 
-    ///	@todo
     /**
     * @brief Close Application event communicate with user and question if
-    * we really sure to close application.
+    	*				 we really sure to close application.
+    	*
+    	* @todo finally turn on
     */
     void closeEvent(QCloseEvent *aEvent);
 
@@ -109,7 +108,7 @@ class CMainWindow : public QMainWindow {
 
     /**
      * @brief Method connect signals represents actions
-     * to CMainWindow slots.
+    	 *			  to CMainWindow slots.
      */
     inline void ConnectActionsSignals();
 

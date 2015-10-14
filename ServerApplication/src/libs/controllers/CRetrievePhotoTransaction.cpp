@@ -38,7 +38,7 @@ void CRetrievePhotoTransaction::RetrieveData(Photo aPhoto) {
     if (vBlob.isNull()) {
         qDebug() << "Obiektu o podanej sumie kontrolnej nie ma w bazie";
 
-				return;
+        return;
     }
 
     int vBuffSize = aPhoto.datasize.value();

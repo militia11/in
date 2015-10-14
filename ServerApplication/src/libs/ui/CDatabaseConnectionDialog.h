@@ -44,18 +44,18 @@ class CDatabaseConnectionDialog : public QDialog {
 
   private:
     /**
-     * @brief Method update database settings from configuration file
-     * to form labels.
+    	 * @brief Update database settings from configuration file
+    	 *				to form labels.
      */
     void UpdateSettings();
 
     /**
-     * @brief Method save database settings to configuration file.
+    	 * @brief Save database settings to configuration file.
      */
     void SaveSettings();
 
     /**
-     * @brief Method update class members to actual form labels.
+    	 * @brief Update class members to actual form labels.
      */
     void UpdateMembers();
 

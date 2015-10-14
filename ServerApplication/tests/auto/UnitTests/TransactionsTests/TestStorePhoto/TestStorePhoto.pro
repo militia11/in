@@ -24,5 +24,3 @@ LIBS += -L../../../../../src/libs/dao -ldao
 LIBS += -L../../../../../share -lshare
 
 
-#INCLUDEPATH += ../../../../../
-

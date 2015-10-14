@@ -128,9 +128,10 @@ void CClient::ServeReceivedMessage() {
         return;
     }
 
-    int vChecksum = ConverMessageArraytToInt();
+		int vChecksum = ConvertMessageArraytToInt();
 
     CChecksumList *vChecksumList = gRepository.GetChecksumList();
+
     bool vIsChecksumInSrv = vChecksumList->CheckFileChecksum(vChecksum);
     qDebug() << vIsChecksumInSrv;
 
@@ -195,14 +196,14 @@ void CClient::ServeReceivedFileData() {
 						if (vCurrentSize > 4/*punk*/) {
                 QByteArray vData = mReceiveBuffer->left(vCurrentSize);
 
-								u_int8_t vChecksum = CalculateFileDataChecksum(vData);
+								u_int16_t vChecksum = CalculateFileDataChecksum(vData);
 
 								CRetrievePhotoTransaction vRetrieveTransaction(175);
                 vRetrieveTransaction.Execute();
-                QByteArray vRetrieveData =  vRetrieveTransaction.GetData();
+								QByteArray vRetrieveData = vRetrieveTransaction.GetData();
 
-								// CStorePhotoTransaction AddToDBTransaction(vData, vData.size(), vChecksum);
-								// AddToDBTransaction.Execute();
+								// CStorePhotoTransaction StoreTransaction(vData, vData.size(), vChecksum);
+								// StoreTransaction.Execute();
 
 								emit ReadData(vRetrieveData);///@todo odznaczyc kom na koniec sprawdzic co i jak
             }
@@ -272,7 +273,7 @@ QString CClient::PrepareSendingToClientMessage(int aChecksum) {
 		return vResultMessage;
 }
 
-int CClient::ConverMessageArraytToInt() {
+int CClient::ConvertMessageArraytToInt() {
     // wyodrębnienie liczyby-stringa z tablicy i konwersja na int
     // wersja 1:
 

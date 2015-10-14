@@ -17,12 +17,12 @@ int main(int argc, char *argv[]) {
 
     CSettings vSettings;
     gRepository.SetSettings(
-				vSettings.GetDriver(),
-				vSettings.GetConnectionString());
+        vSettings.GetDriver(),
+        vSettings.GetConnectionString());
 
     CMainWindow vMainWindow;
     vMainWindow.show();
-		vMainWindow.ConnectToDatabaseAgain();
+    vMainWindow.ConnectToDatabaseAgain();
 
     return vApplication.exec();
 }

@@ -3,7 +3,6 @@
 #include <litesql.hpp>
 
 #include "libs/dao/androidphotosdatabase.hpp"
-
 #include "libs/dao/CRepository.h"
 
 #include <QImageWriter>
@@ -31,6 +30,12 @@ void CStorePhotoTransaction::Execute() {
     vPhoto->update();
 
     delete vPhoto;
+
+		CChecksumList *vChecksumList = gRepository.GetChecksumList();
+
+		vChecksumList->AddFileChecksum(mChecksum);
+		//vChecksumList->UpdateChecksumList();
+
     //	model->odswiez();
 }
 

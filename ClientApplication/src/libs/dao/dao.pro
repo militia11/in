@@ -4,12 +4,18 @@
 #
 #-------------------------------------------------
 
-QT       -= core gui
+QT	 += core gui
 
 TARGET = dao
 TEMPLATE = lib
 CONFIG += staticlib
 
-SOURCES +=
+#INCLUDEPATH += ../..
 
-HEADERS +=
+HEADERS += \
+    CRepository.h
+
+SOURCES += \
+    CRepository.cpp
+
+#LIBS += -L../../ -l

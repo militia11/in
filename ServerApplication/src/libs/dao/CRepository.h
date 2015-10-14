@@ -13,10 +13,12 @@ class CSettings;
 
 /**
  * @brief The CRepository class represents
- *  Data Access Object class.
+ *				Data Access Object class.
  *
- * @details CRepository class is programm repository. This class
- * initialize communication to database. @todo dopisać
+ * This class is server application repository. It's
+ * initialize communication to database.
+ *
+ * @todo dopisać
  */
 class CRepository {
   public:
@@ -25,30 +27,35 @@ class CRepository {
      */
     CRepository();
 
+		/**
+		* @brief CRepository destructor.
+		*/
     virtual ~CRepository();
-    /**
-    * @brief Set database settings.
-    */
+
+		/**
+		 * @brief Set database settings.
+		 */
     void SetSettings(const QString &aDriver,
                      const QString &aConnectionString);
 
     /**
      * @brief Refresh function refresh update data from
-    	 * database to model.
+			 *				database to model.
      */
     void RefreshModel();
 
     /**
      * @brief GetDatabase method is getter to
-     * database connection object.
+			 *				database connection object.
      *
-    	 * @return server::AndroidPhotosDatabase is pointer to
-     * the actual database.
+			 * @return server::AndroidPhotosDatabase is pointer to
+			 *				 the actual database.
      */
     server::AndroidPhotosDatabase *GetDatabase() const;
 
     /**
-     * @brief GetChecksumList
+			 * @brief GetChecksumList get list of checksums.
+			 *
      * @return checksums list.
      */
     CChecksumList *GetChecksumList() const;
@@ -70,14 +77,14 @@ class CRepository {
 
     /**
      * @brief mLastConnectionError whever we have error in last
-     * connection.
+			 *				connection.
      */
     bool mLastConnectionError;
 
   private:
     /**
      * @brief RefreshChecksums update checksum list represent as
-     * mChecksumList variable.
+			 *				mChecksumList variable.
      */
     void RefreshChecksums();
 
@@ -87,7 +94,8 @@ class CRepository {
     server::AndroidPhotosDatabase *mDatabase;
 
     /**
-     * @brief mChecksumList is list of checksums.
+			 * @brief mChecksumList is list of checksums photos stored
+			 *				in database.
      */
     CChecksumList *mChecksumList;
 
@@ -100,6 +108,7 @@ class CRepository {
      * @brief mConnectionString is string to connect to database.
      */
     QString mConnectionString;
+
     //QJakisTableModel *mModel;
 };
 

@@ -25,7 +25,7 @@ CMainWindow::~CMainWindow() {
     delete mServer;
     mServer = 0;
 
-		delete ui;
+    delete ui;
     ui = 0;
 }
 
@@ -58,7 +58,7 @@ void CMainWindow::DisplayData(QByteArray aData) {
 
     QBuffer vBuffer(&aData);
     vBuffer.open( QIODevice::ReadOnly );
-    QImageReader vReader(&vBuffer, "JPEG");
+    QImageReader vReader(&vBuffer, "JPG");
     QImage vImage = vReader.read();
 
     ui->mImageLabel->setPixmap(
@@ -108,9 +108,9 @@ void CMainWindow::ServerSettings() {
 }
 
 void CMainWindow::DatabaseConnectionSettings() {
-		CDatabaseConnectionDialog vDialog;
+    CDatabaseConnectionDialog vDialog;
 
-		vDialog.exec();
+    vDialog.exec();
 
     ConnectToDatabaseAgain();
 }
@@ -118,11 +118,11 @@ void CMainWindow::DatabaseConnectionSettings() {
 void CMainWindow::ChangeActionServerStatus() {
     bool vStatus = ui->ActionRunServer->isChecked();
 
-		ui->ActionRunServer->setEnabled(!vStatus);
-		ui->ActionStopServer->setEnabled(vStatus);
+    ui->ActionRunServer->setEnabled(!vStatus);
+    ui->ActionStopServer->setEnabled(vStatus);
 
-		ui->ActionRunServer->setChecked(vStatus);
-		ui->ActionStopServer->setChecked(!vStatus);
+    ui->ActionRunServer->setChecked(vStatus);
+    ui->ActionStopServer->setChecked(!vStatus);
 }
 
 void CMainWindow::ConnectServerSignals() {

@@ -13,15 +13,15 @@
 extern CRepository gRepository;
 
 /**
- * @brief The StorePhoto class is test to store and retrieve photo in server.
+ * @brief StorePhoto class is test to store and retrieve photo in server.
  */
 class StorePhoto : public QObject {
     Q_OBJECT
 
-  public:
-    uint8_t	CalculateFileDataChecksum(QByteArray aData);
+	public:
+    uint16_t    CalculateFileDataChecksum(QByteArray aData);
 
-  private Q_SLOTS:
+	private Q_SLOTS:
     void TestStorePhoto();
 };
 
@@ -31,18 +31,18 @@ void StorePhoto::TestStorePhoto() {
     gRepository.Connect();
     gRepository.PopulateDatabase();
 
-    Q_INIT_RESOURCE(resources);  // Use resources from diffrent project
+    Q_INIT_RESOURCE(server_resources);  // Use resources from diffrent project
 
-    QImage vAddedImage = QImage (":/sample_photo.jpeg", "JPEG");
+    QImage vAddedImage = QImage(":/sample_photo.jpg", "JPG");
 
-    // Add image
-    QBuffer vBuffer;
+    // Part adding image
+		QBuffer vBufferToStoreData;
 
-    QImageWriter vWriter(&vBuffer, "JPEG");
+		QImageWriter vWriter(&vBufferToStoreData, "JPG");
     vWriter.write(vAddedImage);
 
-    QByteArray vAddedData = vBuffer.data();
-    u_int8_t vChecksumAddImage = CalculateFileDataChecksum(vAddedData);
+		QByteArray vAddedData = vBufferToStoreData.data();
+		int16_t vChecksumAddImage = CalculateFileDataChecksum(vAddedData);
 
     CStorePhotoTransaction vStoreTransaction(
         vAddedData, vAddedData.size(), vChecksumAddImage);
@@ -59,28 +59,29 @@ void StorePhoto::TestStorePhoto() {
     QBuffer vBufferRetrieveData(&vRetrievedData);
     vBufferRetrieveData.open(QIODevice::ReadOnly);
 
-    QImageReader vReader(&vBufferRetrieveData, "JPEG");
+    QImageReader vReader(&vBufferRetrieveData, "JPG");
     QImage vRetrievedImage = vReader.read();
 
     QCOMPARE(vAddedImage.size(), vRetrievedImage.size());
     QCOMPARE(vAddedImage.format(), vRetrievedImage.format());
 
-    u_int8_t vChecksumRetrievedImage = CalculateFileDataChecksum(vRetrievedData);
+		int16_t vChecksumRetrievedImage =
+        CalculateFileDataChecksum(vRetrievedData);
 
     QCOMPARE(vChecksumAddImage, vChecksumRetrievedImage);
 
-    //QVERIFY(vImage2.operator==(vImage));  // porównanie qimage  w tym przypadku różne
+		// QVERIFY(vImage2.operator==(vImage));  // porównanie qimage  w tym przypadku różne
     // pixel compare: różne 4281016857 != 4281016597
 }
 
-uint8_t StorePhoto::CalculateFileDataChecksum(QByteArray aData) {
-    uint8_t vSum = 0;
+uint16_t StorePhoto::CalculateFileDataChecksum(QByteArray aData) {
+		uint16_t vChecksum = 0;
 
     for (int i = 0; i < aData.length(); ++i) {
-        vSum += aData[i];
+				vChecksum += aData[i];
     }
 
-    return vSum;
+		return vChecksum;
 }
 
 QTEST_APPLESS_MAIN(StorePhoto)
