@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     TestEmptySocket \
-    MessageFormatTests
+    MessageFormatTests \
+    ConvertMessageArrayToIntTests

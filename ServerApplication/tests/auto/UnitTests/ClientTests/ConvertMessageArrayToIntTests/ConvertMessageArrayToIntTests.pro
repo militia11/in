@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-10-15T21:10:05
+# Project created by QtCreator 2015-10-16T00:05:25
 #
 #-------------------------------------------------
 
@@ -9,7 +9,7 @@ include(../../../../../../BibliotekiLinkowanie.pri)
 
 QT       += testlib gui network
 
-TARGET = ListeningTests
+TARGET = ConvertMessageArrayToIntTests
 CONFIG   += console
 CONFIG   -= app_bundle
 
@@ -17,7 +17,7 @@ TEMPLATE = app
 
 INCLUDEPATH += ../../../../../src
 
-SOURCES += ListeningTests.cpp
+SOURCES += ConvertMessageArrayToIntTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 LIBS += -L../../../../../src/libs/ui -lui

@@ -104,14 +104,12 @@ void CMainWindow::StopServer() {
 }
 
 void CMainWindow::ServerSettings() {
-    CServerSettingsDialog dialog;
-
-    dialog.exec();
+		CServerSettingsDialog vDialog;
+		vDialog.exec();
 }
 
 void CMainWindow::DatabaseConnectionSettings() {
     CDatabaseConnectionDialog vDialog;
-
     vDialog.exec();
 
     ConnectToDatabaseAgain();

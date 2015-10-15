@@ -8,7 +8,7 @@ include(../../../../../AutogenerowanePoprawka.pri)
 include(../../../../../BibliotekiLinkowanie.pri)
 
 QT       += testlib gui network
-
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = SettingsTests
 CONFIG   += console
 CONFIG   -= app_bundle

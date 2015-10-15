@@ -66,7 +66,7 @@ void CClient::NewData() {
 
                     if (vNextChar == '>') {
 												mReceiveDataMode = Mode_Receive_File_Checksum;
-												mReceiveByteCount = 0; //pozniej usunac
+												mReceiveByteCount = 0;
                     }
 
                     break;

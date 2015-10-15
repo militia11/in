@@ -21,27 +21,28 @@ class CServerSettingsDialog : public QDialog {
      */
     ~CServerSettingsDialog();
 
-  private slots:
+	protected slots:
 
     /**
      * @brief on_mPushButtonResetDefault_clicked slot call when
-    	 *				mPushButtonResetDefault clicked.
+		 *				mPushButtonResetDefault clicked.
      */
     void on_mPushButtonResetDefault_clicked();
 
     /**
-    	 * @brief on_mPushButtonResetDefault_clicked slot call
-    	 *				when form is accepted.
+		 * @brief on_mPushButtonResetDefault_clicked slot call
+		 *				when form is accepted.
      */
     void on_mButtonBoxOkCancel_accepted();
 
     /**
-    	 * @brief on_mButtonBoxOkCancel_rejected slot call when
-    	 *				form is rejected.
+		 * @brief on_mButtonBoxOkCancel_rejected slot call when
+		 *				form is rejected.
      */
     void on_mButtonBoxOkCancel_rejected();
 
   private:
+		///@todo
     void UpdateServerSettings();
 
     Ui::CServerSettingsDialog *ui;

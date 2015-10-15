@@ -42,7 +42,7 @@ class CDatabaseConnectionDialog : public QDialog {
      */
     void on_mButtonBoxOkCancel_rejected();
 
-  private:
+	protected:
     /**
     	 * @brief Update database settings from configuration file
     	 *				to form labels.
