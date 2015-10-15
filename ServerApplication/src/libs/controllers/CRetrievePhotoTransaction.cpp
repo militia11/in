@@ -41,7 +41,7 @@ void CRetrievePhotoTransaction::RetrieveData(Photo aPhoto) {
         return;
     }
 
-    int vBuffSize = aPhoto.datasize.value();
+		size_t vBuffSize = aPhoto.datasize.value();
     u8_t *vBuffer = new u8_t[vBuffSize];
 
     vBlob.getData(vBuffer, vBuffSize);

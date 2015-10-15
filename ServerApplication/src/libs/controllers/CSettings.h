@@ -11,17 +11,21 @@ class CSettings {
     CSettings();
 
     /**
-     * @brief GetDriver method read settings from
-    	 *				configuration file.
+		 * @brief GetDriver method read settings from
+		 *        configuration file.
      *
      * @return QString driver name.
      */
     QString GetDriver() const;
+		/**
+		 * @brief GetPortNum get port number.
+		 * @return Port number.
+		 */
+    int GetPortNumber() const;
 
-    int GetPortNum() const;
-    /**
-     * @brief GetConnectionString method read settings from
-    	 *				configuration file.
+		/**
+		 * @brief GetConnectionString method read settings
+		 *        fromconfiguration file.
      *
      * @return QString of connection parameter.
      */

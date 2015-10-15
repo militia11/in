@@ -16,7 +16,7 @@
  */
 enum ReceiveDataMode {
     Mode_Receive_File_Data			= 1,
-    Mode_Receive_File_CheckSum	= 2
+		Mode_Receive_File_Checksum	= 2
 };
 
 /**
@@ -43,18 +43,18 @@ class CClient : public QObject {
 
     /**
      * @brief Method called when server receive incoming connection,
-			 *				client is connecting to specify port.
+		 *				client is connecting to specify port.
      */
     void Connect(QTcpSocket *aSocket);
 
     /**
-     * @brief Method to respone some information to client.
+		 * @brief Method to respone information to client.
      */
     void ResponeToClient(QByteArray aData = 0);
 
     /**
      * @brief Method called to get CClient class member mSocket
-			 *				which represent socket.
+		 *				which represent socket.
      *
      * @return CCLient socket.
      */
@@ -97,31 +97,29 @@ class CClient : public QObject {
      */
     void Disconnected();
 
-  private:
+	protected:
 		///@todo opis
-    QString PrepareSendingToClientMessage(int aChecksum);
-
-		int ConvertMessageArraytToInt();
+		int ConvertMessageArrayToInt();
 
     /**
-			 * @brief ServeFileData serve file data
-			 *			  from incoming connection.
+		 * @brief ServeFileData serve file data
+		 *			  from incoming connection.
      */
     void ServeReceivedFileData();
 
     /**
      * @brief ByteArrayToInt convert array to int.
      *
-				 * @param aData array.
+		 * @param aData array.
      *
      * @return Integer number converted from array.
      */
     int32_t ByteArrayToInt(QByteArray aData);
 
     /**
-     * @brief RouteData function switch data to
-			 *				CCheckSumList class or file data to save
-			 *				in server.
+		 * @brief RouteData function switch data to
+		 *        CCheckSumList class or file data to save
+		 *        in server.
      *
      * @param aData is data to route.
      */
@@ -150,11 +148,11 @@ class CClient : public QObject {
 		 *
 		 * @return Checksum calculated as youngest byte of sum of all bytes.
 		 */
-    uint8_t CalculateFileDataChecksum(QByteArray aData);
+		uint16_t CalculateFileDataChecksum(QByteArray aData);
 
     /**
-     * @brief Method connect socket's signals to
-			 *				represent client's (CClient) slots.
+		 * @brief Method connect socket's signals to
+		 *        represent client's (CClient) slots.
      */
     inline void ConnectSocketSignals();
 
@@ -174,14 +172,14 @@ class CClient : public QObject {
     int32_t *mDataSize;
 
     /**
-     * @brief mReceiveDataMode is mode of receiving data.
+		 * @brief mReceiveDataMode is mode of receiving data.
      */
     ReceiveDataMode mReceiveDataMode;
 
     /**
      * @brief mMessageClntFileChecksum is checksum of file sended from client.
      */
-    char mMessageClntFileChecksum[1024];
+		char mMessageFileChecksum[1024];
 
     /**
      * @brief mMessageSize is size of message sended from client.
@@ -189,12 +187,9 @@ class CClient : public QObject {
     int mMessageSize;
 
     /**
-     * @brief mReceiveByteCnt is counter of received bytes.
+		 * @brief mReceiveByteCount is counter of received bytes.
      */
-    int mReceiveByteCnt;
-
-    int mReceiveFrameNOKCnt;
-    int mReceiveFrameFaultCnt;
+		int mReceiveByteCount;
 };
 
 #endif // CCLIENT_H

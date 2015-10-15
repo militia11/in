@@ -36,10 +36,8 @@ void CServerSettingsDialog::on_mPushButtonResetDefault_clicked() {
 void CServerSettingsDialog::on_mButtonBoxOkCancel_accepted() {
     QSettings vQSetting;
     vQSetting.beginGroup("server");
-
     int vPortNum = ui->mSpinBoxPortNum->value();
     vQSetting.setValue("port", QString::number(vPortNum));
-
     vQSetting.endGroup();
 }
 
@@ -51,7 +49,6 @@ void CServerSettingsDialog::UpdateServerSettings() {
     QSettings vSettings;
     vSettings.beginGroup("server");
     QString vHostNum = vSettings.value("port").toString();
-
     ui->mSpinBoxPortNum->setValue(vHostNum.toInt());
     vSettings.endGroup();
 }

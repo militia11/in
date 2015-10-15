@@ -29,7 +29,6 @@ void CRepository::SetSettings(const QString &aDriver,
 }
 
 void CRepository::RefreshModel() { //QString nazwa jak wiele
-
     //  QAbstractTableModel *modelAbstrakcyjny = gRepository.GetModel(nazwa);
 		//  PhotoModel* vPhotoModel= dynamic_cast<PhotoModel*>(modelAbstrakcyjny);
 }

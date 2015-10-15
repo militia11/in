@@ -16,9 +16,11 @@ CMainWindow::CMainWindow(QWidget *aParent) :
     ui->setupUi(this);
 
     ConnectActionsSignals();
-    ui->ActionStopServer->setEnabled(false);
+
+		ui->ActionStopServer->setEnabled(false);
     ui->ActionStopServer->setChecked(true);
-    ShowStatus("Wyłączone nasłuchiwanie serwera", 2400);
+
+		ShowStatus("Wyłączone nasłuchiwanie serwera", 2400);
 }
 
 CMainWindow::~CMainWindow() {
