@@ -6,4 +6,5 @@ SUBDIRS += \
     TestExpectNoListening \
     TestListeningPortWrongNum \
     TestStopListening \
-    TestClientNotConnectedToServer
+    TestClientNotConnectedToServer \
+    ListeningTests

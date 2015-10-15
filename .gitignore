@@ -27,9 +27,10 @@
 *.exe
 *.out
 *.app
-
-moc_*
-ui_*
-*.Makefile
-
+*moc
+*moc_*
+*ui_*
+*Makefile
+*.swo
+*.swp
 *.autosave
