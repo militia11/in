@@ -27,3 +27,8 @@
 *.exe
 *.out
 *.app
+
+*.moc
+*.Makefile
+
+*.autosave
