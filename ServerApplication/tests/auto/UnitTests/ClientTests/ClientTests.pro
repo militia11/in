@@ -3,4 +3,6 @@ TEMPLATE = subdirs
 SUBDIRS += \
     TestEmptySocket \
     MessageFormatTests \
-    ConvertMessageArrayToIntTests
+    ConvertMessageArrayToIntTests \
+    CalculateChecksumTests \
+    AddChecksumTests

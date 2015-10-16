@@ -25,7 +25,7 @@ void CStorePhotoTransaction::Execute() {
 
     Photo *vPhoto = new Photo(*mDatabase);
 
-    SetAtributtesAddToDB(vPhoto);
+		SetAtributtesToPhoto(vPhoto);
 
     vPhoto->update();
 
@@ -34,12 +34,12 @@ void CStorePhotoTransaction::Execute() {
 		CChecksumList *vChecksumList = gRepository.GetChecksumList();
 
 		vChecksumList->AddFileChecksum(mChecksum);
-		//vChecksumList->UpdateChecksumList();
 
+		//vChecksumList->UpdateChecksumList();
     //	model->odswiez();
 }
 
-void CStorePhotoTransaction::SetAtributtesAddToDB(server::Photo *aPhoto) {
+void CStorePhotoTransaction::SetAtributtesToPhoto(server::Photo *aPhoto) {
     aPhoto->checksum = mChecksum;
     aPhoto->datasize = mDataSize;
 

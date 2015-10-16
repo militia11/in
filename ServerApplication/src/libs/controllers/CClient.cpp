@@ -1,11 +1,11 @@
 #include "CClient.h"
 
-#include "libs/dao/CRepository.h"
-
 #include <stdio.h> // convert array to int function
 #include <ctype.h> // isdigit function
 #include <QDebug>
 #include <QFile>
+
+#include "libs/dao/CRepository.h"
 
 extern CRepository gRepository;
 
@@ -28,10 +28,12 @@ void CClient::Connect(QTcpSocket *aSocket) {
         const char *vMessage = "Klient połączony. Nasłuchiwanie serwera wyłączone";
         qDebug() << vMessage;
 
+				QByteArray b("12");
+				qDebug() << CalculateFileDataChecksum(b);
         emit MessageStatus(vMessage, 2200);
 
         mSocket = aSocket;
-        mDataSize = new qint32(0);
+				mDataSize = new int32_t(0);
         mReceiveBuffer = new QByteArray();
 
         ConnectSocketSignals();
@@ -135,7 +137,7 @@ void CClient::ServeReceivedMessage() {
     mReceiveBuffer->clear();
 
 		delete mDataSize;
-    mDataSize  = new qint32(0);
+		mDataSize  = new int32_t(0);
 
 		mMessageSize		= 0;
 		mReceiveByteCount = 0;
