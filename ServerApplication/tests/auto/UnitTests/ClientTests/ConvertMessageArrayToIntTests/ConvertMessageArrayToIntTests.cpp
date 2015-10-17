@@ -1,7 +1,7 @@
 #include <QString>
 #include <QtTest>
 
-#include "libs/controllers/CClient.h"
+#include "libs/testssupport/CClientWrapper.h"
 
 /**
  * @brief The ConvertMessageArrayToIntTests class
@@ -24,22 +24,25 @@ ConvertMessageArrayToIntTests::ConvertMessageArrayToIntTests() {
 }
 
 void ConvertMessageArrayToIntTests::TestConvertCorrectMessageThreeDigit() {
-	/*CClient vClient;
-	vClient.mMessageFileChecksum = ">>386<";
-	vClient.mMessageSize = vClient.mMessageFileChecksum.size();
-	////////////////////////////////////////////////////
+	CClientWrapper vClient;
+	char *vMessage = ">>386<";
+	int vSize = 6;
+	// vClient.mMessageFileChecksum = ;
+	vClient.TestSetMessageSize(vSize);
 
-	int vResult = vClient.ConvertMessageArrayToInt();
-	int vExpected = 386;
+	int res = vClient.TestGetMessageSize();
+	QCOMPARE(res, 6);
 
-	QCOMPARE(vResult, vExpected);*/
+	//int vResult = vClient.ConvertMessageArrayToInt();
+	//int vExpected = 386;
+
+	//QCOMPARE(vResult, vExpected);
 }
 
 void ConvertMessageArrayToIntTests::TestConvertCorrectMessageSixDigit() {
 	/*CClient vClient;
 	vClient.mMessageFileChecksum = ">>12516<";
-	vClient.mMessageSize = vClient.mMessageFileChecksum.size();
-	////////////////////////////////////////////////////
+	vClient.mMessageSize = 6;
 
 	int vResult = vClient.ConvertMessageArrayToInt();
 	int vExpected = 12516;

@@ -42,7 +42,7 @@ void ChecksumTests::TestAddChecksum()
     // vChecksumList->AddFileChecksum(12);
 }
 
-void ChecksumTests::TestCheckFileChecksumT() {
+void ChecksumTests::TestCheckFileChecksum() {
         gRepository.SetSettings("sqlite3", "database=:memory:");
         // dzięki temu, że w pamięci testy można w jenkinsie
         gRepository.Connect();
@@ -70,7 +70,7 @@ void ChecksumTests::TestCheckFileChecksumT() {
         QVERIFY(vChecksumList->CheckFileChecksum(vChecksumAddImage));
 }
 
-uint16_t CheckFileChecksum::CalculateFileDataChecksum(QByteArray aData) {
+uint16_t ChecksumTests::CalculateFileDataChecksum(QByteArray aData) {
         uint16_t vChecksum = 0;
 
         for (int i = 0; i < aData.length(); ++i) {

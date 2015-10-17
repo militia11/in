@@ -12,7 +12,7 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DSRCDIR=\"/media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/\" -DQT_NO_DEBUG -DQT_TESTLIB_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer\"
+DEFINES       = -DSRCDIR=\"/home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/\" -DQT_NO_DEBUG -DQT_TESTLIB_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer\"
 CFLAGS        = -m64 -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 CXXFLAGS      = -m64 -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -I../../../../../src -I/usr/local/include -I/usr/include/mysql -I/usr/include/qt5 -I/usr/include/qt5/QtTest -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I.

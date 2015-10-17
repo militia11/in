@@ -3,21 +3,21 @@
 
 #include "libs/controllers/CClient.h"
 
-class ConvertIntToArrayTest : public QObject {
+class ConvertIntToArrayTests : public QObject {
 		Q_OBJECT
 
 	public:
-		ConvertIntToArrayTest();
+		ConvertIntToArrayTests();
 
 	private Q_SLOTS:
 		void TestConvertIntToArrayTest();
 };
 
-ConvertIntToArrayTest::ConvertIntToArrayTest() {
+ConvertIntToArrayTests::ConvertIntToArrayTests() {
 
 }
 
-void ConvertIntToArrayTest::TestConvertIntToArrayTest() {
+void ConvertIntToArrayTests::TestConvertIntToArrayTest() {
 		int32_t vNumber = 12;
 
 		CClient vClient;
@@ -37,4 +37,4 @@ void ConvertIntToArrayTest::TestConvertIntToArrayTest() {
 
 QTEST_APPLESS_MAIN(ConvertIntToArrayTests)
 
-#include "tst_ConvertIntToArrayTest.moc"
+#include "ConvertIntToArrayTests.moc"

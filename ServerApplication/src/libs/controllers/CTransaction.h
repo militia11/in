@@ -12,6 +12,7 @@ class CTransaction {
      * @brief CTransaction constructor.
      */
     CTransaction() {}
+
     /**
      * @brief Execute is call to confirm transaction.
      */

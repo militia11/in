@@ -4,8 +4,8 @@
 #
 #-------------------------------------------------
 
-include(../../../../../../AutogenerowanePoprawka.pri)
-include(../../../../../../BibliotekiLinkowanie.pri)
+include(../../../../../AutogenerowanePoprawka.pri)
+include(../../../../../BibliotekiLinkowanie.pri)
 
 QT       += testlib gui
 
@@ -15,12 +15,12 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../../../../src
+INCLUDEPATH += ../../../../src
 
 SOURCES += ChecksumTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
-LIBS += -L../../../../../src/libs/ui -lui
-LIBS += -L../../../../../src/libs/controllers -lcontrollers
-LIBS += -L../../../../../src/libs/dao -ldao
-#LIBS += -L../../../../../share -lshare
+LIBS += -L../../../../src/libs/ui -lui
+LIBS += -L../../../../src/libs/controllers -lcontrollers
+LIBS += -L../../../../src/libs/dao -ldao
+LIBS += -L../../../../share -lshare

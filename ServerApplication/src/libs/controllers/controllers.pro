@@ -21,7 +21,8 @@ HEADERS += \
     CSettings.h \
     CTransaction.h \
     CRetrievePhotoTransaction.h \
-    CStorePhotoTransaction.h
+    CStorePhotoTransaction.h \
+    IClient.h
 
 SOURCES += \
     CClient.cpp \

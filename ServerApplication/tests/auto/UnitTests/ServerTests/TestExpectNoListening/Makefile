@@ -12,7 +12,7 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DSRCDIR=\"/media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/\" -DQT_NO_DEBUG -DQT_TESTLIB_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening\"
+DEFINES       = -DSRCDIR=\"/home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/\" -DQT_NO_DEBUG -DQT_TESTLIB_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening\"
 CFLAGS        = -m64 -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 CXXFLAGS      = -m64 -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -I../../../../../src -I../../../../../src -I/usr/local/include -I/usr/include/mysql -I/usr/include/qt5 -I/usr/include/qt5/QtTest -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I.
@@ -45,8 +45,8 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = tst_TestExpectListeningFail.cpp 
-OBJECTS       = tst_TestExpectListeningFail.o
+SOURCES       = tst_ExpectNoListening.cpp 
+OBJECTS       = tst_ExpectNoListening.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -282,7 +282,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/tst_TestExpectListeningFail1.0.0 || mkdir -p .tmp/tst_TestExpectListeningFail1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/tst_TestExpectListeningFail1.0.0/ && $(COPY_FILE) --parents tst_TestExpectListeningFail.cpp .tmp/tst_TestExpectListeningFail1.0.0/ && (cd `dirname .tmp/tst_TestExpectListeningFail1.0.0` && $(TAR) tst_TestExpectListeningFail1.0.0.tar tst_TestExpectListeningFail1.0.0 && $(COMPRESS) tst_TestExpectListeningFail1.0.0.tar) && $(MOVE) `dirname .tmp/tst_TestExpectListeningFail1.0.0`/tst_TestExpectListeningFail1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/tst_TestExpectListeningFail1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/tst_TestExpectListeningFail1.0.0/ && $(COPY_FILE) --parents tst_ExpectNoListening.cpp .tmp/tst_TestExpectListeningFail1.0.0/ && (cd `dirname .tmp/tst_TestExpectListeningFail1.0.0` && $(TAR) tst_TestExpectListeningFail1.0.0.tar tst_TestExpectListeningFail1.0.0 && $(COMPRESS) tst_TestExpectListeningFail1.0.0.tar) && $(MOVE) `dirname .tmp/tst_TestExpectListeningFail1.0.0`/tst_TestExpectListeningFail1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/tst_TestExpectListeningFail1.0.0
 
 
 clean:compiler_clean 
@@ -307,10 +307,10 @@ compiler_rcc_make_all:
 compiler_rcc_clean:
 compiler_moc_header_make_all:
 compiler_moc_header_clean:
-compiler_moc_source_make_all: tst_TestExpectListeningFail.moc
+compiler_moc_source_make_all: tst_ExpectNoListening.moc
 compiler_moc_source_clean:
-	-$(DEL_FILE) tst_TestExpectListeningFail.moc
-tst_TestExpectListeningFail.moc: /usr/include/qt5/QtCore/QString \
+	-$(DEL_FILE) tst_ExpectNoListening.moc
+tst_ExpectNoListening.moc: /usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/qstring.h \
 		/usr/include/qt5/QtCore/qchar.h \
 		/usr/include/qt5/QtCore/qglobal.h \
@@ -594,8 +594,9 @@ tst_TestExpectListeningFail.moc: /usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QByteArray \
 		../../../../../src/libs/dao/CChecksumList.h \
 		/usr/include/qt5/QtCore/QList \
-		tst_TestExpectListeningFail.cpp
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include tst_TestExpectListeningFail.cpp -o tst_TestExpectListeningFail.moc
+		tst_TestExpectListeningFail.moc \
+		tst_ExpectNoListening.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include tst_ExpectNoListening.cpp -o tst_ExpectNoListening.moc
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -607,7 +608,7 @@ compiler_clean: compiler_moc_source_clean
 
 ####### Compile
 
-tst_TestExpectListeningFail.o: tst_TestExpectListeningFail.cpp /usr/include/qt5/QtCore/QString \
+tst_ExpectNoListening.o: tst_ExpectNoListening.cpp /usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/qstring.h \
 		/usr/include/qt5/QtCore/qchar.h \
 		/usr/include/qt5/QtCore/qglobal.h \
@@ -892,7 +893,7 @@ tst_TestExpectListeningFail.o: tst_TestExpectListeningFail.cpp /usr/include/qt5/
 		../../../../../src/libs/dao/CChecksumList.h \
 		/usr/include/qt5/QtCore/QList \
 		tst_TestExpectListeningFail.moc
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tst_TestExpectListeningFail.o tst_TestExpectListeningFail.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tst_ExpectNoListening.o tst_ExpectNoListening.cpp
 
 ####### Install
 

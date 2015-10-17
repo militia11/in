@@ -14,7 +14,7 @@ TEMPLATE = app
 
 INCLUDEPATH += ../../../../../src
 
-SOURCES += ConvertIntToArrayTest.cpp
+SOURCES += ConvertIntToArrayTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 LIBS += -L../../../../../src/libs/controllers -lcontrollers

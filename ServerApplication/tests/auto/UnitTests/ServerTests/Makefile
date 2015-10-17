@@ -29,159 +29,185 @@ SUBTARGETS    =  \
 		sub-TestExpectNoListening \
 		sub-TestListeningPortWrongNum \
 		sub-TestStopListening \
-		sub-ClientNotConnectedToServerTests
+		sub-TestClientNotConnectedToServer \
+		sub-ListeningTests
 
 
 sub-TestInitServer-qmake_all:  FORCE
 	@test -d TestInitServer/ || mkdir -p TestInitServer/
-	cd TestInitServer/ && $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile
+	cd TestInitServer/ && $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile
 	cd TestInitServer/ && $(MAKE) -f Makefile qmake_all
 sub-TestInitServer: FORCE
 	@test -d TestInitServer/ || mkdir -p TestInitServer/
-	cd TestInitServer/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile
+	cd TestInitServer/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile
 sub-TestInitServer-make_first: FORCE
 	@test -d TestInitServer/ || mkdir -p TestInitServer/
-	cd TestInitServer/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile 
+	cd TestInitServer/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile 
 sub-TestInitServer-all: FORCE
 	@test -d TestInitServer/ || mkdir -p TestInitServer/
-	cd TestInitServer/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile all
+	cd TestInitServer/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile all
 sub-TestInitServer-clean: FORCE
 	@test -d TestInitServer/ || mkdir -p TestInitServer/
-	cd TestInitServer/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile clean
+	cd TestInitServer/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile clean
 sub-TestInitServer-distclean: FORCE
 	@test -d TestInitServer/ || mkdir -p TestInitServer/
-	cd TestInitServer/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile distclean
+	cd TestInitServer/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile distclean
 sub-TestInitServer-install_subtargets: FORCE
 	@test -d TestInitServer/ || mkdir -p TestInitServer/
-	cd TestInitServer/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile install
+	cd TestInitServer/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile install
 sub-TestInitServer-uninstall_subtargets: FORCE
 	@test -d TestInitServer/ || mkdir -p TestInitServer/
-	cd TestInitServer/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile uninstall
+	cd TestInitServer/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile uninstall
 sub-TestListeningPort-qmake_all:  FORCE
 	@test -d TestListeningPort/ || mkdir -p TestListeningPort/
-	cd TestListeningPort/ && $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile
+	cd TestListeningPort/ && $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile
 	cd TestListeningPort/ && $(MAKE) -f Makefile qmake_all
 sub-TestListeningPort: FORCE
 	@test -d TestListeningPort/ || mkdir -p TestListeningPort/
-	cd TestListeningPort/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile
+	cd TestListeningPort/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile
 sub-TestListeningPort-make_first: FORCE
 	@test -d TestListeningPort/ || mkdir -p TestListeningPort/
-	cd TestListeningPort/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile 
+	cd TestListeningPort/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile 
 sub-TestListeningPort-all: FORCE
 	@test -d TestListeningPort/ || mkdir -p TestListeningPort/
-	cd TestListeningPort/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile all
+	cd TestListeningPort/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile all
 sub-TestListeningPort-clean: FORCE
 	@test -d TestListeningPort/ || mkdir -p TestListeningPort/
-	cd TestListeningPort/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile clean
+	cd TestListeningPort/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile clean
 sub-TestListeningPort-distclean: FORCE
 	@test -d TestListeningPort/ || mkdir -p TestListeningPort/
-	cd TestListeningPort/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile distclean
+	cd TestListeningPort/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile distclean
 sub-TestListeningPort-install_subtargets: FORCE
 	@test -d TestListeningPort/ || mkdir -p TestListeningPort/
-	cd TestListeningPort/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile install
+	cd TestListeningPort/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile install
 sub-TestListeningPort-uninstall_subtargets: FORCE
 	@test -d TestListeningPort/ || mkdir -p TestListeningPort/
-	cd TestListeningPort/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile uninstall
+	cd TestListeningPort/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile uninstall
 sub-TestExpectNoListening-qmake_all:  FORCE
 	@test -d TestExpectNoListening/ || mkdir -p TestExpectNoListening/
-	cd TestExpectNoListening/ && $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile
+	cd TestExpectNoListening/ && $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile
 	cd TestExpectNoListening/ && $(MAKE) -f Makefile qmake_all
 sub-TestExpectNoListening: FORCE
 	@test -d TestExpectNoListening/ || mkdir -p TestExpectNoListening/
-	cd TestExpectNoListening/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile
+	cd TestExpectNoListening/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile
 sub-TestExpectNoListening-make_first: FORCE
 	@test -d TestExpectNoListening/ || mkdir -p TestExpectNoListening/
-	cd TestExpectNoListening/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile 
+	cd TestExpectNoListening/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile 
 sub-TestExpectNoListening-all: FORCE
 	@test -d TestExpectNoListening/ || mkdir -p TestExpectNoListening/
-	cd TestExpectNoListening/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile all
+	cd TestExpectNoListening/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile all
 sub-TestExpectNoListening-clean: FORCE
 	@test -d TestExpectNoListening/ || mkdir -p TestExpectNoListening/
-	cd TestExpectNoListening/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile clean
+	cd TestExpectNoListening/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile clean
 sub-TestExpectNoListening-distclean: FORCE
 	@test -d TestExpectNoListening/ || mkdir -p TestExpectNoListening/
-	cd TestExpectNoListening/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile distclean
+	cd TestExpectNoListening/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile distclean
 sub-TestExpectNoListening-install_subtargets: FORCE
 	@test -d TestExpectNoListening/ || mkdir -p TestExpectNoListening/
-	cd TestExpectNoListening/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile install
+	cd TestExpectNoListening/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile install
 sub-TestExpectNoListening-uninstall_subtargets: FORCE
 	@test -d TestExpectNoListening/ || mkdir -p TestExpectNoListening/
-	cd TestExpectNoListening/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile uninstall
+	cd TestExpectNoListening/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile uninstall
 sub-TestListeningPortWrongNum-qmake_all:  FORCE
 	@test -d TestListeningPortWrongNum/ || mkdir -p TestListeningPortWrongNum/
-	cd TestListeningPortWrongNum/ && $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile
+	cd TestListeningPortWrongNum/ && $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile
 	cd TestListeningPortWrongNum/ && $(MAKE) -f Makefile qmake_all
 sub-TestListeningPortWrongNum: FORCE
 	@test -d TestListeningPortWrongNum/ || mkdir -p TestListeningPortWrongNum/
-	cd TestListeningPortWrongNum/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile
+	cd TestListeningPortWrongNum/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile
 sub-TestListeningPortWrongNum-make_first: FORCE
 	@test -d TestListeningPortWrongNum/ || mkdir -p TestListeningPortWrongNum/
-	cd TestListeningPortWrongNum/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile 
+	cd TestListeningPortWrongNum/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile 
 sub-TestListeningPortWrongNum-all: FORCE
 	@test -d TestListeningPortWrongNum/ || mkdir -p TestListeningPortWrongNum/
-	cd TestListeningPortWrongNum/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile all
+	cd TestListeningPortWrongNum/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile all
 sub-TestListeningPortWrongNum-clean: FORCE
 	@test -d TestListeningPortWrongNum/ || mkdir -p TestListeningPortWrongNum/
-	cd TestListeningPortWrongNum/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile clean
+	cd TestListeningPortWrongNum/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile clean
 sub-TestListeningPortWrongNum-distclean: FORCE
 	@test -d TestListeningPortWrongNum/ || mkdir -p TestListeningPortWrongNum/
-	cd TestListeningPortWrongNum/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile distclean
+	cd TestListeningPortWrongNum/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile distclean
 sub-TestListeningPortWrongNum-install_subtargets: FORCE
 	@test -d TestListeningPortWrongNum/ || mkdir -p TestListeningPortWrongNum/
-	cd TestListeningPortWrongNum/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile install
+	cd TestListeningPortWrongNum/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile install
 sub-TestListeningPortWrongNum-uninstall_subtargets: FORCE
 	@test -d TestListeningPortWrongNum/ || mkdir -p TestListeningPortWrongNum/
-	cd TestListeningPortWrongNum/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile uninstall
+	cd TestListeningPortWrongNum/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile uninstall
 sub-TestStopListening-qmake_all:  FORCE
 	@test -d TestStopListening/ || mkdir -p TestStopListening/
-	cd TestStopListening/ && $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile
+	cd TestStopListening/ && $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile
 	cd TestStopListening/ && $(MAKE) -f Makefile qmake_all
 sub-TestStopListening: FORCE
 	@test -d TestStopListening/ || mkdir -p TestStopListening/
-	cd TestStopListening/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile
+	cd TestStopListening/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile
 sub-TestStopListening-make_first: FORCE
 	@test -d TestStopListening/ || mkdir -p TestStopListening/
-	cd TestStopListening/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile 
+	cd TestStopListening/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile 
 sub-TestStopListening-all: FORCE
 	@test -d TestStopListening/ || mkdir -p TestStopListening/
-	cd TestStopListening/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile all
+	cd TestStopListening/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile all
 sub-TestStopListening-clean: FORCE
 	@test -d TestStopListening/ || mkdir -p TestStopListening/
-	cd TestStopListening/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile clean
+	cd TestStopListening/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile clean
 sub-TestStopListening-distclean: FORCE
 	@test -d TestStopListening/ || mkdir -p TestStopListening/
-	cd TestStopListening/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile distclean
+	cd TestStopListening/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile distclean
 sub-TestStopListening-install_subtargets: FORCE
 	@test -d TestStopListening/ || mkdir -p TestStopListening/
-	cd TestStopListening/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile install
+	cd TestStopListening/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile install
 sub-TestStopListening-uninstall_subtargets: FORCE
 	@test -d TestStopListening/ || mkdir -p TestStopListening/
-	cd TestStopListening/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile uninstall
-sub-ClientNotConnectedToServerTests-qmake_all:  FORCE
-	@test -d ClientNotConnectedToServerTests/ || mkdir -p ClientNotConnectedToServerTests/
-	cd ClientNotConnectedToServerTests/ && $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ClientNotConnectedToServerTests/ClientNotConnectedToServerTests.pro -spec linux-g++-64 -o Makefile
-	cd ClientNotConnectedToServerTests/ && $(MAKE) -f Makefile qmake_all
-sub-ClientNotConnectedToServerTests: FORCE
-	@test -d ClientNotConnectedToServerTests/ || mkdir -p ClientNotConnectedToServerTests/
-	cd ClientNotConnectedToServerTests/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ClientNotConnectedToServerTests/ClientNotConnectedToServerTests.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile
-sub-ClientNotConnectedToServerTests-make_first: FORCE
-	@test -d ClientNotConnectedToServerTests/ || mkdir -p ClientNotConnectedToServerTests/
-	cd ClientNotConnectedToServerTests/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ClientNotConnectedToServerTests/ClientNotConnectedToServerTests.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile 
-sub-ClientNotConnectedToServerTests-all: FORCE
-	@test -d ClientNotConnectedToServerTests/ || mkdir -p ClientNotConnectedToServerTests/
-	cd ClientNotConnectedToServerTests/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ClientNotConnectedToServerTests/ClientNotConnectedToServerTests.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile all
-sub-ClientNotConnectedToServerTests-clean: FORCE
-	@test -d ClientNotConnectedToServerTests/ || mkdir -p ClientNotConnectedToServerTests/
-	cd ClientNotConnectedToServerTests/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ClientNotConnectedToServerTests/ClientNotConnectedToServerTests.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile clean
-sub-ClientNotConnectedToServerTests-distclean: FORCE
-	@test -d ClientNotConnectedToServerTests/ || mkdir -p ClientNotConnectedToServerTests/
-	cd ClientNotConnectedToServerTests/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ClientNotConnectedToServerTests/ClientNotConnectedToServerTests.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile distclean
-sub-ClientNotConnectedToServerTests-install_subtargets: FORCE
-	@test -d ClientNotConnectedToServerTests/ || mkdir -p ClientNotConnectedToServerTests/
-	cd ClientNotConnectedToServerTests/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ClientNotConnectedToServerTests/ClientNotConnectedToServerTests.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile install
-sub-ClientNotConnectedToServerTests-uninstall_subtargets: FORCE
-	@test -d ClientNotConnectedToServerTests/ || mkdir -p ClientNotConnectedToServerTests/
-	cd ClientNotConnectedToServerTests/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ClientNotConnectedToServerTests/ClientNotConnectedToServerTests.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile uninstall
+	cd TestStopListening/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile uninstall
+sub-TestClientNotConnectedToServer-qmake_all:  FORCE
+	@test -d TestClientNotConnectedToServer/ || mkdir -p TestClientNotConnectedToServer/
+	cd TestClientNotConnectedToServer/ && $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestClientNotConnectedToServer/TestClientNotConnectedToServer.pro -spec linux-g++-64 -o Makefile
+	cd TestClientNotConnectedToServer/ && $(MAKE) -f Makefile qmake_all
+sub-TestClientNotConnectedToServer: FORCE
+	@test -d TestClientNotConnectedToServer/ || mkdir -p TestClientNotConnectedToServer/
+	cd TestClientNotConnectedToServer/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestClientNotConnectedToServer/TestClientNotConnectedToServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile
+sub-TestClientNotConnectedToServer-make_first: FORCE
+	@test -d TestClientNotConnectedToServer/ || mkdir -p TestClientNotConnectedToServer/
+	cd TestClientNotConnectedToServer/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestClientNotConnectedToServer/TestClientNotConnectedToServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile 
+sub-TestClientNotConnectedToServer-all: FORCE
+	@test -d TestClientNotConnectedToServer/ || mkdir -p TestClientNotConnectedToServer/
+	cd TestClientNotConnectedToServer/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestClientNotConnectedToServer/TestClientNotConnectedToServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile all
+sub-TestClientNotConnectedToServer-clean: FORCE
+	@test -d TestClientNotConnectedToServer/ || mkdir -p TestClientNotConnectedToServer/
+	cd TestClientNotConnectedToServer/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestClientNotConnectedToServer/TestClientNotConnectedToServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile clean
+sub-TestClientNotConnectedToServer-distclean: FORCE
+	@test -d TestClientNotConnectedToServer/ || mkdir -p TestClientNotConnectedToServer/
+	cd TestClientNotConnectedToServer/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestClientNotConnectedToServer/TestClientNotConnectedToServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile distclean
+sub-TestClientNotConnectedToServer-install_subtargets: FORCE
+	@test -d TestClientNotConnectedToServer/ || mkdir -p TestClientNotConnectedToServer/
+	cd TestClientNotConnectedToServer/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestClientNotConnectedToServer/TestClientNotConnectedToServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile install
+sub-TestClientNotConnectedToServer-uninstall_subtargets: FORCE
+	@test -d TestClientNotConnectedToServer/ || mkdir -p TestClientNotConnectedToServer/
+	cd TestClientNotConnectedToServer/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestClientNotConnectedToServer/TestClientNotConnectedToServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile uninstall
+sub-ListeningTests-qmake_all:  FORCE
+	@test -d ListeningTests/ || mkdir -p ListeningTests/
+	cd ListeningTests/ && $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ListeningTests/ListeningTests.pro -spec linux-g++-64 -o Makefile
+	cd ListeningTests/ && $(MAKE) -f Makefile qmake_all
+sub-ListeningTests: FORCE
+	@test -d ListeningTests/ || mkdir -p ListeningTests/
+	cd ListeningTests/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ListeningTests/ListeningTests.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile
+sub-ListeningTests-make_first: FORCE
+	@test -d ListeningTests/ || mkdir -p ListeningTests/
+	cd ListeningTests/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ListeningTests/ListeningTests.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile 
+sub-ListeningTests-all: FORCE
+	@test -d ListeningTests/ || mkdir -p ListeningTests/
+	cd ListeningTests/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ListeningTests/ListeningTests.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile all
+sub-ListeningTests-clean: FORCE
+	@test -d ListeningTests/ || mkdir -p ListeningTests/
+	cd ListeningTests/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ListeningTests/ListeningTests.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile clean
+sub-ListeningTests-distclean: FORCE
+	@test -d ListeningTests/ || mkdir -p ListeningTests/
+	cd ListeningTests/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ListeningTests/ListeningTests.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile distclean
+sub-ListeningTests-install_subtargets: FORCE
+	@test -d ListeningTests/ || mkdir -p ListeningTests/
+	cd ListeningTests/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ListeningTests/ListeningTests.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile install
+sub-ListeningTests-uninstall_subtargets: FORCE
+	@test -d ListeningTests/ || mkdir -p ListeningTests/
+	cd ListeningTests/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ListeningTests/ListeningTests.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile uninstall
 
 Makefile: ServerTests.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
@@ -293,35 +319,38 @@ ServerTests.pro:
 qmake: FORCE
 	@$(QMAKE) -spec linux-g++-64 -o Makefile ServerTests.pro
 
-qmake_all: sub-TestInitServer-qmake_all sub-TestListeningPort-qmake_all sub-TestExpectNoListening-qmake_all sub-TestListeningPortWrongNum-qmake_all sub-TestStopListening-qmake_all sub-ClientNotConnectedToServerTests-qmake_all FORCE
+qmake_all: sub-TestInitServer-qmake_all sub-TestListeningPort-qmake_all sub-TestExpectNoListening-qmake_all sub-TestListeningPortWrongNum-qmake_all sub-TestStopListening-qmake_all sub-TestClientNotConnectedToServer-qmake_all sub-ListeningTests-qmake_all FORCE
 
-make_first: sub-TestInitServer-make_first sub-TestListeningPort-make_first sub-TestExpectNoListening-make_first sub-TestListeningPortWrongNum-make_first sub-TestStopListening-make_first sub-ClientNotConnectedToServerTests-make_first FORCE
-all: sub-TestInitServer-all sub-TestListeningPort-all sub-TestExpectNoListening-all sub-TestListeningPortWrongNum-all sub-TestStopListening-all sub-ClientNotConnectedToServerTests-all FORCE
-clean: sub-TestInitServer-clean sub-TestListeningPort-clean sub-TestExpectNoListening-clean sub-TestListeningPortWrongNum-clean sub-TestStopListening-clean sub-ClientNotConnectedToServerTests-clean FORCE
-distclean: sub-TestInitServer-distclean sub-TestListeningPort-distclean sub-TestExpectNoListening-distclean sub-TestListeningPortWrongNum-distclean sub-TestStopListening-distclean sub-ClientNotConnectedToServerTests-distclean FORCE
+make_first: sub-TestInitServer-make_first sub-TestListeningPort-make_first sub-TestExpectNoListening-make_first sub-TestListeningPortWrongNum-make_first sub-TestStopListening-make_first sub-TestClientNotConnectedToServer-make_first sub-ListeningTests-make_first FORCE
+all: sub-TestInitServer-all sub-TestListeningPort-all sub-TestExpectNoListening-all sub-TestListeningPortWrongNum-all sub-TestStopListening-all sub-TestClientNotConnectedToServer-all sub-ListeningTests-all FORCE
+clean: sub-TestInitServer-clean sub-TestListeningPort-clean sub-TestExpectNoListening-clean sub-TestListeningPortWrongNum-clean sub-TestStopListening-clean sub-TestClientNotConnectedToServer-clean sub-ListeningTests-clean FORCE
+distclean: sub-TestInitServer-distclean sub-TestListeningPort-distclean sub-TestExpectNoListening-distclean sub-TestListeningPortWrongNum-distclean sub-TestStopListening-distclean sub-TestClientNotConnectedToServer-distclean sub-ListeningTests-distclean FORCE
 	-$(DEL_FILE) Makefile
-install_subtargets: sub-TestInitServer-install_subtargets sub-TestListeningPort-install_subtargets sub-TestExpectNoListening-install_subtargets sub-TestListeningPortWrongNum-install_subtargets sub-TestStopListening-install_subtargets sub-ClientNotConnectedToServerTests-install_subtargets FORCE
-uninstall_subtargets: sub-TestInitServer-uninstall_subtargets sub-TestListeningPort-uninstall_subtargets sub-TestExpectNoListening-uninstall_subtargets sub-TestListeningPortWrongNum-uninstall_subtargets sub-TestStopListening-uninstall_subtargets sub-ClientNotConnectedToServerTests-uninstall_subtargets FORCE
+install_subtargets: sub-TestInitServer-install_subtargets sub-TestListeningPort-install_subtargets sub-TestExpectNoListening-install_subtargets sub-TestListeningPortWrongNum-install_subtargets sub-TestStopListening-install_subtargets sub-TestClientNotConnectedToServer-install_subtargets sub-ListeningTests-install_subtargets FORCE
+uninstall_subtargets: sub-TestInitServer-uninstall_subtargets sub-TestListeningPort-uninstall_subtargets sub-TestExpectNoListening-uninstall_subtargets sub-TestListeningPortWrongNum-uninstall_subtargets sub-TestStopListening-uninstall_subtargets sub-TestClientNotConnectedToServer-uninstall_subtargets sub-ListeningTests-uninstall_subtargets FORCE
 
 sub-TestInitServer-check:
 	@test -d TestInitServer/ || mkdir -p TestInitServer/
-	cd TestInitServer/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile check
+	cd TestInitServer/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestInitServer/TestInitServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile check
 sub-TestListeningPort-check:
 	@test -d TestListeningPort/ || mkdir -p TestListeningPort/
-	cd TestListeningPort/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile check
+	cd TestListeningPort/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPort/TestListeningPort.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile check
 sub-TestExpectNoListening-check:
 	@test -d TestExpectNoListening/ || mkdir -p TestExpectNoListening/
-	cd TestExpectNoListening/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile check
+	cd TestExpectNoListening/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestExpectNoListening/TestExpectNoListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile check
 sub-TestListeningPortWrongNum-check:
 	@test -d TestListeningPortWrongNum/ || mkdir -p TestListeningPortWrongNum/
-	cd TestListeningPortWrongNum/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile check
+	cd TestListeningPortWrongNum/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestListeningPortWrongNum/TestListeningPortWrongNum.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile check
 sub-TestStopListening-check:
 	@test -d TestStopListening/ || mkdir -p TestStopListening/
-	cd TestStopListening/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile check
-sub-ClientNotConnectedToServerTests-check:
-	@test -d ClientNotConnectedToServerTests/ || mkdir -p ClientNotConnectedToServerTests/
-	cd ClientNotConnectedToServerTests/ && ( test -e Makefile || $(QMAKE) /media/mmichniewski/0E30-FA18/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ClientNotConnectedToServerTests/ClientNotConnectedToServerTests.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile check
-check: sub-TestInitServer-check sub-TestListeningPort-check sub-TestExpectNoListening-check sub-TestListeningPortWrongNum-check sub-TestStopListening-check sub-ClientNotConnectedToServerTests-check
+	cd TestStopListening/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestStopListening/TestStopListening.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile check
+sub-TestClientNotConnectedToServer-check:
+	@test -d TestClientNotConnectedToServer/ || mkdir -p TestClientNotConnectedToServer/
+	cd TestClientNotConnectedToServer/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/TestClientNotConnectedToServer/TestClientNotConnectedToServer.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile check
+sub-ListeningTests-check:
+	@test -d ListeningTests/ || mkdir -p ListeningTests/
+	cd ListeningTests/ && ( test -e Makefile || $(QMAKE) /home/mmichniewski/Inzynierska/SynchronizationTool/ServerApplication/tests/auto/UnitTests/ServerTests/ListeningTests/ListeningTests.pro -spec linux-g++-64 -o Makefile ) && $(MAKE) -f Makefile check
+check: sub-TestInitServer-check sub-TestListeningPort-check sub-TestExpectNoListening-check sub-TestListeningPortWrongNum-check sub-TestStopListening-check sub-TestClientNotConnectedToServer-check sub-ListeningTests-check
 install: install_subtargets  FORCE
 
 uninstall:  uninstall_subtargets FORCE
