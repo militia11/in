@@ -5,6 +5,8 @@
 
 #include "CDatabaseConnectionDialog.h"
 #include "CServerSettingsDialog.h"
+
+#include <QBuffer>
 #include <QImage>
 #include <QImageReader>
 
@@ -25,10 +27,10 @@ CMainWindow::CMainWindow(QWidget *aParent) :
 
 CMainWindow::~CMainWindow() {
     delete mServer;
-    mServer = 0;
+		mServer = nullptr;
 
     delete ui;
-    ui = 0;
+		ui = nullptr;
 }
 
 bool CMainWindow::ConnectToDatabaseAgain() {
@@ -57,7 +59,6 @@ void CMainWindow::closeEvent(QCloseEvent *aEvent) {
     //		}
 }
 void CMainWindow::DisplayData(QByteArray aData) {
-
     QBuffer vBuffer(&aData);
     vBuffer.open( QIODevice::ReadOnly );
     QImageReader vReader(&vBuffer, "JPG");
@@ -84,10 +85,8 @@ void CMainWindow::ShowStatus(const char *aMessageStatus, int aTimeMsc) {
 }
 
 void CMainWindow::RunServer() {
-    mServer = new CServer(this);
-
+		mServer = new CServer();
     ConnectServerSignals();
-
     mServer->Run();
 
     ui->ActionStopServer->setChecked(false);

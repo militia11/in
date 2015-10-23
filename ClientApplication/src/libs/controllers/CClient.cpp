@@ -12,14 +12,13 @@
 
 extern CRepository gRepository;
 
-CClient::CClient(QObject *aParent) : QObject(aParent) {
-
+CClient::CClient() {
     mSocket = new QTcpSocket(this);
 
     mReceiveBuffer = 0;
     mFileToSend = false;
 
-    connect(mSocket, SIGNAL(readyRead()),
+		QObject::connect(mSocket, SIGNAL(readyRead()),
             this, SLOT(ReadData()), Qt::DirectConnection);
     PrepareMessageData(384);
 }

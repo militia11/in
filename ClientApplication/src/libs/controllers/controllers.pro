@@ -16,7 +16,8 @@ SOURCES += \
     CClient.cpp
 
 HEADERS += \
-    CClient.h
+    CClient.h \
+    IClient.h
 
 LIBS += -L../dao -ldao
 

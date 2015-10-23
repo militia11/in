@@ -1,8 +1,8 @@
 #ifndef CSERVER_H
 #define CSERVER_H
 
-#include <QTcpServer>
-#include "libs/controllers/CClient.h"
+#include "libs/controllers/IClient.h"
+#include "libs/controllers/IServer.h"
 
 /**
  * @brief The CServer class represents server for synchronize data from mobile device.
@@ -11,15 +11,14 @@
  * When client connected to the specify port server pause listening and resume accepting
  * incoming connections when client disconnected. @todo dopisać później
  */
-class CServer : public QTcpServer {
+class CServer : public IServer {
+		Q_OBJECT
 
-    Q_OBJECT
-
-  public:
+	public:
     /**
      * @brief CServer constructor.
      */
-    explicit CServer(QObject *aParent = 0);
+		explicit CServer();
 
     /**
      * @brief CServer destructor.
@@ -39,9 +38,9 @@ class CServer : public QTcpServer {
     /**
      * @brief Method return CClient member of the class.
      *
-     * @return Object which represent  client class (CClient).
+			 * @return Object which represent client class (CClient).
      */
-    CClient *GetClient() const;
+		IClient *GetClient() const;
 
   signals:
     /**
@@ -85,18 +84,18 @@ class CServer : public QTcpServer {
     /**
      * @brief Method connect client's signals to server's slots.
      */
-    inline void ConnectClientSignals();
+		void ConnectClientSignals();
 
     /**
      * @brief UpdatePortNum get and update actually port number
      *        from programm config file to application.
      */
-    inline void UpdatePortNum();
+		void UpdatePortNum();
 
     /**
      * @brief mClient is client of server.
      */
-    CClient *mClient;
+		IClient *mClient;
 
     /**
      * @brief mPortNum is port number which server listen.

@@ -561,39 +561,15 @@ tst_TestListeningPortWrongNumberTest.moc: /usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtTest/qtesttouch.h \
 		/usr/include/qt5/QtTest/qttestversion.h \
 		../../../../../src/libs/controllers/CServer.h \
-		/usr/include/qt5/QtNetwork/QTcpServer \
-		/usr/include/qt5/QtNetwork/qtcpserver.h \
-		/usr/include/qt5/QtNetwork/qabstractsocket.h \
-		/usr/include/qt5/QtNetwork/qhostaddress.h \
-		../../../../../src/libs/controllers/CClient.h \
+		../../../../../src/libs/controllers/IClient.h \
+		/usr/include/qt5/QtCore/QFile \
 		/usr/include/qt5/QtNetwork/QTcpSocket \
 		/usr/include/qt5/QtNetwork/qtcpsocket.h \
-		../../../../../src/libs/controllers/CStorePhotoTransaction.h \
-		../../../../../src/libs/controllers/CTransaction.h \
-		/usr/local/include/litesql.hpp \
-		/usr/local/include/litesql/types.hpp \
-		/usr/local/include/litesql/utils.hpp \
-		/usr/local/include/litesql/string.hpp \
-		/usr/local/include/litesql/split.hpp \
-		/usr/local/include/litesql/except.hpp \
-		/usr/local/include/litesql/datetime.hpp \
-		/usr/local/include/litesql/field.hpp \
-		/usr/local/include/litesql/commontypes.h \
-		/usr/local/include/litesql/cursor.hpp \
-		/usr/local/include/litesql/backend.hpp \
-		/usr/local/include/litesql/database.hpp \
-		/usr/local/include/litesql/expr.hpp \
-		/usr/local/include/litesql/selectquery.hpp \
-		/usr/local/include/litesql/datasource.hpp \
-		/usr/local/include/litesql/persistent.hpp \
-		/usr/local/include/litesql/relation.hpp \
-		/usr/local/include/litesql/operations.hpp \
-		../../../../../src/libs/dao/androidphotosdatabase.hpp \
-		/usr/include/qt5/QtCore/QBuffer \
-		../../../../../src/libs/controllers/CRetrievePhotoTransaction.h \
-		/usr/include/qt5/QtCore/QByteArray \
-		../../../../../src/libs/dao/CChecksumList.h \
-		/usr/include/qt5/QtCore/QList \
+		/usr/include/qt5/QtNetwork/qabstractsocket.h \
+		../../../../../src/libs/controllers/IServer.h \
+		/usr/include/qt5/QtNetwork/QTcpServer \
+		/usr/include/qt5/QtNetwork/qtcpserver.h \
+		/usr/include/qt5/QtNetwork/qhostaddress.h \
 		tst_TestListeningPortWrongNumberTest.cpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include tst_TestListeningPortWrongNumberTest.cpp -o tst_TestListeningPortWrongNumberTest.moc
 
@@ -858,39 +834,15 @@ tst_TestListeningPortWrongNumberTest.o: tst_TestListeningPortWrongNumberTest.cpp
 		/usr/include/qt5/QtTest/qtesttouch.h \
 		/usr/include/qt5/QtTest/qttestversion.h \
 		../../../../../src/libs/controllers/CServer.h \
-		/usr/include/qt5/QtNetwork/QTcpServer \
-		/usr/include/qt5/QtNetwork/qtcpserver.h \
-		/usr/include/qt5/QtNetwork/qabstractsocket.h \
-		/usr/include/qt5/QtNetwork/qhostaddress.h \
-		../../../../../src/libs/controllers/CClient.h \
+		../../../../../src/libs/controllers/IClient.h \
+		/usr/include/qt5/QtCore/QFile \
 		/usr/include/qt5/QtNetwork/QTcpSocket \
 		/usr/include/qt5/QtNetwork/qtcpsocket.h \
-		../../../../../src/libs/controllers/CStorePhotoTransaction.h \
-		../../../../../src/libs/controllers/CTransaction.h \
-		/usr/local/include/litesql.hpp \
-		/usr/local/include/litesql/types.hpp \
-		/usr/local/include/litesql/utils.hpp \
-		/usr/local/include/litesql/string.hpp \
-		/usr/local/include/litesql/split.hpp \
-		/usr/local/include/litesql/except.hpp \
-		/usr/local/include/litesql/datetime.hpp \
-		/usr/local/include/litesql/field.hpp \
-		/usr/local/include/litesql/commontypes.h \
-		/usr/local/include/litesql/cursor.hpp \
-		/usr/local/include/litesql/backend.hpp \
-		/usr/local/include/litesql/database.hpp \
-		/usr/local/include/litesql/expr.hpp \
-		/usr/local/include/litesql/selectquery.hpp \
-		/usr/local/include/litesql/datasource.hpp \
-		/usr/local/include/litesql/persistent.hpp \
-		/usr/local/include/litesql/relation.hpp \
-		/usr/local/include/litesql/operations.hpp \
-		../../../../../src/libs/dao/androidphotosdatabase.hpp \
-		/usr/include/qt5/QtCore/QBuffer \
-		../../../../../src/libs/controllers/CRetrievePhotoTransaction.h \
-		/usr/include/qt5/QtCore/QByteArray \
-		../../../../../src/libs/dao/CChecksumList.h \
-		/usr/include/qt5/QtCore/QList \
+		/usr/include/qt5/QtNetwork/qabstractsocket.h \
+		../../../../../src/libs/controllers/IServer.h \
+		/usr/include/qt5/QtNetwork/QTcpServer \
+		/usr/include/qt5/QtNetwork/qtcpserver.h \
+		/usr/include/qt5/QtNetwork/qhostaddress.h \
 		tst_TestListeningPortWrongNumberTest.moc
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tst_TestListeningPortWrongNumberTest.o tst_TestListeningPortWrongNumberTest.cpp
 

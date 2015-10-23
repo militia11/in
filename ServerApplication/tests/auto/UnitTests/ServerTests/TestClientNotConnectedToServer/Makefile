@@ -561,13 +561,16 @@ tst_ClientNotConnectedToServer.moc: /usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtTest/qtesttouch.h \
 		/usr/include/qt5/QtTest/qttestversion.h \
 		../../../../../src/libs/controllers/CServer.h \
-		/usr/include/qt5/QtNetwork/QTcpServer \
-		/usr/include/qt5/QtNetwork/qtcpserver.h \
-		/usr/include/qt5/QtNetwork/qabstractsocket.h \
-		/usr/include/qt5/QtNetwork/qhostaddress.h \
-		../../../../../src/libs/controllers/CClient.h \
+		../../../../../src/libs/controllers/IClient.h \
+		/usr/include/qt5/QtCore/QFile \
 		/usr/include/qt5/QtNetwork/QTcpSocket \
 		/usr/include/qt5/QtNetwork/qtcpsocket.h \
+		/usr/include/qt5/QtNetwork/qabstractsocket.h \
+		../../../../../src/libs/controllers/IServer.h \
+		/usr/include/qt5/QtNetwork/QTcpServer \
+		/usr/include/qt5/QtNetwork/qtcpserver.h \
+		/usr/include/qt5/QtNetwork/qhostaddress.h \
+		../../../../../src/libs/controllers/CClient.h \
 		../../../../../src/libs/controllers/CStorePhotoTransaction.h \
 		../../../../../src/libs/controllers/CTransaction.h \
 		/usr/local/include/litesql.hpp \
@@ -858,13 +861,16 @@ tst_ClientNotConnectedToServer.o: tst_ClientNotConnectedToServer.cpp /usr/includ
 		/usr/include/qt5/QtTest/qtesttouch.h \
 		/usr/include/qt5/QtTest/qttestversion.h \
 		../../../../../src/libs/controllers/CServer.h \
-		/usr/include/qt5/QtNetwork/QTcpServer \
-		/usr/include/qt5/QtNetwork/qtcpserver.h \
-		/usr/include/qt5/QtNetwork/qabstractsocket.h \
-		/usr/include/qt5/QtNetwork/qhostaddress.h \
-		../../../../../src/libs/controllers/CClient.h \
+		../../../../../src/libs/controllers/IClient.h \
+		/usr/include/qt5/QtCore/QFile \
 		/usr/include/qt5/QtNetwork/QTcpSocket \
 		/usr/include/qt5/QtNetwork/qtcpsocket.h \
+		/usr/include/qt5/QtNetwork/qabstractsocket.h \
+		../../../../../src/libs/controllers/IServer.h \
+		/usr/include/qt5/QtNetwork/QTcpServer \
+		/usr/include/qt5/QtNetwork/qtcpserver.h \
+		/usr/include/qt5/QtNetwork/qhostaddress.h \
+		../../../../../src/libs/controllers/CClient.h \
 		../../../../../src/libs/controllers/CStorePhotoTransaction.h \
 		../../../../../src/libs/controllers/CTransaction.h \
 		/usr/local/include/litesql.hpp \

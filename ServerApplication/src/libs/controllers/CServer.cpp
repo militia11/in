@@ -1,12 +1,12 @@
 #include "CServer.h"
 
 #include "libs/controllers/CSettings.h"
+#include "libs/controllers/CClient.h"
 
 #include <QTcpSocket>
 #include <QDebug>
 
-CServer::CServer(QObject *aParent) :
-    QTcpServer(aParent),
+CServer::CServer() :
     mClient(NULL) {
     UpdatePortNum();
 
@@ -15,7 +15,7 @@ CServer::CServer(QObject *aParent) :
 
 CServer::~CServer() {
     delete mClient;
-    mClient = 0;
+		mClient = nullptr;
 }
 
 void CServer::Run() {
@@ -32,13 +32,12 @@ void CServer::StopListening() {
     close();
 }
 
-CClient *CServer::GetClient() const {
+IClient *CServer::GetClient() const {
     return mClient;
 }
 
 void CServer::IncomingConnection() {
     mClient = new CClient();
-
     emit CreateClient();
 
     QTcpSocket *vSocket = nextPendingConnection();
@@ -52,13 +51,11 @@ void CServer::IncomingConnection() {
 
 void CServer::ResumeAccepting() {
     emit ChangeServerStatus();
-
     QTcpServer::resumeAccepting();
 }
 
 void CServer::PauseAccepting() {
     emit ChangeServerStatus();
-
     QTcpServer::pauseAccepting();
 }
 
@@ -72,6 +69,5 @@ void CServer::ConnectClientSignals() {
 
 void CServer::UpdatePortNum() {
     CSettings vSettings;
-
     mPortNum = vSettings.GetPortNumber();
 }

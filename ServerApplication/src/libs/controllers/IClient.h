@@ -16,6 +16,8 @@
  * @brief The IClient class is interface of CClient class
  */
 class IClient : public QObject {
+		Q_OBJECT
+
   public:
     /**
     * @brief CClient destructor.
@@ -26,7 +28,7 @@ class IClient : public QObject {
      * @brief Method called when server receive incoming connection,
      *		  client is connecting to specify port.
      */
-    virtual void Connect(QTcpSocket *aSocket) = 0;
+		virtual void Connect(QTcpSocket *aSocket) = 0;
 
     /**
      * @brief Method to respone information to client.
@@ -47,32 +49,7 @@ class IClient : public QObject {
      */
     virtual void NewData() = 0;
 
-  signals:
-    /**
-     * @brief Signal emited when client disconnect from server.
-     */
-    virtual void Disconnect() = 0;
-
-    /**
-     * @brief Signal emited when error occured a socket.
-     *
-     * @param aSocketError is a QTcpSocket::SocketError.
-     */
-    virtual void Error(QTcpSocket::SocketError aSocketError) = 0;
-
-    /**
-     * @brief Signal emited when was read data.
-     *
-     * @param aData is a QByteArray data which was read.
-     */
-    virtual void ReadData(QByteArray aData) = 0;
-
-    /**
-     * @brief Signal emited to send status for mainly to the main status bar.
-     */
-    virtual void MessageStatus(const char *aMessage, int aTimeMsc) = 0;
-
-  private slots:
+	private slots:
     /**
      * @brief Slot called when connection closed.
      */
@@ -136,7 +113,6 @@ class IClient : public QObject {
      *        represent client's (CClient) slots.
      */
     virtual inline void ConnectSocketSignals() = 0;
-
 };
 
 #endif // ICLIENT_H

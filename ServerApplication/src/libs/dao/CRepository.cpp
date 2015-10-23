@@ -18,7 +18,7 @@ CRepository::~CRepository() {
     Disconnect();
 
     delete mChecksumList;
-    mChecksumList = 0;
+		mChecksumList = nullptr;
     //delete mModel;
 }
 
@@ -65,7 +65,7 @@ void CRepository::PopulateDatabase() {
 
 void CRepository::Disconnect() {
     delete mDatabase;
-    mDatabase = 0;
+		mDatabase = nullptr;
 }
 
 void CRepository::RefreshChecksums() {

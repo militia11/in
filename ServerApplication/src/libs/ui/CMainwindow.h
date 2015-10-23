@@ -4,6 +4,7 @@
 #include <QCloseEvent>
 #include <QMainWindow>
 
+#include "libs/controllers/IServer.h"
 #include "libs/controllers/CServer.h"
 #include "libs/controllers/CSettings.h"
 #include "libs/dao/CRepository.h"
@@ -113,7 +114,7 @@ class CMainWindow : public QMainWindow {
     inline void ConnectActionsSignals();
 
     Ui::MainWindow *ui;
-    CServer *mServer;
+		IServer *mServer;
 };
 
 #endif // MAINWINDOW_H

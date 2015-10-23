@@ -8,6 +8,7 @@
 
 #include "libs/controllers/CStorePhotoTransaction.h"
 #include "libs/controllers/CRetrievePhotoTransaction.h"
+#include "libs/controllers/IClient.h"
 #include "libs/dao/CChecksumList.h"
 
 /**
@@ -27,14 +28,14 @@ enum ReceiveDataMode {
  *
  * @todo dopisac wiecej pozniej
  */
-class CClient : public QObject {
+class CClient : public IClient {
     Q_OBJECT
 
   public:
     /**
      * @brief CClient constructor.
      */
-    explicit CClient(QObject *aParent = 0);
+		CClient();
 
     /**
      * @brief CClient destructor.
@@ -93,7 +94,7 @@ class CClient : public QObject {
 
   private slots:
     /**
-     * @brief Slot called when connection closed.
+		 * @brief Slot called when connection lost.
      */
     void Disconnected();
 
@@ -103,7 +104,7 @@ class CClient : public QObject {
 
     /**
      * @brief ServeFileData serve file data
-     *            from incoming connection.
+		 *        from incoming connection.
      */
     void ServeReceivedFileData();
 
@@ -111,7 +112,6 @@ class CClient : public QObject {
      * @brief ByteArrayToInt convert array to int.
      *
      * @param aData array.
-     *
      * @return Integer number converted from array.
      */
     int32_t ByteArrayToInt(QByteArray aData);
@@ -154,7 +154,7 @@ class CClient : public QObject {
      * @brief Method connect socket's signals to
      *        represent client's (CClient) slots.
      */
-    inline void ConnectSocketSignals();
+		void ConnectSocketSignals();
 
     /**
      * @brief mSocket of Client.

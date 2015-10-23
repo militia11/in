@@ -7,11 +7,13 @@
 #include <QtCore>
 #include <QtNetwork>
 
-class CClient : public QObject {
+#include "libs/controllers/IClient.h"
+
+class CClient : public IClient {
     Q_OBJECT
 
   public:
-    explicit CClient(QObject *aParent = 0);
+		CClient();
     ~CClient();
 
     bool WriteData(QByteArray aData);
@@ -33,7 +35,7 @@ class CClient : public QObject {
     void ReadData();
     bool ConnectToHost(QString aHost);
 
-  private:
+	protected:
     int16_t CalculateFileDataChecksum(QByteArray aData);
 
     bool mFileToSend;

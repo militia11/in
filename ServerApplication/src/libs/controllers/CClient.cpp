@@ -9,8 +9,7 @@
 
 extern CRepository gRepository;
 
-CClient::CClient(QObject *aParent) :
-    QObject(aParent),
+CClient::CClient() :
     mSocket(NULL),
     mReceiveBuffer(NULL),
     mDataSize(NULL),

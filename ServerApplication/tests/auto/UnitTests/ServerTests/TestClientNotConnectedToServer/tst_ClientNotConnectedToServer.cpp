@@ -21,7 +21,7 @@ ClientNotConnectedToServer::ClientNotConnectedToServer() {
 
 void ClientNotConnectedToServer::TestClientNotConnectedToServer() {
     CServer *vServer = new CServer;
-    CClient *vClient = vServer->GetClient();
+		CClient *vClient = dynamic_cast<CClient *>(vServer->GetClient());
 
     QEXPECT_FAIL("", "Klient nie powinien zostać utworzony, "
                  "nie było połączenia przychodzącego.", Continue);
