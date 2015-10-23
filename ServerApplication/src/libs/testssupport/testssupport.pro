@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-include(../../../../AutogenerowanePoprawka.pri)
+include(../../../../AutogeneratingEmendation.pri)
 include(../../../../BibliotekiLinkowanie.pri)
 QT       += network core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -16,12 +16,16 @@ CONFIG += staticlib
 HEADERS += \
     CClientWrapper.h \
     CDatabaseConnectionDialogWrapper.h \
-    CServerSettingsDialogWrapper.h
+    CServerSettingsDialogWrapper.h \
+    CClientMock.h \
+    CServerMock.h
 
 SOURCES += \
     CClientWrapper.cpp \
     CDatabaseConnectionDialogWrapper.cpp \
-    CServerSettingsDialogWrapper.cpp
+    CServerSettingsDialogWrapper.cpp \
+    CClientMock.cpp \
+    CServerMock.cpp
 
 INCLUDEPATH += ../..
 

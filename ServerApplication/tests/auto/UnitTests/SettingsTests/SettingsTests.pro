@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-include(../../../../../AutogenerowanePoprawka.pri)
+include(../../../../../AutogeneratingEmendation.pri)
 include(../../../../../BibliotekiLinkowanie.pri)
 
 QT       += testlib gui network

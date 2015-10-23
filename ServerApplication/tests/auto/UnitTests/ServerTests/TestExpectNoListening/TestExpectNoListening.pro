@@ -6,7 +6,7 @@
 
 QT       += network testlib gui
 
-include(../../../../../../AutogenerowanePoprawka.pri)
+include(../../../../../../AutogeneratingEmendation.pri)
 include(../../../../../../BibliotekiLinkowanie.pri)
 
 TARGET = tst_TestExpectListeningFail

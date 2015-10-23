@@ -1,6 +1,7 @@
 #ifndef ICLIENT_H
 #define ICLIENT_H
 
+#include <inttypes.h>
 #include <stdio.h> // convert array to int function
 #include <ctype.h> // isdigit function
 
@@ -24,7 +25,7 @@ public:
 
 	/**
 	 * @brief Method called when server receive incoming connection,
-	 *				client is connecting to specify port.
+     *		  client is connecting to specify port.
 	 */
 	virtual void Connect(QTcpSocket *aSocket) = 0;
 
@@ -35,7 +36,7 @@ public:
 
 	/**
 	 * @brief Method called to get CClient class member mSocket
-	 *				which represent socket.
+     *		  which represent socket.
 	 *
 	 * @return CCLient socket.
 	 */
@@ -84,7 +85,7 @@ protected:
 
 	/**
 	 * @brief ServeFileData serve file data
-	 *			  from incoming connection.
+     *		  from incoming connection.
 	 */
 	virtual void ServeReceivedFileData() = 0;
 
@@ -125,7 +126,7 @@ protected:
 
 	/**
 	 * @brief CalculateFileDataChecksum calculate message checksum
-	 *				 to compare with expected.
+     *		  to compare with expected.
 	 *
 	 * @return Checksum calculated as youngest byte of sum of all bytes.
 	 */

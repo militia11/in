@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-include(../../../../AutogenerowanePoprawka.pri)
+include(../../../../AutogeneratingEmendation.pri)
 
 QT       += core gui network
 

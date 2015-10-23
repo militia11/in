@@ -1,67 +1,34 @@
-#ifndef CCLIENT_H
-#define CCLIENT_H
+#ifndef CCLIENTMOCK_H
+#define CCLIENTMOCK_H
 
-#include <inttypes.h> //uint_t* and int_t* types
-
-#include <QTcpSocket>
-#include <QObject>
-
-#include "libs/controllers/CStorePhotoTransaction.h"
-#include "libs/controllers/CRetrievePhotoTransaction.h"
-#include "libs/dao/CChecksumList.h"
+#include "libs/controllers/IClient.h"
 
 /**
- * @brief The ReceiveDataMode is enumeration of kinds receive data
- *        modes for Client.
+ * @brief Mock of CClient used in unit tests
  */
-enum ReceiveDataMode {
-    Mode_Receive_File_Data      = 1,
-    Mode_Receive_File_Checksum  = 2
-};
-
-/**
- * @brief The CClient class represents client in client-server architecture.
- *
- * CClient class inherits from QObject. This class have responsibility
- * of coordinate communication with client from Android device.
- *
- * @todo dopisac wiecej pozniej
- */
-class CClient : public QObject
+class CClientMock : public IClient
 {
-    Q_OBJECT
-
 public:
     /**
-     * @brief CClient constructor.
-     */
-    explicit CClient(QObject *aParent = 0);
-
-    /**
-     * @brief CClient destructor.
-     */
-    ~ CClient();
-
-    /**
      * @brief Method called when server receive incoming connection,
-     *        client is connecting to specify port.
+         *              client is connecting to specify port.
      */
     void Connect(QTcpSocket *aSocket);
 
     /**
-     * @brief Method to respone information to client.
+         * @brief Method to respone information to client.
      */
     void ResponeToClient(QByteArray aData = 0);
 
     /**
      * @brief Method called to get CClient class member mSocket
-     *        which represent socket.
+         *              which represent socket.
      *
      * @return CCLient socket.
      */
     QTcpSocket *GetSocket() const;
 
-public slots:
+//public slots:
     /**
      * @brief Method called on new incomming data.
      */
@@ -92,35 +59,34 @@ signals:
      */
     void MessageStatus(const char *aMessage, int aTimeMsc);
 
-private slots:
+//private slots:
     /**
      * @brief Slot called when connection closed.
      */
     void Disconnected();
 
-protected:
     ///@todo opis
     int ConvertMessageArrayToInt();
 
     /**
-     * @brief ServeFileData serve file data
-     *            from incoming connection.
+         * @brief ServeFileData serve file data
+         *            from incoming connection.
      */
     void ServeReceivedFileData();
 
     /**
      * @brief ByteArrayToInt convert array to int.
      *
-     * @param aData array.
+         * @param aData array.
      *
      * @return Integer number converted from array.
      */
     int32_t ByteArrayToInt(QByteArray aData);
 
     /**
-     * @brief RouteData function switch data to
-     *        CCheckSumList class or file data to save
-     *        in server.
+         * @brief RouteData function switch data to
+         *        CCheckSumList class or file data to save
+         *        in server.
      *
      * @param aData is data to route.
      */
@@ -152,45 +118,16 @@ protected:
     uint16_t CalculateFileDataChecksum(QByteArray aData);
 
     /**
-     * @brief Method connect socket's signals to
-     *        represent client's (CClient) slots.
+         * @brief Method connect socket's signals to
+         *        represent client's (CClient) slots.
      */
     inline void ConnectSocketSignals();
 
+    protected:
     /**
-     * @brief mSocket of Client.
+     * @brief Log of called methods
      */
-    QTcpSocket *mSocket;
-
-    /**
-     * @brief mReceiveBuffer is buffer of received data.
-     */
-    QByteArray *mReceiveBuffer;
-
-    /**
-     * @brief mDataSize is size of receive buffer.
-     */
-    int32_t *mDataSize;
-
-    /**
-     * @brief mReceiveDataMode is mode of receiving data.
-     */
-    ReceiveDataMode mReceiveDataMode;
-
-    /**
-     * @brief mMessageClntFileChecksum is checksum of file sended from client.
-     */
-    char mMessageFileChecksum[1024];
-
-    /**
-     * @brief mMessageSize is size of message sended from client.
-     */
-    int mMessageSize;
-
-    /**
-     * @brief mReceiveByteCount is counter of received bytes.
-     */
-    int mReceiveByteCount;
+    QString mLog;
 };
 
-#endif // CCLIENT_H
+#endif // CCLIENTMOCK_H

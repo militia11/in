@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-include(../../../../AutogenerowanePoprawka.pri)
+include(../../../../AutogeneratingEmendation.pri)
 include(../../../../BibliotekiLinkowanie.pri)
 
 QT       += network core gui
@@ -22,7 +22,8 @@ HEADERS += \
     CTransaction.h \
     CRetrievePhotoTransaction.h \
     CStorePhotoTransaction.h \
-    IClient.h
+    IClient.h \
+    IServer.h
 
 SOURCES += \
     CClient.cpp \

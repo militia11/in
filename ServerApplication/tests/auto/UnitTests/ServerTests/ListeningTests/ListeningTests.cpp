@@ -18,7 +18,7 @@ ListeningTests::ListeningTests()
 
 void ListeningTests::TestStopListening()
 {
-	QVERIFY2(true, "Failure");
+
 }
 
 QTEST_APPLESS_MAIN(ListeningTests)

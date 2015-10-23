@@ -6,7 +6,7 @@
 
 QT       += sql testlib gui
 
-include(../../../../../AutogenerowanePoprawka.pri)
+include(../../../../../AutogeneratingEmendation.pri)
 include(../../../../../BibliotekiLinkowanie.pri)
 
 TARGET = tst_StorePhoto
