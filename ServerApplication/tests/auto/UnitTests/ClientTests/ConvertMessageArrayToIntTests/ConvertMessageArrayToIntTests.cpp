@@ -10,44 +10,44 @@
  * HasMessageCorrectFormat funtion.
  */
 class ConvertMessageArrayToIntTests : public CClient {
-		Q_OBJECT
+    Q_OBJECT
 
-	public:
-		ConvertMessageArrayToIntTests();
+  public:
+    ConvertMessageArrayToIntTests();
 
-	private Q_SLOTS:
-		void TestConvertCorrectMessageThreeDigit();
-		void TestConvertCorrectMessageSixDigit();
+  private Q_SLOTS:
+    void TestConvertCorrectMessageThreeDigit();
+    void TestConvertCorrectMessageSixDigit();
 };
 
 ConvertMessageArrayToIntTests::ConvertMessageArrayToIntTests() {
 }
 
 void ConvertMessageArrayToIntTests::TestConvertCorrectMessageThreeDigit() {
-	CClientWrapper vClient;
-	char *vMessage = ">>386<";
-	int vSize = 6;
-	// vClient.mMessageFileChecksum = ;
-	vClient.TestSetMessageSize(vSize);
+    CClientWrapper vClient;
+    char *vMessage = ">>386<";
+    int vSize = 6;
+    // vClient.mMessageFileChecksum = ;
+    vClient.TestSetMessageSize(vSize);
 
-	int res = vClient.TestGetMessageSize();
-	QCOMPARE(res, 6);
+    int res = vClient.TestGetMessageSize();
+    QCOMPARE(res, 6);
 
-	//int vResult = vClient.ConvertMessageArrayToInt();
-	//int vExpected = 386;
+    //int vResult = vClient.ConvertMessageArrayToInt();
+    //int vExpected = 386;
 
-	//QCOMPARE(vResult, vExpected);
+    //QCOMPARE(vResult, vExpected);
 }
 
 void ConvertMessageArrayToIntTests::TestConvertCorrectMessageSixDigit() {
-	/*CClient vClient;
-	vClient.mMessageFileChecksum = ">>12516<";
-	vClient.mMessageSize = 6;
+    /*CClient vClient;
+    vClient.mMessageFileChecksum = ">>12516<";
+    vClient.mMessageSize = 6;
 
-	int vResult = vClient.ConvertMessageArrayToInt();
-	int vExpected = 12516;
+    int vResult = vClient.ConvertMessageArrayToInt();
+    int vExpected = 12516;
 
-	QCOMPARE(vResult, vExpected);*/
+    QCOMPARE(vResult, vExpected);*/
 }
 
 QTEST_APPLESS_MAIN(ConvertMessageArrayToIntTests)

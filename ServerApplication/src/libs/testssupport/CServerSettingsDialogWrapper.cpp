@@ -1,5 +1,4 @@
 #include "CServerSettingsDialogWrapper.h"
 
-CServerSettingsDialogWrapper::CServerSettingsDialogWrapper()
-{
+CServerSettingsDialogWrapper::CServerSettingsDialogWrapper() {
 }

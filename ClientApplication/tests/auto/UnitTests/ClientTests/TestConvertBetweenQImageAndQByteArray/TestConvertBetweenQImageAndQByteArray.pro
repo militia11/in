@@ -20,5 +20,3 @@ DEFINES += SRCDIR=\\\"$$PWD/\\\"
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
 LIBS += -L../../../../../src/libs/dao -ldao
 LIBS += -L../../../../../share -lshare
-
-

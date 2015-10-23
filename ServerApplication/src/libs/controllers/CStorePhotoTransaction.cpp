@@ -25,17 +25,17 @@ void CStorePhotoTransaction::Execute() {
 
     Photo *vPhoto = new Photo(*mDatabase);
 
-		SetAtributtesToPhoto(vPhoto);
+    SetAtributtesToPhoto(vPhoto);
 
     vPhoto->update();
 
     delete vPhoto;
 
-		CChecksumList *vChecksumList = gRepository.GetChecksumList();
+    CChecksumList *vChecksumList = gRepository.GetChecksumList();
 
-		vChecksumList->AddFileChecksum(mChecksum);
+    vChecksumList->AddFileChecksum(mChecksum);
 
-		//vChecksumList->UpdateChecksumList();
+    //vChecksumList->UpdateChecksumList();
     //	model->odswiez();
 }
 

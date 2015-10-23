@@ -32,22 +32,22 @@ void CChecksumList::ReceiveChecksumsFromDB() {
 
         vPhotosDatabase = select<Photo>(*vDatabase).all();
 
-				for (std::vector<Photo>::iterator vIterator = vPhotosDatabase.begin();
-								vIterator != vPhotosDatabase.end(); ++vIterator) {
-						mChecksumList.append((*vIterator).checksum.value());
+        for (std::vector<Photo>::iterator vIterator = vPhotosDatabase.begin();
+                vIterator != vPhotosDatabase.end(); ++vIterator) {
+            mChecksumList.append((*vIterator).checksum.value());
         }
     }
 }
 
 bool CChecksumList::CheckFileChecksum(int16_t aChecksum) {
-		for (QList<int>::iterator vIterator = mChecksumList.begin();
-						vIterator != mChecksumList.end(); ++vIterator) {
-				if (aChecksum == *vIterator) {
+    for (QList<int>::iterator vIterator = mChecksumList.begin();
+            vIterator != mChecksumList.end(); ++vIterator) {
+        if (aChecksum == *vIterator) {
             return true;
         }
     }
 
-		return false;
+    return false;
 }
 
 //void CChecksumList::UpdateChecksumList() {

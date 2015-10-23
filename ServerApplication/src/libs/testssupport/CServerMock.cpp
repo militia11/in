@@ -9,12 +9,12 @@
 #include <QDebug>
 
 void CServerMock::Run() {
-   /* if (!this->listen(QHostAddress::Any, mPortNum)) {
-        MessageStatus("Nie można wystartować serwera", 2400);
-    } else {
-        MessageStatus("Serwer nasłuchuje... ", 2400);
-    }
-    */
+    /* if (!this->listen(QHostAddress::Any, mPortNum)) {
+         MessageStatus("Nie można wystartować serwera", 2400);
+     } else {
+         MessageStatus("Serwer nasłuchuje... ", 2400);
+     }
+     */
 }
 
 void CServerMock::StopListening() {
@@ -31,18 +31,18 @@ CClient *CServerMock::GetClient() const {
 
 void CServerMock::IncomingConnection() {
     //mLog += "->IncomingConnection()";
-    
-   /* mClient = new CClient();
 
-    emit CreateClient();
+    /* mClient = new CClient();
 
-    QTcpSocket *vSocket = nextPendingConnection();
-    mClient->Connect(vSocket);
+     emit CreateClient();
 
-    PauseAccepting();
+     QTcpSocket *vSocket = nextPendingConnection();
+     mClient->Connect(vSocket);
 
-    const char *vMessage = "Witaj kliencie\n";
-    mClient->ResponeToClient(vMessage); */
+     PauseAccepting();
+
+     const char *vMessage = "Witaj kliencie\n";
+     mClient->ResponeToClient(vMessage); */
 }
 
 void CServerMock::ResumeAccepting() {
@@ -56,15 +56,15 @@ void CServerMock::PauseAccepting() {
     //emit ChangeServerStatus();
     //emit ChangeServerStatus();
 
-   // QTcpServer::pauseAccepting();
+    // QTcpServer::pauseAccepting();
 }
 
 void CServerMock::ConnectClientSignals() {
-   /* connect(mClient, SIGNAL(Disconnect()), this, SLOT(ResumeAccepting()),
-            Qt::DirectConnection);
+    /* connect(mClient, SIGNAL(Disconnect()), this, SLOT(ResumeAccepting()),
+             Qt::DirectConnection);
 
-    connect(mClient, SIGNAL(Connected()), this, SLOT(PauseAccepting()),
-            Qt::DirectConnection);*/
+     connect(mClient, SIGNAL(Connected()), this, SLOT(PauseAccepting()),
+             Qt::DirectConnection);*/
 }
 
 void CServerMock::UpdatePortNum() {

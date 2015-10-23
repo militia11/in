@@ -1,15 +1,13 @@
 #include "CClientMock.h"
 
 //CClientMock::~CClientMock(){
-    //;// Disconnected();}
+//;// Disconnected();}
 
-QTcpSocket *CClientMock::GetSocket() const
-{
+QTcpSocket *CClientMock::GetSocket() const {
     return 0;//mSocket;
 }
 
-void CClientMock::NewData()
-{
+void CClientMock::NewData() {
     /*
         while (mSocket->bytesAvailable() > 0) {
             QByteArray vData = mSocket->readAll();
@@ -76,8 +74,7 @@ void CClientMock::RouteData(char aData) {
     }*/
 }
 
-void CClientMock::ServeReceivedMessage()
-{
+void CClientMock::ServeReceivedMessage() {
     /*
         if (!HasMessageCorrectFormat(mMessageFileChecksum)) {
             const char *vMessage = "Nieprawidłowy format wiadomości";
@@ -113,8 +110,7 @@ void CClientMock::ServeReceivedMessage()
         }*/
 }
 
-bool CClientMock::HasMessageCorrectFormat(char *aMessage)
-{
+bool CClientMock::HasMessageCorrectFormat(char *aMessage) {
     /*
        bool vCorrect = true;///@todo sprawdzic ponizszy komentarz
        int vChecksumLength = mMessageSize - 3; // Minus 3 bytes char '>', '>' and '<'
@@ -136,8 +132,7 @@ bool CClientMock::HasMessageCorrectFormat(char *aMessage)
     return true;
 }
 
-void CClientMock::ServeReceivedFileData()
-{
+void CClientMock::ServeReceivedFileData() {
     /*
         int32_t vCurrentSize = *mDataSize;
 
@@ -186,8 +181,7 @@ void CClientMock::ServeReceivedFileData()
       } */
 }
 
-uint16_t CClientMock::CalculateFileDataChecksum(QByteArray aData)
-{
+uint16_t CClientMock::CalculateFileDataChecksum(QByteArray aData) {
     uint16_t vSum = 0;
 
     for (int i = 0; i < aData.length(); ++i) {
@@ -197,8 +191,7 @@ uint16_t CClientMock::CalculateFileDataChecksum(QByteArray aData)
     return vSum;
 }
 
-int32_t CClientMock::ByteArrayToInt(QByteArray aData)
-{
+int32_t CClientMock::ByteArrayToInt(QByteArray aData) {
     int32_t vResult;
     QDataStream vData(&aData, QIODevice::ReadWrite);
     vData >> vResult;
@@ -206,8 +199,7 @@ int32_t CClientMock::ByteArrayToInt(QByteArray aData)
     return vResult;
 }
 
-void CClientMock::ConnectSocketSignals()
-{
+void CClientMock::ConnectSocketSignals() {
     /*
        QObject::connect(mSocket, SIGNAL(disconnected()), this,
                         SLOT(Disconnected()), Qt::DirectConnection);
@@ -217,8 +209,7 @@ void CClientMock::ConnectSocketSignals()
                         */
 }
 
-void CClientMock::Disconnected()
-{
+void CClientMock::Disconnected() {
     /*
        const char *vMessage = "Rozłączono";
        qDebug() << vMessage;
@@ -235,8 +226,7 @@ void CClientMock::Disconnected()
        mDataSize = 0;*/
 }
 
-int CClientMock::ConvertMessageArrayToInt()
-{
+int CClientMock::ConvertMessageArrayToInt() {
     /*
        // wersja 1:
 
@@ -257,7 +247,6 @@ int CClientMock::ConvertMessageArrayToInt()
     return 1;
 }
 
-void CClientMock::ResponeToClient(QByteArray aData)
-{
+void CClientMock::ResponeToClient(QByteArray aData) {
     //mSocket->write(aData);
 }

@@ -1,23 +1,20 @@
 #include <QString>
 #include <QtTest>
 
-class ListeningTests : public QObject
-{
-	Q_OBJECT
+class ListeningTests : public QObject {
+    Q_OBJECT
 
-public:
-	ListeningTests();
+  public:
+    ListeningTests();
 
-private Q_SLOTS:
-	void TestStopListening();
+  private Q_SLOTS:
+    void TestStopListening();
 };
 
-ListeningTests::ListeningTests()
-{
+ListeningTests::ListeningTests() {
 }
 
-void ListeningTests::TestStopListening()
-{
+void ListeningTests::TestStopListening() {
 
 }
 

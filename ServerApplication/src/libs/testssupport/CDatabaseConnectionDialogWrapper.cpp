@@ -1,5 +1,4 @@
 #include "CDatabaseConnectionDialogWrapper.h"
 
-CDatabaseConnectionDialogWrapper::CDatabaseConnectionDialogWrapper()
-{
+CDatabaseConnectionDialogWrapper::CDatabaseConnectionDialogWrapper() {
 }

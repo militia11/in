@@ -27,11 +27,10 @@ enum ReceiveDataMode {
  *
  * @todo dopisac wiecej pozniej
  */
-class CClient : public QObject
-{
+class CClient : public QObject {
     Q_OBJECT
 
-public:
+  public:
     /**
      * @brief CClient constructor.
      */
@@ -61,13 +60,13 @@ public:
      */
     QTcpSocket *GetSocket() const;
 
-public slots:
+  public slots:
     /**
      * @brief Method called on new incomming data.
      */
     void NewData();
 
-signals:
+  signals:
     /**
      * @brief Signal emited when client disconnect from server.
      */
@@ -92,13 +91,13 @@ signals:
      */
     void MessageStatus(const char *aMessage, int aTimeMsc);
 
-private slots:
+  private slots:
     /**
      * @brief Slot called when connection closed.
      */
     void Disconnected();
 
-protected:
+  protected:
     ///@todo opis
     int ConvertMessageArrayToInt();
 

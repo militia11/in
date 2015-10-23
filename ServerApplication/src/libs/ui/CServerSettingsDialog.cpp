@@ -23,12 +23,12 @@ void CServerSettingsDialog::on_mPushButtonResetDefault_clicked() {
                                         QMessageBox::Yes | QMessageBox::No);
 
     if (vAnswer == QMessageBox::Yes) {
-				const int vDefaultPortNumber = 1234;
-				ui->mSpinBoxPortNum->setValue(vDefaultPortNumber);
+        const int vDefaultPortNumber = 1234;
+        ui->mSpinBoxPortNum->setValue(vDefaultPortNumber);
 
         QSettings vQSetting;
         vQSetting.beginGroup("server");
-				vQSetting.setValue("port", vDefaultPortNumber);
+        vQSetting.setValue("port", vDefaultPortNumber);
         vQSetting.endGroup();
     }
 }
@@ -36,8 +36,8 @@ void CServerSettingsDialog::on_mPushButtonResetDefault_clicked() {
 void CServerSettingsDialog::on_mButtonBoxOkCancel_accepted() {
     QSettings vQSetting;
     vQSetting.beginGroup("server");
-		int vPortNumber = ui->mSpinBoxPortNum->value();
-		vQSetting.setValue("port", QString::number(vPortNumber));
+    int vPortNumber = ui->mSpinBoxPortNum->value();
+    vQSetting.setValue("port", QString::number(vPortNumber));
     vQSetting.endGroup();
 }
 
@@ -48,7 +48,7 @@ void CServerSettingsDialog::on_mButtonBoxOkCancel_rejected() {
 void CServerSettingsDialog::UpdateServerSettings() {
     QSettings vSettings;
     vSettings.beginGroup("server");
-		QString vHostNumber = vSettings.value("port").toString();
-		ui->mSpinBoxPortNum->setValue(vHostNumber.toInt());
+    QString vHostNumber = vSettings.value("port").toString();
+    ui->mSpinBoxPortNum->setValue(vHostNumber.toInt());
     vSettings.endGroup();
 }

@@ -2,6 +2,9 @@
 #include <QtTest>
 
 #include "libs/controllers/CClient.h"
+#include "libs/dao/CRepository.h"
+
+extern CRepository gRepository;
 
 class PrepareMessageData : public QObject {
     Q_OBJECT

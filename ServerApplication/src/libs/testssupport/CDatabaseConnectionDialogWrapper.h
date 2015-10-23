@@ -8,10 +8,9 @@
  *
  * Used to acces to some private/protected variables in tests
  */
-class CDatabaseConnectionDialogWrapper : public CDatabaseConnectionDialog
-{
-public:
-	CDatabaseConnectionDialogWrapper();
+class CDatabaseConnectionDialogWrapper : public CDatabaseConnectionDialog {
+  public:
+    CDatabaseConnectionDialogWrapper();
 };
 
 #endif // CDATABASECONNECTIONDIALOGWRAPPER_H

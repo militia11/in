@@ -18,15 +18,14 @@ extern CRepository gRepository;
 class StorePhoto : public QObject {
     Q_OBJECT
 
-public:
+  public:
     uint16_t CalculateFileDataChecksum(QByteArray aData);
 
-private Q_SLOTS:
+  private Q_SLOTS:
     void TestStorePhoto();
 };
 
-void StorePhoto::TestStorePhoto()
-{
+void StorePhoto::TestStorePhoto() {
     gRepository.SetSettings("sqlite3",
                             "database=:memory:"); // dzięki temu, że w pamięci testy można w jenkinsie
     gRepository.Connect();
@@ -75,8 +74,7 @@ void StorePhoto::TestStorePhoto()
     // Pixel compare: różne 4281016857 != 4281016597
 }
 
-uint16_t StorePhoto::CalculateFileDataChecksum(QByteArray aData)
-{
+uint16_t StorePhoto::CalculateFileDataChecksum(QByteArray aData) {
     uint16_t vChecksum = 0;
 
     for (int i = 0; i < aData.length(); ++i) {

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += testlib network gui
+QT       += testlib network gui core
 
 TARGET	  = tst_PrepareMessageData
 CONFIG   += console
@@ -18,3 +18,5 @@ SOURCES += tst_PrepareMessageData.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
+LIBS += -L../../../../../src/libs/dao -ldao
+LIBS += -L../../../../../share -lshare

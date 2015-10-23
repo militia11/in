@@ -1,24 +1,21 @@
 #include <QString>
 #include <QtTest>
 
-class AddChecksumTests : public QObject
-{
-	Q_OBJECT
+class AddChecksumTests : public QObject {
+    Q_OBJECT
 
-public:
-	AddChecksumTests();
+  public:
+    AddChecksumTests();
 
-private Q_SLOTS:
-	void TestAddChecksum();
+  private Q_SLOTS:
+    void TestAddChecksum();
 };
 
-AddChecksumTests::AddChecksumTests()
-{
+AddChecksumTests::AddChecksumTests() {
 }
 
-void AddChecksumTests::TestAddChecksum()
-{
-	QVERIFY2(true, "Failure");
+void AddChecksumTests::TestAddChecksum() {
+    QVERIFY2(true, "Failure");
 }
 
 QTEST_APPLESS_MAIN(AddChecksumTests)

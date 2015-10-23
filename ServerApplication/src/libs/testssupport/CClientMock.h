@@ -6,9 +6,8 @@
 /**
  * @brief Mock of CClient used in unit tests
  */
-class CClientMock : public IClient
-{
-public:
+class CClientMock : public IClient {
+  public:
     /**
      * @brief Method called when server receive incoming connection,
          *              client is connecting to specify port.
@@ -28,13 +27,13 @@ public:
      */
     QTcpSocket *GetSocket() const;
 
-//public slots:
+    //public slots:
     /**
      * @brief Method called on new incomming data.
      */
     void NewData();
 
-signals:
+  signals:
     /**
      * @brief Signal emited when client disconnect from server.
      */
@@ -59,7 +58,7 @@ signals:
      */
     void MessageStatus(const char *aMessage, int aTimeMsc);
 
-//private slots:
+    //private slots:
     /**
      * @brief Slot called when connection closed.
      */
@@ -123,7 +122,7 @@ signals:
      */
     inline void ConnectSocketSignals();
 
-    protected:
+  protected:
     /**
      * @brief Log of called methods
      */

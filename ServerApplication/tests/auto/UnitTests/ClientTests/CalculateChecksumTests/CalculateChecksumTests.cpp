@@ -3,23 +3,20 @@
 
 #include "libs/controllers/CClient.h"
 
-class CalculateChecksumTests : public QObject
-{
-	Q_OBJECT
+class CalculateChecksumTests : public QObject {
+    Q_OBJECT
 
-public:
-	CalculateChecksumTests();
+  public:
+    CalculateChecksumTests();
 
-private Q_SLOTS:
-	void test();
+  private Q_SLOTS:
+    void test();
 };
 
-CalculateChecksumTests::CalculateChecksumTests()
-{
+CalculateChecksumTests::CalculateChecksumTests() {
 }
 
-void CalculateChecksumTests::test()
-{
+void CalculateChecksumTests::test() {
 
 }
 

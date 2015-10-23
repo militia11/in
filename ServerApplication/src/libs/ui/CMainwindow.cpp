@@ -17,10 +17,10 @@ CMainWindow::CMainWindow(QWidget *aParent) :
 
     ConnectActionsSignals();
 
-		ui->ActionStopServer->setEnabled(false);
+    ui->ActionStopServer->setEnabled(false);
     ui->ActionStopServer->setChecked(true);
 
-		ShowStatus("Wyłączone nasłuchiwanie serwera", 2400);
+    ShowStatus("Wyłączone nasłuchiwanie serwera", 2400);
 }
 
 CMainWindow::~CMainWindow() {
@@ -104,8 +104,8 @@ void CMainWindow::StopServer() {
 }
 
 void CMainWindow::ServerSettings() {
-		CServerSettingsDialog vDialog;
-		vDialog.exec();
+    CServerSettingsDialog vDialog;
+    vDialog.exec();
 }
 
 void CMainWindow::DatabaseConnectionSettings() {

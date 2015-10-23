@@ -8,9 +8,8 @@
 /**
  * @brief The IServer class is interface of CServer class
  */
-class IServer : public QObject
-{
-public:
+class IServer : public QObject {
+  public:
     /**
      * @brief Method called to start server.
      */
@@ -28,7 +27,7 @@ public:
      */
     virtual CClient *GetClient() const = 0;
 
-signals:
+  signals:
     /**
      * @brief CreateClient signal is emitted when
          *              server create client.

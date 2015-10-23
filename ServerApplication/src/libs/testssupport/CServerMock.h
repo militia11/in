@@ -8,9 +8,8 @@
 /**
  * @brief Mock of CClient used in unit tests
  */
-class CServerMock : public IServer
-{
-public:
+class CServerMock : public IServer {
+  public:
     /**
      * @brief Method called to start server.
      */
@@ -28,7 +27,7 @@ public:
      */
     CClient *GetClient() const;
 
-signals:
+  signals:
     /**
      * @brief CreateClient signal is emitted when
          *              server create client.
@@ -77,7 +76,7 @@ signals:
      */
     inline void UpdatePortNum();
 
-protected:
+  protected:
     /**
     * @brief Log of called methods
     */

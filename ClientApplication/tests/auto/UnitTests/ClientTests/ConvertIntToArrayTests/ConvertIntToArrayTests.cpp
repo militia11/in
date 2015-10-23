@@ -2,6 +2,7 @@
 #include <QtTest>
 
 #include "libs/controllers/CClient.h"
+#include "libs/dao/CRepository.h"
 
 class ConvertIntToArrayTests : public QObject {
 		Q_OBJECT

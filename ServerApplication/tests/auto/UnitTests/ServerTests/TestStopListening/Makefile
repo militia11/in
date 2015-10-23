@@ -91,7 +91,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
-		../../../../../../AutogenerowanePoprawka.pri \
+		../../../../../../AutogeneratingEmendation.pri \
 		../../../../../../BibliotekiLinkowanie.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf \
@@ -186,7 +186,7 @@ Makefile: TestStopListening.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
-		../../../../../../AutogenerowanePoprawka.pri \
+		../../../../../../AutogeneratingEmendation.pri \
 		../../../../../../BibliotekiLinkowanie.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf \
@@ -253,7 +253,7 @@ Makefile: TestStopListening.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
-../../../../../../AutogenerowanePoprawka.pri:
+../../../../../../AutogeneratingEmendation.pri:
 ../../../../../../BibliotekiLinkowanie.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf:

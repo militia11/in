@@ -4,18 +4,17 @@ CClientWrapper::CClientWrapper() {
 }
 
 char *CClientWrapper::TestGetMessageFileChecksum() {
-		return mMessageFileChecksum;
+    return mMessageFileChecksum;
 }
 
 int CClientWrapper::TestGetMessageSize() {
-	return mMessageSize;
+    return mMessageSize;
 }
 
-void CClientWrapper::TestSetMessageSize(int aSize)
-{
-	mMessageSize = aSize;
+void CClientWrapper::TestSetMessageSize(int aSize) {
+    mMessageSize = aSize;
 }
 
 //void CClientWrapper::TestSetMessageFileChecksum(char *aMess) {
-	//  mMessageFileChecksum =
+//  mMessageFileChecksum =
 //}

@@ -8,8 +8,8 @@
  * Used to acces to some private/protected variables in tests
  */
 class CServerSettingsDialogWrapper : public CServerSettingsDialog {
-public:
-	CServerSettingsDialogWrapper();
+  public:
+    CServerSettingsDialogWrapper();
 };
 
 #endif // CSERVERSETTINGSDIALOGWRAPPER_H

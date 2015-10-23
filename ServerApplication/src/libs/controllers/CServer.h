@@ -11,12 +11,11 @@
  * When client connected to the specify port server pause listening and resume accepting
  * incoming connections when client disconnected. @todo dopisać później
  */
-class CServer : public QTcpServer
-{
+class CServer : public QTcpServer {
 
     Q_OBJECT
 
-public:
+  public:
     /**
      * @brief CServer constructor.
      */
@@ -44,7 +43,7 @@ public:
      */
     CClient *GetClient() const;
 
-signals:
+  signals:
     /**
      * @brief CreateClient signal is emitted when
      *        server create client.
@@ -66,7 +65,7 @@ signals:
      */
     void ChangeServerStatus();
 
-private slots:
+  private slots:
     /**
      * @brief Slot called when new incoming connection come.
      */
@@ -82,7 +81,7 @@ private slots:
      */
     void PauseAccepting();
 
-private:
+  private:
     /**
      * @brief Method connect client's signals to server's slots.
      */
