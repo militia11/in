@@ -8,22 +8,24 @@
  */
 class CClientMock : public IClient {
   public:
+
+		const QString GetLog() const;
     /**
-     * @brief Method called when server receive incoming connection,
-         *              client is connecting to specify port.
+		 * @brief Method called when server receive incoming connection,
+		 *        client is connecting to specify port
      */
     void Connect(QTcpSocket *aSocket);
 
-    /**
-         * @brief Method to respone information to client.
+		/**
+		 * @brief Method to respone information to client
      */
     void ResponeToClient(QByteArray aData = 0);
 
     /**
-     * @brief Method called to get CClient class member mSocket
-         *              which represent socket.
+		 * @brief Method called to get CClient class member mSocket
+		 *        which represent socket
      *
-     * @return CCLient socket.
+		 * @return CCLient socket
      */
     QTcpSocket *GetSocket() const;
 
@@ -126,7 +128,7 @@ class CClientMock : public IClient {
     /**
      * @brief Log of called methods
      */
-    QString mLog;
+		mutable QString mLog;
 };
 
 #endif // CCLIENTMOCK_H

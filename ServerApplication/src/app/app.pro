@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 include(../../../AutogeneratingEmendation.pri)
-include(../../../BibliotekiLinkowanie.pri)
+include(../../../LinkingLibraries.pri)
 
 QT       += core gui network
 

@@ -1,10 +1,11 @@
 #include "CClientMock.h"
 
-//CClientMock::~CClientMock(){
-//;// Disconnected();}
-
 QTcpSocket *CClientMock::GetSocket() const {
     return 0;//mSocket;
+}
+
+const QString CClientMock::GetLog() const {
+	return mLog;
 }
 
 void CClientMock::NewData() {

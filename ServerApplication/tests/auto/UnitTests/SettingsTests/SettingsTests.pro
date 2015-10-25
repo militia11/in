@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 include(../../../../../AutogeneratingEmendation.pri)
-include(../../../../../BibliotekiLinkowanie.pri)
+include(../../../../../LinkingLibraries.pri)
 
 QT       += testlib gui network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

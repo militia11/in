@@ -6,49 +6,74 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>622</width>
-    <height>549</height>
+    <width>612</width>
+    <height>587</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Android Photos Archive</string>
   </property>
   <widget class="QWidget" name="mentralwidget">
-   <widget class="QTextEdit" name="mTextEdit">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>20</y>
-      <width>201</width>
-      <height>121</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QListWidget" name="mListWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>321</width>
-      <height>121</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="mImageLabel">
     <property name="geometry">
      <rect>
-      <x>16</x>
-      <y>156</y>
-      <width>531</width>
-      <height>261</height>
+      <x>0</x>
+      <y>40</y>
+      <width>601</width>
+      <height>431</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
     <property name="text">
-     <string/>
+     <string>wyskoczy ZARCHIWIZOWANO</string>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
     </property>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>599</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>  Aktualne:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QListWidget" name="mListWidget"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>    Lista:  </string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTextEdit" name="mTextEdit"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="mMenubar">
@@ -56,7 +81,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>622</width>
+     <width>612</width>
      <height>25</height>
     </rect>
    </property>

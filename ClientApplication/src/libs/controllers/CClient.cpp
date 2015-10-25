@@ -14,21 +14,20 @@ extern CRepository gRepository;
 
 CClient::CClient() {
     mSocket = new QTcpSocket(this);
-
     mReceiveBuffer = 0;
     mFileToSend = false;
 
 		QObject::connect(mSocket, SIGNAL(readyRead()),
             this, SLOT(ReadData()), Qt::DirectConnection);
-    PrepareMessageData(384);
+		PrepareMessageData(384);//wywalic potem
 }
 
 CClient::~CClient() {
     delete  mSocket;
-    mSocket = 0;
+		mSocket = nullptr;
 
     delete mReceiveBuffer;
-    mReceiveBuffer = 0;
+		mReceiveBuffer = nullptr;
 }
 
 void CClient::ReadData() {
@@ -136,4 +135,3 @@ void CClient::UpdateServerPhotos() {
         }
     }
 }
-

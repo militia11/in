@@ -10,29 +10,31 @@
  */
 class CServerMock : public IServer {
   public:
+		const QString GetLog() const;
+
     /**
-     * @brief Method called to start server.
+		 * @brief Mock of Run method
      */
     void Run();
 
     /**
-     * @brief Method called to stop listening server.
+		 * @brief Mock of StopListening method
      */
     void StopListening();
 
     /**
-     * @brief Method return CClient member of the class.
+		 * @brief Mock of GetClient method
      *
-     * @return Object which represent  client class (CClient).
+		 * @return Object which represent  client class (CClient)
      */
     CClient *GetClient() const;
-
-  signals:
+//?
+	//signals:
     /**
      * @brief CreateClient signal is emitted when
          *              server create client.
      */
-    void CreateClient();
+		//void CreateClient();
 
     /**
          * @brief MessageStatus signal is emmitted when status
@@ -41,38 +43,37 @@ class CServerMock : public IServer {
      * @param aMessage is text given to CMainWindow.
      * @param aTimeMsc parameter is time while message being shown.
      */
-    void MessageStatus(const char *aMessage, int aTimeMsc);
+		//void MessageStatus(const char *aMessage, int aTimeMsc);
 
     /**
      * @brief ChangeServerStatus emitted when server status
          *              changed.
      */
-    void ChangeServerStatus();
+		//void ChangeServerStatus();
 
-    //private slots:
+		private slots:
     /**
-     * @brief Slot called when new incoming connection come.
+		 * @brief Mock of IncomingConnection method
      */
     void IncomingConnection();
 
     /**
-     * @brief Method called to unblock incoming connection.
+		 * @brief Mock of ResumeAccepting method
      */
     void ResumeAccepting();
 
     /**
-     * @brief Method called to block incoming connection.
+		 * @brief Mock of PauseAccepting method
      */
     void PauseAccepting();
 
     /**
-     * @brief Method connect client's signals to server's slots.
+		 * @brief Mock of ConnectClientSignals method
      */
     inline void ConnectClientSignals();
 
     /**
-     * @brief UpdatePortNum get and update actually port number
-     *              from programm config file to application.
+		 * @brief Mock of UpdatePortNum method
      */
     inline void UpdatePortNum();
 
@@ -80,7 +81,7 @@ class CServerMock : public IServer {
     /**
     * @brief Log of called methods
     */
-    QString mLog;
+		mutable QString mLog;
 };
 
 #endif // CSERVERMOCK_H

@@ -5,13 +5,16 @@
 #-------------------------------------------------
 
 include(../../../../AutogeneratingEmendation.pri)
-include(../../../../BibliotekiLinkowanie.pri)
+include(../../../../LinkingLibraries.pri)
+
 QT       += network core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = testssupport
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib c++11
+
+INCLUDEPATH += ../..
 
 HEADERS += \
     CClientWrapper.h \
@@ -27,9 +30,5 @@ SOURCES += \
     CClientMock.cpp \
     CServerMock.cpp
 
-INCLUDEPATH += ../..
-
 LIBS += -L../../src/libs/ui -lui
 LIBS += -L../../src/libs/controllers -lcontrollers
-#LIBS += -L../../src/libs/dao -ldao
-#LIBS += -L../../share -lshare

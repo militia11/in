@@ -10,12 +10,8 @@ TARGET = dao
 TEMPLATE = lib
 CONFIG += staticlib
 
-#INCLUDEPATH += ../..
-
 HEADERS += \
     CRepository.h
 
 SOURCES += \
     CRepository.cpp
-
-#LIBS += -L../../ -l

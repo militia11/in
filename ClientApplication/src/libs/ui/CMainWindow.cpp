@@ -2,6 +2,8 @@
 #include "ui_CMainWindow.h"
 
 #include <iostream>
+#include <QBuffer>
+#include <QDebug>
 #include <QFile>
 #include <QImage>				//?
 #include <QImageWriter>
@@ -16,14 +18,14 @@ CMainWindow::CMainWindow(QWidget *aParent) :
 
 CMainWindow::~CMainWindow() {
     delete vClient;
-    vClient = 0;
+		vClient = nullptr;
 
     delete ui;
-    ui = 0;
+		ui = nullptr;
 }
 
 void CMainWindow::on_mPushButtonSendPhoto_clicked() {
-    //		Q_INIT_RESOURCE(client_resources);  // Use resources from diffrent project
+		//		Q_INIT_RESOURCE(client_resources);  // Use resources from diffrent project
 
     QImage vImageToSend = QImage(":/sample_photo.jpg", "JPG");
     QBuffer vBuffer;
@@ -32,7 +34,6 @@ void CMainWindow::on_mPushButtonSendPhoto_clicked() {
     vWriter.write(vImageToSend);
 
     QByteArray vData = vBuffer.data();
-
     qDebug() << "Czy udało się wysłać dane: " << vClient->WriteData(vData);
 }
 
@@ -55,6 +56,5 @@ void CMainWindow::on_mPushButtonShowPhoto_clicked() {
 }
 
 void CMainWindow::on_mPushButtonArchivePhoto_clicked() {
-    // algorytm wysyłanie sum i sprawdzanie
     vClient->UpdateServerPhotos();
 }

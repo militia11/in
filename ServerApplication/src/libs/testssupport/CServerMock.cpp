@@ -1,73 +1,43 @@
 #include "CServerMock.h"
 
-//#include "CServer.h"
-
-#include "libs/controllers/CSettings.h"
-
-
 #include <QTcpSocket>
 #include <QDebug>
 
+#include "libs/controllers/CSettings.h"
+
+const QString CServerMock::GetLog() const {
+		return mLog;
+}
+
 void CServerMock::Run() {
-    /* if (!this->listen(QHostAddress::Any, mPortNum)) {
-         MessageStatus("Nie można wystartować serwera", 2400);
-     } else {
-         MessageStatus("Serwer nasłuchuje... ", 2400);
-     }
-     */
+		mLog += "->Run";
 }
 
 void CServerMock::StopListening() {
-    //MessageStatus("Wyłączone nasłuchiwanie serwera", 2400);
-
-    //close();
+		mLog += "->StopListening";
 }
 
 CClient *CServerMock::GetClient() const {
-    //mLog += "->GetClient()";
-
-    return 0;//mClient;
+		mLog += "->GetClient()";
+		return nullptr;
 }
 
 void CServerMock::IncomingConnection() {
-    //mLog += "->IncomingConnection()";
-
-    /* mClient = new CClient();
-
-     emit CreateClient();
-
-     QTcpSocket *vSocket = nextPendingConnection();
-     mClient->Connect(vSocket);
-
-     PauseAccepting();
-
-     const char *vMessage = "Witaj kliencie\n";
-     mClient->ResponeToClient(vMessage); */
+		mLog += "->IncomingConnection()";
 }
 
 void CServerMock::ResumeAccepting() {
-    //mLog += "->ResumeAccepting()";
-    //emit ChangeServerStatus();
-
-    //QTcpServer::resumeAccepting();
+		mLog += "->ResumeAccepting()";
 }
 
 void CServerMock::PauseAccepting() {
-    //emit ChangeServerStatus();
-    //emit ChangeServerStatus();
-
-    // QTcpServer::pauseAccepting();
+		mLog += "->PauseAccepting";
 }
 
 void CServerMock::ConnectClientSignals() {
-    /* connect(mClient, SIGNAL(Disconnect()), this, SLOT(ResumeAccepting()),
-             Qt::DirectConnection);
-
-     connect(mClient, SIGNAL(Connected()), this, SLOT(PauseAccepting()),
-             Qt::DirectConnection);*/
+	mLog += "->ConnectClientSignals";
 }
 
 void CServerMock::UpdatePortNum() {
-    //CSettings vSettings;
-    //mPortNum = vSettings.GetPortNumber();
+	mLog += "->UpdatePortNum";
 }

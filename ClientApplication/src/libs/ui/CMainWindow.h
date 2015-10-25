@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include "libs/controllers/CClient.h"
+#include "libs/controllers/IClient.h"
 
 namespace Ui {
 class CMainWindow;
@@ -25,7 +26,7 @@ class CMainWindow : public QMainWindow {
 
   private:
     Ui::CMainWindow *ui;
-    CClient *vClient;
+		IClient *vClient;
 };
 
 #endif // CMAINWINDOW_H

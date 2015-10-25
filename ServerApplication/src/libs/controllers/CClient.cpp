@@ -1,7 +1,8 @@
 #include "CClient.h"
 
-#include <stdio.h> // convert array to int function
 #include <ctype.h> // isdigit function
+
+#include <stdio.h> // convert array to int function
 #include <QDebug>
 #include <QFile>
 
@@ -51,7 +52,6 @@ QTcpSocket *CClient::GetSocket() const {
 }
 
 void CClient::NewData() {
-
     while (mSocket->bytesAvailable() > 0) {
         QByteArray vData = mSocket->readAll();
         mReceiveBuffer->append(vData);
@@ -60,9 +60,7 @@ void CClient::NewData() {
             char vTargetSign = vData[i];
 
             switch (vTargetSign) {
-
                 case '>': {					// Begin send message checksum
-
                     char vNextChar = vData[i + 1];
 
                     if (vNextChar == '>') {
@@ -127,25 +125,21 @@ void CClient::ServeReceivedMessage() {
     }
 
     int vChecksum = ConvertMessageArrayToInt();
-
+		emit ReadData(mMessageFileChecksum);///@todo usunac
     CChecksumList *vChecksumList = gRepository.GetChecksumList();
-
     bool vIsChecksumInServer = vChecksumList->CheckFileChecksum(vChecksum);
     qDebug() << vIsChecksumInServer;
 
-    mReceiveBuffer->clear();
-
     delete mDataSize;
-    mDataSize  = new int32_t(0);
-
-    mMessageSize		= 0;
+		mDataSize         = new int32_t(0);
+		mMessageSize      = 0;
     mReceiveByteCount = 0;
+		mReceiveBuffer->clear();
 
     if (!vIsChecksumInServer) {
         QByteArray vMessage("SEND");
         ResponeToClient(vMessage);
         //				i klient zapamietuje co wysylal jaka sume wiec ten plik wysyla
-
         //				alternatywa:
         //        QString vClientMessage = PrepareSendingToClientMessage(vChecksum);
         //        ResponeToClient(vClientMessage);
@@ -256,15 +250,14 @@ void CClient::Disconnected() {
     mSocket->deleteLater();
 
     delete mReceiveBuffer;
-    mReceiveBuffer = 0;
+		mReceiveBuffer = nullptr;
 
     delete mDataSize;
-    mDataSize = 0;
+		mDataSize = nullptr;
 }
 
 int CClient::ConvertMessageArrayToInt() {
     // wersja 1:
-
     QString vNumberAsString;
 
     for (int i = 0; i < mMessageSize; i++) {
@@ -274,7 +267,6 @@ int CClient::ConvertMessageArrayToInt() {
     }
 
     return vNumberAsString.toInt();
-
     // wersja alternatywna:
     //		std::string vStringFromArray(mMessageClntFileChecksum);
     //		std::string vNumAsString = vStringFromArray.substr(2, mMessageSize-4);
