@@ -50,11 +50,6 @@ void CMainWindow::on_mPushButtonConnect_clicked() {
              vClient->ConnectToHost("5.172.247.219"); //192.168.56.1
 }
 
-void CMainWindow::on_mPushButtonShowPhoto_clicked() {
-    QImage vImage = QImage (":/sample_photo.jpg", "JPG");
-    ui->mLabelPhoto->setPixmap(QPixmap::fromImage(vImage));
-}
-
 void CMainWindow::on_mPushButtonArchivePhoto_clicked() {
     vClient->UpdateServerPhotos();
 }

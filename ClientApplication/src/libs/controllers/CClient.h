@@ -13,12 +13,46 @@ class CClient : public IClient {
     Q_OBJECT
 
   public:
+    /**
+     * @brief CClient class constructor
+     */
 		CClient();
+
+    /**
+     * @brief CClient class destructor
+     */
     ~CClient();
 
+    /**
+     * @brief WriteData write file data to socket
+     *
+     * @param aData data to write
+     * @return True if write successfull, otherwise false
+     */
     bool WriteData(QByteArray aData);
+
+    /**
+     * @brief WriteMessage write message to socket
+     *
+     * @param aData message to write
+     * @return True if write successfull, otherwise false
+     */
     bool WriteMessage(QByteArray aData);
+
+    /**
+     * @brief PrepareMessageData prepare message data
+     *
+     * @param aChecksum Convert to message QByteArray
+     * @return QByteArray Message
+     */
     QByteArray PrepareMessageData(int16_t aChecksum);
+
+    /**
+     * @brief IntToArray Convert integer to QByteArray
+     *
+     * @param aSource is integer
+     * @return QByteArray
+     */
     QByteArray IntToArray(int32_t aSource);
 
     /**
@@ -27,7 +61,13 @@ class CClient : public IClient {
      *				server photos
      */
     void UpdateServerPhotos();
-    ///@todo opisy
+
+    /**
+     * @brief ConvertImageToByteArray method convert imaqe to
+     *        QByteArray
+     * @param aImage Image to convert
+     * @return Converted image to QByteArray
+     */
     QByteArray ConvertImageToByteArray(QImage aImage);
 
   public slots:

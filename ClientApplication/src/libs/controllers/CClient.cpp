@@ -6,8 +6,7 @@
 #include <QBuffer>
 #include <QImage>
 #include <QImageWriter>
-#include <unistd.h> // unix
-//#include "windows.h" // duze Sleep windows
+#include <unistd.h>
 #include "libs/dao/CRepository.h"
 
 extern CRepository gRepository;
@@ -100,7 +99,7 @@ bool CClient::WriteMessage(QByteArray aData) {
 }
 
 int16_t CClient::CalculateFileDataChecksum(QByteArray aData) {
-    int16_t vChecksum = 0;
+    int16_t vChecksum {};
 
     for (int i = 0; i < aData.length(); ++i) {
         vChecksum += aData[i];

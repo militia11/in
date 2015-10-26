@@ -8,7 +8,7 @@ class IClient : public QObject {
 
 	public:
 		///@todo opisy
-		virtual bool WriteData(QByteArray aData) = 0;
+    virtual bool WriteData(QByteArray aData) = 0;
 		virtual bool WriteMessage(QByteArray aData) = 0;
 		virtual QByteArray PrepareMessageData(int16_t aChecksum) = 0;
 		virtual QByteArray IntToArray(int32_t aSource) = 0;
