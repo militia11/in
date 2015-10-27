@@ -1,7 +1,7 @@
 #include <QString>
 #include <QtTest>
 
-#include "libs/testssupport/CClientWrapper.h"
+#include "libs/testssupport/CReceiverWrapper.h"
 
 /**
  * @brief The ConvertMessageArrayToIntTests class
@@ -9,7 +9,7 @@
  * Only correct message posible because previously we check message in
  * HasMessageCorrectFormat funtion.
  */
-class ConvertMessageArrayToIntTests : public CClient {
+class ConvertMessageArrayToIntTests : public CReceiver {
     Q_OBJECT
 
   public:
@@ -24,7 +24,7 @@ ConvertMessageArrayToIntTests::ConvertMessageArrayToIntTests() {
 }
 
 void ConvertMessageArrayToIntTests::TestConvertCorrectMessageThreeDigit() {
-    CClientWrapper vClient;
+    CReceiverWrapper vClient;
     char *vMessage = ">>386<";
     int vSize = 6;
     // vClient.mMessageFileChecksum = ;
@@ -40,7 +40,7 @@ void ConvertMessageArrayToIntTests::TestConvertCorrectMessageThreeDigit() {
 }
 
 void ConvertMessageArrayToIntTests::TestConvertCorrectMessageSixDigit() {
-    /*CClient vClient;
+    /*CReceiver vClient;
     vClient.mMessageFileChecksum = ">>12516<";
     vClient.mMessageSize = 6;
 

@@ -1,7 +1,7 @@
 #include <QString>
 #include <QtTest>
 
-#include "libs/controllers/CClient.h"
+#include "libs/controllers/CReceiver.h"
 
 class CalculateChecksumTests : public QObject {
     Q_OBJECT

@@ -16,20 +16,20 @@ CONFIG += staticlib
 INCLUDEPATH += ../..
 
 HEADERS += \
-    CClient.h \
     CServer.h \
     CSettings.h \
     CTransaction.h \
     CRetrievePhotoTransaction.h \
     CStorePhotoTransaction.h \
-    IClient.h \
-    IServer.h
+	IReceiver.h \
+    IServer.h \
+	CReceiver.h
 
 SOURCES += \
-    CClient.cpp \
     CServer.cpp \
     CSettings.cpp \
     CRetrievePhotoTransaction.cpp \
-    CStorePhotoTransaction.cpp
+    CStorePhotoTransaction.cpp \
+    CReceiver.cpp
 
 CONFIG += c++11

@@ -2,7 +2,7 @@
 #include <QtTest>
 
 #include "libs/controllers/CServer.h"
-#include "libs/controllers/CClient.h"
+#include "libs/controllers/CReceiver.h"
 
 class TestEmptySocketTest : public QObject {
     Q_OBJECT

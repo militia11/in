@@ -1,7 +1,7 @@
 #ifndef CSERVER_H
 #define CSERVER_H
 
-#include "libs/controllers/IClient.h"
+#include "libs/controllers/IReceiver.h"
 #include "libs/controllers/IServer.h"
 
 /**
@@ -36,11 +36,11 @@ class CServer : public IServer {
     void StopListening();
 
     /**
-     * @brief Method return CClient member of the class.
+     * @brief Method return CReceiver member of the class.
      *
-			 * @return Object which represent client class (CClient).
+			 * @return Object which represent client class (CReceiver).
      */
-		IClient *GetClient() const;
+    IReceiver *GetClient() const;
 
   signals:
     /**
@@ -95,7 +95,7 @@ class CServer : public IServer {
     /**
      * @brief mClient is client of server.
      */
-		IClient *mClient;
+    IReceiver *mClient;
 
     /**
      * @brief mPortNum is port number which server listen.

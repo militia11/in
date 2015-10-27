@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
-#include <libs/controllers/IClient.h>
+#include <libs/controllers/IReceiver.h>
 /**
  * @brief The IServer class is interface of CServer class
  */
@@ -23,11 +23,11 @@ class IServer : public QTcpServer {
     virtual void StopListening() = 0;
 
     /**
-     * @brief Method return CClient member of the class.
+     * @brief Method return CReceiver member of the class.
      *
-     * @return Object which represent  client class (CClient).
+     * @return Object which represent  client class (CReceiver).
      */
-		virtual IClient *GetClient() const = 0;
+    virtual IReceiver *GetClient() const = 0;
 
 	private slots:
     /**

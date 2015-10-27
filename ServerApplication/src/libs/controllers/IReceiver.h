@@ -1,5 +1,5 @@
-#ifndef ICLIENT_H
-#define ICLIENT_H
+#ifndef IReceiver_H
+#define IReceiver_H
 
 #include <inttypes.h>
 #include <stdio.h> // convert array to int function
@@ -13,16 +13,16 @@
 //#include "libs/dao/CRepository.h"
 
 /**
- * @brief The IClient class is interface of CClient class
+ * @brief The IReceiver class is interface of CReceiver class
  */
-class IClient : public QObject {
+class IReceiver : public QObject {
 		Q_OBJECT
 
   public:
     /**
-    * @brief CClient destructor.
+    * @brief CReceiver destructor.
     */
-    //~ CClient();
+    //~ CReceiver();
 
     /**
      * @brief Method called when server receive incoming connection,
@@ -36,10 +36,10 @@ class IClient : public QObject {
     virtual void ResponeToClient(QByteArray aData = 0) = 0;
 
     /**
-     * @brief Method called to get CClient class member mSocket
+     * @brief Method called to get CReceiver class member mSocket
      *		  which represent socket.
      *
-     * @return CCLient socket.
+     * @return CReceiver socket.
      */
     virtual QTcpSocket *GetSocket() const = 0;
 
@@ -110,9 +110,9 @@ class IClient : public QObject {
 
     /**
      * @brief Method connect socket's signals to
-     *        represent client's (CClient) slots.
+     *        represent client's (CReceiver) slots.
      */
     virtual inline void ConnectSocketSignals() = 0;
 };
 
-#endif // ICLIENT_H
+#endif // IReceiver_H

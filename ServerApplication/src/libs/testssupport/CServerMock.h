@@ -2,11 +2,11 @@
 #define CSERVERMOCK_H
 
 #include "libs/controllers/IServer.h"
-#include "libs/controllers/CClient.h"
+#include "libs/controllers/CReceiver.h"
 
 #include <QString>
 /**
- * @brief Mock of CClient used in unit tests
+ * @brief Mock of CReceiver used in unit tests
  */
 class CServerMock : public IServer {
   public:
@@ -25,9 +25,9 @@ class CServerMock : public IServer {
     /**
 		 * @brief Mock of GetClient method
      *
-		 * @return Object which represent  client class (CClient)
+		 * @return Object which represent  client class (CReceiver)
      */
-    CClient *GetClient() const;
+    CReceiver *GetClient() const;
 //?
 	//signals:
     /**

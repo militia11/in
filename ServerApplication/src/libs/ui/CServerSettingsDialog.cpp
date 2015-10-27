@@ -17,7 +17,6 @@ CServerSettingsDialog::~CServerSettingsDialog() {
 }
 
 void CServerSettingsDialog::on_mPushButtonResetDefault_clicked() {
-
     QString vMessage = "Czy na pewno przywrócić ustawienia domyślne?";
     int vAnswer = QMessageBox::question(this, "Uwaga", vMessage,
                                         QMessageBox::Yes | QMessageBox::No);

@@ -17,17 +17,17 @@ CONFIG += staticlib c++11
 INCLUDEPATH += ../..
 
 HEADERS += \
-    CClientWrapper.h \
+	CReceiverWrapper.h \
     CDatabaseConnectionDialogWrapper.h \
     CServerSettingsDialogWrapper.h \
-    CClientMock.h \
+	CReceiverMock.h \
     CServerMock.h
 
 SOURCES += \
-    CClientWrapper.cpp \
+	CReceiverWrapper.cpp \
     CDatabaseConnectionDialogWrapper.cpp \
     CServerSettingsDialogWrapper.cpp \
-    CClientMock.cpp \
+	CReceiverMock.cpp \
     CServerMock.cpp
 
 LIBS += -L../../src/libs/ui -lui

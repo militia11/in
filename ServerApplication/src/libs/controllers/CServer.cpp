@@ -1,7 +1,7 @@
 #include "CServer.h"
 
 #include "libs/controllers/CSettings.h"
-#include "libs/controllers/CClient.h"
+#include "libs/controllers/CReceiver.h"
 
 #include <QTcpSocket>
 #include <QDebug>
@@ -32,12 +32,12 @@ void CServer::StopListening() {
     close();
 }
 
-IClient *CServer::GetClient() const {
+IReceiver *CServer::GetClient() const {
     return mClient;
 }
 
 void CServer::IncomingConnection() {
-    mClient = new CClient();
+    mClient = new CReceiver();
     emit CreateClient();
 
     QTcpSocket *vSocket = nextPendingConnection();

@@ -1,5 +1,5 @@
-#ifndef CCLIENT_H
-#define CCLIENT_H
+#ifndef CReceiver_H
+#define CReceiver_H
 
 #include <inttypes.h> //uint_t* and int_t* types
 
@@ -8,7 +8,7 @@
 
 #include "libs/controllers/CStorePhotoTransaction.h"
 #include "libs/controllers/CRetrievePhotoTransaction.h"
-#include "libs/controllers/IClient.h"
+#include "libs/controllers/IReceiver.h"
 #include "libs/dao/CChecksumList.h"
 
 /**
@@ -21,26 +21,26 @@ enum ReceiveDataMode {
 };
 
 /**
- * @brief The CClient class represents client in client-server architecture
+ * @brief The CReceiver class represents client in client-server architecture
  *
- * CClient class inherits from QObject. This class have responsibility
+ * CReceiver class inherits from QObject. This class have responsibility
  * of coordinate communication with client from Android device
  *
  * @todo dopisac wiecej pozniej
  */
-class CClient : public IClient {
+class CReceiver : public IReceiver {
     Q_OBJECT
 
   public:
     /**
-		 * @brief CClient constructor
+     * @brief CReceiver constructor
      */
-		CClient();
+		CReceiver();
 
     /**
-		 * @brief CClient destructor
+     * @brief CReceiver destructor
      */
-    ~ CClient();
+    ~ CReceiver();
 
     /**
      * @brief Method called when server receive incoming connection,
@@ -54,10 +54,10 @@ class CClient : public IClient {
     void ResponeToClient(QByteArray aData = 0);
 
     /**
-     * @brief Method called to get CClient class member mSocket
+     * @brief Method called to get CReceiver class member mSocket
 		 *        which represent socket
      *
-		 * @return CCLient socket
+     * @return CReceiver socket
      */
     QTcpSocket *GetSocket() const;
 
@@ -152,7 +152,7 @@ class CClient : public IClient {
 
     /**
      * @brief Method connect socket's signals to
-		 *        represent client's (CClient) slots
+     *        represent client's (CReceiver) slots
      */
 		void ConnectSocketSignals();
 
@@ -192,4 +192,4 @@ class CClient : public IClient {
     int mReceiveByteCount;
 };
 
-#endif // CCLIENT_H
+#endif // CReceiver_H

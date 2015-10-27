@@ -4,7 +4,7 @@
 #include <QtTest>
 
 #include "libs/controllers/CServer.h"
-#include "libs/controllers/CClient.h"
+#include "libs/controllers/CReceiver.h"
 
 class ClientNotConnectedToServer : public QObject {
     Q_OBJECT
@@ -21,7 +21,7 @@ ClientNotConnectedToServer::ClientNotConnectedToServer() {
 
 void ClientNotConnectedToServer::TestClientNotConnectedToServer() {
     CServer *vServer = new CServer;
-		CClient *vClient = dynamic_cast<CClient *>(vServer->GetClient());
+		CReceiver *vClient = dynamic_cast<CReceiver *>(vServer->GetClient());
 
     QEXPECT_FAIL("", "Klient nie powinien zostać utworzony, "
                  "nie było połączenia przychodzącego.", Continue);

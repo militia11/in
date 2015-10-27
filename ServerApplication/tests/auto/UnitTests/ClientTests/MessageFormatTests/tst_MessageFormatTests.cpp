@@ -1,7 +1,7 @@
 #include <QString>
 #include <QtTest>
 
-#include "libs/controllers/CClient.h"
+#include "libs/controllers/CReceiver.h"
 
 class MessageFormatTests : public QObject {
     Q_OBJECT
@@ -21,14 +21,14 @@ MessageFormatTests::MessageFormatTests() {
 }
 
 void MessageFormatTests::TestCorrectMessageFormat() {
-    CClient vClient;
+    CReceiver vClient;
     char *vMessage = ">>635>";
 
     //	QVERIFY(vClient.HasMessageCorrectFormat(vMessage));
 }
 
 void MessageFormatTests::TestWrongBeginMessageFirstChar() {
-    CClient vClient;
+    CReceiver vClient;
     char *vMessage = "1>71>";
 
     //QEXPECT_FAIL("", "Zły format wiadomości", Continue);
@@ -36,7 +36,7 @@ void MessageFormatTests::TestWrongBeginMessageFirstChar() {
 }
 
 void MessageFormatTests::TestWrongBeginMessageSecondChar() {
-    CClient vClient;
+    CReceiver vClient;
     char *vMessage = ">a84>";
 
     //QEXPECT_FAIL("", "Zły format wiadomości", Continue);
@@ -44,7 +44,7 @@ void MessageFormatTests::TestWrongBeginMessageSecondChar() {
 }
 
 void MessageFormatTests::TestWrongEndMessageChar() {
-    CClient vClient;
+    CReceiver vClient;
     char *vMessage = ">>74s";
 
     //QEXPECT_FAIL("", "Zły format wiadomości", Continue);
@@ -52,7 +52,7 @@ void MessageFormatTests::TestWrongEndMessageChar() {
 }
 
 void MessageFormatTests::TestChecksumIsNotDigit() {
-    CClient vClient;
+    CReceiver vClient;
     char *vMessage = ">>6s3>";
 
     //QEXPECT_FAIL("", "Zły format wiadomości", Continue);
