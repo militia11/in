@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>CMainWindow</string>
+   <string>Android Photos Archivizer</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -73,6 +73,12 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>mPushButtonSendPhoto</tabstop>
+  <tabstop>mPushButtonSendChecksum</tabstop>
+  <tabstop>mPushButtonConnect</tabstop>
+  <tabstop>mPushButtonArchivePhoto</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
