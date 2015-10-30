@@ -18,7 +18,7 @@ CReceiver::CReceiver() {
 
 		QObject::connect(mSocket, SIGNAL(readyRead()),
             this, SLOT(ReadData()), Qt::DirectConnection);
-		PrepareMessageData(384);//wywalic potem
+    PrepareMessageData(384);//usunąć potem
 }
 
 CReceiver::~CReceiver() {
@@ -57,7 +57,7 @@ bool CReceiver::ConnectToHost(QString aHost) {
     return vConnected;
 }
 
-QByteArray CReceiver::ConvertImageToByteArray(QImage aImage) {
+QByteArray CReceiver::ConvertImageToByteArray(const QImage &aImage) {
     QBuffer vBuffer;
 
     QImageWriter vWriter(&vBuffer, "JPG");

@@ -28,28 +28,6 @@ class CServerMock : public IServer {
 		 * @return Object which represent  client class (CReceiver)
      */
     CReceiver *GetClient() const;
-//?
-	//signals:
-    /**
-     * @brief CreateClient signal is emitted when
-         *              server create client.
-     */
-		//void CreateClient();
-
-    /**
-         * @brief MessageStatus signal is emmitted when status
-         *              of server changed.
-     *
-     * @param aMessage is text given to CMainWindow.
-     * @param aTimeMsc parameter is time while message being shown.
-     */
-		//void MessageStatus(const char *aMessage, int aTimeMsc);
-
-    /**
-     * @brief ChangeServerStatus emitted when server status
-         *              changed.
-     */
-		//void ChangeServerStatus();
 
 		private slots:
     /**
@@ -75,12 +53,12 @@ class CServerMock : public IServer {
     /**
 		 * @brief Mock of UpdatePortNum method
      */
-    inline void UpdatePortNum();
+    inline void UpdatePortNumber();
 
   protected:
     /**
-    * @brief Log of called methods
-    */
+     * @brief Log of called methods
+     */
 		mutable QString mLog;
 };
 

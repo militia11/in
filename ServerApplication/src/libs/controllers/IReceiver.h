@@ -10,8 +10,6 @@
 #include <QObject>
 #include <QTcpSocket>
 
-//#include "libs/dao/CRepository.h"
-
 /**
  * @brief The IReceiver class is interface of CReceiver class
  */
@@ -20,38 +18,33 @@ class IReceiver : public QObject {
 
   public:
     /**
-    * @brief CReceiver destructor.
-    */
-    //~ CReceiver();
-
-    /**
      * @brief Method called when server receive incoming connection,
-     *		  client is connecting to specify port.
+     *        client is connecting to specify port
      */
 		virtual void Connect(QTcpSocket *aSocket) = 0;
 
     /**
-     * @brief Method to respone information to client.
+     * @brief Method to respone information to client
      */
     virtual void ResponeToClient(QByteArray aData = 0) = 0;
 
     /**
      * @brief Method called to get CReceiver class member mSocket
-     *		  which represent socket.
+     *        which represent socket
      *
-     * @return CReceiver socket.
+     * @return CReceiver socket
      */
     virtual QTcpSocket *GetSocket() const = 0;
 
   public slots:
     /**
-     * @brief Method called on new incomming data.
+     * @brief Method called on new incomming data
      */
     virtual void NewData() = 0;
 
 	private slots:
     /**
-     * @brief Slot called when connection closed.
+     * @brief Slot called when connection closed
      */
     virtual void Disconnected() = 0;
 
@@ -61,56 +54,56 @@ class IReceiver : public QObject {
 
     /**
      * @brief ServeFileData serve file data
-     *		  from incoming connection.
+     *        from incoming connection.
      */
     virtual void ServeReceivedFileData() = 0;
 
     /**
-     * @brief ByteArrayToInt convert array to int.
+     * @brief ByteArrayToInt convert array to int
      *
      * @param aData array.
      *
-     * @return Integer number converted from array.
+     * @return Integer number converted from array
      */
     virtual int32_t ByteArrayToInt(QByteArray aData) = 0;
 
     /**
      * @brief RouteData function switch data to
      *        CCheckSumList class or file data to save
-     *        in server.
+     *        in server
      *
-     * @param aData is data to route.
+     * @param aData is data to route
      */
     virtual void RouteData(char aData) = 0;
 
     /**
-     * @brief Serve single received message.
+     * @brief Serve single received message
      */
     virtual void ServeReceivedMessage() = 0;
 
     /**
-     * @brief Check has message correct format.
+     * @brief Check has message correct format
      *
      * Message should consist from:
-     * - message begin char: ">"
+     * - message begin chars: ">>"
      * - data as hex-ascii string
      * - end message char: "<"
      *
-     * @return True for correct format, False for incorrect.
+     * @return True for correct format, False for incorrect
      */
     virtual bool HasMessageCorrectFormat(char *aMessage) = 0;
 
     /**
      * @brief CalculateFileDataChecksum calculate message checksum
-     *		  to compare with expected.
+     *		  to compare with expected
      *
-     * @return Checksum calculated as youngest byte of sum of all bytes.
+     * @return Checksum calculated as youngest byte of sum of all bytes
      */
     virtual uint16_t CalculateFileDataChecksum(QByteArray aData) = 0;
 
     /**
      * @brief Method connect socket's signals to
-     *        represent client's (CReceiver) slots.
+     *        represent client's (CReceiver) slots
      */
     virtual inline void ConnectSocketSignals() = 0;
 };

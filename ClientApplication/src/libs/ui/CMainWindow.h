@@ -50,9 +50,9 @@ class CMainWindow : public QMainWindow {
     Ui::CMainWindow *ui;
 
     /**
-     * @brief vClient is Client
+     * @brief vClient is Client class
      */
-		IClient *vClient;
+    IClient *vClient;
 };
 
 #endif // CMAINWINDOW_H

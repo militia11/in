@@ -19,8 +19,9 @@ class IClient : public QObject {
 		 *				server photos
 		 */
 		virtual void UpdateServerPhotos() = 0;
+
 		///@todo opisy
-		virtual QByteArray ConvertImageToByteArray(QImage aImage) = 0;
+    virtual QByteArray ConvertImageToByteArray(const QImage &aImage) = 0;
 
 	public slots:
 		///@todo opisy

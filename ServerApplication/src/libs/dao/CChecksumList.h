@@ -11,49 +11,50 @@
 class CChecksumList {
   public:
     /**
-     * @brief CChecksumList constructor.
+     * @brief CChecksumList constructor
      */
     CChecksumList();
+
     /**
      * @brief AddFileChecksum add new file data checksum
-    		 *				to checksum list.
+     *				to checksum list
      *
-     * @param aChecksum is new checksum value.
+     * @param aChecksum is new checksum value
      */
     void AddFileChecksum(int16_t aChecksum);
 
     /**
      * @brief PopulateChecksumFromDB function add checksum file list
-    		 *				of actually server files.
+     *				of actually server files
      */
     void ReceiveChecksumsFromDB();
 
     /**
-    		 * @brief CheckFileCheckSum compare checksum in parameter to
-    		 *				checksums in server which we import to list in
-    		 *				class CCheckSumList.
+     * @brief CheckFileCheckSum compare checksum in parameter to
+     *				checksums in server which we import to list in
+     *				class CCheckSumList.
      *
      * @param aCheckSum is checksum we compare to
-    		 *				checksum from server.
+     *				checksum from server.
      *
-    		 * @return True if checksum is the same in another in server.
+     * @return True if checksum is the same in another in server
      */
     bool CheckFileChecksum(int16_t aChecksum);
 
     /**
-     * @brief UpdateChecksumList update list of checksums.
+     * @brief UpdateChecksumList update list of checksums
      */
     //void UpdateChecksumList();
 
     /**
-    		 * @brief Clear function is a facade for clear function in
-    		 *				Qlist class.
+     * @brief Clear function is a facade for clear function in
+     *				Qlist class.
      */
     void Clear();
 
   private:
     /**
-     * @brief mChecksumList is list of checksums.
+     * @brief mChecksumList is list of checksums
      */
     QList<int> mChecksumList;
 };

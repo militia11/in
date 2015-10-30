@@ -38,6 +38,6 @@ void CServerMock::ConnectClientSignals() {
 	mLog += "->ConnectClientSignals";
 }
 
-void CServerMock::UpdatePortNum() {
+void CServerMock::UpdatePortNumber() {
 	mLog += "->UpdatePortNum";
 }

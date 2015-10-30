@@ -68,7 +68,7 @@ class CReceiver : public IClient {
      * @param aImage Image to convert
      * @return Converted image to QByteArray
      */
-    QByteArray ConvertImageToByteArray(QImage aImage);
+    QByteArray ConvertImageToByteArray(const QImage &aImage);
 
   public slots:
     ///@todo opisy

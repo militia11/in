@@ -16,12 +16,12 @@ class CDatabaseConnectionDialog : public QDialog {
 
   public:
     /**
-     * @brief CDatabaseConnectionDialog constructor.
+     * @brief CDatabaseConnectionDialog constructor
      */
     explicit CDatabaseConnectionDialog(QWidget *aParent = 0);
 
     /**
-     * @brief CDatabaseConnectionDialog destructor.
+     * @brief CDatabaseConnectionDialog destructor
      */
     ~CDatabaseConnectionDialog();
 
@@ -33,29 +33,29 @@ class CDatabaseConnectionDialog : public QDialog {
 
   private slots:
     /**
-     * @brief on_mButtonBoxOkCancel_accepted slot call when form is accepted.
+     * @brief on_mButtonBoxOkCancel_accepted slot call when form is accepted
      */
     void on_mButtonBoxOkCancel_accepted();
 
     /**
-     * @brief on_mButtonBoxOkCancel_rejected slot when form is rejected.
+     * @brief on_mButtonBoxOkCancel_rejected slot when form is rejected
      */
     void on_mButtonBoxOkCancel_rejected();
 
   protected:
     /**
     	 * @brief Update database settings from configuration file
-    	 *				to form labels.
+       *				to form labels
      */
     void UpdateSettings();
 
     /**
-    	 * @brief Save database settings to configuration file.
+       * @brief Save database settings to configuration file
      */
     void SaveSettings();
 
     /**
-    	 * @brief Update class members to actual form labels.
+       * @brief Update class members to actual form labels
      */
     void UpdateMembers();
 

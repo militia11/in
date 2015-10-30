@@ -9,7 +9,12 @@
 class CReceiverMock : public IReceiver {
   public:
 
+    /**
+     * @brief GetLog get actual log
+     * @return Log
+     */
 		const QString GetLog() const;
+
     /**
 		 * @brief Method called when server receive incoming connection,
 		 *        client is connecting to specify port
@@ -17,110 +22,78 @@ class CReceiverMock : public IReceiver {
     void Connect(QTcpSocket *aSocket);
 
 		/**
-		 * @brief Method to respone information to client
+     * @brief Mock of ResponeToClient method
      */
     void ResponeToClient(QByteArray aData = 0);
 
     /**
-		 * @brief Method called to get CReceiver class member mSocket
-		 *        which represent socket
-     *
+     * @brief Mock of GetSocket method
 		 * @return CReceiver socket
      */
     QTcpSocket *GetSocket() const;
 
-    //public slots:
     /**
-     * @brief Method called on new incomming data.
+     * @brief Mock of NewData method
      */
     void NewData();
 
-  signals:
     /**
-     * @brief Signal emited when client disconnect from server.
-     */
-    void Disconnect();
-
-    /**
-     * @brief Signal emited when error occured a socket.
-     *
-     * @param aSocketError is a QTcpSocket::SocketError.
-     */
-    void Error(QTcpSocket::SocketError aSocketError);
-
-    /**
-     * @brief Signal emited when was read data.
-     *
-     * @param aData is a QByteArray data which was read.
-     */
-    void ReadData(QByteArray aData);
-
-    /**
-     * @brief Signal emited to send status for mainly to the main status bar.
-     */
-    void MessageStatus(const char *aMessage, int aTimeMsc);
-
-    //private slots:
-    /**
-     * @brief Slot called when connection closed.
+     * @brief Mock of Disconnected method
      */
     void Disconnected();
 
-    ///@todo opis
+    /**
+     * @brief Mock of ConvertMessageArrayToInt method
+     */
     int ConvertMessageArrayToInt();
 
     /**
-         * @brief ServeFileData serve file data
-         *            from incoming connection.
+     * @brief Mock of ServeReceivedFileData method
      */
     void ServeReceivedFileData();
 
     /**
-     * @brief ByteArrayToInt convert array to int.
+     * @brief Mock of ByteArrayToInt method
      *
-         * @param aData array.
+     * @param aData array
      *
-     * @return Integer number converted from array.
+     * @return Integer number converted from array
      */
     int32_t ByteArrayToInt(QByteArray aData);
 
     /**
-         * @brief RouteData function switch data to
-         *        CCheckSumList class or file data to save
-         *        in server.
+     * @brief Mock of RouteData method
      *
-     * @param aData is data to route.
+     * @param aData is data to route
      */
     void RouteData(char aData);
 
     /**
-     * @brief Serve single received message.
+     * @brief Mock of ServeReceivedMessage method
      */
     void ServeReceivedMessage();
 
     /**
-     * @brief Check has message correct format.
+     * @brief Mock of HasMessageCorrectFormatCheck method
      *
      * Message should consist from:
      * - message begin chars: ">>"
      * - data as hex-ascii string
      * - end message char: "<"
      *
-     * @return True for correct format, False for incorrect.
+     * @return True for correct format, False for incorrect
      */
     bool HasMessageCorrectFormat(char *aMessage);
 
     /**
-     * @brief CalculateFileDataChecksum calculate message checksum
-     *               to compare with expected.
+     * @brief Mock of CalculateFileDataChecksum method
      *
-     * @return Checksum calculated as youngest byte of sum of all bytes.
+     * @return Checksum calculated as youngest byte of sum of all bytes
      */
     uint16_t CalculateFileDataChecksum(QByteArray aData);
 
     /**
-         * @brief Method connect socket's signals to
-         *        represent client's (CReceiver) slots.
+     * @brief Mock of ConnectSocketSignals method
      */
     inline void ConnectSocketSignals();
 

@@ -13,7 +13,7 @@
 
 /**
  * @brief The ReceiveDataMode is enumeration of kinds receive data
- *        modes for Client
+ *        modes for Receiver
  */
 enum ReceiveDataMode {
     Mode_Receive_File_Data      = 1,
@@ -21,10 +21,10 @@ enum ReceiveDataMode {
 };
 
 /**
- * @brief The CReceiver class represents client in client-server architecture
+ * @brief The CReceiver class receive photos from client in client-server architecture
  *
  * CReceiver class inherits from QObject. This class have responsibility
- * of coordinate communication with client from Android device
+ * of coordinate communication with CClient class from Android-side application
  *
  * @todo dopisac wiecej pozniej
  */
@@ -172,22 +172,22 @@ class CReceiver : public IReceiver {
     int32_t *mDataSize;
 
     /**
-     * @brief mReceiveDataMode is mode of receiving data.
+     * @brief mReceiveDataMode is mode of receiving data
      */
     ReceiveDataMode mReceiveDataMode;
 
     /**
-     * @brief mMessageClntFileChecksum is checksum of file sended from client.
+     * @brief mMessageClntFileChecksum is checksum of file sended from client
      */
     char mMessageFileChecksum[1024];
 
     /**
-     * @brief mMessageSize is size of message sended from client.
+     * @brief mMessageSize is size of message sended from client
      */
     int mMessageSize;
 
     /**
-     * @brief mReceiveByteCount is counter of received bytes.
+     * @brief mReceiveByteCount is counter of received bytes
      */
     int mReceiveByteCount;
 };
