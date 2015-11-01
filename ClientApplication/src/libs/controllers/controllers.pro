@@ -10,7 +10,7 @@ TARGET = controllers
 TEMPLATE = lib
 CONFIG += staticlib
 
-INCLUDEPATH += ../..
+INCLUDEPATH += ../../..
 
 SOURCES += \
     CClient.cpp
@@ -19,6 +19,6 @@ HEADERS += \
     CClient.h \
     IClient.h
 
-LIBS += -L../dao -ldao
+LIBS += -L../src/dao -ldao
 
 CONFIG += c++11

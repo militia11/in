@@ -1,8 +1,8 @@
 #include <QString>
 #include <QtTest>
 
-#include "libs/controllers/CClient.h"
-#include "libs/dao/CRepository.h"
+#include "src/libs/controllers/CClient.h"
+#include "src/libs/dao/CRepository.h"
 
 extern CRepository gRepository;
 
@@ -20,7 +20,7 @@ PrepareMessageData::PrepareMessageData() {
 }
 
 void PrepareMessageData::TestPrepareMessageData() {
-    CReceiver vClient;
+    CClient vClient;
     u_int16_t vChecksum = 384;
     QByteArray vResultData = vClient.PrepareMessageData(vChecksum);
     QByteArray vExpectedData(">>384<");

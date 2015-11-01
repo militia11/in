@@ -11,7 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = app
 TEMPLATE = app
 
-INCLUDEPATH += ..
+INCLUDEPATH += ../..
 
 SOURCES += \
     main.cpp
@@ -21,5 +21,3 @@ LIBS += -L../libs/controllers -lcontrollers
 LIBS += -L../libs/dao -ldao
 
 CONFIG += c++11
-
-

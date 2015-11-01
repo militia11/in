@@ -1,8 +1,8 @@
 #include <QString>
 #include <QtTest>
 
-#include "libs/controllers/CClient.h"
-#include "libs/dao/CRepository.h"
+#include "src/libs/controllers/CClient.h"
+#include "src/libs/dao/CRepository.h"
 
 class ConvertIntToArrayTests : public QObject {
 		Q_OBJECT
@@ -21,7 +21,7 @@ ConvertIntToArrayTests::ConvertIntToArrayTests() {
 void ConvertIntToArrayTests::TestConvertIntToArrayTest() {
 		int32_t vNumber = 12;
 
-		CReceiver vClient;
+		CClient vClient;
 		QByteArray vConvertedData = vClient.IntToArray(vNumber);
 
 		QDataStream vStream(&vConvertedData, QIODevice::ReadWrite);

@@ -10,7 +10,7 @@ QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-INCLUDEPATH += ../..
+INCLUDEPATH += ../../..
 
 TARGET = ui
 TEMPLATE = lib
@@ -25,6 +25,6 @@ HEADERS += \
 FORMS += \
     CMainWindow.ui
 
-LIBS += -L../../../share -lshare
+LIBS += -L../../../ClientApplication/share -lshare
 
 CONFIG += c++11

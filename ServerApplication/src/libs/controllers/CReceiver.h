@@ -28,19 +28,19 @@ enum ReceiveDataMode {
  *
  * @todo dopisac wiecej pozniej
  */
-class CReceiver : public IReceiver {
+class CClient : public IReceiver {
     Q_OBJECT
 
   public:
     /**
      * @brief CReceiver constructor
      */
-		CReceiver();
+		CClient();
 
     /**
      * @brief CReceiver destructor
      */
-    ~ CReceiver();
+    ~ CClient();
 
     /**
      * @brief Method called when server receive incoming connection,

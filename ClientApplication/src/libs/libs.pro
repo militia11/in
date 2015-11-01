@@ -3,6 +3,7 @@ TEMPLATE = subdirs
 SUBDIRS += \
     ui \
     controllers \
-    dao
+    dao \
+    testssupport
 
 controllers.depends += dao

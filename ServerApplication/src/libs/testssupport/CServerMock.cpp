@@ -17,7 +17,7 @@ void CServerMock::StopListening() {
 		mLog += "->StopListening";
 }
 
-CReceiver *CServerMock::GetClient() const {
+CClient *CServerMock::GetClient() const {
 		mLog += "->GetClient()";
 		return nullptr;
 }

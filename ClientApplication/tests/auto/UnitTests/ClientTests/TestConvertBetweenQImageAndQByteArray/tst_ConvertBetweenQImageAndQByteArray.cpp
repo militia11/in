@@ -3,7 +3,7 @@
 #include <QString>
 #include <QtTest>
 
-#include "libs/controllers/CClient.h"
+#include "src/libs/controllers/CClient.h"
 
 class ConvertBetweenQImageAndQByteArray : public QObject {
     Q_OBJECT
@@ -24,7 +24,7 @@ void ConvertBetweenQImageAndQByteArray::TestConvertBetweenQImageAndQByteArray() 
     QImage vImageToByte = QImage(":/sample_photo.jpg", "JPG");
 
     // Part convert image
-    CReceiver vClient;
+    CClient vClient;
     QByteArray vImageData = vClient.ConvertImageToByteArray(vImageToByte);
 
     // Convert array of bytes to image

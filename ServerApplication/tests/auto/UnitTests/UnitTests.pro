@@ -2,7 +2,7 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     ServerTests \
-    ClientTests \
+    ReceiverTests \
     SettingsTests \
     TestStorePhoto \
     ChecksumTests

@@ -46,12 +46,10 @@ void ChecksumTests::TestCheckFileChecksum() {
     gRepository.PopulateDatabase();
 
     Q_INIT_RESOURCE(server_resources);  // Use resources from diffrent project
-
     QImage vAddedImage = QImage(":/sample_photo.jpg", "JPG");
 
     // Part adding image
     QBuffer vBufferToStoreData;
-
     QImageWriter vWriter(&vBufferToStoreData, "JPG");
     vWriter.write(vAddedImage);
 

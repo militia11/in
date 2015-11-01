@@ -21,11 +21,14 @@ ClientNotConnectedToServer::ClientNotConnectedToServer() {
 
 void ClientNotConnectedToServer::TestClientNotConnectedToServer() {
     CServer *vServer = new CServer;
-		CReceiver *vClient = dynamic_cast<CReceiver *>(vServer->GetClient());
+		CClient *vClient = dynamic_cast<CClient *>(vServer->GetClient());
 
     QEXPECT_FAIL("", "Klient nie powinien zostać utworzony, "
                  "nie było połączenia przychodzącego.", Continue);
     QVERIFY(vClient);
+
+		delete vServer;
+		delete vClient;
 }
 
 QTEST_APPLESS_MAIN(ClientNotConnectedToServer)

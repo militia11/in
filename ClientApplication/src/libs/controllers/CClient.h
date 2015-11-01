@@ -7,21 +7,21 @@
 #include <QtCore>
 #include <QtNetwork>
 
-#include "libs/controllers/IClient.h"
+#include "src/libs/controllers/IClient.h"
 
-class CReceiver : public IClient {
+class CClient : public IClient {
     Q_OBJECT
 
   public:
     /**
      * @brief CClient class constructor
      */
-		CReceiver();
+		CClient();
 
     /**
      * @brief CClient class destructor
      */
-    ~CReceiver();
+		~CClient();
 
     /**
      * @brief WriteData write file data to socket
@@ -71,11 +71,25 @@ class CReceiver : public IClient {
     QByteArray ConvertImageToByteArray(const QImage &aImage);
 
   public slots:
-    ///@todo opisy
+		/**
+		 * @brief ReadData method read received data
+		 */
     void ReadData();
+
+		/**
+		 * @brief ConnectToHost method connect to host
+		 *
+		 * @param aHost is host name/number
+		 */
     bool ConnectToHost(QString aHost);
 
 	protected:
+		/**
+		 * @brief CalculateFileDataChecksum calculate file checksum
+		 *
+		 * @param aData Byte array of data
+		 * @return Checksum
+		 */
     int16_t CalculateFileDataChecksum(QByteArray aData);
 
     bool mFileToSend;

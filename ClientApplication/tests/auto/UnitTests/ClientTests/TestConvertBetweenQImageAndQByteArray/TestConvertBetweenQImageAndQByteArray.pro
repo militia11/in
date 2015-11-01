@@ -12,7 +12,7 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../../../../src
+INCLUDEPATH += ../../../../../../ClientApplication
 
 SOURCES += tst_ConvertBetweenQImageAndQByteArray.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

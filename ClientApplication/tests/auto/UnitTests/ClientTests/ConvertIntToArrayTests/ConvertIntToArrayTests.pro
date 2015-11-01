@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += testlib network gui
+QT       += testlib network gui core
 
 TARGET = ConvertIntToArrayTests
 CONFIG   += console
@@ -12,7 +12,7 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../../../../src
+INCLUDEPATH += ../../../../../../ClientApplication
 
 SOURCES += ConvertIntToArrayTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

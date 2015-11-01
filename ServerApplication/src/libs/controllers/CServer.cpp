@@ -37,7 +37,7 @@ IReceiver *CServer::GetClient() const {
 }
 
 void CServer::IncomingConnection() {
-    mReceiver = new CReceiver();
+    mReceiver = new CClient();
     emit CreateClient();
 
     QTcpSocket *vSocket = nextPendingConnection();

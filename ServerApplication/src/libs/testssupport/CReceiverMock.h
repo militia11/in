@@ -4,11 +4,10 @@
 #include "libs/controllers/IReceiver.h"
 
 /**
- * @brief Mock of CReceiver used in unit tests
+ * @brief Mock of CReceiver class used in unit tests
  */
 class CReceiverMock : public IReceiver {
   public:
-
     /**
      * @brief GetLog get actual log
      * @return Log
@@ -16,19 +15,19 @@ class CReceiverMock : public IReceiver {
 		const QString GetLog() const;
 
     /**
-		 * @brief Method called when server receive incoming connection,
-		 *        client is connecting to specify port
+			 * @brief Method called when server receive incoming connection,
+			 *        client is connecting to specify port
      */
     void Connect(QTcpSocket *aSocket);
 
 		/**
-     * @brief Mock of ResponeToClient method
-     */
+		* @brief Mock of ResponeToClient method
+		*/
     void ResponeToClient(QByteArray aData = 0);
 
     /**
      * @brief Mock of GetSocket method
-		 * @return CReceiver socket
+			 * @return CReceiver socket
      */
     QTcpSocket *GetSocket() const;
 
