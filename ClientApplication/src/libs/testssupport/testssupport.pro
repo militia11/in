@@ -19,5 +19,5 @@ SOURCES += \
 HEADERS += \
     CClientMock.h
 
-LIBS += -L../src/controllers -lcontrollers
+#LIBS += -L../src/controllers -lcontrollers
 #LIBS += -L../dao -ldao

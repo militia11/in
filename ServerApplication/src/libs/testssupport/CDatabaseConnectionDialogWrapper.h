@@ -1,7 +1,7 @@
 #ifndef CDATABASECONNECTIONDIALOGWRAPPER_H
 #define CDATABASECONNECTIONDIALOGWRAPPER_H
 
-#include "libs/ui/CDatabaseConnectionDialog.h"
+#include "src/libs/ui/CDatabaseConnectionDialog.h"
 
 /**
  * @brief Wrapper for CDatabaseConnectionDialog class

@@ -1,8 +1,8 @@
 #ifndef CSERVERMOCK_H
 #define CSERVERMOCK_H
 
-#include "libs/controllers/IServer.h"
-#include "libs/controllers/CReceiver.h"
+#include "src/libs/controllers/IServer.h"
+#include "src/libs/controllers/CReceiver.h"
 
 #include <QString>
 /**

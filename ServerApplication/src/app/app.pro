@@ -16,7 +16,7 @@ TEMPLATE = app
 
 SOURCES += main.cpp
 
-INCLUDEPATH += ..
+INCLUDEPATH += ../..
 
 LIBS += -L../libs/ui -lui
 LIBS += -L../libs/controllers -lcontrollers

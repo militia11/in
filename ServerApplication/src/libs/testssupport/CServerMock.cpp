@@ -3,7 +3,7 @@
 #include <QTcpSocket>
 #include <QDebug>
 
-#include "libs/controllers/CSettings.h"
+#include "src/libs/controllers/CSettings.h"
 
 const QString CServerMock::GetLog() const {
 		return mLog;

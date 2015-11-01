@@ -1,8 +1,8 @@
 #ifndef CSERVER_H
 #define CSERVER_H
 
-#include "libs/controllers/IReceiver.h"
-#include "libs/controllers/IServer.h"
+#include "src/libs/controllers/IReceiver.h"
+#include "src/libs/controllers/IServer.h"
 
 /**
  * @brief The CServer class represents server for synchronize data from mobile device
@@ -20,7 +20,7 @@ class CServer : public IServer {
     /**
      * @brief CServer constructor
      */
-		explicit CServer();
+		CServer();
 
     /**
      * @brief CServer destructor

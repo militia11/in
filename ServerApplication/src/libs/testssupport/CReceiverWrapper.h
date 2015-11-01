@@ -1,7 +1,7 @@
 #ifndef CReceiverWRAPPER_H
 #define CReceiverWRAPPER_H
 
-#include "libs/controllers/CReceiver.h"
+#include "src/libs/controllers/CReceiver.h"
 
 /**
  * @brief Wrapper for CReceiver class

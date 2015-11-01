@@ -7,3 +7,4 @@ SUBDIRS += \
     testssupport
 
 controllers.depends += dao
+testssupport.depends += controllers

@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <QFile>
 
-#include "libs/dao/CRepository.h"
+#include "src/libs/dao/CRepository.h"
 
 extern CRepository gRepository;
 

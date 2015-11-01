@@ -1,10 +1,10 @@
-#include "libs/ui/CMainwindow.h"
+#include "src/libs/ui/CMainwindow.h"
 
 #include <QApplication>
 
-#include "libs/controllers/CSettings.h"
-#include "libs/dao/CChecksumList.h"
-#include "libs/dao/CRepository.h"
+#include "src/libs/controllers/CSettings.h"
+#include "src/libs/dao/CChecksumList.h"
+#include "src/libs/dao/CRepository.h"
 
 extern CRepository gRepository;
 

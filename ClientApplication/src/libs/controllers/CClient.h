@@ -10,7 +10,7 @@
 #include "src/libs/controllers/IClient.h"
 
 class CClient : public IClient {
-    Q_OBJECT
+		Q_OBJECT
 
   public:
     /**
@@ -29,7 +29,7 @@ class CClient : public IClient {
      * @param aData data to write
      * @return True if write successfull, otherwise false
      */
-    bool WriteData(QByteArray aData);
+		virtual bool WriteData(QByteArray aData);
 
     /**
      * @brief WriteMessage write message to socket
@@ -37,7 +37,7 @@ class CClient : public IClient {
      * @param aData message to write
      * @return True if write successfull, otherwise false
      */
-    bool WriteMessage(QByteArray aData);
+		virtual bool WriteMessage(QByteArray aData);
 
     /**
      * @brief PrepareMessageData prepare message data
@@ -45,7 +45,7 @@ class CClient : public IClient {
      * @param aChecksum Convert to message QByteArray
      * @return QByteArray Message
      */
-    QByteArray PrepareMessageData(int16_t aChecksum);
+		virtual QByteArray PrepareMessageData(int16_t aChecksum);
 
     /**
      * @brief IntToArray Convert integer to QByteArray
@@ -53,14 +53,14 @@ class CClient : public IClient {
      * @param aSource is integer
      * @return QByteArray
      */
-    QByteArray IntToArray(int32_t aSource);
+		virtual QByteArray IntToArray(int32_t aSource);
 
     /**
      * @brief UpdateServerPhotos calculates checksums
      *				of photos stored on mobile device and update
      *				server photos
      */
-    void UpdateServerPhotos();
+		virtual void UpdateServerPhotos();
 
     /**
      * @brief ConvertImageToByteArray method convert imaqe to
@@ -68,20 +68,20 @@ class CClient : public IClient {
      * @param aImage Image to convert
      * @return Converted image to QByteArray
      */
-    QByteArray ConvertImageToByteArray(const QImage &aImage);
+		virtual QByteArray ConvertImageToByteArray(const QImage &aImage);
 
   public slots:
 		/**
 		 * @brief ReadData method read received data
 		 */
-    void ReadData();
+		virtual void ReadData();
 
 		/**
 		 * @brief ConnectToHost method connect to host
 		 *
 		 * @param aHost is host name/number
 		 */
-    bool ConnectToHost(QString aHost);
+		virtual bool ConnectToHost(QString aHost);
 
 	protected:
 		/**
@@ -90,7 +90,7 @@ class CClient : public IClient {
 		 * @param aData Byte array of data
 		 * @return Checksum
 		 */
-    int16_t CalculateFileDataChecksum(QByteArray aData);
+		virtual int16_t CalculateFileDataChecksum(QByteArray aData);
 
     bool mFileToSend;
     QTcpSocket *mSocket;

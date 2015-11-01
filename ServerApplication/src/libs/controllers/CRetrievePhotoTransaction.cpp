@@ -6,7 +6,7 @@
 #include <QImage>
 #include <QImageReader>
 
-#include "libs/dao/CRepository.h"
+#include "src/libs/dao/CRepository.h"
 
 using server::AndroidPhotosDatabase;
 using litesql::Blob;

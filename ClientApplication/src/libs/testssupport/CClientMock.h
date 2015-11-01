@@ -9,11 +9,11 @@ class CClientMock : public IClient {
 		* @brief GetLog get actual log
 		* @return Log
 		*/
-		const QString GetLog() const;
+		virtual const QString GetLog() const;
 
-		int as() {
-			return 4;
-		}
+		//int as() {
+			//return 4;
+		//}
 
 		/**
 		 * @brief Mock of WriteData method
@@ -21,7 +21,7 @@ class CClientMock : public IClient {
 		 * @param aData data to write
 		 * @return True if write successfull, otherwise false
 		 */
-		bool WriteData(QByteArray aData);
+		virtual bool WriteData(QByteArray aData);
 
 		/**
 		 * @brief Mock of WriteMessage method
@@ -29,7 +29,7 @@ class CClientMock : public IClient {
 		 * @param aData message to write
 		 * @return True if write successfull, otherwise false
 		 */
-		bool WriteMessage(QByteArray aData);
+		virtual bool WriteMessage(QByteArray aData);
 
 		/**
 		 * @brief Mock of PrepareMessageData method
@@ -37,7 +37,7 @@ class CClientMock : public IClient {
 		 * @param aChecksum Convert to message QByteArray
 		 * @return QByteArray Message
 		 */
-		QByteArray PrepareMessageData(int16_t aChecksum);
+		virtual QByteArray PrepareMessageData(int16_t aChecksum);
 
 		/**
 		 * @brief Mock of IntToArray method
@@ -45,7 +45,7 @@ class CClientMock : public IClient {
 		 * @param aSource is integer
 		 * @return QByteArray
 		 */
-		QByteArray IntToArray(int32_t aSource);
+		virtual QByteArray IntToArray(int32_t aSource);
 
 		/**
 		 * @brief Mock of UpdateServerPhotos method
@@ -60,19 +60,19 @@ class CClientMock : public IClient {
 		 * @param aImage Image to convert
 		 * @return Converted image to QByteArray
 		 */
-		QByteArray ConvertImageToByteArray(const QImage &aImage);
+		virtual QByteArray ConvertImageToByteArray(const QImage &aImage);
 
 		/**
 		 * @brief Mock of ReadData method
 		 */
-		void ReadData();
+		virtual void ReadData();
 
 		/**
 		 * @brief Mock of ConnectToHost method
 		 *
 		 * @param aHost is host name/number
 		 */
-		bool ConnectToHost(QString aHost);
+		virtual bool ConnectToHost(QString aHost);
 
 		/**
 		 * @brief Mock of CalculateFileDataChecksum method
@@ -80,7 +80,7 @@ class CClientMock : public IClient {
 		 * @param aData Byte array of data
 		 * @return Checksum
 		 */
-		int16_t CalculateFileDataChecksum(QByteArray aData);
+		virtual int16_t CalculateFileDataChecksum(QByteArray aData);
 
 	protected:
 		/**

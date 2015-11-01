@@ -1,7 +1,7 @@
 #ifndef CSERVERSETTINGSDIALOGWRAPPER_H
 #define CSERVERSETTINGSDIALOGWRAPPER_H
 
-#include "libs/ui/CServerSettingsDialog.h"
+#include "src/libs/ui/CServerSettingsDialog.h"
 /**
  * @brief Wrapper for CServerSettingsDialog class
  *

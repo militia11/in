@@ -14,7 +14,7 @@ TARGET = testssupport
 TEMPLATE = lib
 CONFIG += staticlib c++11
 
-INCLUDEPATH += ../..
+INCLUDEPATH += ../../..
 
 HEADERS += \
 	CReceiverWrapper.h \

@@ -1,7 +1,7 @@
 #include "CServer.h"
 
-#include "libs/controllers/CSettings.h"
-#include "libs/controllers/CReceiver.h"
+#include "src/libs/controllers/CSettings.h"
+#include "src/libs/controllers/CReceiver.h"
 
 #include <QTcpSocket>
 #include <QDebug>

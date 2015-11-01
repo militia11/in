@@ -1,11 +1,10 @@
 #ifndef CSTOREPHOTOTRANSACTION_H
 #define CSTOREPHOTOTRANSACTION_H
 
-#include "libs/controllers/CTransaction.h"
-
 #include <litesql.hpp>
 
-#include "libs/dao/androidphotosdatabase.hpp"
+#include "src/libs/dao/androidphotosdatabase.hpp"
+#include "src/libs/controllers/CTransaction.h"
 
 #include <QBuffer>
 

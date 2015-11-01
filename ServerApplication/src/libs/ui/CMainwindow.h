@@ -4,10 +4,10 @@
 #include <QCloseEvent>
 #include <QMainWindow>
 
-#include "libs/controllers/IServer.h"
-#include "libs/controllers/CServer.h"
-#include "libs/controllers/CSettings.h"
-#include "libs/dao/CRepository.h"
+#include "src/libs/controllers/IServer.h"
+#include "src/libs/controllers/CServer.h"
+#include "src/libs/controllers/CSettings.h"
+#include "src/libs/dao/CRepository.h"
 
 namespace Ui {
 class MainWindow;

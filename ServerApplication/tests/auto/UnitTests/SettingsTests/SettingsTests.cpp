@@ -1,9 +1,9 @@
 #include <QString>
 #include <QtTest>
 
-#include "libs/controllers/CSettings.h"
-#include "libs/testssupport/CDatabaseConnectionDialogWrapper.h"
-#include "libs/ui/CServerSettingsDialog.h"
+//#include "libs/controllers/CSettings.h"
+//#include "libs/testssupport/CDatabaseConnectionDialogWrapper.h"
+//#include "libs/ui/CServerSettingsDialog.h"
 
 class SettingsTests : public QObject {
     Q_OBJECT
@@ -12,18 +12,20 @@ class SettingsTests : public QObject {
     SettingsTests();
 
   private Q_SLOTS:
-    void TestConnectionStringMySqlDriver();
-    void TestConnectionStringSQLiteDriver();
-    void TestDefaultPortNumber();
+		void TestConnectionStringMySqlDriver();
+		void TestConnectionStringSQLiteDriver();
+		void TestDefaultPortNumber();
 };
 
 SettingsTests::SettingsTests() {
 }
 
 void SettingsTests::TestConnectionStringMySqlDriver() {
-    CSettings s;
-    CDatabaseConnectionDialogWrapper vDialog;
-    /*vDialog.mDriver = "mysql";
+		//CSettings s;
+		//CDatabaseConnectionDialogWrapper vDialog;
+
+
+	/*vDialog.mDriver = "mysql";
     vDialog.mHost = "129.0.4.1";
     vDialog.mDatabaseName = "testDb";
     vDialog.mUser = "testUser";

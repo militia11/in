@@ -1,13 +1,13 @@
 #ifndef CREPOSITORY_H
 #define CREPOSITORY_H
 
-#include <libs/dao/androidphotosdatabase.hpp>
+#include <src/libs/dao/androidphotosdatabase.hpp>
 #include <litesql.hpp>
 
 #include <QAbstractTableModel>
 
-#include "libs/controllers/CSettings.h"
-#include "libs/dao/CChecksumList.h"
+#include "src/libs/controllers/CSettings.h"
+#include "src/libs/dao/CChecksumList.h"
 
 class CSettings;
 

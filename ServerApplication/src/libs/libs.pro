@@ -6,4 +6,5 @@ SUBDIRS += \
     ui \
     testssupport
 
-#testssupport.depends += controllers
+testssupport.depends += controllers
+#ui.depends += controllers

@@ -1,13 +1,13 @@
 #include "CChecksumList.h"
 
-#include "libs/dao/CRepository.h"
+#include "src/libs/dao/CRepository.h"
 
 #include <litesql.hpp>
 
 #include <vector>
 #include <QDebug>
 
-#include "libs/dao/androidphotosdatabase.hpp"
+#include "src/libs/dao/androidphotosdatabase.hpp"
 
 using server::AndroidPhotosDatabase;
 using server::Photo;
