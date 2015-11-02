@@ -1,7 +1,7 @@
 #include <QString>
 #include <QtTest>
 
-#include "src/libs/clientcontrollers/CClient.h"
+#include "src/libs/controllers/CClient.h"
 #include "src/libs/dao/CRepository.h"
 
 class ConvertIntToArrayTests : public QObject {

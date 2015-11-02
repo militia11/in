@@ -3,8 +3,8 @@
 
 #include <QMainWindow>
 
-#include "src/libs/clientcontrollers/CClient.h"
-#include "src/libs/clientcontrollers/IClient.h"
+#include "src/libs/controllers/CClient.h"
+#include "src/libs/controllers/IClient.h"
 
 namespace Ui {
 class CMainWindow;

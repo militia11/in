@@ -25,7 +25,7 @@ class CServer : public IServer {
     /**
      * @brief CServer destructor
      */
-    ~CServer();
+		~CServer();
 
     /**
      * @brief Method called to start server

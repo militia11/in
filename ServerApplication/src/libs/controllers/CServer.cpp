@@ -7,14 +7,14 @@
 #include <QDebug>
 
 CServer::CServer() :
-    mReceiver(nullptr) {
-    UpdatePortNumber();
+		mReceiver(nullptr) {
+		UpdatePortNumber();
 
-    connect(this, SIGNAL(newConnection()), this, SLOT(IncomingConnection()));
+		connect(this, SIGNAL(newConnection()), this, SLOT(IncomingConnection()));
 }
 
 CServer::~CServer() {
-    delete mReceiver;
+		delete mReceiver;
 		mReceiver = nullptr;
 }
 

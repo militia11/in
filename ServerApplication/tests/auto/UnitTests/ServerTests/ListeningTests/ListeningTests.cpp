@@ -1,8 +1,8 @@
 #include <QString>
 #include <QtTest>
 
-#include "../ClientApplication/src/libs/clientcontrollers/CClientMock.h"
-//#include "../ServerApplication/src/libs/controllers/CServer.h"
+#include "../ClientApplication/src/libs/controllers/CClientMock.h"
+#include "../ServerApplication/src/libs/controllers/CServer.h"
 
 class ListeningTests : public QObject {
     Q_OBJECT
@@ -11,15 +11,15 @@ class ListeningTests : public QObject {
     ListeningTests();
 
   private Q_SLOTS:
-    void TestStopListening();
+		void TestStopListening();
 };
 
 ListeningTests::ListeningTests() {
 }
 
 void ListeningTests::TestStopListening() {
-//CServer *vServer = new CServer;
-CClientMock *cm = new CClientMock;
+CServer se;
+CClientMock cm;
 }
 
 QTEST_APPLESS_MAIN(ListeningTests)

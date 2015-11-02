@@ -19,13 +19,11 @@ TEMPLATE = app
 INCLUDEPATH += ../../../../../../ServerApplication
 
 LIBS += -L../../../../../../ClientApplication/src/libs/controllers -lcontrollers
+#LIBS += -L../../../../../../ClientApplication/src/libs/dao -ldao
+
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
 LIBS += -L../../../../../src/libs/ui -lui
-
 LIBS += -L../../../../../src/libs/dao -ldao
-
-#LIBS += -L../../../../../src/libs/testssupport -ltestssupport
-
 
 SOURCES += ListeningTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
