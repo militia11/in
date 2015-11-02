@@ -3,7 +3,7 @@
 #include <QString>
 #include <QtTest>
 
-#include "src/libs/controllers/CClient.h"
+#include "src/libs/clientcontrollers/CClient.h"
 
 class ConvertBetweenQImageAndQByteArray : public QObject {
     Q_OBJECT
