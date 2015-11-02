@@ -2,9 +2,9 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     ui \
-	clientcontrollers \
+	controllers \
     dao \
     testssupport
 
-clientcontrollers.depends += dao
-testssupport.depends += clientcontrollers
+controllers.depends += dao
+testssupport.depends += controllers
