@@ -21,7 +21,7 @@ ConvertIntToArrayTests::ConvertIntToArrayTests() {
 void ConvertIntToArrayTests::TestConvertIntToArrayTest() {
 		int32_t vNumber = 12;
 
-		CClient vClient;
+		CReceiver vClient;
 		QByteArray vConvertedData = vClient.IntToArray(vNumber);
 
 		QDataStream vStream(&vConvertedData, QIODevice::ReadWrite);

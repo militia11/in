@@ -42,14 +42,14 @@ class CServer : public IServer {
      *
      * @return Object which represent client class (CReceiver)
      */
-    IReceiver *GetClient() const;
+    IReceiver *GetReceiver() const;
 
   signals:
     /**
      * @brief CreateClient signal is emitted when
      *        server create client
      */
-    void CreateClient();
+    void CreateReceiver();
 
     /**
      * @brief MessageStatus signal is emmitted when status

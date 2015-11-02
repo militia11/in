@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core network gui
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = controllers
 TEMPLATE = lib
@@ -13,11 +14,13 @@ CONFIG += staticlib
 INCLUDEPATH += ../../..
 
 SOURCES += \
-    CClient.cpp
+	CClient.cpp \
+	CClientMock.cpp
 
 HEADERS += \
     CClient.h \
-    IClient.h
+	IClient.h \
+	CClientMock.h
 
 LIBS += -L../src/dao -ldao
 

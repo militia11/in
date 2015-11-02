@@ -71,12 +71,12 @@ void CMainWindow::DisplayData(QByteArray aData) {
 }
 
 void CMainWindow::ClientConnected() {
-    connect(mServer->GetClient(), SIGNAL(ReadData(QByteArray)), this,
+    connect(mServer->GetReceiver(), SIGNAL(ReadData(QByteArray)), this,
             SLOT(DisplayData(QByteArray))) ;
 }
 
 void CMainWindow::ClientCreated() {
-    connect(mServer->GetClient(), SIGNAL(MessageStatus(const char *, int)),
+    connect(mServer->GetReceiver(), SIGNAL(MessageStatus(const char *, int)),
             this, SLOT(ShowStatus(const char *, int)));
 }
 

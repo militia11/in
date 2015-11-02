@@ -24,23 +24,23 @@ enum ReceiveDataMode {
  * @brief The CReceiver class receive photos from client in client-server architecture
  *
  * CReceiver class inherits from QObject. This class have responsibility
- * of coordinate communication with CClient class from Android-side application
+ * of coordinate communication with CReceiver class from Android-side application
  *
  * @todo dopisac wiecej pozniej
  */
-class CClient : public IReceiver {
+class CReceiver : public IReceiver {
     Q_OBJECT
 
   public:
     /**
      * @brief CReceiver constructor
      */
-		CClient();
+    CReceiver();
 
     /**
      * @brief CReceiver destructor
      */
-    ~ CClient();
+    ~ CReceiver();
 
     /**
      * @brief Method called when server receive incoming connection,

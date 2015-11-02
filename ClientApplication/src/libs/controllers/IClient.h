@@ -66,7 +66,7 @@ class IClient : public QObject {
 		 */
 		virtual bool ConnectToHost(QString aHost) = 0;
 
-	private:
+  //private:
 		/**
 		 * @brief CalculateFileDataChecksum calculate file checksum
 		 *

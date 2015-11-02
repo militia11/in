@@ -1,10 +1,9 @@
 #include <QString>
 #include <QtTest>
 
-#include "src/libs/testssupport/CClientMock.h"
-//#include "../ClientApplication/src/libs/controllers/IClient.h"
+#include "../ClientApplication/src/libs/controllers/CClientMock.h"
+#include "../ServerApplication/src/libs/controllers/CServer.h"
 
-#include "src/libs/controllers/CServer.h"
 class ListeningTests : public QObject {
     Q_OBJECT
 

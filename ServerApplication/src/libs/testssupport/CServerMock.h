@@ -27,7 +27,7 @@ class CServerMock : public IServer {
      *
 		 * @return Object which represent  client class (CReceiver)
      */
-    CClient *GetClient() const;
+    CReceiver *GetReceiver() const;
 
 		private slots:
     /**

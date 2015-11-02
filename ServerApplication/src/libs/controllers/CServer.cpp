@@ -7,7 +7,7 @@
 #include <QDebug>
 
 CServer::CServer() :
-    mReceiver(NULL) {
+    mReceiver(nullptr) {
     UpdatePortNumber();
 
     connect(this, SIGNAL(newConnection()), this, SLOT(IncomingConnection()));
@@ -32,13 +32,13 @@ void CServer::StopListening() {
     close();
 }
 
-IReceiver *CServer::GetClient() const {
+IReceiver *CServer::GetReceiver() const {
     return mReceiver;
 }
 
 void CServer::IncomingConnection() {
-    mReceiver = new CClient();
-    emit CreateClient();
+    mReceiver = new CReceiver();
+    emit CreateReceiver();
 
     QTcpSocket *vSocket = nextPendingConnection();
     mReceiver->Connect(vSocket);

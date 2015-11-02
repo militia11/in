@@ -11,6 +11,7 @@ TARGET = testssupport
 TEMPLATE = lib
 CONFIG += staticlib c++11
 
+
 INCLUDEPATH += ../../..
 
 #LIBS += -L../src/controllers -lcontrollers

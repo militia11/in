@@ -17,13 +17,17 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 INCLUDEPATH += ../../../../../../ServerApplication
-
-LIBS += -L../../../../../src/libs/ui -lui
+LIBS += -L../../../../../../ClientApplication/src/libs/controllers -lcontrollers
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
-LIBS += -L../../../../../src/libs/dao -ldao
-LIBS += -L../../../../../src/libs/testssupport -ltestssupport
+LIBS += -L../../../../../src/libs/ui -lui
 
-#LIBS += -L../../../../../../ClientApplication/src/libs/testssupport -ltestssupport
+LIBS += -L../../../../../src/libs/dao -ldao
+
+
+
+
+#LIBS += -L../../../../../src/libs/testssupport -ltestssupport
+
 
 SOURCES += ListeningTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

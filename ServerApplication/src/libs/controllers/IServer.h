@@ -29,7 +29,7 @@ class IServer : public QTcpServer {
      *
      * @return Object which represent  client class (CReceiver)
      */
-    virtual IReceiver *GetClient() const = 0;
+    virtual IReceiver *GetReceiver() const = 0;
 
 	private slots:
     /**

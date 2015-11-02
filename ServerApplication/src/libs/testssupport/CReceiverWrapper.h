@@ -8,7 +8,7 @@
  *
  * Used to acces to some private/protected variables in tests
  */
-class CReceiverWrapper : public CClient {
+class CReceiverWrapper : public CReceiver {
   public:
     CReceiverWrapper();
 
