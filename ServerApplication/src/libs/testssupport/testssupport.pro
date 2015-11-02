@@ -21,14 +21,19 @@ HEADERS += \
     CDatabaseConnectionDialogWrapper.h \
     CServerSettingsDialogWrapper.h \
 	CReceiverMock.h \
-    CServerMock.h
+	CServerMock.h \
+	CClientMock.h
 
 SOURCES += \
 	CReceiverWrapper.cpp \
     CDatabaseConnectionDialogWrapper.cpp \
     CServerSettingsDialogWrapper.cpp \
 	CReceiverMock.cpp \
-    CServerMock.cpp
+	CServerMock.cpp \
+	CClientMock.cpp
 
+LIBS += -L../../../ClientApplication/src/libs/controllers -lcontrollers
 LIBS += -L../../src/libs/ui -lui
 LIBS += -L../../src/libs/controllers -lcontrollers
+
+

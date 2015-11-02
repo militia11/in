@@ -21,8 +21,9 @@ INCLUDEPATH += ../../../../../../ServerApplication
 LIBS += -L../../../../../src/libs/ui -lui
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
 LIBS += -L../../../../../src/libs/dao -ldao
+LIBS += -L../../../../../src/libs/testssupport -ltestssupport
 
-LIBS += -L../../../../../../ClientApplication/src/libs/testssupport -ltestssupport
+#LIBS += -L../../../../../../ClientApplication/src/libs/testssupport -ltestssupport
 
 SOURCES += ListeningTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

@@ -54,7 +54,6 @@ class IClient : public QObject {
 		 */
     virtual QByteArray ConvertImageToByteArray(const QImage &aImage) = 0;
 
-	public slots:
 		/**
 		 * @brief ReadData method read received data
 		 */

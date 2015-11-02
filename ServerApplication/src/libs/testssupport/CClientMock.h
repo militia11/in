@@ -1,9 +1,11 @@
 #ifndef CCLIENTMOCK_H
 #define CCLIENTMOCK_H
 
-#include "src/libs/controllers/IClient.h"
-
-class CClientMock : public IClient {
+//#include "../ClientApplication/src/libs/controllers/IClient.h"
+#include <QByteArray>
+#include <QImage>
+class CClientMock {
+    //: public IClient {
 	public:
 	/**
 		* @brief GetLog get actual log
@@ -52,7 +54,7 @@ class CClientMock : public IClient {
 		 *				of photos stored on mobile device and update
 		 *				server photos
 		 */
-		void UpdateServerPhotos();
+    virtual void UpdateServerPhotos();
 
 		/**
 		 * @brief Mock of ConvertImageToByteArray method

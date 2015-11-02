@@ -13,11 +13,5 @@ CONFIG += staticlib c++11
 
 INCLUDEPATH += ../../..
 
-SOURCES += \
-    CClientMock.cpp
-
-HEADERS += \
-    CClientMock.h
-
 #LIBS += -L../src/controllers -lcontrollers
 #LIBS += -L../dao -ldao
