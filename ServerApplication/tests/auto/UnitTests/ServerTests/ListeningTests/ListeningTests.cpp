@@ -19,7 +19,7 @@ ListeningTests::ListeningTests() {
 
 void ListeningTests::TestStopListening() {
 CServer se;
-CClientMock cm;
+//CClientMock cm;
 }
 
 QTEST_APPLESS_MAIN(ListeningTests)

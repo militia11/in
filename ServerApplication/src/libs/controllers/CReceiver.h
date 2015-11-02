@@ -6,10 +6,10 @@
 #include <QTcpSocket>
 #include <QObject>
 
-#include "src/libs/controllers/CStorePhotoTransaction.h"
-#include "src/libs/controllers/CRetrievePhotoTransaction.h"
-#include "src/libs/controllers/IReceiver.h"
-#include "src/libs/dao/CChecksumList.h"
+#include "../ServerApplication/src/libs/controllers/CStorePhotoTransaction.h"
+#include "../ServerApplication/src/libs/controllers/CRetrievePhotoTransaction.h"
+#include "../ServerApplication/src/libs/controllers/IReceiver.h"
+#include "../ServerApplication/src/libs/dao/CChecksumList.h"
 
 /**
  * @brief The ReceiveDataMode is enumeration of kinds receive data

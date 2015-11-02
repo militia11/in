@@ -1,17 +1,19 @@
 #ifndef CCLIENTMOCK_H
 #define CCLIENTMOCK_H
+
 #include "../ClientApplication/src/libs/controllers/IClient.h"
+
 #include <QByteArray>
 #include <QImage>
 #include <QObject>
 class CClientMock : public IClient {
-  Q_OBJECT
+	Q_OBJECT
  public:
   /**
     * @brief GetLog get actual log
     * @return Log
     */
-  virtual const QString GetLog() const;
+	const QString GetLog() const;
 
   /**
    * @brief Mock of WriteData method
