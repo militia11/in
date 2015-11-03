@@ -2,14 +2,12 @@
 
 #include "../ServerApplication/src/libs/controllers/CSettings.h"
 #include "../ServerApplication/src/libs/controllers/CReceiver.h"
-
+#include "../ServerApplication/src/libs/controllers/CReceiverMock.h"
 #include <QTcpSocket>
 #include <QDebug>
 
 CServer::CServer(IReceiverFactory *aReceiversFactory) :
-	mReceiversFactory(aReceiversFactory)
-	//,mReceiver(nullptr)
-{
+	mReceiversFactory(aReceiversFactory) {
   UpdatePortNumber();
 	mReceiver = mReceiversFactory->Make();
   connect(this, SIGNAL(newConnection()), this, SLOT(IncomingConnection()));
@@ -46,7 +44,7 @@ void CServer::IncomingConnection() {
   QTcpSocket *vSocket = nextPendingConnection();
   mReceiver->Connect(vSocket);
 
-	CReceiver *vReceiver = dynamic_cast<CReceiver *>(mReceiver);
+	CReceiverMock *vReceiver = dynamic_cast<CReceiverMock *>(mReceiver);
 	if(mReceiver) {
 		qDebug()<<"pupa";
 		//PauseAccepting();
