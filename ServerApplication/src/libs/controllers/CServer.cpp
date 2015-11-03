@@ -2,7 +2,7 @@
 
 #include "../ServerApplication/src/libs/controllers/CSettings.h"
 #include "../ServerApplication/src/libs/controllers/CReceiver.h"
-#include "../ServerApplication/src/libs/controllers/CReceiverMock.h"
+
 #include <QTcpSocket>
 #include <QDebug>
 
@@ -44,7 +44,7 @@ void CServer::IncomingConnection() {
   QTcpSocket *vSocket = nextPendingConnection();
   mReceiver->Connect(vSocket);
 
-	CReceiverMock *vReceiver = dynamic_cast<CReceiverMock *>(mReceiver);
+	CReceiver *vReceiver = dynamic_cast<CReceiver *>(mReceiver);
 	if(mReceiver) {
 		qDebug()<<"pupa";
 		//PauseAccepting();
