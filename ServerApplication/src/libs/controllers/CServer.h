@@ -45,11 +45,11 @@ class CServer : public IServer {
     IReceiver *GetReceiver() const;
 
   signals:
-    /**
-     * @brief CreateClient signal is emitted when
-     *        server create client
-     */
-    void CreateReceiver();
+		/**
+		 * @brief CreateClient signal is emitted when
+		 *        server create client
+		 */
+		void CreateReceiver();
 
     /**
      * @brief MessageStatus signal is emmitted when status
@@ -83,13 +83,6 @@ class CServer : public IServer {
     void PauseAccepting();
 
   private:
-    /**
-     * @brief CreateNewReceiver creates new CReceiver object
-     *
-     * Put new CReceiver object into class member object
-     */
-    void CreateNewReceiver();
-
     /**
      * @brief Method connect client's signals to server's slots
      */

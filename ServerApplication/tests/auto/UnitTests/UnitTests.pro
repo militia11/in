@@ -5,4 +5,5 @@ SUBDIRS += \
     ReceiverTests \
     SettingsTests \
     TestStorePhoto \
-    ChecksumTests
+    ChecksumTests \
+    CReceiverFactoryTests

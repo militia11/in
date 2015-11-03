@@ -15,13 +15,6 @@ class IServer : public QTcpServer {
 
   public:
     /**
-     * @brief CreateNewReceiver creates new CReceiver object
-     *
-     * Put new CReceiver object into class member object
-     */
-    virtual void CreateNewReceiver() = 0;
-
-    /**
      * @brief Method called to start server
      */
     virtual void Run() = 0;

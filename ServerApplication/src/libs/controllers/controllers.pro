@@ -23,13 +23,16 @@ HEADERS += \
     CStorePhotoTransaction.h \
 	IReceiver.h \
     IServer.h \
-	CReceiver.h
+	CReceiver.h \
+    IReceiverFactory.h \
+    CReceiverFactoryImplementation.h
 
 SOURCES += \
     CServer.cpp \
     CSettings.cpp \
     CRetrievePhotoTransaction.cpp \
     CStorePhotoTransaction.cpp \
-    CReceiver.cpp
+    CReceiver.cpp \
+    CReceiverFactoryImplementation.cpp
 
 CONFIG += c++11

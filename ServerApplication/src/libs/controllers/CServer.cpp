@@ -37,7 +37,7 @@ IReceiver *CServer::GetReceiver() const {
 }
 
 void CServer::IncomingConnection() {
-  CreateNewReceiver();
+mReceiver = new CReceiver();
   emit CreateReceiver();
 
   QTcpSocket *vSocket = nextPendingConnection();
@@ -57,10 +57,6 @@ void CServer::ResumeAccepting() {
 void CServer::PauseAccepting() {
   emit ChangeServerStatus();
   QTcpServer::pauseAccepting();
-}
-
-void CServer::CreateNewReceiver() {
-  mReceiver = new CReceiver();
 }
 
 void CServer::ConnectClientSignals() {
