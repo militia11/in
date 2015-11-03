@@ -35,20 +35,21 @@ class IReceiver : public QObject {
      */
     virtual QTcpSocket *GetSocket() const = 0;
 
-  //public slots:
     /**
      * @brief Method called on new incomming data
      */
     virtual void NewData() = 0;
-
-  //private slots:
+//virtual   void Disconnect() =0;
     /**
      * @brief Slot called when connection closed
      */
     virtual void Disconnected() = 0;
 
-  //protected:
-    ///@todo opis
+		/**
+		 * @brief Mock of ConvertMessageArrayToInt method
+		 *
+		 * @return Checksum
+		 */
     virtual int ConvertMessageArrayToInt() = 0;
 
     /**

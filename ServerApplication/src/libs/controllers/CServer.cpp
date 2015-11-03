@@ -6,10 +6,12 @@
 #include <QTcpSocket>
 #include <QDebug>
 
-CServer::CServer() :
-  mReceiver(nullptr) {
+CServer::CServer(IReceiverFactory *aReceiversFactory) :
+	mReceiversFactory(aReceiversFactory)
+	//,mReceiver(nullptr)
+{
   UpdatePortNumber();
-
+	mReceiver = mReceiversFactory->Make();
   connect(this, SIGNAL(newConnection()), this, SLOT(IncomingConnection()));
 }
 
@@ -22,7 +24,7 @@ void CServer::Run() {
   if (!this->listen(QHostAddress::Any, mPortNumber)) {
     MessageStatus("Nie można wystartować serwera", 2400);
   } else {
-    MessageStatus("Serwer nasłuchuje... ", 2400);
+		MessageStatus("Serwer nasłuchuje...", 2400);
   }
 }
 
@@ -37,13 +39,18 @@ IReceiver *CServer::GetReceiver() const {
 }
 
 void CServer::IncomingConnection() {
-mReceiver = new CReceiver();
+	// tu powinno ale testy?
+	//mReceiver = mReceiversFactory->Make();
   emit CreateReceiver();
 
   QTcpSocket *vSocket = nextPendingConnection();
   mReceiver->Connect(vSocket);
 
-  PauseAccepting();
+	CReceiver *vReceiver = dynamic_cast<CReceiver *>(mReceiver);
+	if(mReceiver) {
+		qDebug()<<"pupa";
+		//PauseAccepting();
+	}
 
   const char *vMessage = "Witaj kliencie\n";
   mReceiver->ResponeToClient(vMessage);
@@ -63,8 +70,8 @@ void CServer::ConnectClientSignals() {
   connect(mReceiver, SIGNAL(Disconnect()), this, SLOT(ResumeAccepting()),
           Qt::DirectConnection);
 
-  connect(mReceiver, SIGNAL(Connected()), this, SLOT(PauseAccepting()),
-          Qt::DirectConnection);
+	connect(mReceiver, SIGNAL(Connected()), this, SLOT(PauseAccepting()),
+					Qt::DirectConnection);
 }
 
 void CServer::UpdatePortNumber() {

@@ -15,12 +15,12 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-#INCLUDEPATH += ../../../../../ServerApplication
+INCLUDEPATH += ../../../../../ServerApplication
 
 SOURCES += CReceiverFactoryTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 #LIBS += -L../../../../src/libs/testssupport -ltestssupport
-#LIBS += -L../../../../src/libs/controllers -lcontrollers
-#LIBS += -L../../../../src/libs/ui -lui
-#LIBS += -L../../../../src/libs/dao -ldao
+LIBS += -L../../../../src/libs/controllers -lcontrollers
+LIBS += -L../../../../src/libs/ui -lui
+LIBS += -L../../../../src/libs/dao -ldao

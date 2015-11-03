@@ -31,7 +31,6 @@ class IServer : public QTcpServer {
      */
     virtual IReceiver *GetReceiver() const = 0;
 
-  //private slots:
     /**
      * @brief Slot called when new incoming connection come
      */
@@ -54,7 +53,7 @@ class IServer : public QTcpServer {
 
     /**
      * @brief UpdatePortNum get and update actually port number
-     *              from programm config file to application
+		 *        from programm config file to application
      */
 		virtual void UpdatePortNumber() = 0;
 };

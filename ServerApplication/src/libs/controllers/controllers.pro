@@ -11,7 +11,7 @@ QT       += network core gui
 
 TARGET = controllers
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib c++11
 
 INCLUDEPATH += ../../..
 
@@ -25,7 +25,9 @@ HEADERS += \
     IServer.h \
 	CReceiver.h \
     IReceiverFactory.h \
-    CReceiverFactoryImplementation.h
+    CReceiverFactoryImplementation.h \
+    CReceiverMock.h \
+    CReceiverMockFactory.h
 
 SOURCES += \
     CServer.cpp \
@@ -33,6 +35,6 @@ SOURCES += \
     CRetrievePhotoTransaction.cpp \
     CStorePhotoTransaction.cpp \
     CReceiver.cpp \
-    CReceiverFactoryImplementation.cpp
-
-CONFIG += c++11
+    CReceiverFactoryImplementation.cpp \
+    CReceiverMock.cpp \
+    CReceiverMockFactory.cpp

@@ -51,9 +51,9 @@ class CMainWindow : public QMainWindow {
     void ClientConnected();
 
     /**
-     * @brief ClientCreated slot is call when client was created
+		 * @brief ReceiverCreated slot is call when client was created
      */
-    void ClientCreated();
+		void ReceiverCreated();
 
     /**
      * @brief ShowStatus

@@ -1,7 +1,7 @@
 #ifndef CSERVER_H
 #define CSERVER_H
 
-//#include "../ServerApplication/src/libs/controllers/IReceiver.h"
+#include "../ServerApplication/src/libs/controllers/IReceiverFactory.h"
 #include "../ServerApplication/src/libs/controllers/IServer.h"
 
 /**
@@ -20,7 +20,7 @@ class CServer : public IServer {
     /**
      * @brief CServer constructor
      */
-		CServer();
+		CServer(IReceiverFactory *aReceiversFactory);
 
     /**
      * @brief CServer destructor
@@ -65,8 +65,8 @@ class CServer : public IServer {
      *        changed
      */
     void ChangeServerStatus();
-
-  private slots:
+//private zmienic spowrotem
+	public slots:
     /**
      * @brief Slot called when new incoming connection come
      */
@@ -83,9 +83,9 @@ class CServer : public IServer {
     void PauseAccepting();
 
   private:
-    /**
-     * @brief Method connect client's signals to server's slots
-     */
+		/**
+		 * @brief Method connect client's signals to server's slots
+		 */
 		void ConnectClientSignals();
 
     /**
@@ -93,6 +93,11 @@ class CServer : public IServer {
      *        from programm config file to application
      */
     void UpdatePortNumber();
+
+		/**
+		 * @brief mReceiversFactory is Receivers factory
+		 */
+		IReceiverFactory *mReceiversFactory;
 
     /**
      * @brief mReceiver communicate with mobile device and receives data

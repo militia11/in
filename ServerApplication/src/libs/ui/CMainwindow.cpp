@@ -1,14 +1,14 @@
 #include "CMainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QBuffer>
+#include <QImage>
+#include <QImageReader>
 #include <QMessageBox>
 
 #include "CDatabaseConnectionDialog.h"
 #include "CServerSettingsDialog.h"
-
-#include <QBuffer>
-#include <QImage>
-#include <QImageReader>
+#include "../ServerApplication/src/libs/controllers/CReceiverFactoryImplementation.h"
 
 extern CRepository gRepository;
 
@@ -75,7 +75,7 @@ void CMainWindow::ClientConnected() {
             SLOT(DisplayData(QByteArray))) ;
 }
 
-void CMainWindow::ClientCreated() {
+void CMainWindow::ReceiverCreated() {
     connect(mServer->GetReceiver(), SIGNAL(MessageStatus(const char *, int)),
             this, SLOT(ShowStatus(const char *, int)));
 }
@@ -85,7 +85,7 @@ void CMainWindow::ShowStatus(const char *aMessageStatus, int aTimeMsc) {
 }
 
 void CMainWindow::RunServer() {
-		mServer = new CServer();
+		mServer = new CServer(new CReceiverFactoryImplementation);
     ConnectServerSignals();
     mServer->Run();
 
@@ -131,8 +131,8 @@ void CMainWindow::ConnectServerSignals() {
     connect(mServer, SIGNAL(newConnection()), this,
             SLOT(ClientConnected()));
 
-    connect(mServer, SIGNAL(CreateClient()), this,
-            SLOT(ClientCreated()));
+		connect(mServer, SIGNAL(CreateReceiver()), this,
+						SLOT(ReceiverCreated()));
 
     connect(mServer, SIGNAL(ChangeServerStatus()), this,
             SLOT(ChangeActionServerStatus()));

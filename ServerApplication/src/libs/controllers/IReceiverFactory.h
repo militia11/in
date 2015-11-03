@@ -15,7 +15,7 @@ class IReceiverFactory {
 		 *        to create CReceiver or CReceiverMock for test
 		 * @return Receiver object: CReceiver or CReceiverMock
 		 */
-		virtual IReceiver *Make(QString aReceiverName) = 0;
+		virtual IReceiver *Make() = 0;//QString aReceiverName
 };
 
 #endif // IRECEIVERFACTORY_H

@@ -4,4 +4,4 @@ SUBDIRS += \
     ServerApplication \
     ClientApplication
 
-ClientApplication.depends += ServerApplication
+#ClientApplication.depends += ServerApplication
