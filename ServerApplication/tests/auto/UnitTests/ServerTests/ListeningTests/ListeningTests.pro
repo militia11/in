@@ -8,7 +8,7 @@ include(../../../../../../AutogeneratingEmendation.pri)
 include(../../../../../../LinkingLibraries.pri)
 
 QT       += testlib gui network core
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+#greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ListeningTests
 CONFIG   += console
@@ -21,8 +21,8 @@ DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 INCLUDEPATH += ../../../../../../ServerApplication
 
-#LIBS += -L../../../../../../ClientApplication/src/libs/controllers -lcontrollers
-
+LIBS += -L../../../../../src/libs/testssupport -ltestssupport
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
 LIBS += -L../../../../../src/libs/ui -lui
 LIBS += -L../../../../../src/libs/dao -ldao
+

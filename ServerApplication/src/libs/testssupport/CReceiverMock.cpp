@@ -9,10 +9,14 @@ const QString CReceiverMock::GetLog() const {
 }
 
 void CReceiverMock::NewData() {
-
+  mLog += "->NewData";
 }
 
 void CReceiverMock::RouteData(char aData) {
+
+}
+
+void CReceiverMock::ServeReceivedMessage() {
 
 }
 
@@ -25,10 +29,14 @@ void CReceiverMock::ServeReceivedFileData() {
 }
 
 uint16_t CReceiverMock::CalculateFileDataChecksum(QByteArray aData) {
-
+  return 0;
 }
 
 int32_t CReceiverMock::ByteArrayToInt(QByteArray aData) {
+return 0;
+}
+
+void CReceiverMock::Connect(QTcpSocket *aSocket) {
 
 }
 
@@ -41,7 +49,7 @@ void CReceiverMock::Disconnected() {
 }
 
 int CReceiverMock::ConvertMessageArrayToInt() {
-
+return 0;
 }
 
 void CReceiverMock::ResponeToClient(QByteArray aData) {

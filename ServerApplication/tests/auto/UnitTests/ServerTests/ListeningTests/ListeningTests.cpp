@@ -1,8 +1,8 @@
 #include <QString>
 #include <QtTest>
 
-#include "../ClientApplication/src/libs/controllers/CClientMock.h"
 #include "../ServerApplication/src/libs/controllers/CServer.h"
+#include "../ServerApplication/src/libs/testssupport/CReceiverMock.h"
 
 class ListeningTests : public QObject {
     Q_OBJECT
@@ -18,8 +18,8 @@ ListeningTests::ListeningTests() {
 }
 
 void ListeningTests::TestStopListening() {
-CServer se;
-//CClientMock cm;
+  CServer vSe;
+  CReceiverMock *rm = new CReceiverMock;
 }
 
 QTEST_APPLESS_MAIN(ListeningTests)

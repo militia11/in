@@ -15,6 +15,13 @@ class IServer : public QTcpServer {
 
   public:
     /**
+     * @brief CreateNewReceiver creates new CReceiver object
+     *
+     * Put new CReceiver object into class member object
+     */
+    virtual void CreateNewReceiver() = 0;
+
+    /**
      * @brief Method called to start server
      */
     virtual void Run() = 0;
@@ -31,7 +38,7 @@ class IServer : public QTcpServer {
      */
     virtual IReceiver *GetReceiver() const = 0;
 
-	private slots:
+  //private slots:
     /**
      * @brief Slot called when new incoming connection come
      */

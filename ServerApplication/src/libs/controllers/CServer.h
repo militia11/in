@@ -84,6 +84,13 @@ class CServer : public IServer {
 
   private:
     /**
+     * @brief CreateNewReceiver creates new CReceiver object
+     *
+     * Put new CReceiver object into class member object
+     */
+    void CreateNewReceiver();
+
+    /**
      * @brief Method connect client's signals to server's slots
      */
 		void ConnectClientSignals();

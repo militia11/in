@@ -11,11 +11,10 @@
 #include <QTcpSocket>
 
 /**
- * @brief The IReceiver class is interface of CReceiver class
+ * @brief The IReceiver class is interface
  */
 class IReceiver : public QObject {
 		Q_OBJECT
-
   public:
     /**
      * @brief Method called when server receive incoming connection,
@@ -36,19 +35,19 @@ class IReceiver : public QObject {
      */
     virtual QTcpSocket *GetSocket() const = 0;
 
-  public slots:
+  //public slots:
     /**
      * @brief Method called on new incomming data
      */
     virtual void NewData() = 0;
 
-	private slots:
+  //private slots:
     /**
      * @brief Slot called when connection closed
      */
     virtual void Disconnected() = 0;
 
-  protected:
+  //protected:
     ///@todo opis
     virtual int ConvertMessageArrayToInt() = 0;
 

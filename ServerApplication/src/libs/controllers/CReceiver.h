@@ -99,7 +99,11 @@ class CReceiver : public IReceiver {
     void Disconnected();
 
   protected:
-    ///@todo opis
+    /**
+     * @brief Mock of ConvertMessageArrayToInt method
+     *
+     * @return Checksum
+     */
     int ConvertMessageArrayToInt();
 
     /**

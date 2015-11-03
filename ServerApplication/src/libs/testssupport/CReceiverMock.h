@@ -7,27 +7,30 @@
  * @brief Mock of CReceiver class used in unit tests
  */
 class CReceiverMock : public IReceiver {
+    Q_OBJECT
   public:
     /**
      * @brief GetLog get actual log
+     *
      * @return Log
      */
 		const QString GetLog() const;
 
     /**
-			 * @brief Method called when server receive incoming connection,
-			 *        client is connecting to specify port
+     * @brief Method called when server receive incoming connection,
+     *        client is connecting to specify port
      */
     void Connect(QTcpSocket *aSocket);
 
 		/**
-		* @brief Mock of ResponeToClient method
-		*/
+     * @brief Mock of ResponeToClient method
+     */
     void ResponeToClient(QByteArray aData = 0);
 
     /**
      * @brief Mock of GetSocket method
-			 * @return CReceiver socket
+     *
+     * @return CReceiver socket
      */
     QTcpSocket *GetSocket() const;
 
@@ -43,6 +46,8 @@ class CReceiverMock : public IReceiver {
 
     /**
      * @brief Mock of ConvertMessageArrayToInt method
+     *
+     * @return Checksum
      */
     int ConvertMessageArrayToInt();
 
@@ -55,7 +60,6 @@ class CReceiverMock : public IReceiver {
      * @brief Mock of ByteArrayToInt method
      *
      * @param aData array
-     *
      * @return Integer number converted from array
      */
     int32_t ByteArrayToInt(QByteArray aData);
@@ -94,7 +98,7 @@ class CReceiverMock : public IReceiver {
     /**
      * @brief Mock of ConnectSocketSignals method
      */
-    inline void ConnectSocketSignals();
+    void ConnectSocketSignals();
 
   protected:
     /**

@@ -17,7 +17,7 @@ TestExpectListeningFail::TestExpectListeningFail() {
 }
 
 void TestExpectListeningFail::testCase() {
-    // Check status of listening
+   // Check status of listening
 	 /* CServer *vServer = new CServer;
 
     QEXPECT_FAIL("", "Serwer nie uruchomiony "
