@@ -27,7 +27,8 @@ HEADERS += \
     IReceiverFactory.h \
     CReceiverFactoryImplementation.h \
     CReceiverMock.h \
-    CReceiverMockFactory.h
+    CReceiverMockFactory.h \
+    CServerWrapper.h
 
 SOURCES += \
     CServer.cpp \
@@ -37,4 +38,5 @@ SOURCES += \
     CReceiver.cpp \
     CReceiverFactoryImplementation.cpp \
     CReceiverMock.cpp \
-    CReceiverMockFactory.cpp
+    CReceiverMockFactory.cpp \
+    CServerWrapper.cc

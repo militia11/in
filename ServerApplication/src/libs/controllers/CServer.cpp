@@ -2,6 +2,7 @@
 
 #include "../ServerApplication/src/libs/controllers/CSettings.h"
 #include "../ServerApplication/src/libs/controllers/CReceiver.h"
+#include "../ServerApplication/src/libs/controllers/CReceiverMock.h"
 
 #include <QTcpSocket>
 #include <QDebug>
@@ -37,17 +38,15 @@ IReceiver *CServer::GetReceiver() const {
 }
 
 void CServer::IncomingConnection() {
-	// tu powinno ale testy?
-	//mReceiver = mReceiversFactory->Make();
-  emit CreateReceiver();
+  emit ConnectClient();
 
   QTcpSocket *vSocket = nextPendingConnection();
   mReceiver->Connect(vSocket);
+  IReceiver *vIReceiver = mReceiver;
+  CReceiver *vReceiver = dynamic_cast<CReceiver *>(vIReceiver);
 
-	CReceiver *vReceiver = dynamic_cast<CReceiver *>(mReceiver);
-	if(mReceiver) {
-		qDebug()<<"pupa";
-		//PauseAccepting();
+  if(vReceiver) {
+    PauseAccepting();
 	}
 
   const char *vMessage = "Witaj kliencie\n";

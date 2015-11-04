@@ -129,9 +129,9 @@ void CMainWindow::ConnectServerSignals() {
             SLOT(ShowStatus(const char *, int)));
 
     connect(mServer, SIGNAL(newConnection()), this,
-            SLOT(ClientConnected()));
+            SLOT(ConnectClient()));
 
-		connect(mServer, SIGNAL(CreateReceiver()), this,
+    connect(mServer, SIGNAL(ConnectClient()), this,
 						SLOT(ReceiverCreated()));
 
     connect(mServer, SIGNAL(ChangeServerStatus()), this,

@@ -15,12 +15,12 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../../../../src
+INCLUDEPATH += ../../../../../../ServerApplication
 
 SOURCES += \
     tst_ClientNotConnectedToServer.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
-LIBS += -L../../../../../src/libs/ui -lui
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
+LIBS += -L../../../../../src/libs/ui -lui
 LIBS += -L../../../../../src/libs/dao -ldao
