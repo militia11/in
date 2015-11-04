@@ -9,14 +9,13 @@
  * @brief The CReceiverFactoryImplementation class is factory of
  *        CReceiver object
  */
-class CReceiverFactoryImplementation : public IReceiverFactory
-{
-public:
-   /**
-    * @brief Make
-    * @return CReceiver object
-    */
-	 IReceiver* Make();//QString aReceiverName
+class CReceiverFactoryImplementation : public IReceiverFactory {
+  public:
+    /**
+     * @brief Make
+     * @return CReceiver object
+     */
+    IReceiver *Make();//QString aReceiverName
 };
 
 #endif // CRECEIVERFACTORYIMPLEMENTATION_H

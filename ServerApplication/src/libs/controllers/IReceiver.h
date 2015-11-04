@@ -14,13 +14,13 @@
  * @brief The IReceiver class is interface
  */
 class IReceiver : public QObject {
-		Q_OBJECT
+    Q_OBJECT
   public:
     /**
      * @brief Method called when server receive incoming connection,
      *        client is connecting to specify port
      */
-		virtual void Connect(QTcpSocket *aSocket) = 0;
+    virtual void Connect(QTcpSocket *aSocket) = 0;
 
     /**
      * @brief Method to respone information to client
@@ -39,17 +39,17 @@ class IReceiver : public QObject {
      * @brief Method called on new incomming data
      */
     virtual void NewData() = 0;
-//virtual   void Disconnect() =0;
+    //virtual   void Disconnect() =0;
     /**
      * @brief Slot called when connection closed
      */
     virtual void Disconnected() = 0;
 
-		/**
-		 * @brief Mock of ConvertMessageArrayToInt method
-		 *
-		 * @return Checksum
-		 */
+    /**
+     * @brief Mock of ConvertMessageArrayToInt method
+     *
+     * @return Checksum
+     */
     virtual int ConvertMessageArrayToInt() = 0;
 
     /**

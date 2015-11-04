@@ -10,48 +10,48 @@
  */
 class CServerMock : public IServer {
   public:
-		const QString GetLog() const;
+    const QString GetLog() const;
 
     /**
-		 * @brief Mock of Run method
+    	 * @brief Mock of Run method
      */
     void Run();
 
     /**
-		 * @brief Mock of StopListening method
+    	 * @brief Mock of StopListening method
      */
     void StopListening();
 
     /**
-		 * @brief Mock of GetClient method
+    	 * @brief Mock of GetClient method
      *
-		 * @return Object which represent  client class (CReceiver)
+    	 * @return Object which represent  client class (CReceiver)
      */
-    CReceiver *GetReceiver() const;
+    CClient *GetReceiver() const;
 
-		private slots:
+  private slots:
     /**
-		 * @brief Mock of IncomingConnection method
+    	 * @brief Mock of IncomingConnection method
      */
     void IncomingConnection();
 
     /**
-		 * @brief Mock of ResumeAccepting method
+    	 * @brief Mock of ResumeAccepting method
      */
     void ResumeAccepting();
 
     /**
-		 * @brief Mock of PauseAccepting method
+    	 * @brief Mock of PauseAccepting method
      */
     void PauseAccepting();
 
     /**
-		 * @brief Mock of ConnectClientSignals method
+    	 * @brief Mock of ConnectClientSignals method
      */
     inline void ConnectClientSignals();
 
     /**
-		 * @brief Mock of UpdatePortNum method
+    	 * @brief Mock of UpdatePortNum method
      */
     inline void UpdatePortNumber();
 
@@ -59,7 +59,7 @@ class CServerMock : public IServer {
     /**
      * @brief Log of called methods
      */
-		mutable QString mLog;
+    mutable QString mLog;
 };
 
 #endif // CSERVERMOCK_H

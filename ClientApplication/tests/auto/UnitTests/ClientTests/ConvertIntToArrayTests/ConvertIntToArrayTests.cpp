@@ -5,13 +5,13 @@
 #include "src/libs/dao/CRepository.h"
 
 class ConvertIntToArrayTests : public QObject {
-		Q_OBJECT
+    Q_OBJECT
 
-	public:
-		ConvertIntToArrayTests();
+  public:
+    ConvertIntToArrayTests();
 
-	private Q_SLOTS:
-		void TestConvertIntToArrayTest();
+  private Q_SLOTS:
+    void TestConvertIntToArrayTest();
 };
 
 ConvertIntToArrayTests::ConvertIntToArrayTests() {
@@ -19,21 +19,21 @@ ConvertIntToArrayTests::ConvertIntToArrayTests() {
 }
 
 void ConvertIntToArrayTests::TestConvertIntToArrayTest() {
-		int32_t vNumber = 12;
+    int32_t vNumber = 12;
 
-		CReceiver vClient;
-		QByteArray vConvertedData = vClient.IntToArray(vNumber);
+    CClient vClient;
+    QByteArray vConvertedData = vClient.IntToArray(vNumber);
 
-		QDataStream vStream(&vConvertedData, QIODevice::ReadWrite);
-		vStream << vNumber;
+    QDataStream vStream(&vConvertedData, QIODevice::ReadWrite);
+    vStream << vNumber;
 
-		const char *vDataAsHexAscii =
-				qPrintable(QString(vConvertedData.toHex().toUpper()));
+    const char *vDataAsHexAscii =
+        qPrintable(QString(vConvertedData.toHex().toUpper()));
 
-		QCOMPARE(vDataAsHexAscii, "0000000C");
+    QCOMPARE(vDataAsHexAscii, "0000000C");
 
-		// Qt 5.4 have function toStdString which is ideal for this compare
-		// but it is not compatibile with Qt MySql driver
+    // Qt 5.4 have function toStdString which is ideal for this compare
+    // but it is not compatibile with Qt MySql driver
 }
 
 QTEST_APPLESS_MAIN(ConvertIntToArrayTests)

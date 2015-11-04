@@ -27,20 +27,20 @@ ChecksumTests::ChecksumTests() {
 }
 
 void ChecksumTests::TestAddChecksum() {
-	/*  int16_t vChecksum = 194;
+    /*  int16_t vChecksum = 194;
 
     CChecksumList vChecksumList;
     vChecksumList.AddFileChecksum(vChecksum);
 
     QVERIFY(vChecksumList.CheckFileChecksum(vChecksum));
-*/
+    */
     // lub gdyby w programie byly problemy z dodawaniem sumy i sprawdzaniem
     // CChecksumList *vChecksumList = gRepository.GetChecksumList();
     // vChecksumList->AddFileChecksum(12);
 }
 
 void ChecksumTests::TestCheckFileChecksum() {
-		/*gRepository.SetSettings("sqlite3", "database=:memory:");
+    /*gRepository.SetSettings("sqlite3", "database=:memory:");
     // dzięki temu, że w pamięci testy można w jenkinsie
     gRepository.Connect();
     gRepository.PopulateDatabase();
@@ -57,12 +57,12 @@ void ChecksumTests::TestCheckFileChecksum() {
     int16_t vChecksumAddImage = CalculateFileDataChecksum(vAddedData);
 
     CStorePhotoTransaction vStoreTransaction(
-        vAddedData, vAddedData.size(), vChecksumAddImage);
+    vAddedData, vAddedData.size(), vChecksumAddImage);
     vStoreTransaction.Execute();
 
     CChecksumList *vChecksumList = gRepository.GetChecksumList();
 
-		QVERIFY(vChecksumList->CheckFileChecksum(vChecksumAddImage)); */
+    QVERIFY(vChecksumList->CheckFileChecksum(vChecksumAddImage)); */
 }
 
 uint16_t ChecksumTests::CalculateFileDataChecksum(QByteArray aData) {

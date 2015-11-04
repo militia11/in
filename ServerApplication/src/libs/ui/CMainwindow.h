@@ -35,7 +35,7 @@ class CMainWindow : public QMainWindow {
      */
     bool ConnectToDatabaseAgain();
 
-  private slots:
+	protected slots:
     /**
      * @brief DisplayData is slot to Display data in main window.
      *
@@ -51,9 +51,9 @@ class CMainWindow : public QMainWindow {
     void ClientConnected();
 
     /**
-		 * @brief ReceiverCreated slot is call when client was created
+    	 * @brief ReceiverCreated slot is call when client was created
      */
-		void ReceiverCreated();
+    void ReceiverCreated();
 
     /**
      * @brief ShowStatus
@@ -99,7 +99,7 @@ class CMainWindow : public QMainWindow {
     */
     void closeEvent(QCloseEvent *aEvent);
 
-  private:
+	protected:
     /**
      * @brief Method connect server signals to CMainWindow slots
      */
@@ -112,7 +112,7 @@ class CMainWindow : public QMainWindow {
     inline void ConnectActionsSignals();
 
     Ui::MainWindow *ui;
-		IServer *mServer;
+    IServer *mServer;
 };
 
 #endif // MAINWINDOW_H

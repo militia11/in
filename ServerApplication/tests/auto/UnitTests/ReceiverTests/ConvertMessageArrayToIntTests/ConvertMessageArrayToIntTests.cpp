@@ -24,7 +24,7 @@ ConvertMessageArrayToIntTests::ConvertMessageArrayToIntTests() {
 }
 
 void ConvertMessageArrayToIntTests::TestConvertCorrectMessageThreeDigit() {
-	/*  CReceiverWrapper vClient;
+    /*  CReceiverWrapper vClient;
     char *vMessage = ">>386<";
     int vSize = 6;
     // vClient.mMessageFileChecksum = ;
@@ -36,7 +36,7 @@ void ConvertMessageArrayToIntTests::TestConvertCorrectMessageThreeDigit() {
     //int vResult = vClient.ConvertMessageArrayToInt();
     //int vExpected = 386;
 
-		//QCOMPARE(vResult, vExpected);*/
+    	//QCOMPARE(vResult, vExpected);*/
 }
 
 void ConvertMessageArrayToIntTests::TestConvertCorrectMessageSixDigit() {

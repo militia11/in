@@ -14,19 +14,19 @@ class CReceiverMock : public IReceiver {
      *
      * @return Log
      */
-		const QString GetLog() const;
-//signals:
-//void Disconnect();//{mLog += "->Dis";}
+    const QString GetLog() const;
+    //signals:
+    //void Disconnect();//{mLog += "->Dis";}
     /**
      * @brief Method called when server receive incoming connection,
      *        client is connecting to specify port
      */
-//public:
+    //public:
     void Connect(QTcpSocket *aSocket);
 
-		/**
-     * @brief Mock of ResponeToClient method
-     */
+    /**
+    * @brief Mock of ResponeToClient method
+    */
     void ResponeToClient(QByteArray aData = 0);
 
     /**
@@ -106,7 +106,7 @@ class CReceiverMock : public IReceiver {
     /**
      * @brief Log of called methods
      */
-		mutable QString mLog;
+    mutable QString mLog;
 };
 
 #endif // CReceiverMOCK_H

@@ -9,19 +9,23 @@
 
 #include "src/libs/controllers/IClient.h"
 
-class CReceiver : public IClient {
+/**
+ * @brief The CClient class represent client in
+ *        client-server architecture
+ */
+class CClient : public IClient {
 		Q_OBJECT
 
   public:
     /**
      * @brief CClient class constructor
      */
-		CReceiver();
+		CClient();
 
     /**
      * @brief CClient class destructor
      */
-		~CReceiver();
+		~CClient();
 
     /**
      * @brief WriteData write file data to socket
@@ -65,6 +69,7 @@ class CReceiver : public IClient {
     /**
      * @brief ConvertImageToByteArray method convert imaqe to
      *        QByteArray
+			 *
      * @param aImage Image to convert
      * @return Converted image to QByteArray
      */
@@ -79,7 +84,7 @@ class CReceiver : public IClient {
 		/**
 		 * @brief ConnectToHost method connect to host
 		 *
-		 * @param aHost is host name/number
+		 * @param aHost is hostname/number
 		 */
 		virtual bool ConnectToHost(QString aHost);
 
@@ -92,9 +97,9 @@ class CReceiver : public IClient {
 		 */
 		virtual int16_t CalculateFileDataChecksum(QByteArray aData);
 
-    bool mFileToSend;
-    QTcpSocket *mSocket;
-    QByteArray *mReceiveBuffer;
-    QByteArray mActualData;
+		bool        mSendFile;
+		QTcpSocket  *mSocket;
+		QByteArray  *mReceiveBuffer;
+		QByteArray  mActualData;
 };
 #endif // CCLIENT_H

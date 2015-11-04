@@ -27,10 +27,10 @@ CMainWindow::CMainWindow(QWidget *aParent) :
 
 CMainWindow::~CMainWindow() {
     delete mServer;
-		mServer = nullptr;
+    mServer = nullptr;
 
     delete ui;
-		ui = nullptr;
+    ui = nullptr;
 }
 
 bool CMainWindow::ConnectToDatabaseAgain() {
@@ -85,7 +85,7 @@ void CMainWindow::ShowStatus(const char *aMessageStatus, int aTimeMsc) {
 }
 
 void CMainWindow::RunServer() {
-		mServer = new CServer(new CReceiverFactoryImplementation);
+    mServer = new CServer(new CReceiverFactoryImplementation);
     ConnectServerSignals();
     mServer->Run();
 
@@ -129,10 +129,10 @@ void CMainWindow::ConnectServerSignals() {
             SLOT(ShowStatus(const char *, int)));
 
     connect(mServer, SIGNAL(newConnection()), this,
-            SLOT(ConnectClient()));
+						SLOT(ClientConnected()));
 
     connect(mServer, SIGNAL(ConnectClient()), this,
-						SLOT(ReceiverCreated()));
+            SLOT(ReceiverCreated()));
 
     connect(mServer, SIGNAL(ChangeServerStatus()), this,
             SLOT(ChangeActionServerStatus()));

@@ -18,12 +18,12 @@ TestEmptySocketTest::TestEmptySocketTest() {
 }
 
 void TestEmptySocketTest::testCase() {
-	 /* CServer *vServer = new CServer();
+    /* CServer *vServer = new CServer();
     QTcpSocket *vSocket = vServer->GetClient()->GetSocket();
 
     QEXPECT_FAIL("", "Wskaźnik na gniazdo powinien być NULL "
-                 "nie było połączenia klienta.", Continue);
-		QVERIFY(vSocket);*/
+                "nie było połączenia klienta.", Continue);
+    QVERIFY(vSocket);*/
 }
 
 QTEST_APPLESS_MAIN(TestEmptySocketTest)

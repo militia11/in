@@ -24,7 +24,7 @@ void ConvertBetweenQImageAndQByteArray::TestConvertBetweenQImageAndQByteArray() 
     QImage vImageToByte = QImage(":/sample_photo.jpg", "JPG");
 
     // Part convert image
-    CReceiver vClient;
+    CClient vClient;
     QByteArray vImageData = vClient.ConvertImageToByteArray(vImageToByte);
 
     // Convert array of bytes to image

@@ -10,11 +10,11 @@ class MessageFormatTests : public QObject {
     MessageFormatTests();
 
   private Q_SLOTS:
-	//  void TestCorrectMessageFormat();
-	 // void TestWrongBeginMessageFirstChar();
-	 // void TestWrongBeginMessageSecondChar();
-	 // void TestWrongEndMessageChar();
-	 // void TestChecksumIsNotDigit();
+    //  void TestCorrectMessageFormat();
+    // void TestWrongBeginMessageFirstChar();
+    // void TestWrongBeginMessageSecondChar();
+    // void TestWrongEndMessageChar();
+    // void TestChecksumIsNotDigit();
 };
 
 MessageFormatTests::MessageFormatTests() {

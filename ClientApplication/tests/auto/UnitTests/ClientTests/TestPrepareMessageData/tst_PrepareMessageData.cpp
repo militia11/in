@@ -20,12 +20,12 @@ PrepareMessageData::PrepareMessageData() {
 }
 
 void PrepareMessageData::TestPrepareMessageData() {
-	 /* CReceiver vClient;
+    /* CReceiver vClient;
     u_int16_t vChecksum = 384;
     QByteArray vResultData = vClient.PrepareMessageData(vChecksum);
     QByteArray vExpectedData(">>384<");
 
-		QCOMPARE(vResultData, vExpectedData);*/
+    QCOMPARE(vResultData, vExpectedData);*/
 }
 
 QTEST_APPLESS_MAIN(PrepareMessageData)

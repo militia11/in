@@ -6,38 +6,38 @@
 #include "src/libs/controllers/CSettings.h"
 
 const QString CServerMock::GetLog() const {
-		return mLog;
+    return mLog;
 }
 
 void CServerMock::Run() {
-		mLog += "->Run";
+    mLog += "->Run";
 }
 
 void CServerMock::StopListening() {
-		mLog += "->StopListening";
+    mLog += "->StopListening";
 }
 
-CReceiver *CServerMock::GetReceiver() const {
-		mLog += "->GetClient()";
-		return nullptr;
+CClient *CServerMock::GetReceiver() const {
+    mLog += "->GetClient()";
+    return nullptr;
 }
 
 void CServerMock::IncomingConnection() {
-		mLog += "->IncomingConnection()";
+    mLog += "->IncomingConnection()";
 }
 
 void CServerMock::ResumeAccepting() {
-		mLog += "->ResumeAccepting()";
+    mLog += "->ResumeAccepting()";
 }
 
 void CServerMock::PauseAccepting() {
-		mLog += "->PauseAccepting";
+    mLog += "->PauseAccepting";
 }
 
 void CServerMock::ConnectClientSignals() {
-	mLog += "->ConnectClientSignals";
+    mLog += "->ConnectClientSignals";
 }
 
 void CServerMock::UpdatePortNumber() {
-	mLog += "->UpdatePortNum";
+    mLog += "->UpdatePortNum";
 }

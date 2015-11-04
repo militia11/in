@@ -11,7 +11,7 @@
  * @brief The IServer class is interface of CServer class
  */
 class IServer : public QTcpServer {
-		Q_OBJECT
+    Q_OBJECT
 
   public:
     /**
@@ -49,13 +49,13 @@ class IServer : public QTcpServer {
     /**
      * @brief Method connect client's signals to server's slots
      */
-		virtual void ConnectClientSignals() = 0;
+    virtual void ConnectClientSignals() = 0;
 
     /**
      * @brief UpdatePortNum get and update actually port number
-		 *        from programm config file to application
+    	 *        from programm config file to application
      */
-		virtual void UpdatePortNumber() = 0;
+    virtual void UpdatePortNumber() = 0;
 };
 
 #endif // ISERVER_H

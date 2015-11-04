@@ -6,11 +6,10 @@
 /**
  * @brief Wrapper for CServer class
  *
- * Used to acces to some private/protected variables, functions in tests
+ * Used to acces private/protected variables, functions in tests
  *
  */
-class CServerWrapper : public CServer
-{
+class CServerWrapper : public CServer {
   public:
     /**
      * @brief Constructor with dependency-injection
@@ -23,12 +22,4 @@ class CServerWrapper : public CServer
     void TestUpdatePortNumber();
 };
 
-/*
-QByteArray CGODWrapper::TestFormatSendMessage(
-  const QByteArray &aMessage,
-  char aTargetModule
-) {
-  return FormatSendMessage(aMessage, aTargetModule);
-}
-*/
 #endif // CSERVERWRAPPER_H

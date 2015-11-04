@@ -8,14 +8,13 @@
  * @brief The CReceiverMockFactory class is factory of mocks
  *        CReceiverFactoryImplementation class
  */
-class CReceiverMockFactory : public IReceiverFactory
-{
-public:
-  /**
-   * @brief Make Get Mock of CReceiverFactoryImplementation class
-   * @return IReceiver object
-   */
-  IReceiver *Make();
+class CReceiverMockFactory : public IReceiverFactory {
+  public:
+    /**
+     * @brief Make Get Mock of CReceiverFactoryImplementation class
+     * @return IReceiver object
+     */
+    IReceiver *Make();
 };
 
 #endif // CRECEIVERMOCKFACTORY_H
