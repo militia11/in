@@ -5,4 +5,5 @@ SUBDIRS += \
     MessageFormatTests \
     ConvertMessageArrayToIntTests \
     CalculateChecksumTests \
-    AddChecksumTests
+    AddChecksumTests \
+    ConnectionTests

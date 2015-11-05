@@ -9,8 +9,6 @@
 #include "../ServerApplication/src/libs/controllers/CReceiverMock.h"
 #include "../ServerApplication/src/libs/controllers/CReceiverMockFactory.h"
 
-#include "../ServerApplication/src/libs/controllers/CReceiverFactoryImplementation.h"
-
 class ClientNotConnectedToServer : public QObject {
     Q_OBJECT
 
@@ -21,41 +19,37 @@ class ClientNotConnectedToServer : public QObject {
     void TestGetReceiver();
     void TestVerifyPortNumber();
     void TestUpdatePortNumber();
+		void TestEmptySocketTest();
 		void Test();
-
 };
 
 ClientNotConnectedToServer::ClientNotConnectedToServer() {
 }
 
 void ClientNotConnectedToServer::TestGetReceiver() {
-    CReceiverMockFactory *vMockFactory = new CReceiverMockFactory;
-    CServerWrapper vServer(vMockFactory);
+		CServerWrapper vServer(new CReceiverMockFactory);
 
     IReceiver *vReceiver = vServer.GetReceiver();
     CReceiverMock *vReceiverMock = dynamic_cast<CReceiverMock *>(vReceiver);
     QVERIFY(vReceiverMock);
-
-    delete vMockFactory;
 }
 
 void ClientNotConnectedToServer::TestVerifyPortNumber() {
-    // Verify status of listening
-    CServer *vServer = new CServer(new CReceiverMockFactory());
-    // jakby nie działało później dać CReceiverFactoryImplementation()
-    int16_t vPortNumber = 1234;
+		CServer *vServer {new CServer(new CReceiverMockFactory())};
 
-    bool vIsListen = vServer->listen(QHostAddress::Any, vPortNumber);
+		uint16_t vPortNumber {1234};
+		bool vIsListen {vServer->listen(QHostAddress::Any, vPortNumber)};
     QVERIFY(vIsListen);
 
     // Verify port number
-    int16_t vPortNumberFromServer =  vServer->serverPort();
+		uint16_t vPortNumberFromServer {vServer->serverPort()};
     QCOMPARE(vPortNumber, vPortNumberFromServer);
+
 		delete vServer;
 }
 
 void ClientNotConnectedToServer::TestUpdatePortNumber() {
-		/*CServerWrapper *vServer = new CServerWrapper(new CReceiverMockFactory());
+		CServerWrapper *vServer {new CServerWrapper(new CReceiverMockFactory())};
 		vServer->ForTestSetPortNumber(12);
 
     CSettings vSettings;
@@ -67,23 +61,27 @@ void ClientNotConnectedToServer::TestUpdatePortNumber() {
 		int vPortNumber = 128;
     vQSetting.setValue("port", QString::number(vPortNumber));
     vQSetting.endGroup();
-		qDebug()<< vServer->TestGetPortNumber();
 		vServer->TestUpdatePortNumber();
-		QCOMPARE(vServer->TestGetPortNumber(), vPortNumberFromSettings);*/
+		QCOMPARE(vServer->TestGetPortNumber(), vPortNumberFromSettings);
 }
 
-void ClientNotConnectedToServer::Test()
-{
-	// Verify status of listening
-	CServer *vServer = new CServer(new CReceiverMockFactory());
-	// jakby nie działało później dać CReceiverFactoryImplementation()
-	int16_t vPortNumber = 1234;
+void ClientNotConnectedToServer::TestEmptySocketTest() {
+		CServer *vServer {new CServer(new CReceiverMockFactory())};
+		QTcpSocket *vSocket = vServer->GetReceiver()->GetSocket();
 
-	bool vIsListen = vServer->listen(QHostAddress::Any, vPortNumber);
+		QEXPECT_FAIL("", "Wskaźnik na gniazdo powinien być NULL "
+								 "nie było połączenia klienta.", Continue);
+		QVERIFY(vSocket);
+}
+
+void ClientNotConnectedToServer::Test() {
+	CServer *vServer {new CServer(new CReceiverMockFactory())};
+	int16_t vPortNumber {1234};
+
+	bool vIsListen {vServer->listen(QHostAddress::Any, vPortNumber)};
 	QVERIFY(vIsListen);
-
-	// If works fine status of listening is true
 	QVERIFY(vServer->isListening());
+
 	delete vServer;
 }
 

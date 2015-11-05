@@ -15,8 +15,15 @@ class CReceiverWrapper : public CReceiver {
     char *TestGetMessageFileChecksum();
     int TestGetMessageSize();
     //void TestSetMessageFileChecksum();
-    void TestSetMessageSize(int aSize);
-    /* set je:
+		void TestSetMessageSize(int aSize);
+		void TestConnect(QTcpSocket *aSocket);
+		bool TestHasMessageCorrectFormat(char *aMessage);
+		void TestSetMessage(char *aMessageFileChecksum);
+	QTcpSocket *ForTestGetSocket();
+	QByteArray *ForTestGetReveiveBuffer();
+	int32_t *ForTestGetDataSize();
+int TestConvertMessageArrayToInt();
+		/* set je:
     	QTcpSocket *mSocket;
     	QByteArray *mReceiveBuffer;
     	int32_t *mDataSize;

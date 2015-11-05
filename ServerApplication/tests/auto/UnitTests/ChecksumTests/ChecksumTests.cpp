@@ -27,7 +27,7 @@ ChecksumTests::ChecksumTests() {
 }
 
 void ChecksumTests::TestAddChecksum() {
-    /*  int16_t vChecksum = 194;
+		/*  int16_t vChecksum {194};
 
     CChecksumList vChecksumList;
     vChecksumList.AddFileChecksum(vChecksum);
@@ -46,7 +46,7 @@ void ChecksumTests::TestCheckFileChecksum() {
     gRepository.PopulateDatabase();
 
     Q_INIT_RESOURCE(server_resources);  // Use resources from diffrent project
-    QImage vAddedImage = QImage(":/sample_photo.jpg", "JPG");
+		QImage vAddedImage {QImage(":/sample_photo.jpg", "JPG")};
 
     // Part adding image
     QBuffer vBufferToStoreData;
@@ -60,15 +60,15 @@ void ChecksumTests::TestCheckFileChecksum() {
     vAddedData, vAddedData.size(), vChecksumAddImage);
     vStoreTransaction.Execute();
 
-    CChecksumList *vChecksumList = gRepository.GetChecksumList();
+		CChecksumList *vChecksumList {gRepository.GetChecksumList()};
 
     QVERIFY(vChecksumList->CheckFileChecksum(vChecksumAddImage)); */
 }
 
 uint16_t ChecksumTests::CalculateFileDataChecksum(QByteArray aData) {
-    uint16_t vChecksum = 0;
+		uint16_t vChecksum {};
 
-    for (int i = 0; i < aData.length(); ++i) {
+		for (auto i = 0; i < aData.length(); ++i) {
         vChecksum += aData[i];
     }
 

@@ -4,8 +4,8 @@
 #include "../ServerApplication/src/libs/controllers/CReceiver.h"
 #include "../ServerApplication/src/libs/controllers/CReceiverMock.h"
 
-#include <QTcpSocket>
 #include <QDebug>
+#include <QTcpSocket>
 
 CServer::CServer(IReceiverFactory *aReceiversFactory) :
     mReceiversFactory(aReceiversFactory) {
@@ -40,16 +40,16 @@ IReceiver *CServer::GetReceiver() const {
 void CServer::IncomingConnection() {
     emit ConnectClient();
 
-    QTcpSocket *vSocket = nextPendingConnection();
+		QTcpSocket *vSocket {nextPendingConnection()};
     mReceiver->Connect(vSocket);
-    IReceiver *vIReceiver = mReceiver;
-    CReceiver *vReceiver = dynamic_cast<CReceiver *>(vIReceiver);
+		IReceiver *vIReceiver {mReceiver};
+		CReceiver *vReceiver {dynamic_cast<CReceiver *>(vIReceiver)};
 
     if (vReceiver) {
         PauseAccepting();
     }
 
-    const char *vMessage = "Witaj kliencie\n";
+		const char *vMessage {"Witaj kliencie\n"};
     mReceiver->ResponeToClient(vMessage);
 }
 

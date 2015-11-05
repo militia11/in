@@ -1,15 +1,16 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-08-18T19:20:06
+# Project created by QtCreator 2015-11-05T20:44:43
 #
 #-------------------------------------------------
 
 include(../../../../../../AutogeneratingEmendation.pri)
 include(../../../../../../LinkingLibraries.pri)
 
-QT       += network testlib gui
+QT       += core gui network testlib
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = tst_TestNoClientConnectedToServer
+TARGET = ConnectionTests
 CONFIG   += console c++11
 CONFIG   -= app_bundle
 
@@ -17,8 +18,7 @@ TEMPLATE = app
 
 INCLUDEPATH += ../../../../../../ServerApplication
 
-SOURCES += \
-    tst_ClientNotConnectedToServer.cpp
+SOURCES += ConnectionTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 LIBS += -L../../../../../src/libs/controllers -lcontrollers

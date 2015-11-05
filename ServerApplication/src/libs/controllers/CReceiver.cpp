@@ -1,4 +1,4 @@
-#include "CReceiver.h"
+﻿#include "CReceiver.h"
 
 #include <ctype.h> // isdigit function
 
@@ -11,9 +11,9 @@
 extern CRepository gRepository;
 
 CReceiver::CReceiver() :
-    mSocket(NULL),
-    mReceiveBuffer(NULL),
-    mDataSize(NULL),
+		mSocket(nullptr),
+		mReceiveBuffer(nullptr),
+		mDataSize(nullptr),
     mReceiveDataMode(Mode_Receive_File_Data),
     mMessageSize(0),
     mReceiveByteCount(0) {
@@ -24,27 +24,28 @@ CReceiver::~CReceiver() {
 }
 
 void CReceiver::Connect(QTcpSocket *aSocket) {
-    if (aSocket) {
-        const char *vMessage = "Klient połączony. Nasłuchiwanie serwera wyłączone";
-        qDebug() << vMessage;
+		if (aSocket) {
+				const char *vMessage {
+						"Klient połączony. Nasłuchiwanie serwera wyłączone"
+				};
 
         QByteArray b("12");
         qDebug() << CalculateFileDataChecksum(b);
-        emit MessageStatus(vMessage, 2200);
+				emit MessageStatus(vMessage, 2200);
 
         mSocket = aSocket;
-        mDataSize = new int32_t{0};
-        mReceiveBuffer = new QByteArray();
+				mDataSize = new int32_t {0};
+				mReceiveBuffer = new QByteArray();
 
         ConnectSocketSignals();
 
     } else {
-        const char *vMessage = "Nie można połączyć";
-        qDebug() << vMessage;
-
+				const char *vMessage {
+						"Nie można połączyć"
+				};
         emit MessageStatus(vMessage, 2200);
         emit mSocket->error();
-    }
+		}
 }
 
 QTcpSocket *CReceiver::GetSocket() const {
@@ -53,15 +54,15 @@ QTcpSocket *CReceiver::GetSocket() const {
 
 void CReceiver::NewData() {
     while (mSocket->bytesAvailable() > 0) {
-        QByteArray vData = mSocket->readAll();
+				QByteArray vData {mSocket->readAll()};
         mReceiveBuffer->append(vData);
 
-        for (int i = 0; i < vData.length(); i++) {
-            char vTargetSign = vData[i];
+				for (auto i = 0; i < vData.length(); i++) {
+						char vTargetSign {vData[i]};
 
             switch (vTargetSign) {
-                case '>': {         // Begin send message checksum
-                    char vNextChar = vData[i + 1];
+								case '>': {  // Begin send message checksum
+										char vNextChar {vData[i + 1]};
 
                     if (vNextChar == '>') {
                         mReceiveDataMode = Mode_Receive_File_Checksum;
@@ -117,17 +118,19 @@ void CReceiver::RouteData(char aData) {
 
 void CReceiver::ServeReceivedMessage() {
     if (!HasMessageCorrectFormat(mMessageFileChecksum)) {
-        const char *vMessage = "Nieprawidłowy format wiadomości";
-        MessageStatus(vMessage, 2200);
-        qDebug() << vMessage;
+				const char *vMessage {
+						"Nieprawidłowy format wiadomości"
+				};
+				///@todo rzuc wyjatek od
+				MessageStatus(vMessage, 2200);
 
         return;
     }
 
-    int vChecksum = ConvertMessageArrayToInt();
+		int vChecksum {ConvertMessageArrayToInt()};
     emit ReadData(mMessageFileChecksum);///@todo usunac
     CChecksumList *vChecksumList {gRepository.GetChecksumList()};
-    bool vIsChecksumInServer = vChecksumList->CheckFileChecksum(vChecksum);
+		bool vIsChecksumInServer {vChecksumList->CheckFileChecksum(vChecksum)};
     qDebug() << vIsChecksumInServer;
 
     delete mDataSize;
@@ -147,17 +150,19 @@ void CReceiver::ServeReceivedMessage() {
 }
 
 bool CReceiver::HasMessageCorrectFormat(char *aMessage) {
-    bool vCorrect = true;///@todo sprawdzic ponizszy komentarz
-    int vChecksumLength = mMessageSize - 3; // Minus 3 bytes char '>', '>' and '<'
+		bool vCorrect {true};
+		int vChecksumLength {mMessageSize - 3}; // Minus 3 bytes char '>', '>' and '<'
 
     if (aMessage[0] != '>' || aMessage[1] != '>') {  // Begin message
-        vCorrect =  false;
-    } else if ((aMessage[mMessageSize - 1] != ('<'))) { // End message
-        vCorrect = false;
-    } else {
-        for (int i = 2; i < vChecksumLength + 2; ++i) { // Checksum
+				vCorrect =  false;
+		} else if ((aMessage[mMessageSize - 1] != ('<'))) {  // End message
+				vCorrect = false;
+
+		} else {
+				for (auto i = 2; i < vChecksumLength + 2; ++i) {  // Checksum
             if (!isxdigit(aMessage[i])) {
-                vCorrect = false;
+								vCorrect = false;
+
                 return vCorrect;
             }
         }
@@ -184,14 +189,14 @@ void CReceiver::ServeReceivedFileData() {
 
         if (vCurrentSize > 0 && mReceiveBuffer->size() >=
                 vCurrentSize) {
-            if (vCurrentSize > 4/*punk*/) {
-                QByteArray vData = mReceiveBuffer->left(vCurrentSize);
+						if (vCurrentSize > 4 /*punk*/ ) {
+								QByteArray vData {mReceiveBuffer->left(vCurrentSize)};
 
                 u_int16_t vChecksum {CalculateFileDataChecksum(vData)};
 
                 CRetrievePhotoTransaction vRetrieveTransaction(175);
                 vRetrieveTransaction.Execute();
-                QByteArray vRetrieveData = vRetrieveTransaction.GetData();
+								QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
 
                 // CStorePhotoTransaction StoreTransaction(vData, vData.size(), vChecksum);
                 // StoreTransaction.Execute();
@@ -206,9 +211,9 @@ void CReceiver::ServeReceivedFileData() {
 
             //            CRetrieveFromDBTransaction vRetrieveTransaction(221);
             //            vRetrieveTransaction.Execute();
-            //            QByteArray vRetrieveData =  vRetrieveTransaction.getData();
+						//            QByteArray vRetrieveData {vRetrieveTransaction.getData()};
 
-            //            const char *vMessage = "Odebrano dane : ";
+						//            const char *vMessage {"Odebrano dane : "};
             //            ResponeToClient(vMessage, vData);
         }
     }
@@ -217,7 +222,7 @@ void CReceiver::ServeReceivedFileData() {
 uint16_t CReceiver::CalculateFileDataChecksum(QByteArray aData) {
     uint16_t vSum {};
 
-    for (int i = 0; i < aData.length(); ++i) {
+		for (auto i = 0; i < aData.length(); ++i) {
         vSum += aData[i];
     }
 
@@ -241,7 +246,7 @@ void CReceiver::ConnectSocketSignals() {
 }
 
 void CReceiver::Disconnected() {
-    const char *vMessage = "Rozłączono";
+		const char *vMessage {"Rozłączono"};
     qDebug() << vMessage;
 
     emit MessageStatus(vMessage, 2200);
@@ -260,7 +265,7 @@ int CReceiver::ConvertMessageArrayToInt() {
     // wersja 1:
     QString vNumberAsString;
 
-    for (int i = 0; i < mMessageSize; i++) {
+		for (auto i = 0; i < mMessageSize; i++) {
         if (isdigit(mMessageFileChecksum[i])) {
             vNumberAsString.append(mMessageFileChecksum[i]);
         }

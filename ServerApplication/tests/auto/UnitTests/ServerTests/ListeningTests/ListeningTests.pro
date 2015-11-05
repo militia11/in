@@ -10,9 +10,8 @@ include(../../../../../../LinkingLibraries.pri)
 QT       += testlib gui network core
 
 TARGET = ListeningTests
-CONFIG   += console
+CONFIG   += console c++11
 CONFIG   -= app_bundle
-
 TEMPLATE = app
 
 INCLUDEPATH += ../../../../../../ServerApplication

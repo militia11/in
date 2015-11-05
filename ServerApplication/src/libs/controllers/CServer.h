@@ -65,7 +65,7 @@ class CServer : public IServer {
      *        changed
      */
     void ChangeServerStatus();
-    ///@todso moze private zbadać?
+
   protected slots:
     /**
      * @brief Slot called when new incoming connection come
@@ -100,7 +100,7 @@ class CServer : public IServer {
     IReceiverFactory *mReceiversFactory;
 
     /**
-     * @brief mReceiver communicate with mobile device and receives data
+		 * @brief mReceiver receieive connection from mobile device
      */
     IReceiver *mReceiver;
 

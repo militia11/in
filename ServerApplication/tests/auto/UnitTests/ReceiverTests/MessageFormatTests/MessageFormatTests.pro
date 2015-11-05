@@ -9,17 +9,19 @@ include(../../../../../../LinkingLibraries.pri)
 
 QT       += testlib gui network
 
-TARGET = tst_MessageFormatTests
-CONFIG   += console
+TARGET = MessageFormatTests
+CONFIG   += console c++11
 CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../../../../src
+INCLUDEPATH += ../../../../../../ServerApplication
 
-SOURCES += tst_MessageFormatTests.cpp
+SOURCES += \
+    MessageFormatTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
-LIBS += -L../../../../../src/libs/ui -lui
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
+LIBS += -L../../../../../src/libs/ui -lui
 LIBS += -L../../../../../src/libs/dao -ldao
+

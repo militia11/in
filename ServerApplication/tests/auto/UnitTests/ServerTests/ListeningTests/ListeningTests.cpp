@@ -17,8 +17,8 @@ class ListeningTests : public QObject {
     void TestIncomingConnection();
 		void TestAreListeningRunServerMethod();
     void TestAreListeningStopServerMethod();
-     void TestAreListeningOnSpecifyPort();
-   void TestAreListeningOnWrongPortNumber();
+		void TestAreListeningOnSpecifyPort();
+		void TestAreListeningOnWrongPortNumber();
     void TestAreListeningWhenTurnOffListening();
     void Test2();
     //qApp->processEvents(); dodać do init test
@@ -28,36 +28,33 @@ ListeningTests::ListeningTests() {
 }
 
 void ListeningTests::TestIncomingConnection() {
-    CReceiverMockFactory *vMockFactory = new CReceiverMockFactory;
+		CReceiverMockFactory *vMockFactory {new CReceiverMockFactory};
     CServerWrapper vServer(vMockFactory);
 
-    IReceiver *vReceiver = vServer.GetReceiver();
-    CReceiverMock *vReceiverMock = dynamic_cast<CReceiverMock *>(vReceiver);
+		IReceiver *vReceiver {vServer.GetReceiver()};
+		CReceiverMock *vReceiverMock {dynamic_cast<CReceiverMock *>(vReceiver)};
     QVERIFY(vReceiverMock);
 
     vServer.TestIncomingConnection();
 
-    QString vActualLog = vReceiverMock->GetLog();
+		QString vActualLog {vReceiverMock->GetLog()};
     QString vExpectedLog("->Connect->ResponeToClient(Witaj kliencie\n)");
     QCOMPARE(vActualLog, vExpectedLog);
 }
 
 void ListeningTests::TestAreListeningRunServerMethod() {
-	// Verify status of listening
-	CServer vServer(new CReceiverFactoryImplementation());
-	vServer.Run();
+		CServer vServer(new CReceiverFactoryImplementation());
+		vServer.Run();
 
-	// If works fine status of listening is true
-	QVERIFY(vServer.isListening());
+		QVERIFY(vServer.isListening());
 }
 
 void ListeningTests::TestAreListeningStopServerMethod() {
-    // Start listening
-	CServer vServer(new CReceiverMockFactory());
-	vServer.Run();
-	QVERIFY(vServer.isListening());
+		CServer vServer(new CReceiverMockFactory());
+		vServer.Run();
+		QVERIFY(vServer.isListening());
 
-    // Verify if stop listening
+		// Stop listening
 		vServer.StopListening();
 
     QEXPECT_FAIL("", "Serwer nie powinien nasłuchiwać", Continue);
@@ -65,22 +62,18 @@ void ListeningTests::TestAreListeningStopServerMethod() {
 }
 
 void ListeningTests::TestAreListeningOnSpecifyPort() {
-  // Verify status of listening
-  CServer *vServer = new CServer(new CReceiverMockFactory());
-  // jakby nie działało później dać CReceiverFactoryImplementation()
-  //vServer.ForTestSetPortNumber(vPortNumber);
-  int16_t vPortNumber = 1234;
+		CServer *vServer {new CServer(new CReceiverMockFactory())};
 
-  bool vIsListen = vServer->listen(QHostAddress::Any, vPortNumber);
-  QVERIFY(vIsListen);
+		int16_t vPortNumber {1234};
+		bool vIsListen {vServer->listen(QHostAddress::Any, vPortNumber)};
+		QVERIFY(vIsListen);
 }
 
 void ListeningTests::TestAreListeningOnWrongPortNumber() {
-    // Verify status of listening
-    CServer *vServer = new CServer(new CReceiverMockFactory());
-		quint16 vPortNum = 21; // wrong number
+		CServer *vServer {new CServer(new CReceiverMockFactory())};
 
-    bool vIsListen = vServer->listen(QHostAddress::Any, vPortNum);
+		quint16 vPortNum {21}; // wrong number
+		bool vIsListen {vServer->listen(QHostAddress::Any, vPortNum)};
 
     QEXPECT_FAIL("", "Serwer nie powinien wystartować na podanym numerze portu"
                  "Za mała liczba", Continue);
@@ -89,8 +82,7 @@ void ListeningTests::TestAreListeningOnWrongPortNumber() {
 }
 
 void ListeningTests::TestAreListeningWhenTurnOffListening() {
-    // Check status of listening
-    CServer *vServer = new CServer(new CReceiverMockFactory());
+		CServer *vServer {new CServer(new CReceiverMockFactory())};
 
     QEXPECT_FAIL("", "Nasłuchiwanie serwera jeszcze nie uruchomione. "
                  "Serwer nie powinien nasłuchiwać", Continue);
@@ -101,14 +93,14 @@ void ListeningTests::TestAreListeningWhenTurnOffListening() {
 
 void ListeningTests::Test2() {
     // Start listening
-/*
-    CServer *vServer = new CServer(new CReceiverMockFactory());
-    vServer->Run();
-    QVERIFY(vServer->isListening());
-    QTcpSocket *vSocket;
-    vSocket->connectToHost("127.0.0.1", 1234);
-    bool vConnected = vSocket->waitForConnected(90000); ///@todo komentarz skad taka liczba
-*/
+		/*
+				CServer *vServer {new CServer(new CReceiverMockFactory())};
+				vServer->Run();
+				QVERIFY(vServer->isListening());
+				QTcpSocket *vSocket;
+				vSocket->connectToHost("127.0.0.1", 1234);
+				bool vConnected {vSocket->waitForConnected(90000)}; ///@todo komentarz skad taka liczba
+		*/
 }
 
 QTEST_APPLESS_MAIN(ListeningTests)

@@ -23,19 +23,19 @@ SetSettingsTestsTest::SetSettingsTestsTest()
 
 void SetSettingsTestsTest::SetSettingsTests()
 {
-  CDatabaseConnectionDialogWrapper vDialog;
+	//CDatabaseConnectionDialogWrapper vDialog;
 
-  vDialog.TestSetDriver("mysqld");
-  vDialog.TestSaveSettings();
-  /*vDialog.mHost = "129.0.4.1";
+	//vDialog.TestSetDriver("mysql");
+	//vDialog.TestSaveSettings();
+	/*vDialog.mHost = "129.0.4.1";
   vDialog.mDatabaseName = "testDb";
   vDialog.mUser = "testUser";
   vDialog.mPassword = "0000";
   */
 
-  CSettings vSettings;
-  qDebug()<<vSettings.GetConnectionString();
-  //QString vExpectedConnectionString("host=129.0.4.1;user=testUser;password=0000;database=testDb");
+	//CSettings vSettings;
+	//qDebug()<<vSettings.GetConnectionString();
+	//QString vExpectedConnectionString("host=129.0.4.1;user=testUser;password=0000;database=testDb");
   //QCOMPARE(vSettings.GetConnectionString(), vExpectedConnectionString);*/
 }
 
@@ -57,7 +57,7 @@ void SettingsTests::TestDefaultPortNumber() {
     CServerSettingsDialog vDialog;
     vDialog.on_mPushButtonResetDefault_clicked();
 
-    int vExpectedDefaultPortNuber = 1234;
+		int vExpectedDefaultPortNuber {1234};
     CSettings vSettings;
 
     QCOMPARE(vSettings.GetPortNumber(), vExpectedDefaultPortNuber);

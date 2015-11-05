@@ -10,17 +10,17 @@ include(../../../../../../LinkingLibraries.pri)
 QT       += testlib gui network
 
 TARGET = ConvertMessageArrayToIntTests
-CONFIG   += console
+CONFIG   += console c++11
 CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../../../../src
+INCLUDEPATH += ../../../../../../ServerApplication
 
 SOURCES += ConvertMessageArrayToIntTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
 LIBS += -L../../../../../src/libs/ui -lui
-LIBS += -L../../../../../src/libs/testssupport -ltestssupport
 LIBS += -L../../../../../src/libs/dao -ldao
+
