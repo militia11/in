@@ -25,7 +25,7 @@ CReceiverFactoryTests::CReceiverFactoryTests() {
 void CReceiverFactoryTests::TestReturnReceiver() {
     CReceiverFactoryImplementation vFactory;
     IReceiver *vReceiverInterface = vFactory.Make();
-    CClient *vReceiver = dynamic_cast<CClient *>(vReceiverInterface);
+    CReceiver *vReceiver = dynamic_cast<CReceiver *>(vReceiverInterface);
     QVERIFY(vReceiver);
 }
 
@@ -50,7 +50,7 @@ void CReceiverFactoryTests::TestWrongFactoryReceiver() {
 void CReceiverFactoryTests::TTestWrongFactoryMock() {
     CReceiverMockFactory vFactory;
     IReceiver *vReceiverInterface = vFactory.Make();
-    CClient *vReceiver = dynamic_cast<CClient *>(vReceiverInterface);
+    CReceiver *vReceiver = dynamic_cast<CReceiver *>(vReceiverInterface);
 
     QEXPECT_FAIL("", "Wrong Factory", Continue);
     QVERIFY(vReceiver);

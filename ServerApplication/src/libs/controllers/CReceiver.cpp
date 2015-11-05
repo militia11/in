@@ -10,7 +10,7 @@
 
 extern CRepository gRepository;
 
-CClient::CClient() :
+CReceiver::CReceiver() :
     mSocket(NULL),
     mReceiveBuffer(NULL),
     mDataSize(NULL),
@@ -19,11 +19,11 @@ CClient::CClient() :
     mReceiveByteCount(0) {
 }
 
-CClient::~CClient() {
+CReceiver::~CReceiver() {
     Disconnected();
 }
 
-void CClient::Connect(QTcpSocket *aSocket) {
+void CReceiver::Connect(QTcpSocket *aSocket) {
     if (aSocket) {
         const char *vMessage = "Klient połączony. Nasłuchiwanie serwera wyłączone";
         qDebug() << vMessage;
@@ -33,7 +33,7 @@ void CClient::Connect(QTcpSocket *aSocket) {
         emit MessageStatus(vMessage, 2200);
 
         mSocket = aSocket;
-        mDataSize = new int32_t(0);
+        mDataSize = new int32_t{0};
         mReceiveBuffer = new QByteArray();
 
         ConnectSocketSignals();
@@ -47,11 +47,11 @@ void CClient::Connect(QTcpSocket *aSocket) {
     }
 }
 
-QTcpSocket *CClient::GetSocket() const {
+QTcpSocket *CReceiver::GetSocket() const {
     return mSocket;
 }
 
-void CClient::NewData() {
+void CReceiver::NewData() {
     while (mSocket->bytesAvailable() > 0) {
         QByteArray vData = mSocket->readAll();
         mReceiveBuffer->append(vData);
@@ -80,7 +80,7 @@ void CClient::NewData() {
     }
 }
 
-void CClient::RouteData(char aData) {
+void CReceiver::RouteData(char aData) {
     switch (mReceiveDataMode) {
 
         case Mode_Receive_File_Data : {
@@ -115,7 +115,7 @@ void CClient::RouteData(char aData) {
     }
 }
 
-void CClient::ServeReceivedMessage() {
+void CReceiver::ServeReceivedMessage() {
     if (!HasMessageCorrectFormat(mMessageFileChecksum)) {
         const char *vMessage = "Nieprawidłowy format wiadomości";
         MessageStatus(vMessage, 2200);
@@ -146,7 +146,7 @@ void CClient::ServeReceivedMessage() {
     }
 }
 
-bool CClient::HasMessageCorrectFormat(char *aMessage) {
+bool CReceiver::HasMessageCorrectFormat(char *aMessage) {
     bool vCorrect = true;///@todo sprawdzic ponizszy komentarz
     int vChecksumLength = mMessageSize - 3; // Minus 3 bytes char '>', '>' and '<'
 
@@ -166,7 +166,7 @@ bool CClient::HasMessageCorrectFormat(char *aMessage) {
     return vCorrect;
 }
 
-void CClient::ServeReceivedFileData() {
+void CReceiver::ServeReceivedFileData() {
     int32_t vCurrentSize {*mDataSize};
 
     while ((vCurrentSize == 0 && mReceiveBuffer->size() >= 4) ||
@@ -214,7 +214,7 @@ void CClient::ServeReceivedFileData() {
     }
 }
 
-uint16_t CClient::CalculateFileDataChecksum(QByteArray aData) {
+uint16_t CReceiver::CalculateFileDataChecksum(QByteArray aData) {
     uint16_t vSum {};
 
     for (int i = 0; i < aData.length(); ++i) {
@@ -224,7 +224,7 @@ uint16_t CClient::CalculateFileDataChecksum(QByteArray aData) {
     return vSum;
 }
 
-int32_t CClient::ByteArrayToInt(QByteArray aData) {
+int32_t CReceiver::ByteArrayToInt(QByteArray aData) {
     int32_t vResult {};
     QDataStream vData(&aData, QIODevice::ReadWrite);
     vData >> vResult;
@@ -232,7 +232,7 @@ int32_t CClient::ByteArrayToInt(QByteArray aData) {
     return vResult;
 }
 
-void CClient::ConnectSocketSignals() {
+void CReceiver::ConnectSocketSignals() {
     QObject::connect(mSocket, SIGNAL(disconnected()), this,
                      SLOT(Disconnected()), Qt::DirectConnection);
 
@@ -240,7 +240,7 @@ void CClient::ConnectSocketSignals() {
                      SLOT(NewData()), Qt::DirectConnection);
 }
 
-void CClient::Disconnected() {
+void CReceiver::Disconnected() {
     const char *vMessage = "Rozłączono";
     qDebug() << vMessage;
 
@@ -256,7 +256,7 @@ void CClient::Disconnected() {
     mDataSize = nullptr;
 }
 
-int CClient::ConvertMessageArrayToInt() {
+int CReceiver::ConvertMessageArrayToInt() {
     // wersja 1:
     QString vNumberAsString;
 
@@ -273,6 +273,6 @@ int CClient::ConvertMessageArrayToInt() {
     //    int vNum = QString::fromStdString(vNumAsString).toInt();
 }
 
-void CClient::ResponeToClient(QByteArray aData) {
+void CReceiver::ResponeToClient(QByteArray aData) {
     mSocket->write(aData);
 }

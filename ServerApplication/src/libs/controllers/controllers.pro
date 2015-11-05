@@ -8,6 +8,7 @@ include(../../../../AutogeneratingEmendation.pri)
 include(../../../../LinkingLibraries.pri)
 
 QT       += network core gui
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = controllers
 TEMPLATE = lib
@@ -28,7 +29,12 @@ HEADERS += \
     CReceiverFactoryImplementation.h \
     CReceiverMock.h \
     CReceiverMockFactory.h \
-    CServerWrapper.h
+	CServerWrapper.h \
+	CReceiverWrapper.h \
+	CDatabaseConnectionDialogWrapper.h \
+	CServerSettingsDialogWrapper.h \
+	CServerMock.h
+
 
 SOURCES += \
     CServer.cpp \
@@ -39,4 +45,8 @@ SOURCES += \
     CReceiverFactoryImplementation.cpp \
     CReceiverMock.cpp \
     CReceiverMockFactory.cpp \
-    CServerWrapper.cc
+	CServerWrapper.cc \
+	CReceiverWrapper.cpp \
+	CDatabaseConnectionDialogWrapper.cpp \
+	CServerSettingsDialogWrapper.cpp \
+	CServerMock.cpp

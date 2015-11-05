@@ -3,7 +3,7 @@ TEMPLATE = subdirs
 SUBDIRS += \
     ServerTests \
     ReceiverTests \
-    SettingsTests \
     TestStorePhoto \
     ChecksumTests \
-    CReceiverFactoryTests
+    CReceiverFactoryTests \
+    SetSettingsTests

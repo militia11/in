@@ -11,5 +11,5 @@ IReceiver *CReceiverFactoryImplementation::Make() {//QString aReceiverName
     }*/
 
     /// tu zrobic samo stworzenie prawdziwej!!!!!!!!!!!!!!!!!!!!!!!11
-    return new CClient();
+    return new CReceiver();
 }

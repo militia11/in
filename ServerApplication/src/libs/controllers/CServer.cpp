@@ -43,7 +43,7 @@ void CServer::IncomingConnection() {
     QTcpSocket *vSocket = nextPendingConnection();
     mReceiver->Connect(vSocket);
     IReceiver *vIReceiver = mReceiver;
-    CClient *vReceiver = dynamic_cast<CClient *>(vIReceiver);
+    CReceiver *vReceiver = dynamic_cast<CReceiver *>(vIReceiver);
 
     if (vReceiver) {
         PauseAccepting();
