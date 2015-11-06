@@ -50,10 +50,8 @@ void CRepository::Connect() {
         RefreshModel(); ///@todo jesli sumy tylko nie bedzie modeli to usunac
 
         mLastConnectionError = false;
-    } catch (std::exception vException) {
-
-        mLastConnectionError = true;
-        mDatabase = nullptr;
+    } catch (std::exception &vException) {
+        AttendDatabaseConnectionException(vException.what());
     }
 }
 
@@ -65,7 +63,13 @@ void CRepository::PopulateDatabase() {
 
 void CRepository::Disconnect() {
     delete mDatabase;
-    mDatabase = nullptr;
+  mDatabase = nullptr;
+}
+
+void CRepository::AttendDatabaseConnectionException(const char *aException)
+{
+  mLastConnectionError = true;
+  mDatabase = nullptr;
 }
 
 void CRepository::RefreshChecksums() {

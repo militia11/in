@@ -15,7 +15,7 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../../../
+INCLUDEPATH += ../../../../../ServerApplication
 
 SOURCES += GetSettingsTests.cc
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

@@ -16,10 +16,10 @@ class CServerWrapper : public CServer {
      * @todo może napisac o tym w pracy?
      */
     CServerWrapper(IReceiverFactory *aReceiversFactory);
-    void TestIncomingConnection();
+    void ForTestIncomingConnection();
     void ForTestSetPortNumber(int aPortNumber);
-    int TestGetPortNumber();
-    void TestUpdatePortNumber();
+    int ForTestGetPortNumber();
+    void ForTestUpdatePortNumber();
 };
 
 #endif // CSERVERWRAPPER_H

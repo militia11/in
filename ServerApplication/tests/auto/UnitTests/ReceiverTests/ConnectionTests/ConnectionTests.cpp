@@ -21,7 +21,7 @@ ConnectionTests::ConnectionTests() {
 void ConnectionTests::TestConnectMethod() {
 		CReceiverWrapper vReceiver;
 
-		vReceiver.TestConnect(new QTcpSocket);
+		vReceiver.ForTestConnect(new QTcpSocket);
 
 		QVERIFY(vReceiver.ForTestGetSocket());
 		QVERIFY(vReceiver.ForTestGetReveiveBuffer());
@@ -31,7 +31,7 @@ void ConnectionTests::TestConnectMethod() {
 void ConnectionTests::TestConnectMethodNullSocket() {
 		CReceiverWrapper vReceiver;
 
-		vReceiver.TestConnect(nullptr);
+		vReceiver.ForTestConnect(nullptr);
 
 		QEXPECT_FAIL("", "Gniazdo powinno być pustym wskaźnikiem", Continue);
 		QVERIFY(!vReceiver.ForTestGetSocket());

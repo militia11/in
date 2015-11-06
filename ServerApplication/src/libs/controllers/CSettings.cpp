@@ -14,13 +14,14 @@ QString CSettings::GetDriver() const {
 
     return vDriver;
 }
+
 int CSettings::GetPortNumber() const {
     QSettings vSettings;
     vSettings.beginGroup("server");
-    int vPortNum = vSettings.value("port").toInt();
+    int vPortNumber {vSettings.value("port").toInt()};
     vSettings.endGroup();
 
-    return vPortNum;
+    return vPortNumber;
 }
 
 QString CSettings::GetConnectionString() const {

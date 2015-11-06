@@ -6,31 +6,40 @@
 /**
  * @brief Wrapper for CReceiver class
  *
- * Used to acces to some private/protected variables in tests
+ * Used to access protected variables in tests
  */
 class CReceiverWrapper : public CReceiver {
-  public:
-    CReceiverWrapper();
+ public:
+  char *ForTestGetMessageFileChecksum();
+  int ForTestGetMessageSize();
 
-    char *TestGetMessageFileChecksum();
-    int TestGetMessageSize();
-    //void TestSetMessageFileChecksum();
-		void TestSetMessageSize(int aSize);
-		void TestConnect(QTcpSocket *aSocket);
-		bool TestHasMessageCorrectFormat(char *aMessage);
-		void TestSetMessage(char *aMessageFileChecksum);
-	QTcpSocket *ForTestGetSocket();
-	QByteArray *ForTestGetReveiveBuffer();
-	int32_t *ForTestGetDataSize();
-int TestConvertMessageArrayToInt();
-		/* set je:
-    	QTcpSocket *mSocket;
-    	QByteArray *mReceiveBuffer;
-    	int32_t *mDataSize;
-    	ReceiveDataMode mReceiveDataMode;
-    	char mMessageFileChecksum[1024];
-    	int mMessageSize;
-    	int mReceiveByteCount; */
+  /**
+   * @brief Set protected mMessageSize field for unit test
+   *
+   * @param aData New value of mMessageSize
+   */
+  void ForTestSetMessageSize(int aSize);
+  void ForTestConnect(QTcpSocket *aSocket);
+  bool ForTestHasMessageCorrectFormat(char *aMessage);
+  void ForTestSetMessage(char *aMessageFileChecksum);
+  QTcpSocket *ForTestGetSocket();
+  QByteArray *ForTestGetReveiveBuffer();
+
+  /**
+   * @brief Get protected mDataSize variable
+   *        for unit tests
+   *
+   * @return Protected mDataSize variable
+   */
+  int32_t *ForTestGetDataSize();
+
+  /**
+   * @brief Call protected method ConvertMessageArrayToInt
+   *
+   * @return Checksum
+   */
+  int ForTestConvertMessageArrayToInt();
+
 };
 
 #endif // CReceiverWRAPPER_H

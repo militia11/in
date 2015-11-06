@@ -172,7 +172,7 @@ class CReceiver : public IReceiver {
     QByteArray *mReceiveBuffer;
 
     /**
-		 * @brief mDataSize is size of receive buffer
+     * @brief mDataSize is size of receive buffer
      */
     int32_t *mDataSize;
 

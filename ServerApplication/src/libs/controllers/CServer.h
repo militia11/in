@@ -17,6 +17,7 @@ class CServer : public IServer {
     Q_OBJECT
 
   public:
+        void UpdatePortNumber();
     /**
      * @brief CServer constructor
      */
@@ -84,6 +85,11 @@ class CServer : public IServer {
 
   protected:
     /**
+     * @brief SocketError attend socket exception
+     * @param aText socket error
+     */
+    void SocketError(const char *aText);
+    /**
      * @brief Method connect client's signals to server's slots
      */
     void ConnectClientSignals();
@@ -92,7 +98,7 @@ class CServer : public IServer {
      * @brief UpdatePortNumber get and update actually port number
      *        from programm config file to application
      */
-    void UpdatePortNumber();
+
 
     /**
      * @brief mReceiversFactory is Receivers factory

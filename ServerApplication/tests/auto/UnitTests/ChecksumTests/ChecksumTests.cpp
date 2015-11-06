@@ -5,18 +5,18 @@
 #include <QString>
 #include <QtTest>
 
-//#include "libs/controllers/CRetrievePhotoTransaction.h"
-//#include "libs/controllers/CStorePhotoTransaction.h"
-//#include "libs/dao/CRepository.h"
+#include "src/libs/controllers/CRetrievePhotoTransaction.h"
+#include "src/libs/controllers/CStorePhotoTransaction.h"
+#include "src/libs/dao/CRepository.h"
 
-//extern CRepository gRepository;
+extern CRepository gRepository;
 
 class ChecksumTests : public QObject {
     Q_OBJECT
 
   public:
     ChecksumTests();
-    uint16_t CalculateFileDataChecksum(QByteArray aData);
+    uint16_t CalculateFileDataChecksumHelper(QByteArray aData);
 
   private Q_SLOTS:
     void TestAddChecksum();
@@ -27,20 +27,20 @@ ChecksumTests::ChecksumTests() {
 }
 
 void ChecksumTests::TestAddChecksum() {
-		/*  int16_t vChecksum {194};
+      int16_t vChecksum {194};
 
     CChecksumList vChecksumList;
     vChecksumList.AddFileChecksum(vChecksum);
 
     QVERIFY(vChecksumList.CheckFileChecksum(vChecksum));
-    */
+
     // lub gdyby w programie byly problemy z dodawaniem sumy i sprawdzaniem
     // CChecksumList *vChecksumList = gRepository.GetChecksumList();
     // vChecksumList->AddFileChecksum(12);
 }
 
 void ChecksumTests::TestCheckFileChecksum() {
-    /*gRepository.SetSettings("sqlite3", "database=:memory:");
+    gRepository.SetSettings("sqlite3", "database=:memory:");
     // dzięki temu, że w pamięci testy można w jenkinsie
     gRepository.Connect();
     gRepository.PopulateDatabase();
@@ -53,8 +53,8 @@ void ChecksumTests::TestCheckFileChecksum() {
     QImageWriter vWriter(&vBufferToStoreData, "JPG");
     vWriter.write(vAddedImage);
 
-    QByteArray vAddedData = vBufferToStoreData.data();
-    int16_t vChecksumAddImage = CalculateFileDataChecksum(vAddedData);
+    QByteArray vAddedData {vBufferToStoreData.data()};
+    int16_t vChecksumAddImage {CalculateFileDataChecksumHelper(vAddedData)};
 
     CStorePhotoTransaction vStoreTransaction(
     vAddedData, vAddedData.size(), vChecksumAddImage);
@@ -62,10 +62,10 @@ void ChecksumTests::TestCheckFileChecksum() {
 
 		CChecksumList *vChecksumList {gRepository.GetChecksumList()};
 
-    QVERIFY(vChecksumList->CheckFileChecksum(vChecksumAddImage)); */
+    QVERIFY(vChecksumList->CheckFileChecksum(vChecksumAddImage));
 }
 
-uint16_t ChecksumTests::CalculateFileDataChecksum(QByteArray aData) {
+uint16_t ChecksumTests::CalculateFileDataChecksumHelper(QByteArray aData) {
 		uint16_t vChecksum {};
 
 		for (auto i = 0; i < aData.length(); ++i) {

@@ -1,31 +1,28 @@
 #include "CReceiverWrapper.h"
 
-CReceiverWrapper::CReceiverWrapper() {
-}
-
-char *CReceiverWrapper::TestGetMessageFileChecksum() {
+char *CReceiverWrapper::ForTestGetMessageFileChecksum() {
     return mMessageFileChecksum;
 }
 
-int CReceiverWrapper::TestGetMessageSize() {
+int CReceiverWrapper::ForTestGetMessageSize() {
     return mMessageSize;
 }
 
-void CReceiverWrapper::TestSetMessageSize(int aSize) {
+void CReceiverWrapper::ForTestSetMessageSize(int aSize) {
 	mMessageSize = aSize;
 }
 
-void CReceiverWrapper::TestConnect(QTcpSocket *aSocket)
+void CReceiverWrapper::ForTestConnect(QTcpSocket *aSocket)
 {
 	Connect(aSocket);
 }
 
-bool CReceiverWrapper::TestHasMessageCorrectFormat(char *aMessage)
+bool CReceiverWrapper::ForTestHasMessageCorrectFormat(char *aMessage)
 {
 	return HasMessageCorrectFormat(aMessage);
 }
 
-void CReceiverWrapper::TestSetMessage(char *aMessageFileChecksum)
+void CReceiverWrapper::ForTestSetMessage(char *aMessageFileChecksum)
 {
 	int vMessageSize {sizeof(aMessageFileChecksum) -1};
 
@@ -49,7 +46,7 @@ int32_t *CReceiverWrapper::ForTestGetDataSize()
 	return mDataSize;
 }
 
-int CReceiverWrapper::TestConvertMessageArrayToInt()
+int CReceiverWrapper::ForTestConvertMessageArrayToInt()
 {
 	return ConvertMessageArrayToInt();
 }

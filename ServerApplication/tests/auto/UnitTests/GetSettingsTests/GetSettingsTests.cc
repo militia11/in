@@ -12,11 +12,14 @@ class GetSettingsTests : public QObject
   public:
 		GetSettingsTests();
 
-	private:
+  private:
+    void initTestCase();
+    void cleanupTestCase();
+
 		void SaveSettingsInConfigHelper(
 				QString aValue,
-														 QString aKey,
-														 QString aGroup);
+        QString aKey,
+        QString aGroup);
 
   private Q_SLOTS:
 		void TestGetServerPortNumber();
@@ -26,6 +29,16 @@ class GetSettingsTests : public QObject
 
 GetSettingsTests::GetSettingsTests()
 {
+}
+
+void GetSettingsTests::initTestCase()
+{
+
+}
+
+void GetSettingsTests::cleanupTestCase()
+{
+
 }
 
 void GetSettingsTests::SaveSettingsInConfigHelper(QString aValue, QString aKey, QString aGroup)

@@ -3,7 +3,7 @@
 CServerWrapper::CServerWrapper(IReceiverFactory *aReceiversFactory) :
 		CServer(aReceiversFactory) {}
 
-void CServerWrapper::TestIncomingConnection() {
+void CServerWrapper::ForTestIncomingConnection() {
 		IncomingConnection();
 }
 
@@ -11,11 +11,11 @@ void CServerWrapper::ForTestSetPortNumber(int aPortNumber) {
 		mPortNumber = aPortNumber;
 }
 
-int CServerWrapper::TestGetPortNumber() {
+int CServerWrapper::ForTestGetPortNumber() {
 		return mPortNumber;
 }
 
-void CServerWrapper::TestUpdatePortNumber() {
+void CServerWrapper::ForTestUpdatePortNumber() {
 		UpdatePortNumber();
 }
 

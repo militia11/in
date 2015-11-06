@@ -83,6 +83,14 @@ class CRepository {
 
   protected:
     /**
+     * @brief AttendDatabaseConnectionException attend
+     *        connection exception
+     *
+     * @param aException Database connection error
+     */
+    void AttendDatabaseConnectionException(const char *aException);
+
+    /**
      * @brief RefreshChecksums update checksum list represent as
      *				mChecksumList variable
      */

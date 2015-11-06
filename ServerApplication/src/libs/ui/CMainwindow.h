@@ -101,6 +101,11 @@ class CMainWindow : public QMainWindow {
 
 	protected:
     /**
+     * @brief ServerListeningProblem attend server listening exception
+     * @param aError server error
+     */
+    void ServerListeningProblem(const char *aError);
+    /**
      * @brief Method connect server signals to CMainWindow slots
      */
     inline void ConnectServerSignals();

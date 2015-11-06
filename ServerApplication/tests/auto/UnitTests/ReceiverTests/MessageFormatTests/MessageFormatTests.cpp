@@ -26,9 +26,9 @@ void MessageFormatTests::TestCorrectMessageFormat() {
 
 		// Char array have one more sign - end
 		size_t vMessageSize = sizeof(vMessage) - 1;
-		vReceiver.TestSetMessageSize(vMessageSize);
+		vReceiver.ForTestSetMessageSize(vMessageSize);
 
-		QVERIFY(vReceiver.TestHasMessageCorrectFormat(vMessage));
+		QVERIFY(vReceiver.ForTestHasMessageCorrectFormat(vMessage));
 }
 
 void MessageFormatTests::TestWrongBeginMessageFirstChar() {
@@ -36,10 +36,10 @@ void MessageFormatTests::TestWrongBeginMessageFirstChar() {
 		char vMessage[] {"1>71>"};
 
 		size_t vMessageSize = sizeof(vMessage) - 1;
-		vReceiver.TestSetMessageSize(vMessageSize);
+		vReceiver.ForTestSetMessageSize(vMessageSize);
 
 		QEXPECT_FAIL("", "Zły format wiadomości", Continue);
-		QVERIFY(vReceiver.TestHasMessageCorrectFormat(vMessage));
+		QVERIFY(vReceiver.ForTestHasMessageCorrectFormat(vMessage));
 }
 
 void MessageFormatTests::TestWrongBeginMessageSecondChar() {
@@ -47,10 +47,10 @@ void MessageFormatTests::TestWrongBeginMessageSecondChar() {
 		char vMessage[] {">a84>"};
 
 		size_t vMessageSize = sizeof(vMessage) - 1;
-		vReceiver.TestSetMessageSize(vMessageSize);
+		vReceiver.ForTestSetMessageSize(vMessageSize);
 
 		QEXPECT_FAIL("", "Zły format wiadomości", Continue);
-		QVERIFY(vReceiver.TestHasMessageCorrectFormat(vMessage));
+		QVERIFY(vReceiver.ForTestHasMessageCorrectFormat(vMessage));
 }
 
 void MessageFormatTests::TestWrongEndMessageChar() {
@@ -58,10 +58,10 @@ void MessageFormatTests::TestWrongEndMessageChar() {
 		char vMessage[] {">>74s"};
 
 		size_t vMessageSize = sizeof(vMessage) - 1;
-		vReceiver.TestSetMessageSize(vMessageSize);
+		vReceiver.ForTestSetMessageSize(vMessageSize);
 
 		QEXPECT_FAIL("", "Zły format wiadomości", Continue);
-		QVERIFY(vReceiver.TestHasMessageCorrectFormat(vMessage));
+		QVERIFY(vReceiver.ForTestHasMessageCorrectFormat(vMessage));
 }
 
 void MessageFormatTests::TestChecksumIsNotDigit() {
@@ -69,10 +69,10 @@ void MessageFormatTests::TestChecksumIsNotDigit() {
 		char vMessage[] {">>6s3>"};
 
 		size_t vMessageSize = sizeof(vMessage) - 1;
-		vReceiver.TestSetMessageSize(vMessageSize);
+		vReceiver.ForTestSetMessageSize(vMessageSize);
 
 		QEXPECT_FAIL("", "Zły format wiadomości", Continue);
-		QVERIFY(vReceiver.TestHasMessageCorrectFormat(vMessage));
+		QVERIFY(vReceiver.ForTestHasMessageCorrectFormat(vMessage));
 }
 QTEST_APPLESS_MAIN(MessageFormatTests)
 
