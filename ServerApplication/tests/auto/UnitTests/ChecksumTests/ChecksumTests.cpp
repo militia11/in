@@ -27,7 +27,7 @@ ChecksumTests::ChecksumTests() {
 }
 
 void ChecksumTests::TestAddChecksum() {
-      int16_t vChecksum {194};
+    int16_t vChecksum {194};
 
     CChecksumList vChecksumList;
     vChecksumList.AddFileChecksum(vChecksum);

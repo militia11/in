@@ -16,13 +16,13 @@ class ListeningTests : public QObject {
  private Q_SLOTS:
   void TestIncomingConnectionMethod();
   void TestAreListeningRunServerMethod();
-  void TestAreListeningStopServerMethod();
+ /* void TestAreListeningStopServerMethod();
   void TestAreListeningOnSpecifyPort();
   void TestAreListeningOnWrongPortNumber();
   void TestAreListeningWhenTurnOffListening();
   void TestConnectToServer();
   void TestPortNumberToHighRange();
-
+*/
   //qApp->processEvents(); dodać do init test
 };
 
@@ -44,12 +44,12 @@ void ListeningTests::TestIncomingConnectionMethod() {
 }
 
 void ListeningTests::TestAreListeningRunServerMethod() {
-  CServer vServer(new CReceiverFactoryImplementation());
+  CServer vServer(new CReceiverMockFactory);
   vServer.Run();
 
-  QVERIFY(vServer.isListening());
+  QVERIFY(vServer.isListening());/**/
 }
-
+/*
 void ListeningTests::TestAreListeningStopServerMethod() {
   CServer vServer(new CReceiverMockFactory());
   vServer.Run();
@@ -114,7 +114,7 @@ void ListeningTests::TestPortNumberToHighRange()
                "Za duża liczba.", Continue);
   QVERIFY(vServer.isListening());
 }
-
-QTEST_APPLESS_MAIN(ListeningTests)
+*/
+QTEST_MAIN(ListeningTests)
 
 #include "ListeningTests.moc"
