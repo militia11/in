@@ -15,7 +15,7 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../../../../../ServerApplication
+INCLUDEPATH += ../../../../../
 
 SOURCES += ConvertMessageArrayToIntTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

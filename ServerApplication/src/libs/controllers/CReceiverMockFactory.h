@@ -1,8 +1,8 @@
 #ifndef CRECEIVERMOCKFACTORY_H
 #define CRECEIVERMOCKFACTORY_H
 
-#include "../ServerApplication/src/libs/controllers/IReceiverFactory.h"
-#include "../ServerApplication/src/libs/controllers/IReceiver.h"
+#include "src/libs/controllers/IReceiverFactory.h"
+#include "src/libs/controllers/IReceiver.h"
 
 /**
  * @brief The CReceiverMockFactory class is factory of mocks

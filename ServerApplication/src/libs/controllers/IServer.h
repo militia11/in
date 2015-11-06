@@ -5,7 +5,7 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 
-#include "../ServerApplication/src/libs/controllers/IReceiver.h"
+#include "src/libs/controllers/IReceiver.h"
 
 /**
  * @brief The IServer class is interface of CServer class

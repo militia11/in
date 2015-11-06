@@ -2,11 +2,12 @@
 
 #include <ctype.h> // isdigit function
 
+#include <stdexcept>
 #include <stdio.h> // convert array to int function
 #include <QDebug>
 #include <QFile>
 
-#include "../ServerApplication/src/libs/dao/CRepository.h"
+#include "src/libs/dao/CRepository.h"
 
 extern CRepository gRepository;
 
@@ -39,12 +40,11 @@ void CReceiver::Connect(QTcpSocket *aSocket) {
 
         ConnectSocketSignals();
 
-    } else {
-				const char *vMessage {
-						"Nie można połączyć"
-				};
+		} else {
+				const char *vMessage {"Nie można połączyć"};
         emit MessageStatus(vMessage, 2200);
-        emit mSocket->error();
+				emit mSocket->error();
+				throw  std::runtime_error vError;
 		}
 }
 
@@ -246,7 +246,9 @@ void CReceiver::ConnectSocketSignals() {
 }
 
 void CReceiver::Disconnected() {
-		const char *vMessage {"Rozłączono"};
+		const char *vMessage {
+				"Rozłączono"
+		};
     qDebug() << vMessage;
 
     emit MessageStatus(vMessage, 2200);

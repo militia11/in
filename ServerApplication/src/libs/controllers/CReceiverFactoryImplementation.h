@@ -1,9 +1,9 @@
 #ifndef CRECEIVERFACTORYIMPLEMENTATION_H
 #define CRECEIVERFACTORYIMPLEMENTATION_H
 
-#include "../ServerApplication/src/libs/controllers/IReceiverFactory.h"
-#include "../ServerApplication/src/libs/controllers/CReceiver.h"
-#include "../ServerApplication/src/libs/controllers/CReceiverMock.h"
+#include "src/libs/controllers/IReceiverFactory.h"
+#include "src/libs/controllers/CReceiver.h"
+#include "src/libs/controllers/CReceiverMock.h"
 
 /**
  * @brief The CReceiverFactoryImplementation class is factory of

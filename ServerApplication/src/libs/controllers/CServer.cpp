@@ -1,11 +1,12 @@
 #include "CServer.h"
 
-#include "../ServerApplication/src/libs/controllers/CSettings.h"
-#include "../ServerApplication/src/libs/controllers/CReceiver.h"
-#include "../ServerApplication/src/libs/controllers/CReceiverMock.h"
-
+#include <stdexcept>
 #include <QDebug>
 #include <QTcpSocket>
+
+#include "src/libs/controllers/CSettings.h"
+#include "src/libs/controllers/CReceiver.h"
+#include "src/libs/controllers/CReceiverMock.h"
 
 CServer::CServer(IReceiverFactory *aReceiversFactory) :
     mReceiversFactory(aReceiversFactory) {
@@ -21,6 +22,7 @@ CServer::~CServer() {
 
 void CServer::Run() {
 		if (!this->listen(QHostAddress::Any, mPortNumber)) {
+			throw std::runtime_error;
         MessageStatus("Nie można wystartować serwera", 2400);
     } else {
         MessageStatus("Serwer nasłuchuje...", 2400);
@@ -41,7 +43,14 @@ void CServer::IncomingConnection() {
     emit ConnectClient();
 
 		QTcpSocket *vSocket {nextPendingConnection()};
-    mReceiver->Connect(vSocket);
+
+		try {
+			mReceiver->Connect(vSocket);
+		} catch (std::runtime_error vError) {
+			qDebug() << vError.what(); // lub QAbstractSocket::SocketError
+			// w statusie wyswielt tylko
+		}
+
 		IReceiver *vIReceiver {mReceiver};
 		CReceiver *vReceiver {dynamic_cast<CReceiver *>(vIReceiver)};
 

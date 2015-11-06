@@ -1,9 +1,9 @@
 #ifndef CRETRIEVEPHOTOTRANSACTION_H
 #define CRETRIEVEPHOTOTRANSACTION_H
 
-#include "../ServerApplication/src/libs/controllers/CTransaction.h"
+#include "src/libs/controllers/CTransaction.h"
 
-#include "../ServerApplication/src/libs/dao/androidphotosdatabase.hpp"
+#include "src/libs/dao/androidphotosdatabase.hpp"
 
 #include <QByteArray>
 

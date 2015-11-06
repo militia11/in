@@ -14,7 +14,7 @@ CONFIG   += console c++11
 CONFIG   -= app_bundle
 TEMPLATE = app
 
-INCLUDEPATH += ../../../../../../ServerApplication
+INCLUDEPATH += ../../../../../
 
 SOURCES += ListeningTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

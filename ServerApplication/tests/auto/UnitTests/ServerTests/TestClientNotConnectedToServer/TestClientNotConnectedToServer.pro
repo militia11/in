@@ -15,7 +15,7 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../../../../../ServerApplication
+INCLUDEPATH += ../../../../../
 
 SOURCES += \
     tst_ClientNotConnectedToServer.cpp

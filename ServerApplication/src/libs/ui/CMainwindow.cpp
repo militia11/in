@@ -1,6 +1,7 @@
 #include "CMainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <stdexcept>
 #include <QBuffer>
 #include <QImage>
 #include <QImageReader>
@@ -8,7 +9,7 @@
 
 #include "CDatabaseConnectionDialog.h"
 #include "CServerSettingsDialog.h"
-#include "../ServerApplication/src/libs/controllers/CReceiverFactoryImplementation.h"
+#include "src/libs/controllers/CReceiverFactoryImplementation.h"
 
 extern CRepository gRepository;
 
@@ -87,7 +88,12 @@ void CMainWindow::ShowStatus(const char *aMessageStatus, int aTimeMsc) {
 void CMainWindow::RunServer() {
     mServer = new CServer(new CReceiverFactoryImplementation);
     ConnectServerSignals();
-    mServer->Run();
+
+		try {
+			mServer->Run();
+		} catch(std::runtime_error vError) {
+			qDebug() << vError.what();
+		}
 
     ui->ActionStopServer->setChecked(false);
     ui->ActionRunServer->setEnabled(false);

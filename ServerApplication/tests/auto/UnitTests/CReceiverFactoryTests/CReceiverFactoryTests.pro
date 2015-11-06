@@ -15,7 +15,7 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../../../../ServerApplication
+INCLUDEPATH += ../../../../
 
 SOURCES += CReceiverFactoryTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

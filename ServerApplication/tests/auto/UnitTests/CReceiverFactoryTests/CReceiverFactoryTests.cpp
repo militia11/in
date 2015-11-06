@@ -1,11 +1,11 @@
 #include <QString>
 #include <QtTest>
 
-#include "../ServerApplication/src/libs/controllers/CReceiver.h"
-#include "../ServerApplication/src/libs/controllers/CReceiverFactoryImplementation.h"
-#include "../ServerApplication/src/libs/controllers/CReceiverMock.h"
-#include "../ServerApplication/src/libs/controllers/CReceiverMockFactory.h"
-#include "../ServerApplication/src/libs/controllers/IReceiver.h"
+#include "/src/libs/controllers/CReceiver.h"
+#include "/src/libs/controllers/CReceiverFactoryImplementation.h"
+#include "/src/libs/controllers/CReceiverMock.h"
+#include "/src/libs/controllers/CReceiverMockFactory.h"
+#include "/src/libs/controllers/IReceiver.h"
 
 class CReceiverFactoryTests : public QObject {
     Q_OBJECT

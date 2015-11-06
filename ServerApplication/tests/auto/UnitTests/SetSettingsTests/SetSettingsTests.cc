@@ -2,9 +2,9 @@
 #include <QtTest>
 #include <QCoreApplication>
 
-#include "../ServerApplication/src/libs/controllers/CSettings.h"
-#include "../ServerApplication/src/libs/controllers/CDatabaseConnectionDialogWrapper.h"
-#include "../ServerApplication/src/libs/ui/CServerSettingsDialog.h"
+#include "/src/libs/controllers/CSettings.h"
+#include "/src/libs/controllers/CDatabaseConnectionDialogWrapper.h"
+#include "/src/libs/ui/CServerSettingsDialog.h"
 
 class SetSettingsTestsTest : public QObject
 {

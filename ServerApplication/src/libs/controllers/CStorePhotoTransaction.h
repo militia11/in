@@ -3,8 +3,8 @@
 
 #include <litesql.hpp>
 
-#include "../ServerApplication/src/libs/dao/androidphotosdatabase.hpp"
-#include "../ServerApplication/src/libs/controllers/CTransaction.h"
+#include "src/libs/dao/androidphotosdatabase.hpp"
+#include "src/libs/controllers/CTransaction.h"
 
 #include <QBuffer>
 

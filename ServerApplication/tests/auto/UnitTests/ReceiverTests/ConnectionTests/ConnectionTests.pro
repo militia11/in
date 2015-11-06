@@ -16,7 +16,7 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../../../../../ServerApplication
+INCLUDEPATH += ../../../../../
 
 SOURCES += ConnectionTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

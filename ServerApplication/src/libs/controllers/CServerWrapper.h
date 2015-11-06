@@ -1,7 +1,7 @@
 #ifndef CSERVERWRAPPER_H
 #define CSERVERWRAPPER_H
 
-#include "../ServerApplication/src/libs/controllers/CServer.h"
+#include "src/libs/controllers/CServer.h"
 
 /**
  * @brief Wrapper for CServer class

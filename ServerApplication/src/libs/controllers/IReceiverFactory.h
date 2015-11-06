@@ -1,7 +1,7 @@
 #ifndef IRECEIVERFACTORY_H
 #define IRECEIVERFACTORY_H
 
-#include "../ServerApplication/src/libs/controllers/IReceiver.h"
+#include "src/libs/controllers/IReceiver.h"
 
 /**
  * @brief IReceiverFactory is a IReceiverFactory factory class interface

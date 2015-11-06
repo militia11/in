@@ -1,11 +1,11 @@
 #include <QString>
 #include <QtTest>
 
-#include "../ServerApplication/src/libs/controllers/CServer.h"
-#include "../ServerApplication/src/libs/controllers/CServerWrapper.h"
-#include "../ServerApplication/src/libs/controllers/CReceiverFactoryImplementation.h"
-#include "../ServerApplication/src/libs/controllers/CReceiverMock.h"
-#include "../ServerApplication/src/libs/controllers/CReceiverMockFactory.h"
+#include "/src/libs/controllers/CServer.h"
+#include "/src/libs/controllers/CServerWrapper.h"
+#include "/src/libs/controllers/CReceiverFactoryImplementation.h"
+#include "/src/libs/controllers/CReceiverMock.h"
+#include "/src/libs/controllers/CReceiverMockFactory.h"
 
 class ListeningTests : public QObject {
     Q_OBJECT

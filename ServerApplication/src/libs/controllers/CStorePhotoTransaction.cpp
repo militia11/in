@@ -2,8 +2,8 @@
 
 #include <litesql.hpp>
 
-#include "../ServerApplication/src/libs/dao/androidphotosdatabase.hpp"
-#include "../ServerApplication/src/libs/dao/CRepository.h"
+#include "src/libs/dao/androidphotosdatabase.hpp"
+#include "src/libs/dao/CRepository.h"
 
 #include <QImageWriter>
 #include <QDebug>

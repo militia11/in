@@ -1,7 +1,7 @@
 #ifndef CReceiverMOCK_H
 #define CReceiverMOCK_H
 
-#include "../ServerApplication/src/libs/controllers/IReceiver.h"
+#include "src/libs/controllers/IReceiver.h"
 
 /**
  * @brief Mock of CReceiver class used in unit tests
