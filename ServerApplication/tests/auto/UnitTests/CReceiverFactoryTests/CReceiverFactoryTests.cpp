@@ -1,14 +1,15 @@
 #include <QString>
 #include <QtTest>
 
-#include "/src/libs/controllers/CReceiver.h"
-#include "/src/libs/controllers/CReceiverFactoryImplementation.h"
-#include "/src/libs/controllers/CReceiverMock.h"
-#include "/src/libs/controllers/CReceiverMockFactory.h"
-#include "/src/libs/controllers/IReceiver.h"
+#include "src/libs/controllers/CReceiver.h"
+#include "src/libs/controllers/CReceiverFactoryImplementation.h"
+#include "src/libs/controllers/CReceiverMock.h"
+#include "src/libs/controllers/CReceiverMockFactory.h"
+#include "src/libs/controllers/IReceiver.h"
 
 class CReceiverFactoryTests : public QObject {
     Q_OBJECT
+
   public:
     CReceiverFactoryTests();
 

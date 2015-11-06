@@ -17,9 +17,9 @@ CServerSettingsDialog::~CServerSettingsDialog() {
 }
 
 void CServerSettingsDialog::on_mPushButtonResetDefault_clicked() {
-    QString vMessage = "Czy na pewno przywrócić ustawienia domyślne?";
-    int vAnswer = QMessageBox::question(this, "Uwaga", vMessage,
-                                        QMessageBox::Yes | QMessageBox::No);
+		QString vMessage {"Czy na pewno przywrócić ustawienia domyślne?"};
+		int vAnswer {QMessageBox::question(this, "Uwaga", vMessage,
+																				QMessageBox::Yes | QMessageBox::No)};
 
     if (vAnswer == QMessageBox::Yes) {
         const int vDefaultPortNumber = 1234;
@@ -35,7 +35,7 @@ void CServerSettingsDialog::on_mPushButtonResetDefault_clicked() {
 void CServerSettingsDialog::on_mButtonBoxOkCancel_accepted() {
     QSettings vQSetting;
     vQSetting.beginGroup("server");
-    int vPortNumber = ui->mSpinBoxPortNum->value();
+		int vPortNumber {ui->mSpinBoxPortNum->value()};
     vQSetting.setValue("port", QString::number(vPortNumber));
     vQSetting.endGroup();
 }

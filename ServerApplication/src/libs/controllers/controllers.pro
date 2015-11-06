@@ -31,8 +31,6 @@ HEADERS += \
     CReceiverMockFactory.h \
 	CServerWrapper.h \
 	CReceiverWrapper.h \
-	CDatabaseConnectionDialogWrapper.h \
-	CServerSettingsDialogWrapper.h \
 	CServerMock.h
 
 
@@ -47,6 +45,4 @@ SOURCES += \
     CReceiverMockFactory.cpp \
 	CServerWrapper.cc \
 	CReceiverWrapper.cpp \
-	CDatabaseConnectionDialogWrapper.cpp \
-	CServerSettingsDialogWrapper.cpp \
 	CServerMock.cpp

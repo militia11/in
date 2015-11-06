@@ -2,7 +2,7 @@
 #include <QtTest>
 #include <QCoreApplication>
 
-#include "/src/libs/controllers/CReceiverWrapper.h"
+#include "src/libs/controllers/CReceiverWrapper.h"
 
 class ConnectionTests : public QObject {
 		Q_OBJECT
@@ -11,13 +11,14 @@ class ConnectionTests : public QObject {
 		ConnectionTests();
 
 	private Q_SLOTS:
-		void TestConnection();
+		void TestConnectMethod();
+		void TestConnectMethodNullSocket();
 };
 
 ConnectionTests::ConnectionTests() {
 }
 
-void ConnectionTests::TestConnection() {
+void ConnectionTests::TestConnectMethod() {
 		CReceiverWrapper vReceiver;
 
 		vReceiver.TestConnect(new QTcpSocket);
@@ -25,8 +26,21 @@ void ConnectionTests::TestConnection() {
 		QVERIFY(vReceiver.ForTestGetSocket());
 		QVERIFY(vReceiver.ForTestGetReveiveBuffer());
 		QVERIFY(vReceiver.ForTestGetDataSize());
+}
 
-		//vReceiver->TestGetMessageFileChecksum();
+void ConnectionTests::TestConnectMethodNullSocket() {
+		CReceiverWrapper vReceiver;
+
+		vReceiver.TestConnect(nullptr);
+
+		QEXPECT_FAIL("", "Gniazdo powinno być pustym wskaźnikiem", Continue);
+		QVERIFY(!vReceiver.ForTestGetSocket());
+
+		QEXPECT_FAIL("", "Bufor powinien być pustym wskaźnikiem", Continue);
+		QVERIFY(!vReceiver.ForTestGetReveiveBuffer());
+
+		QEXPECT_FAIL("", "DataSize powinien być pustym wskaźnikiem", Continue);
+		QVERIFY(!vReceiver.ForTestGetDataSize());
 }
 
 QTEST_MAIN(ConnectionTests)

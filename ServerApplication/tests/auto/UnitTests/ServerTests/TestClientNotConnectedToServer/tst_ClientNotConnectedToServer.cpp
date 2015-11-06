@@ -3,11 +3,11 @@
 #include <QString>
 #include <QtTest>
 
-#include "/src/libs/controllers/CServer.h"
-#include "/src/libs/controllers/CServerWrapper.h"
-#include "/src/libs/controllers/CSettings.h"
-#include "/src/libs/controllers/CReceiverMock.h"
-#include "/src/libs/controllers/CReceiverMockFactory.h"
+#include "src/libs/controllers/CServer.h"
+#include "src/libs/controllers/CServerWrapper.h"
+#include "src/libs/controllers/CSettings.h"
+#include "src/libs/controllers/CReceiverMock.h"
+#include "src/libs/controllers/CReceiverMockFactory.h"
 
 class ClientNotConnectedToServer : public QObject {
     Q_OBJECT

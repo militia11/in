@@ -1,7 +1,7 @@
 #include <QString>
 #include <QtTest>
 
-#include "/src/libs/controllers/CReceiverWrapper.h"
+#include "src/libs/controllers/CReceiverWrapper.h"
 
 class MessageFormatTests : public QObject {
     Q_OBJECT

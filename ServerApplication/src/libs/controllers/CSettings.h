@@ -23,7 +23,7 @@ class CSettings {
      *
      * @return Port number
      */
-    int GetPortNumber() const;
+		int GetPortNumber() const;
 
     /**
      * @brief GetConnectionString method read settings
@@ -31,6 +31,6 @@ class CSettings {
      *
      * @return QString of connection parameter
      */
-    QString GetConnectionString() const;
+		QString GetConnectionString() const;
 };
 #endif // CSETTINGS_H

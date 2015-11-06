@@ -22,7 +22,7 @@ CServer::~CServer() {
 
 void CServer::Run() {
 		if (!this->listen(QHostAddress::Any, mPortNumber)) {
-			throw std::runtime_error;
+			throw std::runtime_error("Nie można wystartować serwera");
         MessageStatus("Nie można wystartować serwera", 2400);
     } else {
         MessageStatus("Serwer nasłuchuje...", 2400);

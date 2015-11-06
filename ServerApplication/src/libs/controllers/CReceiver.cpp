@@ -44,7 +44,7 @@ void CReceiver::Connect(QTcpSocket *aSocket) {
 				const char *vMessage {"Nie można połączyć"};
         emit MessageStatus(vMessage, 2200);
 				emit mSocket->error();
-				throw  std::runtime_error vError;
+				throw  std::runtime_error("Błąd klienta. Nie można połączyć");
 		}
 }
 
