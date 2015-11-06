@@ -54,7 +54,7 @@ void ChecksumTests::TestCheckFileChecksum() {
     vWriter.write(vAddedImage);
 
     QByteArray vAddedData {vBufferToStoreData.data()};
-    int16_t vChecksumAddImage {CalculateFileDataChecksumHelper(vAddedData)};
+		uint16_t vChecksumAddImage {CalculateFileDataChecksumHelper(vAddedData)};
 
     CStorePhotoTransaction vStoreTransaction(
     vAddedData, vAddedData.size(), vChecksumAddImage);

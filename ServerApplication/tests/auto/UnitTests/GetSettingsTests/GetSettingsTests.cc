@@ -74,7 +74,7 @@ void GetSettingsTests::TestGetConnectionStringMySqlDriver()
   //QCOMPARE(vSettings.GetConnectionString(), vExpectedConnectionString);*/
 /*
   void SettingsTests::TestConnectionStringSQLiteDriver() {
-    /*CDatabaseConnectionDialogWrapper vDialog;
+		CDatabaseConnectionDialogWrapper vDialog;
     vDialog.mDriver = "sqlite3";
     vDialog.mDatabaseName = "testDbSqlite";
     vDialog.SaveSettings();

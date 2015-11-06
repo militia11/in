@@ -14,15 +14,15 @@ class ListeningTests : public QObject {
   ListeningTests();
 
  private Q_SLOTS:
-  void TestIncomingConnectionMethod();
-  void TestAreListeningRunServerMethod();
- /* void TestAreListeningStopServerMethod();
-  void TestAreListeningOnSpecifyPort();
-  void TestAreListeningOnWrongPortNumber();
-  void TestAreListeningWhenTurnOffListening();
-  void TestConnectToServer();
-  void TestPortNumberToHighRange();
-*/
+	void TestIncomingConnectionMethod();
+	void TestAreListeningRunServerMethod();
+ void TestAreListeningStopServerMethod();
+	 void TestAreListeningOnSpecifyPort();
+	void TestAreListeningOnWrongPortNumber();
+	void TestAreListeningWhenTurnOffListening();
+void TestConnectToServer();
+		void TestPortNumberToHighRange();
+
   //qApp->processEvents(); dodać do init test
 };
 
@@ -47,9 +47,9 @@ void ListeningTests::TestAreListeningRunServerMethod() {
   CServer vServer(new CReceiverMockFactory);
   vServer.Run();
 
-  QVERIFY(vServer.isListening());/**/
+	QVERIFY(vServer.isListening());
 }
-/*
+
 void ListeningTests::TestAreListeningStopServerMethod() {
   CServer vServer(new CReceiverMockFactory());
   vServer.Run();
@@ -64,9 +64,12 @@ void ListeningTests::TestAreListeningStopServerMethod() {
 
 void ListeningTests::TestAreListeningOnSpecifyPort() {
   CServer vServer(new CReceiverMockFactory());
- vServer.Run();
+
+
   int vPortNumber {vServer.serverPort()};
-  bool vIsListen {vServer.listen(QHostAddress::Any, vPortNumber)};
+	qDebug()<<"x"<<vPortNumber;
+	//  Check turn on listening without function Run
+	bool vIsListen {vServer.listen(QHostAddress::Any, vPortNumber)};
   QVERIFY(vIsListen);
 }
 
@@ -107,14 +110,14 @@ void ListeningTests::TestConnectToServer() {
 void ListeningTests::TestPortNumberToHighRange()
 {
   CServerWrapper vServer(new CReceiverMockFactory());
-  vServer.ForTestSetPortNumber(99999);
-  vServer.Run();
-
+	vServer.ForTestSetPortNumber(999999999);
+ // vServer.Run();
+bool vIsListen {vServer.listen(QHostAddress::Any, 999999999)};
   QEXPECT_FAIL("", "Nasłuchiwanie serwera nie powinno się odbywać. "
                "Za duża liczba.", Continue);
-  QVERIFY(vServer.isListening());
+	QVERIFY(vIsListen);
 }
-*/
+
 QTEST_MAIN(ListeningTests)
 
 #include "ListeningTests.moc"
