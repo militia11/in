@@ -14,7 +14,10 @@ class ClientNotConnectedToServer : public QObject {
 
   public:
     ClientNotConnectedToServer();
-
+		void SaveSettingsInConfigHelper(
+				QString aValue,
+				QString aKey,
+				QString aGroup);
   private Q_SLOTS:
     void TestGetReceiver();
     void TestVerifyPortNumber();
@@ -24,6 +27,14 @@ class ClientNotConnectedToServer : public QObject {
 };
 
 ClientNotConnectedToServer::ClientNotConnectedToServer() {
+}
+
+void ClientNotConnectedToServer::SaveSettingsInConfigHelper(QString aValue, QString aKey, QString aGroup)
+{
+	QSettings vQSettings;
+	vQSettings.beginGroup(aGroup);
+	vQSettings.setValue(aKey, aValue);
+	vQSettings.endGroup();
 }
 
 void ClientNotConnectedToServer::TestGetReceiver() {
@@ -47,20 +58,16 @@ void ClientNotConnectedToServer::TestVerifyPortNumber() {
 }
 
 void ClientNotConnectedToServer::TestUpdatePortNumber() {
-    CServerWrapper vServer (new CReceiverMockFactory());
-    vServer.ForTestSetPortNumber(12);
+		CServerWrapper vServer (new CReceiverMockFactory());
 
-    CSettings vSettings;
-    int vPortNumberFromSettings {vSettings.GetPortNumber()};
+		CSettings vSettings;
 
-    //Save new port number
-    QSettings vQSetting;
-    vQSetting.beginGroup("server");
-    int vPortNumber {128};
-    vQSetting.setValue("port", QString::number(vPortNumber));
-    vQSetting.endGroup();
-    vServer.ForTestUpdatePortNumber();
-    QCOMPARE(vServer.ForTestGetPortNumber(), vPortNumberFromSettings);
+		int vPortNumber {3811};
+		SaveSettingsInConfigHelper(QString::number(vPortNumber), "port", "server");
+
+		vServer.ForTestUpdatePortNumber();
+		int vExpectedPortNumberFromSettings {vSettings.GetPortNumber()};
+		QCOMPARE(vServer.ForTestGetPortNumber(),vExpectedPortNumberFromSettings);
 }
 
 void ClientNotConnectedToServer::TestEmptySocketTest() {
@@ -81,6 +88,6 @@ void ClientNotConnectedToServer::Test() {
   QVERIFY(vServer.isListening());
 }
 
-QTEST_APPLESS_MAIN(ClientNotConnectedToServer)
+QTEST_MAIN(ClientNotConnectedToServer)
 
 #include "tst_ClientNotConnectedToServer.moc"
