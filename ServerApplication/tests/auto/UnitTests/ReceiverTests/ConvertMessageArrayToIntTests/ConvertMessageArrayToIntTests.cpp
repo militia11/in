@@ -1,7 +1,7 @@
 #include <QString>
 #include <QtTest>
 
-#include "src/libs/controllers/CReceiverWrapper.h"
+#include "tests/auto/UnitTests/testlibs/CReceiverWrapper.h"
 
 /**
  * @brief The ConvertMessageArrayToIntTests class

@@ -7,7 +7,7 @@
 include(../../../../../../AutogeneratingEmendation.pri)
 include(../../../../../../LinkingLibraries.pri)
 
-QT       += testlib gui network
+QT       += testlib network
 
 TARGET = MessageFormatTests
 CONFIG   += console c++11
@@ -21,6 +21,7 @@ SOURCES += \
     MessageFormatTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
+LIBS += -L../../testlibs -ltestlibs
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
 LIBS += -L../../../../../src/libs/ui -lui
 LIBS += -L../../../../../src/libs/dao -ldao

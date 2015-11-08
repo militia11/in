@@ -5,7 +5,7 @@
 
 #include "src/libs/controllers/CSettings.h"
 #include "src/libs/controllers/CReceiver.h"
-#include "src/libs/controllers/CReceiverMock.h"
+#include "tests/auto/UnitTests/testlibs/CReceiverMock.h"
 
 CServer::CServer(IReceiverFactory *aReceiversFactory) :
   mReceiversFactory(aReceiversFactory) {

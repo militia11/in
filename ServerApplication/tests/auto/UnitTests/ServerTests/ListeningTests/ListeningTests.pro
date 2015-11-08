@@ -7,7 +7,7 @@
 include(../../../../../../AutogeneratingEmendation.pri)
 include(../../../../../../LinkingLibraries.pri)
 
-QT       += testlib network core
+QT       += testlib network
 
 TARGET = ListeningTests
 CONFIG   += console c++11
@@ -19,5 +19,7 @@ INCLUDEPATH += ../../../../../
 SOURCES += ListeningTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
+LIBS += -L../../testlibs -ltestlibs
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
 LIBS += -L../../../../../src/libs/dao -ldao
+

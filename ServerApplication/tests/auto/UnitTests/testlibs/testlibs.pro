@@ -11,11 +11,19 @@ QT       += network core gui
 
 TARGET = testlibs
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib c++11
 
-SOURCES +=
+SOURCES += \
+    CServerWrapper.cc \
+    CReceiverWrapper.cpp \
+    CReceiverMock.cpp \
+    CReceiverMockFactory.cpp
 
-HEADERS +=
+HEADERS += \
+    CServerWrapper.h \
+    CReceiverWrapper.h \
+    CReceiverMock.h \
+    CReceiverMockFactory.h
 
 INCLUDEPATH += ../../../../
 

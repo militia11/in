@@ -1,9 +1,9 @@
 #ifndef CRECEIVERFACTORYIMPLEMENTATION_H
 #define CRECEIVERFACTORYIMPLEMENTATION_H
 
-#include "src/libs/controllers/IReceiverFactory.h"
 #include "src/libs/controllers/CReceiver.h"
-#include "src/libs/controllers/CReceiverMock.h"
+#include "src/libs/controllers/IReceiverFactory.h"
+
 
 /**
  * @brief The CReceiverFactoryImplementation class is factory of
@@ -15,7 +15,7 @@ class CReceiverFactoryImplementation : public IReceiverFactory {
      * @brief Make
      * @return CReceiver object
      */
-    IReceiver *Make();//QString aReceiverName
+		IReceiver *Make();
 };
 
 #endif // CRECEIVERFACTORYIMPLEMENTATION_H

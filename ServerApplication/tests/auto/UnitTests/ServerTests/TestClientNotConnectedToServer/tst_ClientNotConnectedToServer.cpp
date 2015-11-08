@@ -2,13 +2,13 @@
 
 #include <QString>
 #include <QtTest>
-/*
+
 #include "src/libs/controllers/CServer.h"
-#include "src/libs/controllers/CServerWrapper.h"
 #include "src/libs/controllers/CSettings.h"
-#include "src/libs/controllers/CReceiverMock.h"
-#include "src/libs/controllers/CReceiverMockFactory.h"
-*/
+#include "tests/auto/UnitTests/testlibs/CReceiverMock.h"
+#include "tests/auto/UnitTests/testlibs/CReceiverMockFactory.h"
+#include "tests/auto/UnitTests/testlibs/CServerWrapper.h"
+
 class ClientNotConnectedToServer : public QObject {
     Q_OBJECT
 
@@ -21,16 +21,16 @@ class ClientNotConnectedToServer : public QObject {
 				QString aGroup);
 
   private Q_SLOTS:
-	/*  void TestGetReceiver();
+		void TestGetReceiver();
     void TestVerifyPortNumber();
     void TestUpdatePortNumber();
 		void TestEmptySocketTest();
-		void Test();*/
+		void Test();
 };
 
 ClientNotConnectedToServer::ClientNotConnectedToServer() {
 }
-/*
+
 void ClientNotConnectedToServer::SaveSettingsInConfigHelper(QString aValue, QString aKey, QString aGroup)
 {
 	QSettings vQSettings;
@@ -61,7 +61,6 @@ void ClientNotConnectedToServer::TestVerifyPortNumber() {
 
 void ClientNotConnectedToServer::TestUpdatePortNumber() {
 		CServerWrapper vServer (new CReceiverMockFactory());
-
 		CSettings vSettings;
 
 		int vPortNumber {3811};
@@ -87,10 +86,9 @@ void ClientNotConnectedToServer::Test() {
 
   bool vIsListen {vServer.listen(QHostAddress::Any, vPortNumber)};
 	QVERIFY(vIsListen);
-
   QVERIFY(vServer.isListening());
 }
-*/
+
 QTEST_MAIN(ClientNotConnectedToServer)
 
 #include "tst_ClientNotConnectedToServer.moc"

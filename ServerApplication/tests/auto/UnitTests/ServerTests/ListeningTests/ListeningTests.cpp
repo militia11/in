@@ -2,10 +2,10 @@
 #include <QtTest>
 
 #include "src/libs/controllers/CServer.h"
-#include "src/libs/controllers/CServerWrapper.h"
 #include "src/libs/controllers/CReceiverFactoryImplementation.h"
-#include "src/libs/controllers/CReceiverMock.h"
-#include "src/libs/controllers/CReceiverMockFactory.h"
+#include "tests/auto/UnitTests/testlibs/CReceiverMock.h"
+#include "tests/auto/UnitTests/testlibs/CReceiverMockFactory.h"
+#include "tests/auto/UnitTests/testlibs/CServerWrapper.h"
 
 class ListeningTests : public QObject {
 		Q_OBJECT

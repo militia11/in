@@ -1,8 +1,8 @@
 #include <QString>
 #include <QtTest>
 
-#include "src/libs/controllers/CReceiverWrapper.h"
-#include <QHostAddress>
+#include "tests/auto/UnitTests/testlibs/CReceiverWrapper.h"
+
 class DataMethodsTests : public QObject {
 		Q_OBJECT
 

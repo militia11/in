@@ -8,3 +8,7 @@ SUBDIRS += \
     CReceiverFactoryTests \
     GetSettingsTests \
     testlibs
+
+ServerTests.depends += testlibs
+ReceiverTests.depends += testlibs
+CReceiverFactoryTests.depends += testlibs

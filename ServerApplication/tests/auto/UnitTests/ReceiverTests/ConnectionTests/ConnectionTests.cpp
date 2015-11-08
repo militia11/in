@@ -2,8 +2,7 @@
 #include <QtTest>
 #include <QCoreApplication>
 
-#include "src/libs/controllers/CReceiverWrapper.h"
-
+#include "tests/auto/UnitTests/testlibs/CReceiverWrapper.h"
 class ConnectionTests : public QObject {
 		Q_OBJECT
 

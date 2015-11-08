@@ -7,10 +7,10 @@
 include(../../../../../AutogeneratingEmendation.pri)
 include(../../../../../LinkingLibraries.pri)
 
-QT       += testlib gui network core
+QT       += testlib core network
 
 TARGET = CReceiverFactoryTests
-CONFIG   += console
+CONFIG   += console c++11
 CONFIG   -= app_bundle
 
 TEMPLATE = app
@@ -20,6 +20,7 @@ INCLUDEPATH += ../../../../
 SOURCES += CReceiverFactoryTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
+LIBS += -L../testlibs -ltestlibs
 LIBS += -L../../../../src/libs/controllers -lcontrollers
 LIBS += -L../../../../src/libs/ui -lui
 LIBS += -L../../../../src/libs/dao -ldao
