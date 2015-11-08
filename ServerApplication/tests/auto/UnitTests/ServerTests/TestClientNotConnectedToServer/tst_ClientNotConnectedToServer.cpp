@@ -87,6 +87,7 @@ void ClientNotConnectedToServer::Test() {
 
   bool vIsListen {vServer.listen(QHostAddress::Any, vPortNumber)};
 	QVERIFY(vIsListen);
+
   QVERIFY(vServer.isListening());
 }
 */

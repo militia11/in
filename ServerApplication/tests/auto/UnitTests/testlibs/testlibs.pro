@@ -1,0 +1,24 @@
+#-------------------------------------------------
+#
+# Project created by QtCreator 2015-11-08T10:47:52
+#
+#-------------------------------------------------
+
+include(../../../../../AutogeneratingEmendation.pri)
+include(../../../../../LinkingLibraries.pri)
+
+QT       += network core gui
+
+TARGET = testlibs
+TEMPLATE = lib
+CONFIG += staticlib
+
+SOURCES +=
+
+HEADERS +=
+
+INCLUDEPATH += ../../../../
+
+LIBS += -L../../../../src/libs/controllers -lcontrollers
+LIBS += -L../../../../src/libs/dao -ldao
+LIBS += -L../testlibs -ltestlibs

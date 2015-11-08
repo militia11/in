@@ -6,4 +6,5 @@ SUBDIRS += \
     TestStorePhoto \
     ChecksumTests \
     CReceiverFactoryTests \
-    GetSettingsTests
+    GetSettingsTests \
+    testlibs
