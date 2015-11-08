@@ -14,13 +14,11 @@ CONFIG += staticlib
 INCLUDEPATH += ../../..
 
 SOURCES += \
-	CClient.cpp \
-	CClientMock.cpp
+	CClient.cpp
 
 HEADERS += \
     CClient.h \
-	IClient.h \
-	CClientMock.h
+	IClient.h
 
 LIBS += -L../src/dao -ldao
 

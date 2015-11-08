@@ -2,13 +2,13 @@
 
 #include <QString>
 #include <QtTest>
-
+/*
 #include "src/libs/controllers/CServer.h"
 #include "src/libs/controllers/CServerWrapper.h"
 #include "src/libs/controllers/CSettings.h"
 #include "src/libs/controllers/CReceiverMock.h"
 #include "src/libs/controllers/CReceiverMockFactory.h"
-
+*/
 class ClientNotConnectedToServer : public QObject {
     Q_OBJECT
 
@@ -21,16 +21,16 @@ class ClientNotConnectedToServer : public QObject {
 				QString aGroup);
 
   private Q_SLOTS:
-    void TestGetReceiver();
+	/*  void TestGetReceiver();
     void TestVerifyPortNumber();
     void TestUpdatePortNumber();
 		void TestEmptySocketTest();
-		void Test();
+		void Test();*/
 };
 
 ClientNotConnectedToServer::ClientNotConnectedToServer() {
 }
-
+/*
 void ClientNotConnectedToServer::SaveSettingsInConfigHelper(QString aValue, QString aKey, QString aGroup)
 {
 	QSettings vQSettings;
@@ -89,7 +89,7 @@ void ClientNotConnectedToServer::Test() {
 	QVERIFY(vIsListen);
   QVERIFY(vServer.isListening());
 }
-
+*/
 QTEST_MAIN(ClientNotConnectedToServer)
 
 #include "tst_ClientNotConnectedToServer.moc"
