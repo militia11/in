@@ -1,6 +1,5 @@
 #include "CServer.h"
 
-//#include <stdexcept>
 #include <QDebug>
 #include <QTcpSocket>
 
@@ -13,8 +12,6 @@ CServer::CServer(IReceiverFactory *aReceiversFactory) :
   UpdatePortNumber();
   mReceiver = mReceiversFactory->Make();
   connect(this, SIGNAL(newConnection()), this, SLOT(IncomingConnection()));
-  CSettings vSettings;
-  qDebug()<<vSettings.GetPortNumber();
 }
 
 CServer::~CServer() {
@@ -25,10 +22,7 @@ CServer::~CServer() {
 void CServer::Run() {
 
   if (!this->listen(QHostAddress::Any, mPortNumber)) {
-qDebug() << "nie nasluch";
-    ///@todo to inaczej zrobic w catch
-    MessageStatus("Nie można wystartować serwera", 2400);
-    //throw std::runtime_error("Nie można wystartować serwera");
+		throw std::runtime_error("Nie można wystartować serwera");
   } else {
     MessageStatus("Serwer nasłuchuje...", 2400);
   }

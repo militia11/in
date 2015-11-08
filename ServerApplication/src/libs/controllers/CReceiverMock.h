@@ -15,13 +15,11 @@ class CReceiverMock : public IReceiver {
      * @return Log
      */
     const QString GetLog() const;
-    //signals:
-    //void Disconnect();//{mLog += "->Dis";}
+
     /**
      * @brief Method called when server receive incoming connection,
      *        client is connecting to specify port
      */
-    //public:
     void Connect(QTcpSocket *aSocket);
 
     /**

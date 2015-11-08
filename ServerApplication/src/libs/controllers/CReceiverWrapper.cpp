@@ -12,6 +12,11 @@ void CReceiverWrapper::ForTestSetMessageSize(int aSize) {
 	mMessageSize = aSize;
 }
 
+void CReceiverWrapper::ForTestSetReceiveByteCount(int aByteCount)
+{
+	mReceiveByteCount = aByteCount;
+}
+
 void CReceiverWrapper::ForTestConnect(QTcpSocket *aSocket)
 {
 	Connect(aSocket);
@@ -31,6 +36,21 @@ void CReceiverWrapper::ForTestSetMessage(char *aMessageFileChecksum)
 	}
 }
 
+QTcpSocket *CReceiverWrapper::ForTestSetSocket(QTcpSocket *aSocket)
+{
+	mSocket = aSocket;
+}
+
+void CReceiverWrapper::ForTestSetReceiveBuffer(QByteArray *aBuffer)
+{
+	mReceiveBuffer = aBuffer;
+}
+
+ReceiveDataMode CReceiverWrapper::ForTestGetReceiveDataMode()
+{
+	return mReceiveDataMode;
+}
+
 QTcpSocket *CReceiverWrapper::ForTestGetSocket()
 {
 	return mSocket;
@@ -39,6 +59,27 @@ QTcpSocket *CReceiverWrapper::ForTestGetSocket()
 QByteArray *CReceiverWrapper::ForTestGetReveiveBuffer()
 {
 	return mReceiveBuffer;
+}
+
+void CReceiverWrapper::ForTestNewData()
+{
+	NewData();
+}
+
+void CReceiverWrapper::ForTestRouteData(char aData)
+{
+	RouteData(aData);
+}
+
+int CReceiverWrapper::ForTestGetReceiveByteCount()
+{
+	return mReceiveByteCount;
+}
+
+void CReceiverWrapper::ForTestSetReceiveDataMode(ReceiveDataMode aMode)
+{
+	mReceiveDataMode = aMode;
+
 }
 
 int32_t *CReceiverWrapper::ForTestGetDataSize()
@@ -50,7 +91,3 @@ int CReceiverWrapper::ForTestConvertMessageArrayToInt()
 {
 	return ConvertMessageArrayToInt();
 }
-
-//void CReceiverWrapper::TestSetMessageFileChecksum(char *aMess) {
-//  mMessageFileChecksum =
-//}

@@ -14,10 +14,12 @@ class ClientNotConnectedToServer : public QObject {
 
   public:
     ClientNotConnectedToServer();
+
 		void SaveSettingsInConfigHelper(
 				QString aValue,
 				QString aKey,
 				QString aGroup);
+
   private Q_SLOTS:
     void TestGetReceiver();
     void TestVerifyPortNumber();

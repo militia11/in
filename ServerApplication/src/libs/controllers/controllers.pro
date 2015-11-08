@@ -22,16 +22,16 @@ HEADERS += \
     CTransaction.h \
     CRetrievePhotoTransaction.h \
     CStorePhotoTransaction.h \
-	IReceiver.h \
+    IReceiver.h \
     IServer.h \
-	CReceiver.h \
+    CReceiver.h \
     IReceiverFactory.h \
     CReceiverFactoryImplementation.h \
     CReceiverMock.h \
     CReceiverMockFactory.h \
-	CServerWrapper.h \
-	CReceiverWrapper.h \
-	CServerMock.h
+    CServerWrapper.h \
+    CReceiverWrapper.h \
+    CServerMock.h
 
 
 SOURCES += \
@@ -43,6 +43,6 @@ SOURCES += \
     CReceiverFactoryImplementation.cpp \
     CReceiverMock.cpp \
     CReceiverMockFactory.cpp \
-	CServerWrapper.cc \
-	CReceiverWrapper.cpp \
-	CServerMock.cpp
+    CServerWrapper.cc \
+    CReceiverWrapper.cpp \
+    CServerMock.cpp

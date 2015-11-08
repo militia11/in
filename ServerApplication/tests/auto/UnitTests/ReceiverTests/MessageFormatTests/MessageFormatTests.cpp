@@ -25,7 +25,7 @@ void MessageFormatTests::TestCorrectMessageFormat() {
 		char vMessage[] {">>645<"};
 
 		// Char array have one more sign - end
-		size_t vMessageSize = sizeof(vMessage) - 1;
+		size_t vMessageSize {sizeof(vMessage) - 1};
 		vReceiver.ForTestSetMessageSize(vMessageSize);
 
 		QVERIFY(vReceiver.ForTestHasMessageCorrectFormat(vMessage));
@@ -35,7 +35,7 @@ void MessageFormatTests::TestWrongBeginMessageFirstChar() {
 		CReceiverWrapper vReceiver;
 		char vMessage[] {"1>71>"};
 
-		size_t vMessageSize = sizeof(vMessage) - 1;
+		size_t vMessageSize {sizeof(vMessage) - 1};
 		vReceiver.ForTestSetMessageSize(vMessageSize);
 
 		QEXPECT_FAIL("", "Zły format wiadomości", Continue);
@@ -46,7 +46,7 @@ void MessageFormatTests::TestWrongBeginMessageSecondChar() {
 		CReceiverWrapper vReceiver;
 		char vMessage[] {">a84>"};
 
-		size_t vMessageSize = sizeof(vMessage) - 1;
+		size_t vMessageSize {sizeof(vMessage) - 1};
 		vReceiver.ForTestSetMessageSize(vMessageSize);
 
 		QEXPECT_FAIL("", "Zły format wiadomości", Continue);
@@ -57,7 +57,7 @@ void MessageFormatTests::TestWrongEndMessageChar() {
 		CReceiverWrapper vReceiver;
 		char vMessage[] {">>74s"};
 
-		size_t vMessageSize = sizeof(vMessage) - 1;
+		size_t vMessageSize {sizeof(vMessage) - 1};
 		vReceiver.ForTestSetMessageSize(vMessageSize);
 
 		QEXPECT_FAIL("", "Zły format wiadomości", Continue);
@@ -68,7 +68,7 @@ void MessageFormatTests::TestChecksumIsNotDigit() {
 		CReceiverWrapper vReceiver;
 		char vMessage[] {">>6s3>"};
 
-		size_t vMessageSize = sizeof(vMessage) - 1;
+		size_t vMessageSize {sizeof(vMessage) - 1};
 		vReceiver.ForTestSetMessageSize(vMessageSize);
 
 		QEXPECT_FAIL("", "Zły format wiadomości", Continue);

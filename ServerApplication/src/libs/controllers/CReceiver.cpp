@@ -26,9 +26,7 @@ CReceiver::~CReceiver() {
 
 void CReceiver::Connect(QTcpSocket *aSocket) {
 		if (aSocket) {
-				const char *vMessage {
-						"Klient połączony. Nasłuchiwanie serwera wyłączone"
-				};
+				const char *vMessage {"Klient połączony. Nasłuchiwanie serwera wyłączone"};
 
         QByteArray b("12");
         qDebug() << CalculateFileDataChecksum(b);
@@ -43,8 +41,7 @@ void CReceiver::Connect(QTcpSocket *aSocket) {
 		} else {
 				const char *vMessage {"Nie można połączyć"};
         emit MessageStatus(vMessage, 2200);
-				emit mSocket->error();
-        throw  std::runtime_error("Błąd klienta. Nie można połączyć");
+				throw  std::runtime_error("Nie można połączyć");
 		}
 }
 
@@ -53,14 +50,14 @@ QTcpSocket *CReceiver::GetSocket() const {
 }
 
 void CReceiver::NewData() {
-    while (mSocket->bytesAvailable() > 0) {
+		while (mSocket->bytesAvailable() > 0) {
 				QByteArray vData {mSocket->readAll()};
         mReceiveBuffer->append(vData);
 
 				for (auto i = 0; i < vData.length(); i++) {
 						char vTargetSign {vData[i]};
 
-            switch (vTargetSign) {
+						switch (vTargetSign) {
 								case '>': {  // Begin send message checksum
 										char vNextChar {vData[i + 1]};
 

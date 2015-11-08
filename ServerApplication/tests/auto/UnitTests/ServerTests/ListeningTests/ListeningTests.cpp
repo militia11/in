@@ -38,7 +38,7 @@ void ListeningTests::TestIncomingConnectionMethod() {
 		vServer.ForTestIncomingConnection();
 
 		QString vActualLog {vReceiverMock->GetLog()};
-		QString vExpectedLog("->Connect->ResponeToClient(Witaj kliencie\n)");
+		QString vExpectedLog("->Connect(0)->ResponeToClient(Witaj kliencie\n)");
 		QCOMPARE(vActualLog, vExpectedLog);
 }
 
@@ -80,7 +80,7 @@ void ListeningTests::TestAreListeningOnWrongPortNumber() {
 		bool vIsListen {vServer.listen(QHostAddress::Any, vPortNumber)};
 
 		QEXPECT_FAIL("", "Serwer nie powinien wystartować na podanym numerze portu"
-								 "Za mała liczba", Continue);
+								 "Nie jest to właściwy numer portu.", Continue);
 		QVERIFY(vIsListen);
 }
 

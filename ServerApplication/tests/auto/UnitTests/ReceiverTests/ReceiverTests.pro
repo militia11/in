@@ -5,4 +5,5 @@ SUBDIRS += \
     ConvertMessageArrayToIntTests \
     CalculateChecksumTests \
     AddChecksumTests \
-    ConnectionTests
+    ConnectionTests \
+    DataMethodsTests

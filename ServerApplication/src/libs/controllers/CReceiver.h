@@ -1,7 +1,7 @@
 #ifndef CReceiver_H
 #define CReceiver_H
 
-#include <inttypes.h> //uint_t* and int_t* types
+#include <inttypes.h>  // uint_t* and int_t* types
 
 #include <QTcpSocket>
 #include <QObject>
@@ -21,7 +21,8 @@ enum ReceiveDataMode {
 };
 
 /**
- * @brief The CReceiver class receive photos from client in client-server architecture
+ * @brief The CReceiver class receive photos from client in
+ *        client-server architecture
  *
  * CReceiver class inherits from QObject. This class have responsibility
  * of coordinate communication with CReceiver class from Android-side application
@@ -43,11 +44,6 @@ class CReceiver : public IReceiver {
     ~ CReceiver();
 
     /**
-		 * @brief Method to respone information to client
-     */
-    void ResponeToClient(QByteArray aData = 0);
-
-    /**
      * @brief Method called to get CReceiver class member mSocket
 		 *        which represent socket
      *
@@ -55,7 +51,12 @@ class CReceiver : public IReceiver {
      */
     QTcpSocket *GetSocket() const;
 
-  public slots:
+	protected slots:
+		/**
+		 * @brief Slot called when connection lost
+		 */
+		void Disconnected();
+
     /**
 		 * @brief Method called on new incomming data
      */
@@ -86,13 +87,11 @@ class CReceiver : public IReceiver {
      */
     void MessageStatus(const char *aMessage, int aTimeMsc);
 
-  private slots:
-    /**
-		 * @brief Slot called when connection lost
-     */
-    void Disconnected();
-
   protected:
+		/**
+		 * @brief Method to respone information to client
+		 */
+		void ResponeToClient(QByteArray aData = 0);
 		/**
 		 * @brief Method called when server receive incoming connection,
 		 *        client is connecting to specify port

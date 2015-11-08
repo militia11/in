@@ -13,6 +13,8 @@ class ConnectionTests : public QObject {
 	private Q_SLOTS:
 		void TestConnectMethod();
 		void TestConnectMethodNullSocket();
+		void TestGetSocket();
+		void TestGetNullSocket();
 };
 
 ConnectionTests::ConnectionTests() {
@@ -31,16 +33,41 @@ void ConnectionTests::TestConnectMethod() {
 void ConnectionTests::TestConnectMethodNullSocket() {
 		CReceiverWrapper vReceiver;
 
-		vReceiver.ForTestConnect(nullptr);
+		QString vErrorLog;
+
+		try {
+				vReceiver.ForTestConnect(nullptr);
+		} catch (std::runtime_error aException) {
+				vErrorLog.append(aException.what());
+		}
+
+		QString vExpectedLog("Nie można połączyć");
+		QCOMPARE(vErrorLog, vExpectedLog);
 
 		QEXPECT_FAIL("", "Gniazdo powinno być pustym wskaźnikiem", Continue);
-		QVERIFY(!vReceiver.ForTestGetSocket());
+		QVERIFY(vReceiver.ForTestGetSocket());
 
 		QEXPECT_FAIL("", "Bufor powinien być pustym wskaźnikiem", Continue);
-		QVERIFY(!vReceiver.ForTestGetReveiveBuffer());
+		QVERIFY(vReceiver.ForTestGetReveiveBuffer());
 
 		QEXPECT_FAIL("", "DataSize powinien być pustym wskaźnikiem", Continue);
-		QVERIFY(!vReceiver.ForTestGetDataSize());
+		QVERIFY(vReceiver.ForTestGetDataSize());
+}
+
+void ConnectionTests::TestGetSocket() {
+		CReceiverWrapper vReceiver;
+
+		vReceiver.ForTestSetSocket(new QTcpSocket);
+		QVERIFY(vReceiver.ForTestGetSocket());
+}
+
+void ConnectionTests::TestGetNullSocket() {
+		CReceiverWrapper vReceiver;
+
+		vReceiver.ForTestSetSocket(nullptr);
+
+		QEXPECT_FAIL("", "mSocket powinien być pustym wskaźnikiem", Continue);
+		QVERIFY(vReceiver.ForTestGetSocket());
 }
 
 QTEST_MAIN(ConnectionTests)
