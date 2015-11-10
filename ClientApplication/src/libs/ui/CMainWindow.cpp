@@ -57,7 +57,7 @@ void CMainWindow::on_mPushButtonSendChecksum_clicked() {
 }
 
 void CMainWindow::on_mPushButtonConnect_clicked() {
-    vClient = new CReceiver;
+    vClient = new CClient;
     qDebug() << "Czy udało się połączyć z hostem: " <<
              vClient->ConnectToHost("5.172.247.219"); //192.168.56.1
 }

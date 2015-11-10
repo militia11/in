@@ -40,13 +40,13 @@ void CChecksumList::ReceiveChecksumsFromDB() {
 }
 
 bool CChecksumList::CheckFileChecksum(int16_t aChecksum) {
-    for (QList<int>::iterator vIterator = mChecksumList.begin();
+  /*  for (QList<int>::iterator vIterator = mChecksumList.begin();
             vIterator != mChecksumList.end(); ++vIterator) {
         if (aChecksum == *vIterator) {
             return true;
         }
     }
-
+*/
     return false;
 }
 

@@ -83,15 +83,24 @@ class CReceiver : public IReceiver {
     void ReadData(QByteArray aData);
 
     /**
-		 * @brief Signal emited to send status for mainly to the main status bar
+     * @brief MessageStatus  Signal emited to send status for mainly to the main status bar
+     * @param aMessage Message to send
+     * @param aTimeMsc Time in miliseconds
      */
     void MessageStatus(const char *aMessage, int aTimeMsc);
 
   protected:
-		/**
+    /**
+     * @brief MessageFormatException print message format exception
+     * @param vException is message exception
+     */
+    void MessageFormatException(const char *aException);
+
+    /**
 		 * @brief Method to respone information to client
 		 */
 		void ResponeToClient(QByteArray aData = 0);
+
 		/**
 		 * @brief Method called when server receive incoming connection,
 		 *        client is connecting to specify port

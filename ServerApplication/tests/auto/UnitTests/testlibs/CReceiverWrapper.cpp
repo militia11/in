@@ -33,6 +33,7 @@ void CReceiverWrapper::ForTestSetMessage(char *aMessageFileChecksum)
 
 	for(auto i = 0; i < vMessageSize; ++i) {
 		mMessageFileChecksum[i] = aMessageFileChecksum[i];
+    qDebug() << mMessageFileChecksum[i];
 	}
 }
 
@@ -43,7 +44,12 @@ QTcpSocket *CReceiverWrapper::ForTestSetSocket(QTcpSocket *aSocket)
 
 void CReceiverWrapper::ForTestSetReceiveBuffer(QByteArray *aBuffer)
 {
-	mReceiveBuffer = aBuffer;
+  mReceiveBuffer = aBuffer;
+}
+
+void CReceiverWrapper::ForTestServeReceivedMessage()
+{
+  ServeReceivedMessage();
 }
 
 ReceiveDataMode CReceiverWrapper::ForTestGetReceiveDataMode()

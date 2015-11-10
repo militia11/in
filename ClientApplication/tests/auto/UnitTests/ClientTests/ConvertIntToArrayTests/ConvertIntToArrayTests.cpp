@@ -19,18 +19,15 @@ ConvertIntToArrayTests::ConvertIntToArrayTests() {
 }
 
 void ConvertIntToArrayTests::TestConvertIntToArrayTest() {
-    int32_t vNumber = 12;
+    int32_t vNumber {12};
 
-    CReceiver vClient;
-    QByteArray vConvertedData = vClient.IntToArray(vNumber);
+    CClient vClient;
+    QByteArray vConvertedData {vClient.IntToArray(vNumber)};
 
     QDataStream vStream(&vConvertedData, QIODevice::ReadWrite);
     vStream << vNumber;
 
-    const char *vDataAsHexAscii =
-        qPrintable(QString(vConvertedData.toHex().toUpper()));
-
-    QCOMPARE(vDataAsHexAscii, "0000000C");
+    QCOMPARE(qPrintable(QString(vConvertedData.toHex().toUpper())), "0000000C");
 
     // Qt 5.4 have function toStdString which is ideal for this compare
     // but it is not compatibile with Qt MySql driver

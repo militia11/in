@@ -13,6 +13,7 @@ class CReceiverWrapper : public CReceiver {
 	void ForTestNewData();
 	void ForTestRouteData(char aData);
 void ForTestConnect(QTcpSocket *aSocket);
+void ForTestServeReceivedMessage();
 
 
 /**

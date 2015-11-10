@@ -13,19 +13,19 @@
  * @brief The CClient class represent client in
  *        client-server architecture
  */
-class CReceiver : public IClient {
+class CClient : public IClient {
 		Q_OBJECT
 
   public:
     /**
      * @brief CClient class constructor
      */
-		CReceiver();
+    CClient();
 
     /**
      * @brief CClient class destructor
      */
-		~CReceiver();
+    ~CClient();
 
     /**
      * @brief WriteData write file data to socket

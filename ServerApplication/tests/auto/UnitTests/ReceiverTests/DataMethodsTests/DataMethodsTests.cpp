@@ -14,6 +14,7 @@ class DataMethodsTests : public QObject {
 		void TestRouteDataMethod();
 		void TestRouteDataPreventBufferOverflow();
 		void TestRouteDataSpecifySign();
+    void TestServeReceivedMessageWrongMessageFormat();
 };
 
 DataMethodsTests::DataMethodsTests() {
@@ -77,7 +78,21 @@ void DataMethodsTests::TestRouteDataSpecifySign() {
 		QCOMPARE(vReceiver.ForTestGetReceiveByteCount(), 0);
 
 		QCOMPARE(vReceiver.ForTestGetReceiveDataMode(), Mode_Receive_File_Data);
-		QCOMPARE(*vReceiver.ForTestGetReveiveBuffer(), *(new QByteArray()));
+    QCOMPARE(*vReceiver.ForTestGetReveiveBuffer(), *(new QByteArray()));
+}
+
+void DataMethodsTests::TestServeReceivedMessageWrongMessageFormat()
+{
+  CReceiverWrapper vReceiver;
+
+  char vMessage[] {">>645<"};
+
+  // Char array have one more sign - end
+  size_t vMessageSize {sizeof(vMessage) - 1};
+  vReceiver.ForTestSetMessageSize(vMessageSize);
+  vReceiver.ForTestSetMessage(">>323<");
+
+  vReceiver.ForTestServeReceivedMessage();
 }
 
 QTEST_APPLESS_MAIN(DataMethodsTests)

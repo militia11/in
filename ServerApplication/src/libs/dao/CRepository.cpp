@@ -10,7 +10,7 @@ using server::AndroidPhotosDatabase;
 //PhotoModel gPhotoModel;
 
 CRepository::CRepository() : mDatabase(0),
-    mChecksumList(0) {
+    mChecksumList(nullptr) {
     mLastConnectionError = false;
 }
 

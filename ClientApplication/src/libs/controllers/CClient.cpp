@@ -11,7 +11,7 @@
 
 extern CRepository gRepository;
 
-CReceiver::CReceiver() {
+CClient::CClient() {
 		mSocket = new QTcpSocket(this);
 		mReceiveBuffer = 0;
 		mSendFile = false;
@@ -21,7 +21,7 @@ CReceiver::CReceiver() {
 		PrepareMessageData(384); //usunąć potem
 }
 
-CReceiver::~CReceiver() {
+CClient::~CClient() {
 		delete  mSocket;
 		mSocket = nullptr;
 
@@ -29,7 +29,7 @@ CReceiver::~CReceiver() {
 		mReceiveBuffer = nullptr;
 }
 
-void CReceiver::ReadData() {
+void CClient::ReadData() {
 		while (mSocket->bytesAvailable() > 0) {
 				QByteArray vMessageData = mSocket->readAll();
 				qDebug() << vMessageData;
@@ -45,7 +45,9 @@ void CReceiver::ReadData() {
     }
 }
 
-bool CReceiver::ConnectToHost(QString aHost) {
+
+
+bool CClient::ConnectToHost(QString aHost) {
 		mSocket->connectToHost(aHost, 1234);
 		bool vConnected = mSocket->waitForConnected(
 													90000); ///@todo komentarz skad taka liczba
@@ -57,7 +59,7 @@ bool CReceiver::ConnectToHost(QString aHost) {
 		return vConnected;
 }
 
-QByteArray CReceiver::ConvertImageToByteArray(const QImage &aImage) {
+QByteArray CClient::ConvertImageToByteArray(const QImage &aImage) {
 		QBuffer vBuffer;
 
 		QImageWriter vWriter(&vBuffer, "JPG");
@@ -65,7 +67,7 @@ QByteArray CReceiver::ConvertImageToByteArray(const QImage &aImage) {
 		return vBuffer.data();
 }
 
-QByteArray CReceiver::PrepareMessageData(int16_t aChecksum) {
+QByteArray CClient::PrepareMessageData(int16_t aChecksum) {
 		const char *vChecksumAsString = qPrintable(QString::number(aChecksum));
 		QByteArray vData(vChecksumAsString);
 		vData.insert(0, '>');
@@ -75,7 +77,7 @@ QByteArray CReceiver::PrepareMessageData(int16_t aChecksum) {
 		return vData;
 }
 
-bool CReceiver::WriteData(QByteArray aData) {
+bool CClient::WriteData(QByteArray aData) {
 		if (mSocket->state() == QAbstractSocket::ConnectedState) {
 				mSocket->write(IntToArray(aData.length()));
 				mSocket->write(aData);
@@ -87,7 +89,7 @@ bool CReceiver::WriteData(QByteArray aData) {
 		}
 }
 
-bool CReceiver::WriteMessage(QByteArray aData) {
+bool CClient::WriteMessage(QByteArray aData) {
 		if (mSocket->state() == QAbstractSocket::ConnectedState) {
 				mSocket->write(aData);
 
@@ -98,7 +100,7 @@ bool CReceiver::WriteMessage(QByteArray aData) {
 		}
 }
 
-int16_t CReceiver::CalculateFileDataChecksum(QByteArray aData) {
+int16_t CClient::CalculateFileDataChecksum(QByteArray aData) {
 		int16_t vChecksum {};
 
 		for (int i = 0; i < aData.length(); ++i) {
@@ -108,7 +110,7 @@ int16_t CReceiver::CalculateFileDataChecksum(QByteArray aData) {
 		return vChecksum;
 }
 
-QByteArray CReceiver::IntToArray(int32_t aSource) {
+QByteArray CClient::IntToArray(int32_t aSource) {
 		QByteArray vData;
 		QDataStream vStream(&vData, QIODevice::ReadWrite);
 		vStream << aSource;
@@ -116,7 +118,7 @@ QByteArray CReceiver::IntToArray(int32_t aSource) {
 		return vData;
 }
 
-void CReceiver::UpdateServerPhotos() {
+void CClient::UpdateServerPhotos() {
 		QList<QImage> vImagesList = gRepository.GetImages();
 
 		for (QList<QImage>::iterator vIterator = vImagesList.begin();

@@ -102,7 +102,12 @@ void CReceiver::RouteData(char aData) {
                 mMessageSize = mReceiveByteCount;
                 mReceiveBuffer->clear();
                 mReceiveByteCount = 0;
-                ServeReceivedMessage();
+
+                try {
+                  ServeReceivedMessage();
+                } catch(std::runtime_error vException) {
+                  MessageFormatException(vException.what());
+                }
             }
 
             break;
@@ -115,13 +120,7 @@ void CReceiver::RouteData(char aData) {
 
 void CReceiver::ServeReceivedMessage() {
     if (!HasMessageCorrectFormat(mMessageFileChecksum)) {
-				const char *vMessage {
-						"Nieprawidłowy format wiadomości"
-				};
-				///@todo rzuc wyjatek od
-				MessageStatus(vMessage, 2200);
-
-        return;
+      throw std::runtime_error("Nieprawidłowy format wiadomości");
     }
 
 		int vChecksum {ConvertMessageArrayToInt()};
@@ -279,4 +278,9 @@ int CReceiver::ConvertMessageArrayToInt() {
 
 void CReceiver::ResponeToClient(QByteArray aData) {
     mSocket->write(aData);
+}
+
+void CReceiver::MessageFormatException(const char *aException) {
+    qDebug() << "Message Format Exception: " + QString::fromStdString(aException);
+    MessageStatus(aException, 2200);
 }
