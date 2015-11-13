@@ -84,7 +84,8 @@ class CReceiver : public IReceiver {
 
     /**
      * @brief MessageStatus  Signal emited to send status for mainly to the main status bar
-     * @param aMessage Message to send
+		 *
+		 * @param aMessage Message to send
      * @param aTimeMsc Time in miliseconds
      */
     void MessageStatus(const char *aMessage, int aTimeMsc);
@@ -92,14 +93,15 @@ class CReceiver : public IReceiver {
   protected:
     /**
      * @brief MessageFormatException print message format exception
-     * @param vException is message exception
+		 *
+		 * @param vException is message exception
      */
     void MessageFormatException(const char *aException);
 
     /**
 		 * @brief Method to respone information to client
 		 */
-		void ResponeToClient(QByteArray aData = 0);
+		void ResponeToClient(const char *aMessage = 0);
 
 		/**
 		 * @brief Method called when server receive incoming connection,

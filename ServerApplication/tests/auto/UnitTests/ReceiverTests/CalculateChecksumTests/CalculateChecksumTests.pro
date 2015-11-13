@@ -15,7 +15,7 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../../../../src
+INCLUDEPATH += ../../../../../
 
 SOURCES += CalculateChecksumTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
@@ -23,3 +23,5 @@ DEFINES += SRCDIR=\\\"$$PWD/\\\"
 LIBS += -L../../../../../src/libs/ui -lui
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
 LIBS += -L../../../../../src/libs/dao -ldao
+
+HEADERS +=

@@ -68,8 +68,7 @@ QByteArray CClient::ConvertImageToByteArray(const QImage &aImage) {
 }
 
 QByteArray CClient::PrepareMessageData(int16_t aChecksum) {
-		const char *vChecksumAsString = qPrintable(QString::number(aChecksum));
-		QByteArray vData(vChecksumAsString);
+		QByteArray vData(qPrintable(QString::number(aChecksum)));
 		vData.insert(0, '>');
 		vData.insert(1, '>');
 		vData.append("<");

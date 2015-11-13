@@ -22,6 +22,7 @@ void CReceiverMock::ServeReceivedMessage() {
 
 bool CReceiverMock::HasMessageCorrectFormat(char *aMessage) {
 	Q_UNUSED(aMessage);
+	return true;
 }
 
 void CReceiverMock::ServeReceivedFileData() {
@@ -54,6 +55,6 @@ int CReceiverMock::ConvertMessageArrayToInt() {
     return 0;
 }
 
-void CReceiverMock::ResponeToClient(QByteArray aData) {
-    mLog += "->ResponeToClient(" + aData + ")";
+void CReceiverMock::ResponeToClient(const char* aMessage) {
+		mLog += "->ResponeToClient(" + QString::fromStdString(aMessage) + ")";
 }

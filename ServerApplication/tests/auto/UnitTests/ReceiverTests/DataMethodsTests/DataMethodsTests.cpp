@@ -1,7 +1,11 @@
 #include <QString>
 #include <QtTest>
 
+#include "src/libs/dao/CRepository.h"
 #include "tests/auto/UnitTests/testlibs/CReceiverWrapper.h"
+#include "tests/auto/UnitTests/testlibs/QTcpSocketMock.h"
+
+extern CRepository gRepository;
 
 class DataMethodsTests : public QObject {
 		Q_OBJECT
@@ -14,7 +18,12 @@ class DataMethodsTests : public QObject {
 		void TestRouteDataMethod();
 		void TestRouteDataPreventBufferOverflow();
 		void TestRouteDataSpecifySign();
-    void TestServeReceivedMessageWrongMessageFormat();
+		void TestServeReceivedMessageWrongMessageFormat();
+		void TestServeReceivedMessageChangeAllParam();
+		void TestServeReceivedMessageChangeMinimumToExecution();
+		void TestServeReceivedMessageChangeMinimumResponeToClient();
+		void TestServeReceivedFileData();
+
 };
 
 DataMethodsTests::DataMethodsTests() {
@@ -81,18 +90,132 @@ void DataMethodsTests::TestRouteDataSpecifySign() {
     QCOMPARE(*vReceiver.ForTestGetReveiveBuffer(), *(new QByteArray()));
 }
 
-void DataMethodsTests::TestServeReceivedMessageWrongMessageFormat()
-{
-  CReceiverWrapper vReceiver;
+void DataMethodsTests::TestServeReceivedMessageWrongMessageFormat() {
+		CReceiverWrapper vReceiver;
 
-  char vMessage[] {">>645<"};
+		char vMessage[] {"5>>645<"};
+		// Char array have one more sign - end
+		size_t vMessageSize {sizeof(vMessage) - 1};
+		vReceiver.ForTestSetMessageSize(vMessageSize);
+		vReceiver.ForTestSetMessage(vMessage);
 
-  // Char array have one more sign - end
-  size_t vMessageSize {sizeof(vMessage) - 1};
-  vReceiver.ForTestSetMessageSize(vMessageSize);
-  vReceiver.ForTestSetMessage(">>323<");
+		bool vPass = false;
 
-  vReceiver.ForTestServeReceivedMessage();
+		try {
+				vReceiver.ForTestServeReceivedMessage();
+		} catch (std::runtime_error vException) {
+				vPass = true;
+		}
+
+		QVERIFY(vPass);
+}
+
+void DataMethodsTests::TestServeReceivedMessageChangeAllParam() {
+		CReceiverWrapper vReceiver;
+
+		vReceiver.ForTestSetSocket(new QTcpSocket());
+		char vMessage[] {">>645<"};
+		size_t vMessageSize {sizeof(vMessage) - 1};
+		vReceiver.ForTestSetMessageSize(vMessageSize);
+		vReceiver.ForTestSetMessage(vMessage);
+		vReceiver.ForTestSetReceiveBuffer(new QByteArray("Test data"));
+		gRepository.RefreshChecksums();
+
+		vReceiver.ForTestSetDataSize(new int32_t(50));
+		vReceiver.ForTestSetReceiveByteCount(100);
+		vReceiver.ForTestServeReceivedMessage();
+
+		QCOMPARE(*vReceiver.ForTestGetDataSize(), 0);
+		QCOMPARE(vReceiver.ForTestGetMessageSize(), 0);
+		QCOMPARE(vReceiver.ForTestGetReceiveByteCount(), 0);
+		QCOMPARE(*vReceiver.ForTestGetReveiveBuffer(), QByteArray());
+}
+
+void DataMethodsTests::TestServeReceivedMessageChangeMinimumToExecution() {
+		CReceiverWrapper vReceiver;
+
+
+		vReceiver.ForTestSetSocket(new QTcpSocket());
+		char vMessage[] {">>645<"};
+		size_t vMessageSize {sizeof(vMessage) - 1};
+		vReceiver.ForTestSetMessageSize(vMessageSize);
+		vReceiver.ForTestSetMessage(vMessage);
+		vReceiver.ForTestSetReceiveBuffer(new QByteArray("Test data"));
+		gRepository.RefreshChecksums();
+
+		vReceiver.ForTestServeReceivedMessage();
+
+		QCOMPARE(vReceiver.ForTestGetMessageSize(), 0);
+		QCOMPARE(*vReceiver.ForTestGetReveiveBuffer(), QByteArray());
+}
+
+void DataMethodsTests::TestServeReceivedMessageChangeMinimumResponeToClient() {
+		CReceiverWrapper vReceiver;
+		vReceiver.ForTestSetSocket(new CTcpSocketMock());
+		char vMessage[] {">>649<"};
+		size_t vMessageSize {sizeof(vMessage) - 1};
+		vReceiver.ForTestSetMessageSize(vMessageSize);
+		vReceiver.ForTestSetMessage(vMessage);
+		vReceiver.ForTestSetReceiveBuffer(new QByteArray("Test data"));
+		gRepository.RefreshChecksums();
+
+		vReceiver.ForTestServeReceivedMessage();
+
+		QCOMPARE(vReceiver.ForTestGetMessageSize(), 0);
+		QCOMPARE(*vReceiver.ForTestGetReveiveBuffer(), QByteArray());
+		/*
+			CTcpSocketMock *vTcpSocketMockFromReceiver =
+					dynamic_cast<CTcpSocketMock *>(vReceiver.GetSocket());
+			QString vExpectedLog = "->write(SEND)";
+			QCOMPARE(vTcpSocketMockFromReceiver->GetLog(), vExpectedLog);
+
+		jak dziala dodac tez do allParamtest*/
+}
+
+void DataMethodsTests::TestServeReceivedFileData() {
+		QVERIFY(false);
+	///@todo
+		/*
+		{
+					int32_t vCurrentSize {*mDataSize};
+
+					while ((vCurrentSize == 0 && mReceiveBuffer->size() >= 4) ||
+									(vCurrentSize > 0 &&
+									 mReceiveBuffer->size() >= vCurrentSize)) {
+
+							if (vCurrentSize == 0 &&
+											mReceiveBuffer->size() >=
+											4) {
+									vCurrentSize = ByteArrayToInt(mReceiveBuffer->left(4));
+
+									*mDataSize = vCurrentSize;
+									mReceiveBuffer->remove(0, 4);
+							}
+
+							if (vCurrentSize > 0 && mReceiveBuffer->size() >=
+											vCurrentSize) {
+									if (vCurrentSize > 4  ) {
+											QByteArray vData {mReceiveBuffer->left(vCurrentSize)};
+
+											//u_int16_t vChecksum {CalculateFileDataChecksum(vData)};
+
+											CRetrievePhotoTransaction vRetrieveTransaction(175);
+											vRetrieveTransaction.Execute();
+											QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
+
+											// CStorePhotoTransaction StoreTransaction(vData, vData.size(), vChecksum);
+											// StoreTransaction.Execute();
+
+											emit ReadData(vRetrieveData);///@todo odznaczyc kom na koniec sprawdzic co i jak
+									}
+
+									mReceiveBuffer->remove(0, vCurrentSize);
+
+									vCurrentSize  = 0;
+									*mDataSize    = vCurrentSize;
+
+
+					}*/
 }
 
 QTEST_APPLESS_MAIN(DataMethodsTests)

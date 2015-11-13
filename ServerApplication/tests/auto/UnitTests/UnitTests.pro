@@ -3,11 +3,12 @@ TEMPLATE = subdirs
 SUBDIRS += \
     ServerTests \
     ReceiverTests \
-    TestStorePhoto \
+    StorePhotoTests \
     ChecksumTests \
     CReceiverFactoryTests \
     GetSettingsTests \
-    testlibs
+    testlibs \
+    RunUnitTests
 
 ServerTests.depends += testlibs
 ReceiverTests.depends += testlibs

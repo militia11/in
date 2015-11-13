@@ -1,7 +1,6 @@
 #include "CSettings.h"
 
 #include <stdexcept>
-#include <QDebug>
 
 CSettings::CSettings() {
 }
@@ -9,7 +8,7 @@ CSettings::CSettings() {
 QString CSettings::GetDriver() const {
     QSettings vSettings;
     vSettings.beginGroup("database");
-    QString vDriver = vSettings.value("driver").toString();
+		QString vDriver {vSettings.value("driver").toString()};
     vSettings.endGroup();
 
     return vDriver;

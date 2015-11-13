@@ -7,6 +7,7 @@
 #include "tests/auto/UnitTests/testlibs/CReceiverMock.h"
 #include "tests/auto/UnitTests/testlibs/CReceiverMockFactory.h"
 
+
 class CReceiverFactoryTests : public QObject {
     Q_OBJECT
 
@@ -17,7 +18,7 @@ class CReceiverFactoryTests : public QObject {
     void TestReturnReceiver();
     void TestReturnMockReceiver();
     void TestWrongFactoryReceiver();
-    void TTestWrongFactoryMock();
+		void TTestWrongFactoryMock();
 };
 
 CReceiverFactoryTests::CReceiverFactoryTests() {

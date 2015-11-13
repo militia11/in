@@ -14,6 +14,8 @@ class CReceiverWrapper : public CReceiver {
 	void ForTestRouteData(char aData);
 void ForTestConnect(QTcpSocket *aSocket);
 void ForTestServeReceivedMessage();
+void ForTestDisconnected();
+
 
 
 /**
@@ -22,20 +24,22 @@ void ForTestServeReceivedMessage();
    * @param aData New value of mMessageSize
    */
   void ForTestSetMessageSize(int aSize);
-	void  ForTestSetReceiveByteCount(int aByteCount);
+	void ForTestSetReceiveByteCount(int aByteCount);
   bool ForTestHasMessageCorrectFormat(char *aMessage);
 	void ForTestSetReceiveDataMode(ReceiveDataMode aMode);
 	void ForTestSetMessage(char *aMessageFileChecksum);
-	QTcpSocket *ForTestSetSocket(QTcpSocket *aSocket);
+	void ForTestSetSocket(QTcpSocket *aSocket);
 	void ForTestSetReceiveBuffer(QByteArray *aBuffer);
+	void ForTestSetDataSize(int32_t *aDataSize);
 
-ReceiveDataMode ForTestGetReceiveDataMode();
+	ReceiveDataMode ForTestGetReceiveDataMode();
 	char *ForTestGetMessageFileChecksum();
 	int ForTestGetMessageSize();
 	int ForTestGetReceiveByteCount();
 	QTcpSocket *ForTestGetSocket();
 	QByteArray *ForTestGetReveiveBuffer();
-  /**
+
+	/**
    * @brief Get protected mDataSize variable
    *        for unit tests
    *

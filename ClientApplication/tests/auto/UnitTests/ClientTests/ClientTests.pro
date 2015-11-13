@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    TestPrepareMessageData \
-    TestConvertBetweenQImageAndQByteArray \
+    PrepareMessageDataTests \
+    ConvertBetweenQImageAndQByteArrayTests \
     ConvertIntToArrayTests

@@ -5,7 +5,6 @@
 #include <litesql.hpp>
 
 #include <vector>
-#include <QDebug>
 
 #include "src/libs/dao/androidphotosdatabase.hpp"
 
@@ -40,13 +39,12 @@ void CChecksumList::ReceiveChecksumsFromDB() {
 }
 
 bool CChecksumList::CheckFileChecksum(int16_t aChecksum) {
-  /*  for (QList<int>::iterator vIterator = mChecksumList.begin();
-            vIterator != mChecksumList.end(); ++vIterator) {
-        if (aChecksum == *vIterator) {
-            return true;
-        }
-    }
-*/
+		for (int vChecksum : mChecksumList) {
+				if (aChecksum == vChecksum) {
+						return true;
+				}
+		}
+
     return false;
 }
 

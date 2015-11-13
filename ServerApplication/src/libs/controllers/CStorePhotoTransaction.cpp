@@ -6,7 +6,6 @@
 #include "src/libs/dao/CRepository.h"
 
 #include <QImageWriter>
-#include <QDebug>
 
 using server::AndroidPhotosDatabase;
 using litesql::Blob;
@@ -21,9 +20,9 @@ CStorePhotoTransaction::CStorePhotoTransaction(QByteArray aData, int aDataSize,
 }
 
 void CStorePhotoTransaction::Execute() {
-    server::AndroidPhotosDatabase *mDatabase  = gRepository.GetDatabase();
+		server::AndroidPhotosDatabase *mDatabase {gRepository.GetDatabase()};
 
-    Photo *vPhoto = new Photo(*mDatabase);
+		Photo *vPhoto {new Photo(*mDatabase)};
 
     SetAtributtesToPhoto(vPhoto);
 
@@ -31,7 +30,7 @@ void CStorePhotoTransaction::Execute() {
 
     delete vPhoto;
 
-    CChecksumList *vChecksumList = gRepository.GetChecksumList();
+		CChecksumList *vChecksumList {gRepository.GetChecksumList()};
 
     vChecksumList->AddFileChecksum(mChecksum);
 

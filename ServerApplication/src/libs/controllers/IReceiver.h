@@ -5,7 +5,6 @@
 #include <stdio.h> // convert array to int function
 #include <ctype.h> // isdigit function
 
-#include <QDebug>
 #include <QFile>
 #include <QObject>
 #include <QTcpSocket>
@@ -25,7 +24,7 @@ class IReceiver : public QObject {
     /**
      * @brief Method to respone information to client
      */
-    virtual void ResponeToClient(QByteArray aData = 0) = 0;
+		virtual void ResponeToClient(const char *aMessage) = 0;
 
     /**
      * @brief Method called to get CReceiver class member mSocket

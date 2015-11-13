@@ -14,9 +14,7 @@ class ConvertIntToArrayTests : public QObject {
     void TestConvertIntToArrayTest();
 };
 
-ConvertIntToArrayTests::ConvertIntToArrayTests() {
-
-}
+ConvertIntToArrayTests::ConvertIntToArrayTests() {}
 
 void ConvertIntToArrayTests::TestConvertIntToArrayTest() {
     int32_t vNumber {12};

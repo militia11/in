@@ -17,13 +17,15 @@ SOURCES += \
     CServerWrapper.cc \
     CReceiverWrapper.cpp \
     CReceiverMock.cpp \
-    CReceiverMockFactory.cpp
+    CReceiverMockFactory.cpp \
+    QTcpSocketMock.cpp
 
 HEADERS += \
     CServerWrapper.h \
     CReceiverWrapper.h \
     CReceiverMock.h \
-    CReceiverMockFactory.h
+    CReceiverMockFactory.h \
+    QTcpSocketMock.h
 
 INCLUDEPATH += ../../../../
 

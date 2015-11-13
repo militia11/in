@@ -32,6 +32,12 @@ class CRepository {
      */
     virtual ~CRepository();
 
+		/**
+		 * @brief RefreshChecksums update checksum list represent as
+		 *				mChecksumList variable
+		 */
+		void RefreshChecksums();
+
     /**
      * @brief Set database settings
      */
@@ -90,11 +96,7 @@ class CRepository {
      */
     void AttendDatabaseConnectionException(const char *aException);
 
-    /**
-     * @brief RefreshChecksums update checksum list represent as
-     *				mChecksumList variable
-     */
-    void RefreshChecksums();
+
 
     /**
      * @brief mDatabase represent database connection object.

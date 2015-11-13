@@ -61,12 +61,12 @@ QCOMPARE(vSettings.GetPortNumber(), vExpectedPortNumber);
 
 void GetSettingsTests::TestGetConnectionStringSQLiteDriver()
 {
-
+	QVERIFY(false);
 }
 
 void GetSettingsTests::TestGetConnectionStringMySqlDriver()
 {
-
+	QVERIFY(false);
 }
 
 	//qDebug()<<vSettings.GetConnectionString();

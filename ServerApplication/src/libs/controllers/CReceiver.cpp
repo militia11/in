@@ -8,6 +8,7 @@
 #include <QFile>
 
 #include "src/libs/dao/CRepository.h"
+#include "tests/auto/UnitTests/testlibs/QTcpSocketMock.h"
 
 extern CRepository gRepository;
 
@@ -26,7 +27,9 @@ CReceiver::~CReceiver() {
 
 void CReceiver::Connect(QTcpSocket *aSocket) {
 		if (aSocket) {
-				const char *vMessage {"Klient połączony. Nasłuchiwanie serwera wyłączone"};
+				const char *vMessage {
+						"Klient połączony. Nasłuchiwanie serwera wyłączone"
+				};
 
         QByteArray b("12");
         qDebug() << CalculateFileDataChecksum(b);
@@ -39,7 +42,9 @@ void CReceiver::Connect(QTcpSocket *aSocket) {
         ConnectSocketSignals();
 
 		} else {
-				const char *vMessage {"Nie można połączyć"};
+				const char *vMessage {
+						"Nie można połączyć"
+				};
         emit MessageStatus(vMessage, 2200);
 				throw  std::runtime_error("Nie można połączyć");
 		}
@@ -82,13 +87,11 @@ void CReceiver::RouteData(char aData) {
     switch (mReceiveDataMode) {
 
         case Mode_Receive_File_Data : {
-            qDebug() << "MODE_RECEIVE_FILE_DATA";
             ServeReceivedFileData();
             break;
         }
 
         case Mode_Receive_File_Checksum: {
-            qDebug() << "MODE_RECEIVE_FILE_CHECKSUM";
             mMessageFileChecksum[mReceiveByteCount] = aData;
             mReceiveByteCount++;
 
@@ -104,9 +107,9 @@ void CReceiver::RouteData(char aData) {
                 mReceiveByteCount = 0;
 
                 try {
-                  ServeReceivedMessage();
-                } catch(std::runtime_error vException) {
-                  MessageFormatException(vException.what());
+										ServeReceivedMessage();
+								} catch (std::runtime_error vException) {
+										MessageFormatException(vException.what());
                 }
             }
 
@@ -120,14 +123,11 @@ void CReceiver::RouteData(char aData) {
 
 void CReceiver::ServeReceivedMessage() {
     if (!HasMessageCorrectFormat(mMessageFileChecksum)) {
-      throw std::runtime_error("Nieprawidłowy format wiadomości");
+				throw std::runtime_error("Nieprawidłowy format wiadomości");
     }
 
 		int vChecksum {ConvertMessageArrayToInt()};
     emit ReadData(mMessageFileChecksum);///@todo usunac
-    CChecksumList *vChecksumList {gRepository.GetChecksumList()};
-		bool vIsChecksumInServer {vChecksumList->CheckFileChecksum(vChecksum)};
-    qDebug() << vIsChecksumInServer;
 
     delete mDataSize;
     mDataSize         = new int32_t {0};
@@ -135,9 +135,12 @@ void CReceiver::ServeReceivedMessage() {
     mReceiveByteCount = 0;
     mReceiveBuffer->clear();
 
-    if (!vIsChecksumInServer) {
-        QByteArray vMessage("SEND");
-        ResponeToClient(vMessage);
+		CChecksumList *vChecksumList {gRepository.GetChecksumList()};
+		bool vIsChecksumInServer {vChecksumList->CheckFileChecksum(vChecksum)};
+
+		if (!vIsChecksumInServer) {
+				const char *vMessage {"SEND"};
+				ResponeToClient(vMessage);
         //        i klient zapamietuje co wysylal jaka sume wiec ten plik wysyla
         //        alternatywa:
         //        QString vClientMessage = PrepareSendingToClientMessage(vChecksum);
@@ -150,7 +153,7 @@ bool CReceiver::HasMessageCorrectFormat(char *aMessage) {
 		int vChecksumLength {mMessageSize - 3}; // Minus 3 bytes char '>', '>' and '<'
 
     if (aMessage[0] != '>' || aMessage[1] != '>') {  // Begin message
-				vCorrect =  false;
+				vCorrect = false;
 		} else if ((aMessage[mMessageSize - 1] != ('<'))) {  // End message
 				vCorrect = false;
 
@@ -188,7 +191,7 @@ void CReceiver::ServeReceivedFileData() {
 						if (vCurrentSize > 4 /*punk*/ ) {
 								QByteArray vData {mReceiveBuffer->left(vCurrentSize)};
 
-                u_int16_t vChecksum {CalculateFileDataChecksum(vData)};
+								//u_int16_t vChecksum {CalculateFileDataChecksum(vData)};
 
                 CRetrievePhotoTransaction vRetrieveTransaction(175);
                 vRetrieveTransaction.Execute();
@@ -245,7 +248,6 @@ void CReceiver::Disconnected() {
 		const char *vMessage {
 				"Rozłączono"
 		};
-    qDebug() << vMessage;
 
     emit MessageStatus(vMessage, 2200);
     emit Disconnect();
@@ -276,8 +278,15 @@ int CReceiver::ConvertMessageArrayToInt() {
     //    int vNum = QString::fromStdString(vNumAsString).toInt();
 }
 
-void CReceiver::ResponeToClient(QByteArray aData) {
-    mSocket->write(aData);
+void CReceiver::ResponeToClient(const char *aMessage) {
+		/*CTcpSocketMock *vTcpSocketMock = dynamic_cast<CTcpSocketMock *>(mSocket);
+
+		if(vTcpSocketMock) {
+			vTcpSocketMock->write(aMessage);
+		} else {
+			mSocket->write(aMessage);
+		}*/
+		mSocket->write(aMessage);
 }
 
 void CReceiver::MessageFormatException(const char *aException) {
