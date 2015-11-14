@@ -1,7 +1,7 @@
 #include <QString>
 #include <QtTest>
 
-//#include "libs/controllers/CReceiver.h"
+#include "tests/auto/UnitTests/testlibs/CReceiverWrapper.h"
 
 class CalculateChecksumTests : public QObject {
 		Q_OBJECT
@@ -10,14 +10,27 @@ class CalculateChecksumTests : public QObject {
 		CalculateChecksumTests();
 
 	private Q_SLOTS:
-		void test();
+		void CalculateShortByteArray();
+		void CalculateLongByteArray();
+		// inne wariacje
 };
 
 CalculateChecksumTests::CalculateChecksumTests() {
 }
 
-void CalculateChecksumTests::test() {
-QVERIFY(false);
+void CalculateChecksumTests::CalculateShortByteArray() {
+		CReceiverWrapper vReceiver;
+
+		QByteArray vData("11");
+		u_int16_t vResult {vReceiver.ForTestCalculateFileDataChecksum(vData)};
+		u_int16_t vExpected {98};  // ( (16+16+16)*2 ) + 2
+
+		QCOMPARE(vResult, vExpected);
+}
+
+void CalculateChecksumTests::CalculateLongByteArray()
+{
+	QVERIFY(false);
 }
 
 QTEST_APPLESS_MAIN(CalculateChecksumTests)

@@ -136,7 +136,7 @@ void DataMethodsTests::TestServeReceivedMessageChangeMinimumToExecution() {
 
 
 		vReceiver.ForTestSetSocket(new QTcpSocket());
-		char vMessage[] {">>645<"};
+		char vMessage[] {">>1876<"};
 		size_t vMessageSize {sizeof(vMessage) - 1};
 		vReceiver.ForTestSetMessageSize(vMessageSize);
 		vReceiver.ForTestSetMessage(vMessage);
@@ -173,8 +173,14 @@ void DataMethodsTests::TestServeReceivedMessageChangeMinimumResponeToClient() {
 }
 
 void DataMethodsTests::TestServeReceivedFileData() {
-		QVERIFY(false);
-	///@todo
+	CReceiverWrapper vReceiver;
+
+	QByteArray *vData {new QByteArray("Test data")};
+
+	vReceiver.ForTestSetDataSize(new int32_t(9));
+	vReceiver.ForTestSetReceiveBuffer(vData);
+	//QVERIFY(false);
+		///@todo
 		/*
 		{
 					int32_t vCurrentSize {*mDataSize};

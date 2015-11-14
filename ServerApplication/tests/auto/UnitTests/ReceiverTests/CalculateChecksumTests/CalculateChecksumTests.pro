@@ -10,18 +10,17 @@ include(../../../../../../LinkingLibraries.pri)
 QT       += testlib gui network
 
 TARGET = CalculateChecksumTests
-CONFIG   += console
+CONFIG   += console c++11
 CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../../../../
-
 SOURCES += CalculateChecksumTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
-LIBS += -L../../../../../src/libs/ui -lui
-LIBS += -L../../../../../src/libs/controllers -lcontrollers
-LIBS += -L../../../../../src/libs/dao -ldao
+INCLUDEPATH += ../../../../../
 
-HEADERS +=
+LIBS += -L../../testlibs -ltestlibs
+LIBS += -L../../../../../src/libs/controllers -lcontrollers
+LIBS += -L../../../../../src/libs/ui -lui
+LIBS += -L../../../../../src/libs/dao -ldao

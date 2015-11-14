@@ -137,9 +137,12 @@ void CReceiver::ServeReceivedMessage() {
 
 		CChecksumList *vChecksumList {gRepository.GetChecksumList()};
 		bool vIsChecksumInServer {vChecksumList->CheckFileChecksum(vChecksum)};
+		qDebug() << vIsChecksumInServer << "ISSSSSS";
 
 		if (!vIsChecksumInServer) {
-				const char *vMessage {"SEND"};
+				const char *vMessage {
+						"SEND"
+				};
 				ResponeToClient(vMessage);
         //        i klient zapamietuje co wysylal jaka sume wiec ten plik wysyla
         //        alternatywa:
@@ -188,20 +191,22 @@ void CReceiver::ServeReceivedFileData() {
 
         if (vCurrentSize > 0 && mReceiveBuffer->size() >=
                 vCurrentSize) {
-						if (vCurrentSize > 4 /*punk*/ ) {
+						if (vCurrentSize > 4 /*punk*/) {
 								QByteArray vData {mReceiveBuffer->left(vCurrentSize)};
+								// zostanie tak:
+								u_int16_t vChecksum {CalculateFileDataChecksum(vData)};
+								CStorePhotoTransaction StoreTransaction(vData, vData.size(), vChecksum);
+								StoreTransaction.Execute();
+								emit ReadData(vData);///@todo odznaczyc kom na koniec sprawdzic co i jak
 
-								//u_int16_t vChecksum {CalculateFileDataChecksum(vData)};
+								//pokazowa wersja pokazaniem obrazu:
+								//CRetrievePhotoTransaction vRetrieveTransaction(175);
+								//vRetrieveTransaction.Execute();
+								//QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
+								/// pokaze sie obraz i napis Pobrano lub Zarchiwizowano
+								//emit ReadData(vRetrieveData);///@todo odznaczyc kom na koniec sprawdzic co i jak
 
-                CRetrievePhotoTransaction vRetrieveTransaction(175);
-                vRetrieveTransaction.Execute();
-								QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
-
-                // CStorePhotoTransaction StoreTransaction(vData, vData.size(), vChecksum);
-                // StoreTransaction.Execute();
-
-                emit ReadData(vRetrieveData);///@todo odznaczyc kom na koniec sprawdzic co i jak
-            }
+						}
 
             mReceiveBuffer->remove(0, vCurrentSize);
 
@@ -258,7 +263,7 @@ void CReceiver::Disconnected() {
     mReceiveBuffer = nullptr;
 
     delete mDataSize;
-    mDataSize = nullptr;
+		mDataSize = nullptr;
 }
 
 int CReceiver::ConvertMessageArrayToInt() {
@@ -279,13 +284,6 @@ int CReceiver::ConvertMessageArrayToInt() {
 }
 
 void CReceiver::ResponeToClient(const char *aMessage) {
-		/*CTcpSocketMock *vTcpSocketMock = dynamic_cast<CTcpSocketMock *>(mSocket);
-
-		if(vTcpSocketMock) {
-			vTcpSocketMock->write(aMessage);
-		} else {
-			mSocket->write(aMessage);
-		}*/
 		mSocket->write(aMessage);
 }
 

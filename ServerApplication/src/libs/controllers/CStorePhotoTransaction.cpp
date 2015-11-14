@@ -23,19 +23,12 @@ void CStorePhotoTransaction::Execute() {
 		server::AndroidPhotosDatabase *mDatabase {gRepository.GetDatabase()};
 
 		Photo *vPhoto {new Photo(*mDatabase)};
-
     SetAtributtesToPhoto(vPhoto);
-
     vPhoto->update();
-
     delete vPhoto;
 
 		CChecksumList *vChecksumList {gRepository.GetChecksumList()};
-
     vChecksumList->AddFileChecksum(mChecksum);
-
-    //vChecksumList->UpdateChecksumList();
-    //	model->odswiez();
 }
 
 void CStorePhotoTransaction::SetAtributtesToPhoto(server::Photo *aPhoto) {

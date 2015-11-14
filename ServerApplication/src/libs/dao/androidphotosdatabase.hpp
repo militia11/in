@@ -44,7 +44,7 @@ public:
     virtual void update();
     virtual void del();
     virtual bool typeIsCorrect() const;
-    std::auto_ptr<Photo> upcast() const;
+		std::auto_ptr<Photo> upcast() const;
     std::auto_ptr<Photo> upcastCopy() const;
 };
 std::ostream & operator<<(std::ostream& os, Photo o);

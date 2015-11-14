@@ -3,6 +3,7 @@
 #include <QCoreApplication>
 
 #include "tests/auto/UnitTests/testlibs/CReceiverWrapper.h"
+
 class ConnectionTests : public QObject {
 		Q_OBJECT
 

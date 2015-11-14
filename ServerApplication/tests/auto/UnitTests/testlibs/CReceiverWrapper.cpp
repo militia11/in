@@ -53,6 +53,11 @@ void CReceiverWrapper::ForTestDisconnected()
 	Disconnected();
 }
 
+u_int16_t CReceiverWrapper::ForTestCalculateFileDataChecksum(QByteArray aData)
+{
+	return CalculateFileDataChecksum(aData);
+}
+
 ReceiveDataMode CReceiverWrapper::ForTestGetReceiveDataMode() {
 		return mReceiveDataMode;
 }

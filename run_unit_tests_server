@@ -16,10 +16,6 @@ cd /home/mmichniewski/Pulpit/build-SynchronizationTool-Desktop-Debug/ServerAppli
 cd ..
 
 #RECEIVER TESTS:
-cd /home/mmichniewski/Pulpit/build-SynchronizationTool-Desktop-Debug/ServerApplication/tests/auto/UnitTests/ReceiverTests/AddChecksumTests
-./AddChecksumTests $1
-cd ..
-
 cd /home/mmichniewski/Pulpit/build-SynchronizationTool-Desktop-Debug/ServerApplication/tests/auto/UnitTests/ReceiverTests/CalculateChecksumTests
 ./CalculateChecksumTests $1
 cd ..

@@ -17,8 +17,6 @@ class CSettings;
  *
  * This class is server application repository. It's
  * initialize communication to database
- *
- * @todo dopisać
  */
 class CRepository {
   public:
@@ -42,13 +40,7 @@ class CRepository {
      * @brief Set database settings
      */
     void SetSettings(const QString &aDriver,
-                     const QString &aConnectionString);
-
-    /**
-     * @brief Refresh function refresh update data from
-     *				database to model
-     */
-    void RefreshModel();
+										 const QString &aConnectionString);
 
     /**
      * @brief GetDatabase method is getter to
@@ -96,8 +88,6 @@ class CRepository {
      */
     void AttendDatabaseConnectionException(const char *aException);
 
-
-
     /**
      * @brief mDatabase represent database connection object.
      */
@@ -118,8 +108,6 @@ class CRepository {
      * @brief mConnectionString is string to connect to database.
      */
     QString mConnectionString;
-
-    //QJakisTableModel *mModel;
 };
 
 #endif // CREPOSITORY_H

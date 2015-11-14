@@ -39,7 +39,7 @@ class CChecksumList {
      *
      * @return True if checksum is the same in another in server
      */
-    bool CheckFileChecksum(int16_t aChecksum);
+		bool CheckFileChecksum(uint16_t aChecksum);
 
     /**
      * @brief UpdateChecksumList update list of checksums
@@ -56,7 +56,7 @@ class CChecksumList {
     /**
      * @brief mChecksumList is list of checksums
      */
-    QList<int> mChecksumList;
+		QList<u_int16_t> mChecksumList;
 };
 
 #endif // CCHECKSUMLIST_H

@@ -1,6 +1,8 @@
 #ifndef CReceiverWRAPPER_H
 #define CReceiverWRAPPER_H
 
+#include <inttypes.h>  // uint_t* and int_t* types
+
 #include "src/libs/controllers/CReceiver.h"
 
 /**
@@ -15,7 +17,7 @@ class CReceiverWrapper : public CReceiver {
 void ForTestConnect(QTcpSocket *aSocket);
 void ForTestServeReceivedMessage();
 void ForTestDisconnected();
-
+u_int16_t ForTestCalculateFileDataChecksum(QByteArray aData);
 
 
 /**

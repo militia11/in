@@ -7,9 +7,8 @@
 CRepository gRepository;
 
 using server::AndroidPhotosDatabase;
-//PhotoModel gPhotoModel;
 
-CRepository::CRepository() : mDatabase(0),
+CRepository::CRepository() : mDatabase(nullptr),
     mChecksumList(nullptr) {
     mLastConnectionError = false;
 }
@@ -19,18 +18,12 @@ CRepository::~CRepository() {
 
     delete mChecksumList;
     mChecksumList = nullptr;
-    //delete mModel;
 }
 
 void CRepository::SetSettings(const QString &aDriver,
                               const QString &aConnectionString) {
     this->mDriver = aDriver;
     this->mConnectionString = aConnectionString;
-}
-
-void CRepository::RefreshModel() { //QString nazwa jak wiele
-    //  QAbstractTableModel *modelAbstrakcyjny = gRepository.GetModel(nazwa);
-    //  PhotoModel* vPhotoModel= dynamic_cast<PhotoModel*>(modelAbstrakcyjny);
 }
 
 AndroidPhotosDatabase *CRepository::GetDatabase() const { //const //wyproboj
@@ -47,7 +40,6 @@ void CRepository::Connect() {
                 mConnectionString.toStdString());
         PopulateDatabase();
         RefreshChecksums();
-        RefreshModel(); ///@todo jesli sumy tylko nie bedzie modeli to usunac
 
         mLastConnectionError = false;
     } catch (std::exception &vException) {
