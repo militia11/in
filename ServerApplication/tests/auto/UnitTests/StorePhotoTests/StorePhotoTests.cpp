@@ -13,7 +13,8 @@
 extern CRepository gRepository;
 
 /**
- * @brief StorePhoto class is test to store and retrieve photo in server.
+ * @brief StorePhoto class is test to store and retrieve photo
+ *        in server
  */
 class StorePhotoTests : public QObject {
     Q_OBJECT
