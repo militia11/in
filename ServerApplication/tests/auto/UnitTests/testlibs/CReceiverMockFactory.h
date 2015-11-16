@@ -12,7 +12,8 @@ class CReceiverMockFactory : public IReceiverFactory {
   public:
     /**
      * @brief Make Get Mock of CReceiverFactoryImplementation class
-     * @return IReceiver object
+     *
+     *  @return IReceiver object
      */
     IReceiver *Make();
 };

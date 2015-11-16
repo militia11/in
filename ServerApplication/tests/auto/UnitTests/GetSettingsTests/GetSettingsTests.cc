@@ -13,10 +13,7 @@ class GetSettingsTests : public QObject
 		GetSettingsTests();
 
   private:
-    void initTestCase();
-    void cleanupTestCase();
-
-		void SaveSettingsInConfigHelper(
+    void SaveSettingsInConfigHelper(
 				QString aValue,
         QString aKey,
         QString aGroup);
@@ -24,21 +21,12 @@ class GetSettingsTests : public QObject
   private Q_SLOTS:
 		void TestGetServerPortNumber();
 		void TestGetConnectionStringSQLiteDriver();
-		void TestGetConnectionStringMySqlDriver();
+    void TestGetConnectionStringMySqlDriver();
+      void TestGetConnectionStringMySqlDriverWithoutHost();
 };
 
 GetSettingsTests::GetSettingsTests()
 {
-}
-
-void GetSettingsTests::initTestCase()
-{
-
-}
-
-void GetSettingsTests::cleanupTestCase()
-{
-
 }
 
 void GetSettingsTests::SaveSettingsInConfigHelper(QString aValue, QString aKey, QString aGroup)
@@ -55,36 +43,47 @@ void GetSettingsTests::TestGetServerPortNumber()
 
 	int vExpectedPortNumber {4639};
 	SaveSettingsInConfigHelper(QString::number(vExpectedPortNumber), "port", "server");
-
-QCOMPARE(vSettings.GetPortNumber(), vExpectedPortNumber);
+  QCOMPARE(vSettings.GetPortNumber(), vExpectedPortNumber);
 }
 
 void GetSettingsTests::TestGetConnectionStringSQLiteDriver()
 {
-	QVERIFY(false);
+  SaveSettingsInConfigHelper(QString("sqlite3"), "driver", "database");
+  SaveSettingsInConfigHelper(QString("testDbSqLite"), "databaseName", "database");
+
+  CSettings vSettings;
+  QString vExpectedConnectionString("database=testDbSqLite");
+  QCOMPARE(vSettings.GetConnectionString(), vExpectedConnectionString);
 }
 
 void GetSettingsTests::TestGetConnectionStringMySqlDriver()
 {
-	QVERIFY(false);
+  SaveSettingsInConfigHelper(QString("mysql"), "driver", "database");
+  SaveSettingsInConfigHelper(QString("testDbMysql"), "databaseName", "database");
+  SaveSettingsInConfigHelper(QString("localhost"), "host", "database");
+  SaveSettingsInConfigHelper(QString("testUser"), "user", "database");
+  SaveSettingsInConfigHelper(QString("testPassword"), "password", "database");
+
+  CSettings vSettings;
+  QString vExpectedConnectionString(
+        "host=localhost;user=testUser;password=testPassword;database=testDbMysql");
+  QCOMPARE(vSettings.GetConnectionString(), vExpectedConnectionString);
 }
 
-	//qDebug()<<vSettings.GetConnectionString();
-	//QString vExpectedConnectionString("host=129.0.4.1;user=testUser;password=0000;database=testDb");
-  //QCOMPARE(vSettings.GetConnectionString(), vExpectedConnectionString);*/
-/*
-  void SettingsTests::TestConnectionStringSQLiteDriver() {
-		CDatabaseConnectionDialogWrapper vDialog;
-    vDialog.mDriver = "sqlite3";
-    vDialog.mDatabaseName = "testDbSqlite";
-    vDialog.SaveSettings();
+void GetSettingsTests::TestGetConnectionStringMySqlDriverWithoutHost()
+{
+  // This scenarios is possible
+  SaveSettingsInConfigHelper(QString("mysql"), "driver", "database");
+  SaveSettingsInConfigHelper(QString("testDbMysql"), "databaseName", "database");
+  SaveSettingsInConfigHelper(QString("testUser"), "user", "database");
+  SaveSettingsInConfigHelper(QString("testPassword"), "password", "database");
 
-    QString vExpectedConnectionString("database=testDbSqlite");
-    CSettings vSettings;
-
-    QCOMPARE(vSettings.GetConnectionString(), vExpectedConnectionString);
+  CSettings vSettings;
+  QString vExpectedConnectionString(
+        "host=;user=testUser;password=testPassword;database=testDbMysql");
+  QCOMPARE(vSettings.GetConnectionString(), vExpectedConnectionString);
 }
-*/
+
 QTEST_MAIN(GetSettingsTests)
 
 #include "GetSettingsTests.moc"

@@ -42,17 +42,17 @@ void CDatabaseConnectionDialog::on_mButtonBoxOkCancel_rejected() {
 }
 
 void CDatabaseConnectionDialog::UpdateSettings() {
-    QSettings vSettings;
-    vSettings.beginGroup("database");
-    QString vDriver = vSettings.value("driver").toString();
+    QSettings vQSettings;
+    vQSettings.beginGroup("database");
+    QString vDriver = vQSettings.value("driver").toString();
 
-    ui->mLineEditDatabase->setText(vSettings.value("databaseName").toString());
+    ui->mLineEditDatabase->setText(vQSettings.value("databaseName").toString());
     ui->mComboBoxDriver->setCurrentText(vDriver);
 
     if (vDriver == "mysql") {
-        ui->mLineEditHost->setText(vSettings.value("host").toString());
-        ui->mLineEditUser->setText(vSettings.value("user").toString());
-        ui->mLineEditPassword->setText(vSettings.value("password").toString());
+        ui->mLineEditHost->setText(vQSettings.value("host").toString());
+        ui->mLineEditUser->setText(vQSettings.value("user").toString());
+        ui->mLineEditPassword->setText(vQSettings.value("password").toString());
         ui->mComboBoxDriver->setCurrentIndex(0);
     } else {
         ui->mComboBoxDriver->setCurrentIndex(1);
@@ -60,22 +60,22 @@ void CDatabaseConnectionDialog::UpdateSettings() {
 }
 
 void CDatabaseConnectionDialog::SaveSettings() {
-    QSettings vQSetting;
-    vQSetting.beginGroup("database");
-    vQSetting.setValue("host", mHost);
-    vQSetting.setValue("user", mUser);
-    vQSetting.setValue("databaseName", mDatabaseName);
-    vQSetting.setValue("password", mPassword);
+    QSettings vQSettings;
+    vQSettings.beginGroup("database");
+    vQSettings.setValue("host", mHost);
+    vQSettings.setValue("user", mUser);
+    vQSettings.setValue("databaseName", mDatabaseName);
+    vQSettings.setValue("password", mPassword);
 
     if (ui->mComboBoxDriver->currentIndex() == 0) {
         mDriver = "mysql";
-        vQSetting.setValue("driver", mDriver);
+        vQSettings.setValue("driver", mDriver);
     } else {
         mDriver = "sqlite3";
-        vQSetting.setValue("driver", mDriver);
+        vQSettings.setValue("driver", mDriver);
     }
 
-    vQSetting.endGroup();
+    vQSettings.endGroup();
 }
 
 void CDatabaseConnectionDialog::UpdateMembers() {

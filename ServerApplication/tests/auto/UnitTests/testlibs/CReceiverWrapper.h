@@ -12,36 +12,45 @@
  */
 class CReceiverWrapper : public CReceiver {
  public:
-	void ForTestNewData();
-	void ForTestRouteData(char aData);
-void ForTestConnect(QTcpSocket *aSocket);
-void ForTestServeReceivedMessage();
-void ForTestDisconnected();
-u_int16_t ForTestCalculateFileDataChecksum(QByteArray aData);
 
+  /**
+   * @brief ForTestNewData call protected method NewData
+   *        for unit tests
+   */
+  void ForTestNewData();
+  void ForTestRouteData(char aData);
+  void ForTestConnect(QTcpSocket *aSocket);
+  void ForTestServeReceivedMessage();
+  void ForTestDisconnected();
+  u_int16_t ForTestCalculateFileDataChecksum(QByteArray aData);
 
-/**
+  /**
    * @brief Set protected mMessageSize field for unit test
    *
    * @param aData New value of mMessageSize
    */
   void ForTestSetMessageSize(int aSize);
-	void ForTestSetReceiveByteCount(int aByteCount);
+  void ForTestSetReceiveByteCount(int aByteCount);
   bool ForTestHasMessageCorrectFormat(char *aMessage);
-	void ForTestSetReceiveDataMode(ReceiveDataMode aMode);
-	void ForTestSetMessage(char *aMessageFileChecksum);
-	void ForTestSetSocket(QTcpSocket *aSocket);
-	void ForTestSetReceiveBuffer(QByteArray *aBuffer);
-	void ForTestSetDataSize(int32_t *aDataSize);
+  void ForTestSetReceiveDataMode(ReceiveDataMode aMode);
+  void ForTestSetMessage(char *aMessageFileChecksum);
+  void ForTestSetSocket(QTcpSocket *aSocket);
+  void ForTestSetReceiveBuffer(QByteArray *aBuffer);
+  void ForTestSetDataSize(int32_t *aDataSize);
 
-	ReceiveDataMode ForTestGetReceiveDataMode();
-	char *ForTestGetMessageFileChecksum();
-	int ForTestGetMessageSize();
-	int ForTestGetReceiveByteCount();
-	QTcpSocket *ForTestGetSocket();
-	QByteArray *ForTestGetReveiveBuffer();
+  /**
+   * @brief ForTestGetReceiveDataMode Get protected mReceiveDataMode variable for unit tests
+   *
+   * @return protected mReceiveDataMode variable
+   */
+  ReceiveDataMode ForTestGetReceiveDataMode();
+  char *ForTestGetMessageFileChecksum();
+  int ForTestGetMessageSize();
+  int ForTestGetReceiveByteCount();
+  QTcpSocket *ForTestGetSocket();
+  QByteArray *ForTestGetReveiveBuffer();
 
-	/**
+  /**
    * @brief Get protected mDataSize variable
    *        for unit tests
    *
