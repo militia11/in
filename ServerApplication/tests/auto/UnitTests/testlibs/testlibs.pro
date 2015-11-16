@@ -18,14 +18,16 @@ SOURCES += \
     CReceiverWrapper.cpp \
     CReceiverMock.cpp \
     CReceiverMockFactory.cpp \
-    QTcpSocketMock.cpp
+    QTcpSocketMock.cpp \
+    CalculateChecksumHelper.cpp
 
 HEADERS += \
     CServerWrapper.h \
     CReceiverWrapper.h \
     CReceiverMock.h \
     CReceiverMockFactory.h \
-    QTcpSocketMock.h
+    QTcpSocketMock.h \
+    CalculateChecksumHelper.h
 
 INCLUDEPATH += ../../../../
 

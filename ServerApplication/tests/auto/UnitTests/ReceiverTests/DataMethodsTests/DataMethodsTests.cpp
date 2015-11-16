@@ -25,7 +25,6 @@ class DataMethodsTests : public QObject {
 		void TestServeReceivedMessageChangeMinimumToExecution();
 		void TestServeReceivedMessageChangeMinimumResponeToClient();
 		void TestServeReceivedFileData();
-
 };
 
 DataMethodsTests::DataMethodsTests() {
@@ -187,15 +186,12 @@ void DataMethodsTests::TestServeReceivedFileData() {
 		vReceiver.ForTestSetReceiveBuffer(vData);
 
 		vReceiver.ForTestServeReceivedFileData();
-
 																								///@todo
 		CRetrievePhotoTransaction vRetrieveTransaction(858);
 		vRetrieveTransaction.Execute();
 
 		QByteArray vRetrievedData = vRetrieveTransaction.GetData();
-		qDebug() << "POZYSKANE" << vRetrievedData;
-		///@todo
-		/// QCOMPARE(*vData, vRetrievedData);
+		QCOMPARE(vRetrievedData, QByteArray("Test data"));
 }
 
 QTEST_APPLESS_MAIN(DataMethodsTests)
