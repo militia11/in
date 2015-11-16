@@ -26,7 +26,7 @@ class StorePhotoTests : public QObject {
 };
 
 void StorePhotoTests::TestStorePhoto() {
-			gRepository.SetSettings("sqlite3",
+		gRepository.SetSettings("sqlite3",
                             "database=:memory:"); // dzięki temu, że w pamięci testy można w jenkinsie
     gRepository.Connect();
     gRepository.PopulateDatabase();

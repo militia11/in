@@ -75,7 +75,12 @@ void CReceiverWrapper::ForTestNewData() {
 }
 
 void CReceiverWrapper::ForTestRouteData(char aData) {
-		RouteData(aData);
+	RouteData(aData);
+}
+
+void CReceiverWrapper::ForTestServeReceivedFileData()
+{
+	ServeReceivedFileData();
 }
 
 int CReceiverWrapper::ForTestGetReceiveByteCount() {

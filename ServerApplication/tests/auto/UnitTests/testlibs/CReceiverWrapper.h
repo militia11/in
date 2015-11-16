@@ -13,15 +13,23 @@
 class CReceiverWrapper : public CReceiver {
  public:
 
+void ForTestConnect(QTcpSocket *aSocket);
+void ForTestDisconnected();
   /**
    * @brief ForTestNewData call protected method NewData
    *        for unit tests
    */
   void ForTestNewData();
   void ForTestRouteData(char aData);
-  void ForTestConnect(QTcpSocket *aSocket);
+
+	/**
+	 * @brief ForTestServeReceivedFileData call protected method
+	 *        ServeReceivedFileData for unit tests
+	 */
+	void ForTestServeReceivedFileData();
+
   void ForTestServeReceivedMessage();
-  void ForTestDisconnected();
+
   u_int16_t ForTestCalculateFileDataChecksum(QByteArray aData);
 
   /**

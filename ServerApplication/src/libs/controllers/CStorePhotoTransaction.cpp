@@ -24,11 +24,11 @@ void CStorePhotoTransaction::Execute() {
 
 		Photo *vPhoto {new Photo(*mDatabase)};
     SetAtributtesToPhoto(vPhoto);
-    vPhoto->update();
-    delete vPhoto;
+		vPhoto->update();
+		delete vPhoto;
 
 		CChecksumList *vChecksumList {gRepository.GetChecksumList()};
-    vChecksumList->AddFileChecksum(mChecksum);
+		vChecksumList->AddFileChecksum(mChecksum);
 }
 
 void CStorePhotoTransaction::SetAtributtesToPhoto(server::Photo *aPhoto) {

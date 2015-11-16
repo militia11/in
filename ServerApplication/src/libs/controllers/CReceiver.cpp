@@ -137,7 +137,6 @@ void CReceiver::ServeReceivedMessage() {
 
 		CChecksumList *vChecksumList {gRepository.GetChecksumList()};
 		bool vIsChecksumInServer {vChecksumList->CheckFileChecksum(vChecksum)};
-		qDebug() << vIsChecksumInServer << "ISSSSSS";
 
 		if (!vIsChecksumInServer) {
 				const char *vMessage {
@@ -193,10 +192,13 @@ void CReceiver::ServeReceivedFileData() {
                 vCurrentSize) {
 						if (vCurrentSize > 4 /*punk*/) {
 								QByteArray vData {mReceiveBuffer->left(vCurrentSize)};
+
 								// zostanie tak:
 								u_int16_t vChecksum {CalculateFileDataChecksum(vData)};
+								qDebug() << vChecksum;
 								CStorePhotoTransaction StoreTransaction(vData, vData.size(), vChecksum);
 								StoreTransaction.Execute();
+								qDebug() << vData;
 								emit ReadData(vData);///@todo odznaczyc kom na koniec sprawdzic co i jak
 
 								//pokazowa wersja pokazaniem obrazu:
@@ -205,7 +207,6 @@ void CReceiver::ServeReceivedFileData() {
 								//QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
 								/// pokaze sie obraz i napis Pobrano lub Zarchiwizowano
 								//emit ReadData(vRetrieveData);///@todo odznaczyc kom na koniec sprawdzic co i jak
-
 						}
 
             mReceiveBuffer->remove(0, vCurrentSize);

@@ -4,7 +4,6 @@
 
 #include "src/libs/controllers/CSettings.h"
 
-///@todo temp settings zrobic zapisywanie gdzie indziej
 class GetSettingsTests : public QObject
 {
     Q_OBJECT
@@ -22,11 +21,10 @@ class GetSettingsTests : public QObject
 		void TestGetServerPortNumber();
 		void TestGetConnectionStringSQLiteDriver();
     void TestGetConnectionStringMySqlDriver();
-      void TestGetConnectionStringMySqlDriverWithoutHost();
+		void TestGetConnectionStringMySqlDriverWithoutHost();
 };
 
-GetSettingsTests::GetSettingsTests()
-{
+GetSettingsTests::GetSettingsTests() {
 }
 
 void GetSettingsTests::SaveSettingsInConfigHelper(QString aValue, QString aKey, QString aGroup)
@@ -37,8 +35,7 @@ void GetSettingsTests::SaveSettingsInConfigHelper(QString aValue, QString aKey, 
 	vQSettings.endGroup();
 }
 
-void GetSettingsTests::TestGetServerPortNumber()
-{
+void GetSettingsTests::TestGetServerPortNumber() {
 	CSettings vSettings;
 
 	int vExpectedPortNumber {4639};
@@ -46,20 +43,24 @@ void GetSettingsTests::TestGetServerPortNumber()
   QCOMPARE(vSettings.GetPortNumber(), vExpectedPortNumber);
 }
 
-void GetSettingsTests::TestGetConnectionStringSQLiteDriver()
-{
+void GetSettingsTests::TestGetConnectionStringSQLiteDriver() {
   SaveSettingsInConfigHelper(QString("sqlite3"), "driver", "database");
-  SaveSettingsInConfigHelper(QString("testDbSqLite"), "databaseName", "database");
+	SaveSettingsInConfigHelper(
+				QString("testDbSqLite"),
+				"databaseName",
+				"database");
 
   CSettings vSettings;
   QString vExpectedConnectionString("database=testDbSqLite");
   QCOMPARE(vSettings.GetConnectionString(), vExpectedConnectionString);
 }
 
-void GetSettingsTests::TestGetConnectionStringMySqlDriver()
-{
+void GetSettingsTests::TestGetConnectionStringMySqlDriver() {
   SaveSettingsInConfigHelper(QString("mysql"), "driver", "database");
-  SaveSettingsInConfigHelper(QString("testDbMysql"), "databaseName", "database");
+	SaveSettingsInConfigHelper(QString(
+			"testDbMysql"),
+			"databaseName",
+			"database");
   SaveSettingsInConfigHelper(QString("localhost"), "host", "database");
   SaveSettingsInConfigHelper(QString("testUser"), "user", "database");
   SaveSettingsInConfigHelper(QString("testPassword"), "password", "database");
@@ -70,11 +71,13 @@ void GetSettingsTests::TestGetConnectionStringMySqlDriver()
   QCOMPARE(vSettings.GetConnectionString(), vExpectedConnectionString);
 }
 
-void GetSettingsTests::TestGetConnectionStringMySqlDriverWithoutHost()
-{
+void GetSettingsTests::TestGetConnectionStringMySqlDriverWithoutHost() {
   // This scenarios is possible
   SaveSettingsInConfigHelper(QString("mysql"), "driver", "database");
-  SaveSettingsInConfigHelper(QString("testDbMysql"), "databaseName", "database");
+	SaveSettingsInConfigHelper(
+				QString("testDbMysql"),
+				"databaseName",
+				"database");
   SaveSettingsInConfigHelper(QString("testUser"), "user", "database");
   SaveSettingsInConfigHelper(QString("testPassword"), "password", "database");
 

@@ -5,6 +5,8 @@
 #include "tests/auto/UnitTests/testlibs/CReceiverWrapper.h"
 #include "tests/auto/UnitTests/testlibs/QTcpSocketMock.h"
 
+//#include "src/libs/controllers/CStorePhotoTransaction.h"
+
 extern CRepository gRepository;
 
 class DataMethodsTests : public QObject {
@@ -173,55 +175,27 @@ void DataMethodsTests::TestServeReceivedMessageChangeMinimumResponeToClient() {
 }
 
 void DataMethodsTests::TestServeReceivedFileData() {
-	CReceiverWrapper vReceiver;
+		gRepository.SetSettings("sqlite3",
+														"database=:memory:");
+		gRepository.Connect();
+		gRepository.PopulateDatabase();
+		CReceiverWrapper vReceiver;
 
-	QByteArray *vData {new QByteArray("Test data")};
+		QByteArray *vData {new QByteArray("Test data")};
 
-	vReceiver.ForTestSetDataSize(new int32_t(9));
-	vReceiver.ForTestSetReceiveBuffer(vData);
-	//QVERIFY(false);
+		vReceiver.ForTestSetDataSize(new int32_t(9));
+		vReceiver.ForTestSetReceiveBuffer(vData);
+
+		vReceiver.ForTestServeReceivedFileData();
+
+																								///@todo
+		CRetrievePhotoTransaction vRetrieveTransaction(858);
+		vRetrieveTransaction.Execute();
+
+		QByteArray vRetrievedData = vRetrieveTransaction.GetData();
+		qDebug() << "POZYSKANE" << vRetrievedData;
 		///@todo
-		/*
-		{
-					int32_t vCurrentSize {*mDataSize};
-
-					while ((vCurrentSize == 0 && mReceiveBuffer->size() >= 4) ||
-									(vCurrentSize > 0 &&
-									 mReceiveBuffer->size() >= vCurrentSize)) {
-
-							if (vCurrentSize == 0 &&
-											mReceiveBuffer->size() >=
-											4) {
-									vCurrentSize = ByteArrayToInt(mReceiveBuffer->left(4));
-
-									*mDataSize = vCurrentSize;
-									mReceiveBuffer->remove(0, 4);
-							}
-
-							if (vCurrentSize > 0 && mReceiveBuffer->size() >=
-											vCurrentSize) {
-									if (vCurrentSize > 4  ) {
-											QByteArray vData {mReceiveBuffer->left(vCurrentSize)};
-
-											//u_int16_t vChecksum {CalculateFileDataChecksum(vData)};
-
-											CRetrievePhotoTransaction vRetrieveTransaction(175);
-											vRetrieveTransaction.Execute();
-											QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
-
-											// CStorePhotoTransaction StoreTransaction(vData, vData.size(), vChecksum);
-											// StoreTransaction.Execute();
-
-											emit ReadData(vRetrieveData);///@todo odznaczyc kom na koniec sprawdzic co i jak
-									}
-
-									mReceiveBuffer->remove(0, vCurrentSize);
-
-									vCurrentSize  = 0;
-									*mDataSize    = vCurrentSize;
-
-
-					}*/
+		/// QCOMPARE(*vData, vRetrievedData);
 }
 
 QTEST_APPLESS_MAIN(DataMethodsTests)
