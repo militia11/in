@@ -30,6 +30,8 @@ class CReceiverWrapper : public CReceiver {
    * @param aData New value of mMessageSize
    */
   void ForTestSetMessageSize(int aSize);
+
+
   void ForTestSetReceiveByteCount(int aByteCount);
   bool ForTestHasMessageCorrectFormat(char *aMessage);
   void ForTestSetReceiveDataMode(ReceiveDataMode aMode);
