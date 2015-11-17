@@ -8,6 +8,7 @@
 #include "src/libs/controllers/CRetrievePhotoTransaction.h"
 #include "src/libs/controllers/CStorePhotoTransaction.h"
 #include "src/libs/dao/CRepository.h"
+#include "tests/auto/UnitTests/testlibs/CalculateChecksumHelper.h"
 
 extern CRepository gRepository;
 
@@ -16,7 +17,6 @@ class ChecksumTests : public QObject {
 
   public:
     ChecksumTests();
-    uint16_t CalculateFileDataChecksumHelper(QByteArray aData);
 
   private Q_SLOTS:
     void TestAddChecksum();
@@ -49,24 +49,15 @@ void ChecksumTests::TestCheckFileChecksum() {
     vWriter.write(vAddedImage);
 
     QByteArray vAddedData {vBufferToStoreData.data()};
-		uint16_t vChecksumAddImage {CalculateFileDataChecksumHelper(vAddedData)};
+
+    uint16_t vChecksumAddImage =CalculateChecksumHelper::CalculateFileDataChecksum(vAddedData);
 
     CStorePhotoTransaction vStoreTransaction(
 				vAddedData, vAddedData.size(), vChecksumAddImage);
     vStoreTransaction.Execute();
 
 		CChecksumList *vChecksumList {gRepository.GetChecksumList()};
-		QVERIFY(vChecksumList->CheckFileChecksum(vChecksumAddImage));
-}
-
-uint16_t ChecksumTests::CalculateFileDataChecksumHelper(QByteArray aData) {
-		uint16_t vChecksum {};
-
-		for (auto i = 0; i < aData.length(); ++i) {
-        vChecksum += aData[i];
-    }
-
-    return vChecksum;
+    QVERIFY(vChecksumList->CheckFileChecksum(vChecksumAddImage));
 }
 
 QTEST_APPLESS_MAIN(ChecksumTests)

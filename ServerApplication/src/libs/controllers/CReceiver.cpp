@@ -192,16 +192,12 @@ void CReceiver::ServeReceivedFileData() {
                 vCurrentSize) {
 						if (vCurrentSize > 4 /*punk*/) {
 								QByteArray vData {mReceiveBuffer->left(vCurrentSize)};
-
-								// zostanie tak:
 								u_int16_t vChecksum {CalculateFileDataChecksum(vData)};
-								qDebug() << vChecksum;
 								CStorePhotoTransaction StoreTransaction(vData, vData.size(), vChecksum);
 								StoreTransaction.Execute();
-								qDebug() << vData;
-								emit ReadData(vData);///@todo odznaczyc kom na koniec sprawdzic co i jak
+                emit ReadData(vData);
 
-								//pokazowa wersja pokazaniem obrazu:
+                //pokazowa wersja pokazaniem obrazu z bazy:
 								//CRetrievePhotoTransaction vRetrieveTransaction(175);
 								//vRetrieveTransaction.Execute();
 								//QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
@@ -213,13 +209,6 @@ void CReceiver::ServeReceivedFileData() {
 
             vCurrentSize  = 0;
             *mDataSize    = vCurrentSize;
-
-            //            CRetrieveFromDBTransaction vRetrieveTransaction(221);
-            //            vRetrieveTransaction.Execute();
-						//            QByteArray vRetrieveData {vRetrieveTransaction.getData()};
-
-						//            const char *vMessage {"Odebrano dane : "};
-            //            ResponeToClient(vMessage, vData);
         }
     }
 }

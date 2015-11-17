@@ -38,26 +38,10 @@ class CClient : public IClient {
     /**
      * @brief WriteMessage write message to socket
      *
-     * @param aData message to write
+     * @param aData Message to write
      * @return True if write successfull, otherwise false
      */
 		virtual bool WriteMessage(QByteArray aData);
-
-    /**
-     * @brief PrepareMessageData prepare message data
-     *
-     * @param aChecksum Convert to message QByteArray
-     * @return QByteArray Message
-     */
-		virtual QByteArray PrepareMessageData(int16_t aChecksum);
-
-    /**
-     * @brief IntToArray Convert integer to QByteArray
-     *
-     * @param aSource is integer
-     * @return QByteArray
-     */
-		virtual QByteArray IntToArray(int32_t aSource);
 
     /**
      * @brief UpdateServerPhotos calculates checksums
@@ -69,11 +53,11 @@ class CClient : public IClient {
     /**
      * @brief ConvertImageToByteArray method convert imaqe to
      *        QByteArray
-			 *
+     *
      * @param aImage Image to convert
      * @return Converted image to QByteArray
      */
-		virtual QByteArray ConvertImageToByteArray(const QImage &aImage);
+    virtual QByteArray ConvertImageToByteArray(const QImage &aImage);
 
   public slots:
 		/**
@@ -96,6 +80,23 @@ class CClient : public IClient {
 		 * @return Checksum
 		 */
 		virtual int16_t CalculateFileDataChecksum(QByteArray aData);
+
+    /**
+     * @brief IntToArray Convert integer to QByteArray
+     *
+     * @param aSource Source is integer
+     * @return QByteArray
+     */
+    virtual QByteArray IntToArray(int32_t aSource);
+
+    /**
+     * @brief PrepareMessageData prepare message data
+     *
+     * @param aChecksum Convert to message QByteArray
+     * @return QByteArray Message
+     */
+    virtual QByteArray PrepareMessageData(int16_t aChecksum);
+
 
 		bool        mSendFile;
 		QTcpSocket  *mSocket;

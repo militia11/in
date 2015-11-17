@@ -49,8 +49,7 @@ void CClient::ReadData() {
 
 bool CClient::ConnectToHost(QString aHost) {
 		mSocket->connectToHost(aHost, 1234);
-		bool vConnected = mSocket->waitForConnected(
-													90000); ///@todo komentarz skad taka liczba
+    bool vConnected = mSocket->waitForConnected();
 
 		if (vConnected == false) {
 				qDebug() << mSocket->error();

@@ -20,9 +20,8 @@ INCLUDEPATH += ../../../../../ServerApplication
 SOURCES += ChecksumTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
+LIBS += -L../testlibs -ltestlibs
 LIBS += -L../../../../src/libs/controllers -lcontrollers
 LIBS += -L../../../../src/libs/ui -lui
 LIBS += -L../../../../src/libs/dao -ldao
 LIBS += -L../../../../share -lshare
-
-HEADERS +=

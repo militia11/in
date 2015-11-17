@@ -1,6 +1,7 @@
 #include <QString>
 #include <QtTest>
 
+#include "tests/auto/UnitTests/testlibs/CalculateChecksumHelper.h"
 #include "tests/auto/UnitTests/testlibs/CReceiverWrapper.h"
 
 class CalculateChecksumTests : public QObject {
@@ -23,14 +24,16 @@ void CalculateChecksumTests::CalculateShortByteArray() {
 
 		QByteArray vData("11");
 		u_int16_t vResult {vReceiver.ForTestCalculateFileDataChecksum(vData)};
-		u_int16_t vExpected {98};  // ( (16+16+16)*2 ) + 2
+
+    u_int16_t vExpected {CalculateChecksumHelper::CalculateFileDataChecksum(vData)};
+    //{98};  // ( (16+16+16)*2 ) + 2
 
 		QCOMPARE(vResult, vExpected);
 }
 
 void CalculateChecksumTests::CalculateLongByteArray()
 {
-	QVERIFY(false);
+  QVERIFY(false);
 }
 
 QTEST_APPLESS_MAIN(CalculateChecksumTests)

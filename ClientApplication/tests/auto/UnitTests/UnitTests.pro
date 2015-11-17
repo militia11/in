@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     ClientTests \
-    RunUnitTests
+    RunUnitTests \
+    testlib

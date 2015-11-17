@@ -17,7 +17,7 @@ class ConvertIntToArrayTests : public QObject {
 ConvertIntToArrayTests::ConvertIntToArrayTests() {}
 
 void ConvertIntToArrayTests::TestConvertIntToArrayTest() {
-    int32_t vNumber {12};
+   /* int32_t vNumber {12};
 
     CClient vClient;
     QByteArray vConvertedData {vClient.IntToArray(vNumber)};
@@ -28,7 +28,7 @@ void ConvertIntToArrayTests::TestConvertIntToArrayTest() {
     QCOMPARE(qPrintable(QString(vConvertedData.toHex().toUpper())), "0000000C");
 
     // Qt 5.4 have function toStdString which is ideal for this compare
-    // but it is not compatibile with Qt MySql driver
+    // but it is not compatibile with Qt MySql driver */
 }
 
 QTEST_APPLESS_MAIN(ConvertIntToArrayTests)
