@@ -3,4 +3,5 @@ TEMPLATE = subdirs
 SUBDIRS += \
     PrepareMessageDataTests \
     ConvertBetweenQImageAndQByteArrayTests \
-    ConvertIntToArrayTests
+    ConvertIntToArrayTests \
+    CalculateChecksumTests

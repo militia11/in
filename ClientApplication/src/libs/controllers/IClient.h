@@ -37,7 +37,7 @@ class IClient : public QObject {
      * @param aSource is integer
      * @return QByteArray
      */
-    virtual QByteArray IntToArray(int32_t aSource) = 0;
+		virtual QByteArray IntToArray(int32_t aSource) = 0;
 
     /**
      * @brief UpdateServerPhotos calculates checksums

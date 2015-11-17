@@ -8,7 +8,6 @@
 #include <QFile>
 
 #include "src/libs/dao/CRepository.h"
-#include "tests/auto/UnitTests/testlibs/QTcpSocketMock.h"
 
 extern CRepository gRepository;
 

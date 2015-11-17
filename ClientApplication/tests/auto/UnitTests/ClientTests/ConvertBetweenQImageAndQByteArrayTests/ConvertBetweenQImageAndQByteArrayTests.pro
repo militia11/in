@@ -7,7 +7,7 @@
 QT       += testlib gui network
 
 TARGET	  = ConvertBetweenQImageAndQByteArrayTests
-CONFIG   += console
+CONFIG   += console c++11
 CONFIG   -= app_bundle
 
 TEMPLATE = app
@@ -17,6 +17,7 @@ INCLUDEPATH += ../../../../../../ClientApplication
 SOURCES += ConvertBetweenQImageAndQByteArrayTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
+LIBS += -L../../testlib -ltestlib
 LIBS += -L../../../../../src/libs/controllers -lcontrollers
 LIBS += -L../../../../../src/libs/dao -ldao
 LIBS += -L../../../../../share -lshare

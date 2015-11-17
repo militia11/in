@@ -85,9 +85,9 @@ class CClient : public IClient {
      * @brief IntToArray Convert integer to QByteArray
      *
      * @param aSource Source is integer
-     * @return QByteArray
+		 * @return QByteArray Array of bytes
      */
-    virtual QByteArray IntToArray(int32_t aSource);
+		virtual QByteArray IntToArray(int32_t aSource);
 
     /**
      * @brief PrepareMessageData prepare message data
@@ -96,7 +96,6 @@ class CClient : public IClient {
      * @return QByteArray Message
      */
     virtual QByteArray PrepareMessageData(int16_t aChecksum);
-
 
 		bool        mSendFile;
 		QTcpSocket  *mSocket;

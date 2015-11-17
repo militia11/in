@@ -3,7 +3,6 @@
 
 #include "src/libs/dao/CRepository.h"
 #include "tests/auto/UnitTests/testlibs/CReceiverWrapper.h"
-#include "tests/auto/UnitTests/testlibs/QTcpSocketMock.h"
 
 //#include "src/libs/controllers/CStorePhotoTransaction.h"
 
@@ -152,7 +151,7 @@ void DataMethodsTests::TestServeReceivedMessageChangeMinimumToExecution() {
 
 void DataMethodsTests::TestServeReceivedMessageChangeMinimumResponeToClient() {
 		CReceiverWrapper vReceiver;
-		vReceiver.ForTestSetSocket(new CTcpSocketMock());
+		vReceiver.ForTestSetSocket(new QTcpSocket);
 		char vMessage[] {">>649<"};
 		size_t vMessageSize {sizeof(vMessage) - 1};
 		vReceiver.ForTestSetMessageSize(vMessageSize);

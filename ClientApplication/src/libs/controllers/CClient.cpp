@@ -45,8 +45,6 @@ void CClient::ReadData() {
     }
 }
 
-
-
 bool CClient::ConnectToHost(QString aHost) {
 		mSocket->connectToHost(aHost, 1234);
     bool vConnected = mSocket->waitForConnected();
