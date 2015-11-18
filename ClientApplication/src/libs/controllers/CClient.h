@@ -20,7 +20,7 @@ class CClient : public IClient {
     /**
      * @brief CClient class constructor
      */
-    CClient();
+    CClient(QTcpSocket* aSocket);
 
     /**
      * @brief CClient class destructor
@@ -33,7 +33,7 @@ class CClient : public IClient {
      * @param aData data to write
      * @return True if write successfull, otherwise false
      */
-		virtual bool WriteData(QByteArray aData);
+    virtual bool WriteData(const QByteArray &aData);
 
     /**
      * @brief WriteMessage write message to socket
@@ -41,7 +41,7 @@ class CClient : public IClient {
      * @param aData Message to write
      * @return True if write successfull, otherwise false
      */
-		virtual bool WriteMessage(QByteArray aData);
+    virtual bool WriteMessage(const QByteArray &aData);
 
     /**
      * @brief UpdateServerPhotos calculates checksums
@@ -97,6 +97,7 @@ class CClient : public IClient {
      */
     virtual QByteArray PrepareMessageData(int16_t aChecksum);
 
+    int         mPortNumber;
 		bool        mSendFile;
 		QTcpSocket  *mSocket;
 		QByteArray  *mReceiveBuffer;

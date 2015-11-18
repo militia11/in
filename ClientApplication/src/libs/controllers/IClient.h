@@ -13,7 +13,7 @@ class IClient : public QObject {
      * @param aData data to write
      * @return True if write successfull, otherwise false
      */
-    virtual bool WriteData(QByteArray aData) = 0;
+    virtual bool WriteData(const QByteArray &aData) = 0;
 
     /**
      * @brief WriteMessage write message to socket
@@ -21,7 +21,7 @@ class IClient : public QObject {
      * @param aData message to write
      * @return True if write successfull, otherwise false
      */
-    virtual bool WriteMessage(QByteArray aData) = 0;
+    virtual bool WriteMessage(const QByteArray &aData) = 0;
 
     /**
      * @brief PrepareMessageData prepare message data
@@ -34,7 +34,7 @@ class IClient : public QObject {
     /**
      * @brief IntToArray Convert integer to QByteArray
      *
-     * @param aSource is integer
+     * @param aSource Source is integer
      * @return QByteArray
      */
 		virtual QByteArray IntToArray(int32_t aSource) = 0;
@@ -49,6 +49,7 @@ class IClient : public QObject {
     /**
      * @brief ConvertImageToByteArray method convert imaqe to
      *        QByteArray
+     *
      * @param aImage Image to convert
      * @return Converted image to QByteArray
      */
@@ -66,7 +67,6 @@ class IClient : public QObject {
      */
     virtual bool ConnectToHost(QString aHost) = 0;
 
-    //private:
     /**
      * @brief CalculateFileDataChecksum calculate file checksum
      *

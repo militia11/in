@@ -8,11 +8,12 @@
 #include <QImageWriter>
 #include <unistd.h>
 #include "src/libs/dao/CRepository.h"
+#include "tests/auto/UnitTests/testlib/CQTcpSocketMock.h"
 
 extern CRepository gRepository;
 
-CClient::CClient() {
-		mSocket = new QTcpSocket(this);
+CClient::CClient(QTcpSocket *aSocket) : mSocket(aSocket){
+    mPortNumber = 1234;
 		mReceiveBuffer = 0;
 		mSendFile = false;
 
@@ -46,11 +47,11 @@ void CClient::ReadData() {
 }
 
 bool CClient::ConnectToHost(QString aHost) {
-		mSocket->connectToHost(aHost, 1234);
+    mSocket->connectToHost(aHost, mPortNumber);
     bool vConnected = mSocket->waitForConnected();
 
 		if (vConnected == false) {
-				qDebug() << mSocket->error();
+        throw mSocket->error();///@todo zlapanie
 		}
 
 		return vConnected;
@@ -61,7 +62,7 @@ QByteArray CClient::ConvertImageToByteArray(const QImage &aImage) {
 
 		QImageWriter vWriter(&vBuffer, "JPG");
 		vWriter.write(aImage);  // unikniecie vWriter.write(*(*vIterator));
-		return vBuffer.data();
+    return vBuffer.data();
 }
 
 QByteArray CClient::PrepareMessageData(int16_t aChecksum) {
@@ -73,7 +74,7 @@ QByteArray CClient::PrepareMessageData(int16_t aChecksum) {
 		return vData;
 }
 
-bool CClient::WriteData(QByteArray aData) {
+bool CClient::WriteData(const QByteArray &aData) {
 		if (mSocket->state() == QAbstractSocket::ConnectedState) {
 				mSocket->write(IntToArray(aData.length()));
 				mSocket->write(aData);
@@ -85,13 +86,11 @@ bool CClient::WriteData(QByteArray aData) {
 		}
 }
 
-bool CClient::WriteMessage(QByteArray aData) {
+bool CClient::WriteMessage(const QByteArray &aData) {
 		if (mSocket->state() == QAbstractSocket::ConnectedState) {
-				mSocket->write(aData);
-
-				return mSocket->waitForBytesWritten();
+        mSocket->write(aData);
+        return mSocket->waitForBytesWritten();
 		} else {
-
 				return false;
 		}
 }

@@ -37,7 +37,7 @@ CMainWindow::~CMainWindow() {
 }
 
 void CMainWindow::on_mPushButtonSendPhoto_clicked() {
-    //Q_INIT_RESOURCE(client_resources);  // Use resources from diffrent project
+    //Q_INIT_RESOURCE(client_resources);  // Use resources from different project
 
     QImage vImageToSend = QImage(":/sample_photo.jpg", "JPG");
     QBuffer vBuffer;
@@ -57,7 +57,7 @@ void CMainWindow::on_mPushButtonSendChecksum_clicked() {
 }
 
 void CMainWindow::on_mPushButtonConnect_clicked() {
-    vClient = new CClient;
+    vClient = new CClient(new QTcpSocket);
     qDebug() << "Czy udało się połączyć z hostem: " <<
              vClient->ConnectToHost("5.172.247.219"); //192.168.56.1
 }

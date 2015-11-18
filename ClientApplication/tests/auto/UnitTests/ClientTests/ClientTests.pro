@@ -4,4 +4,6 @@ SUBDIRS += \
     PrepareMessageDataTests \
     ConvertBetweenQImageAndQByteArrayTests \
     ConvertIntToArrayTests \
-    CalculateChecksumTests
+    CalculateChecksumTests \
+    WriteMethodsTests \
+    ConnectionAndReadDataTests

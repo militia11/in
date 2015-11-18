@@ -17,10 +17,10 @@ class ConvertIntToArrayTests : public QObject {
 ConvertIntToArrayTests::ConvertIntToArrayTests() {}
 
 void ConvertIntToArrayTests::TestConvertIntToArrayTest() {
-		CClientWrapper vClient;
+    CClientWrapper vClient(new QTcpSocket);
 
 		int32_t vNumber {12};
-		QByteArray vConvertedData = vClient.ForTestIntToArray(vNumber);
+    QByteArray vConvertedData = vClient.ForTestIntToArray(vNumber);
 		QDataStream vStream(&vConvertedData, QIODevice::ReadWrite);
 		vStream << vNumber;
 

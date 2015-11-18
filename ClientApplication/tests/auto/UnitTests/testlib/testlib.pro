@@ -14,9 +14,13 @@ CONFIG += staticlib
 INCLUDEPATH += ../../../../../ClientApplication
 
 HEADERS += \
-    CClientWrapper.h
+    CClientWrapper.h \
+	CQTcpSocketMock.h \
+    QTcpSocketWrapper.h
 
 SOURCES += \
-    CClientWrapper.cpp
+    CClientWrapper.cpp \
+	CQTcpSocketMock.cc \
+    QTcpSocketWrapper.cc
 
 LIBS += -L../../../../src/libs/controllers -lcontrollers
