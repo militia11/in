@@ -37,7 +37,7 @@ CMainWindow::~CMainWindow() {
 }
 
 void CMainWindow::on_mPushButtonSendPhoto_clicked() {
-    //Q_INIT_RESOURCE(client_resources);  // Use resources from different project
+		Q_INIT_RESOURCE(client_resources);  // Use resources from different project
 
     QImage vImageToSend = QImage(":/sample_photo.jpg", "JPG");
     QBuffer vBuffer;
@@ -58,10 +58,46 @@ void CMainWindow::on_mPushButtonSendChecksum_clicked() {
 
 void CMainWindow::on_mPushButtonConnect_clicked() {
     vClient = new CClient(new QTcpSocket);
-    qDebug() << "Czy udało się połączyć z hostem: " <<
-             vClient->ConnectToHost("5.172.247.219"); //192.168.56.1
+
+		try {
+				qDebug() << "Czy udało się połączyć z hostem: " <<
+								 vClient->ConnectToHost("5.172.247.219"); //192.168.56.1
+		} catch (QAbstractSocket::SocketError vError) {
+				ShowSocketException(vError);
+		}
 }
 
 void CMainWindow::on_mPushButtonArchivePhoto_clicked() {
-    vClient->UpdateServerPhotos();
+		vClient->UpdateServerPhotos();
+}
+
+void CMainWindow::ShowSocketException(QAbstractSocket::SocketError aError) {
+		switch (aError) {
+				case QAbstractSocket::SocketTimeoutError:
+						qDebug() <<
+										 "SocketTimeoutError: Socket is in closing, listening or bound state"; ///@todo I TESTY DO TEJ FUNKCJI później status bar zobaczyc na telefonie jak dziala ze zmiana ekranu  i dac
+						break;
+
+				case  QAbstractSocket::UnknownSocketError:
+						qDebug() <<
+										 "UnknownSocketError: The socket has started establishing a connection or the socket is not connected. Connecting or unconnected state";
+						break;
+
+				case QAbstractSocket::HostNotFoundError:
+						qDebug() <<
+										 "HostNotFoundError: The socket is performing a host name lookup. Socket in HostLookupState";
+						break;
+
+				default:
+						break;
+		}
+		/*
+		 * QAbstractSocket::UnconnectedState	0	The socket is not connected.
+		QAbstractSocket::HostLookupState	1	The socket is performing a host name lookup.
+		QAbstractSocket::ConnectingState	2	The socket has started establishing a connection.
+		QAbstractSocket::ConnectedState	3	A connection is established.
+		QAbstractSocket::BoundState	4	The socket is bound to an address and port.
+		QAbstractSocket::ClosingState	6	The socket is about to close (data may still be waiting to be written).
+		QAbstractSocket::ListeningState	5	For internal use only.
+		*/
 }

@@ -213,13 +213,13 @@ void CReceiver::ServeReceivedFileData() {
 }
 
 uint16_t CReceiver::CalculateFileDataChecksum(QByteArray aData) {
-    uint16_t vSum {};
+		uint16_t vCheckSum {};
 
 		for (auto i = 0; i < aData.length(); ++i) {
-        vSum += aData[i];
+				vCheckSum += aData[i];
     }
 
-    return vSum;
+		return vCheckSum;
 }
 
 int32_t CReceiver::ByteArrayToInt(QByteArray aData) {

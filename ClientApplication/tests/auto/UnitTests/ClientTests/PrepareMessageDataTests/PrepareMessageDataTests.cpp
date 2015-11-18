@@ -20,7 +20,7 @@ PrepareMessageDataTests::PrepareMessageDataTests() {
 }
 
 void PrepareMessageDataTests::TestPrepareMessageData() {
-    CClientWrapper vClient(new QTcpSocket);
+		CClientWrapper vClient(new QTcpSocket());
 		int16_t vChecksum = 384;
 		QByteArray vResultData = vClient.ForTestPrepareMessageData(vChecksum);
     QByteArray vExpectedData(">>384<");

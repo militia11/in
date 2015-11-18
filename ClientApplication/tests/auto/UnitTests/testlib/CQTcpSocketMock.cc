@@ -11,17 +11,22 @@ const QString CQTcpSocketMock::GetLog() const
   return mLog;
 }
 
-bool CQTcpSocketMock::waitForBytesWritten(int msecs)
-{
+bool CQTcpSocketMock::waitForBytesWritten(int msecs) {
    mLog += "->waitForBytesWritten(" + QString::number(msecs) + ")";
    return true;
 }
 
-void CQTcpSocketMock::connectToHost(const QString &hostName, quint16 port, OpenMode mode, NetworkLayerProtocol protocol) {
+void CQTcpSocketMock::connectToHost(
+		const QString &hostName,
+		quint16 port,
+		OpenMode mode,
+		NetworkLayerProtocol protocol) {
+	Q_UNUSED(mode);
+	Q_UNUSED(protocol);
    mLog += "->connectToHost(" + hostName + ", " + QString::number(port) + ")";
 }
 
 void CQTcpSocketMock::ForTestSetSocketState(QAbstractSocket::SocketState aState)
 {
-  this->setSocketState(aState);
+	setSocketState(aState);
 }

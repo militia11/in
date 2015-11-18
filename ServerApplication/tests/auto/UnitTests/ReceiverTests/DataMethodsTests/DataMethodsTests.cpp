@@ -34,6 +34,7 @@ void DataMethodsTests::TestNewDataMethod() {
 
 		vReceiver.ForTestSetSocket(new QTcpSocket);
 		vReceiver.ForTestNewData();
+		QVERIFY(false);
 }
 
 void DataMethodsTests::TestRouteDataMethod() {

@@ -51,6 +51,7 @@ bool CClient::ConnectToHost(QString aHost) {
     bool vConnected = mSocket->waitForConnected();
 
 		if (vConnected == false) {
+			qDebug()<<mSocket->error();
         throw mSocket->error();///@todo zlapanie
 		}
 

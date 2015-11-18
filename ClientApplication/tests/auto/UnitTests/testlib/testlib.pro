@@ -15,12 +15,10 @@ INCLUDEPATH += ../../../../../ClientApplication
 
 HEADERS += \
     CClientWrapper.h \
-	CQTcpSocketMock.h \
-    QTcpSocketWrapper.h
+    CQTcpSocketMock.h
 
 SOURCES += \
     CClientWrapper.cpp \
-	CQTcpSocketMock.cc \
-    QTcpSocketWrapper.cc
+    CQTcpSocketMock.cc
 
 LIBS += -L../../../../src/libs/controllers -lcontrollers

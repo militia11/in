@@ -29,7 +29,7 @@ class CMainWindow : public QMainWindow {
      */
     ~CMainWindow();
 
-  private slots:
+	protected slots:
     /**
      * @brief on_mPushButtonSendPhoto_clicked
      */
@@ -43,7 +43,13 @@ class CMainWindow : public QMainWindow {
      */
     void on_mPushButtonArchivePhoto_clicked();
 
-  private:
+	protected:
+		/**
+		 * @brief ShowSocketException Comunicate socket exception
+		 * @param vError Socket error
+		 */
+		void ShowSocketException(QAbstractSocket::SocketError aError);
+
     /**
      * @brief ui Is dialog
      */
