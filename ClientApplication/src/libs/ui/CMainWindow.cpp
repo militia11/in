@@ -37,8 +37,8 @@ CMainWindow::~CMainWindow() {
 }
 
 void CMainWindow::on_mPushButtonSendPhoto_clicked() {
-		Q_INIT_RESOURCE(client_resources);  // Use resources from different project
-
+//		Q_INIT_RESOURCE(client_resources);  // Use resources from different project
+///@todo
     QImage vImageToSend = QImage(":/sample_photo.jpg", "JPG");
     QBuffer vBuffer;
 

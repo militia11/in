@@ -14,18 +14,20 @@ TEMPLATE = lib
 CONFIG += staticlib c++11
 
 SOURCES += \
-    CServerWrapper.cc \
+	CServerWrapper.cpp \
     CReceiverWrapper.cpp \
     CReceiverMock.cpp \
     CReceiverMockFactory.cpp \
-    CalculateChecksumHelper.cpp
+    CalculateChecksumHelper.cpp \
+	CQTcpSocketMockInServer.cpp
 
 HEADERS += \
     CServerWrapper.h \
     CReceiverWrapper.h \
     CReceiverMock.h \
     CReceiverMockFactory.h \
-    CalculateChecksumHelper.h
+    CalculateChecksumHelper.h \
+    CQTcpSocketMockInServer.h
 
 INCLUDEPATH += ../../../../
 

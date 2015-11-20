@@ -9,7 +9,7 @@ const QString CReceiverMock::GetLog() const {
 }
 
 void CReceiverMock::NewData() {
-    mLog += "->NewData";
+    mLog += "->NewData()";
 }
 
 void CReceiverMock::RouteData(char aData) {
@@ -38,9 +38,9 @@ int32_t CReceiverMock::ByteArrayToInt(QByteArray aData) {
 }
 
 void CReceiverMock::Connect(QTcpSocket *aSocket) {
-	if(aSocket==0) {
+  //if(aSocket==0) {
 		mLog += "->Connect(0)";  // aSocket should be is nullptr set in constructor
-	}
+  //}
 }
 
 void CReceiverMock::ConnectSocketSignals() {

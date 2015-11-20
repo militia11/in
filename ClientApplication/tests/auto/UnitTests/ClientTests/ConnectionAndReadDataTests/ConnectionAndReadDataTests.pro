@@ -15,7 +15,7 @@ TEMPLATE = app
 
 INCLUDEPATH += ../../../../../../ClientApplication
 
-SOURCES += ConnectionAndReadDataTests.cc
+SOURCES += ConnectionAndReadDataTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 LIBS += -L../../testlib -ltestlib

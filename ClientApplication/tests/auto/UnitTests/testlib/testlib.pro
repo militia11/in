@@ -19,6 +19,6 @@ HEADERS += \
 
 SOURCES += \
     CClientWrapper.cpp \
-    CQTcpSocketMock.cc
+	CQTcpSocketMock.cpp
 
 LIBS += -L../../../../src/libs/controllers -lcontrollers

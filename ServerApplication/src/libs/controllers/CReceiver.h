@@ -153,7 +153,8 @@ class CReceiver : public IReceiver {
      * - data as hex-ascii string
      * - end message char: "<"
      *
-		 * @return True for correct format, False for incorrect
+     * @param aMessage Message to check
+     * @return True for correct format, false for incorrect
      */
 		bool HasMessageCorrectFormat(char *aMessage);
 

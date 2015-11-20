@@ -14,7 +14,7 @@ TEMPLATE = app
 
 INCLUDEPATH += ../../../../../../ClientApplication
 
-SOURCES += WriteMethodsTests.cc
+SOURCES += WriteMethodsTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 LIBS += -L../../testlib -ltestlib

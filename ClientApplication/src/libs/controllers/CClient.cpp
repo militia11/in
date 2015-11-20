@@ -33,7 +33,6 @@ CClient::~CClient() {
 void CClient::ReadData() {
 		while (mSocket->bytesAvailable() > 0) {
 				QByteArray vMessageData = mSocket->readAll();
-				qDebug() << vMessageData;
 
 				if (vMessageData ==
 								QByteArray("NEW FILE")) { // lub SEND, ARCHIVE jak nie będzie działac
@@ -48,14 +47,13 @@ void CClient::ReadData() {
 
 bool CClient::ConnectToHost(QString aHost) {
     mSocket->connectToHost(aHost, mPortNumber);
-    bool vConnected = mSocket->waitForConnected();
+    bool vHasBeenEstablished = mSocket->waitForConnected();
 
-		if (vConnected == false) {
-			qDebug()<<mSocket->error();
-        throw mSocket->error();///@todo zlapanie
+    if (vHasBeenEstablished == false) {
+        throw mSocket->error();
 		}
 
-		return vConnected;
+    return vHasBeenEstablished;
 }
 
 QByteArray CClient::ConvertImageToByteArray(const QImage &aImage) {

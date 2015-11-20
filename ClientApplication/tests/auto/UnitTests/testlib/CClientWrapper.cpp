@@ -8,5 +8,10 @@ QByteArray CClientWrapper::ForTestIntToArray(int32_t aSource)
 }
 
 QByteArray CClientWrapper::ForTestPrepareMessageData(int16_t aChecksum) {
-		return PrepareMessageData(aChecksum);
+  return PrepareMessageData(aChecksum);
+}
+
+void CClientWrapper::ForTestReadData()
+{
+  ReadData();
 }

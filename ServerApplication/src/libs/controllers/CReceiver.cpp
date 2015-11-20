@@ -54,8 +54,8 @@ QTcpSocket *CReceiver::GetSocket() const {
 }
 
 void CReceiver::NewData() {
-		while (mSocket->bytesAvailable() > 0) {
-				QByteArray vData {mSocket->readAll()};
+    while (mSocket->bytesAvailable() > 0) {
+        QByteArray vData {mSocket->readAll()};
         mReceiveBuffer->append(vData);
 
 				for (auto i = 0; i < vData.length(); i++) {

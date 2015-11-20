@@ -59,18 +59,20 @@ class CClient : public IClient {
      */
     virtual QByteArray ConvertImageToByteArray(const QImage &aImage);
 
-  public slots:
-		/**
-		 * @brief ReadData method read received data
-		 */
-		virtual void ReadData();
 
+public slots:
 		/**
 		 * @brief ConnectToHost method connect to host
 		 *
 		 * @param aHost is hostname/number
 		 */
 		virtual bool ConnectToHost(QString aHost);
+
+  protected slots:
+    /**
+     * @brief ReadData method read received data
+     */
+    virtual void ReadData();
 
 	protected:
 		/**

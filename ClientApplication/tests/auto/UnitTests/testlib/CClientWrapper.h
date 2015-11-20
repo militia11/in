@@ -36,6 +36,13 @@ class CClientWrapper : public CClient {
    * @return QByteArray Message
    */
   QByteArray ForTestPrepareMessageData (int16_t aChecksum);
+
+  /**
+   * @brief ForTestReadData Call protected method ReadData
+   *        for unit tests
+   */
+  void ForTestReadData();
+
 };
 
 #endif // CCLIENTWRAPPER_H
