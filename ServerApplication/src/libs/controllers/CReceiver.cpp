@@ -68,6 +68,11 @@ void CReceiver::NewData() {
 		}
 }
 
+void CReceiver::AppendToChecksum(char aData) {
+		mMessageFileChecksum[mReceiveByteCount] = aData;
+		mReceiveByteCount++;
+}
+
 void CReceiver::VerifyEndMessage(char aData) {
 		if (aData == '<') {       // End of send message checksum
 				mReceiveDataMode = Mode_Receive_File_Data;
@@ -90,39 +95,31 @@ void CReceiver::PreventBufferOverflow() {
 }
 
 void CReceiver::VerifyBeginMessage(QByteArray aData, int aPosition) {
-		if (IsBeginChar(aData[aPosition]))  {  // Begin send message checksum
-				ActionWhenFirstCharIsCorrect(aData[aPosition + 1]);
+		if (IsBeginChar(aData[aPosition]) && IsBeginChar(aData[aPosition + 1]))  {
+				SetChecksumMode();
 		}
 }
 
-void CReceiver::ActionWhenFirstCharIsCorrect(char aChar) {
-		if (IsBeginChar(aChar)) {
-				mReceiveDataMode = Mode_Receive_File_Checksum;
-				mReceiveByteCount = 0;
-		}
+void CReceiver::SetChecksumMode() {
+		mReceiveDataMode = Mode_Receive_File_Checksum;
+		mReceiveByteCount = 0;
 }
 
 bool CReceiver::IsBeginChar(char aChar) {
 		return aChar == '>';
 }
 
-
 void CReceiver::RouteData(char aData) {
 		switch (mReceiveDataMode) {
-
 				case Mode_Receive_File_Data : {
 						ServeReceivedFileData();
 						break;
 				}
 
 				case Mode_Receive_File_Checksum: {
-			AppendTohe
-						mMessageFileChecksum[mReceiveByteCount] = aData;
-						mReceiveByteCount++;
-
+						AppendToChecksum(aData);
 						PreventBufferOverflow();
 						VerifyEndMessage(aData);
-
 						break;
         }
 
@@ -149,9 +146,7 @@ void CReceiver::ServeReceivedMessage() {
 		bool vIsChecksumInServer {vChecksumList->CheckFileChecksum(vChecksum)};
 
 		if (!vIsChecksumInServer) {
-				const char *vMessage {
-						"SEND"
-				};
+				const char *vMessage = "SEND";
 				ResponeToClient(vMessage);
 				//        i klient zapamietuje co wysylal jaka sume wiec ten plik wysyla
 				//        alternatywa:

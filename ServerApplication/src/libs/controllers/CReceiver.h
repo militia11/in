@@ -91,10 +91,12 @@ class CReceiver : public IReceiver {
     void MessageStatus(const char *aMessage, int aTimeMsc);
 
   protected:
+		void AppendToChecksum(char aData);
 		void VerifyEndMessage(char aData);
 		void PreventBufferOverflow();
 
-    void ActionWhenFirstCharIsCorrect(char aChar);
+		void SetChecksumMode();
+
     /**
      * @brief IsBeginChar Verify if it is begin char
 		 *
