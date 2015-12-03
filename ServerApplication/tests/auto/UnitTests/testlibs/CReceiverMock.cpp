@@ -13,7 +13,7 @@ void CReceiverMock::NewData() {
 }
 
 void CReceiverMock::RouteData(char aData) {
-	Q_UNUSED(aData);
+		Q_UNUSED(aData);
 }
 
 void CReceiverMock::ServeReceivedMessage() {
@@ -21,8 +21,8 @@ void CReceiverMock::ServeReceivedMessage() {
 }
 
 bool CReceiverMock::HasMessageCorrectFormat(char *aMessage) {
-	Q_UNUSED(aMessage);
-	return true;
+		Q_UNUSED(aMessage);
+		return true;
 }
 
 void CReceiverMock::ServeReceivedFileData() {
@@ -30,17 +30,20 @@ void CReceiverMock::ServeReceivedFileData() {
 }
 
 uint16_t CReceiverMock::CalculateFileDataChecksum(QByteArray aData) {
-		 Q_UNUSED(aData);return 0;
+		Q_UNUSED(aData);
+		return 0;
 }
 
 int32_t CReceiverMock::ByteArrayToInt(QByteArray aData) {
-		Q_UNUSED(aData);return 0;
+		Q_UNUSED(aData);
+		return 0;
 }
 
 void CReceiverMock::Connect(QTcpSocket *aSocket) {
-  //if(aSocket==0) {
+		Q_UNUSED(aSocket);
+		//if(aSocket==0) {
 		mLog += "->Connect(0)";  // aSocket should be is nullptr set in constructor
-  //}
+		//}
 }
 
 void CReceiverMock::ConnectSocketSignals() {
@@ -55,6 +58,6 @@ int CReceiverMock::ConvertMessageArrayToInt() {
     return 0;
 }
 
-void CReceiverMock::ResponeToClient(const char* aMessage) {
+void CReceiverMock::ResponeToClient(const char *aMessage) {
 		mLog += "->ResponeToClient(" + QString::fromStdString(aMessage) + ")";
 }

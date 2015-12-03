@@ -6,8 +6,8 @@
 #include <QTcpSocket>
 #include <QObject>
 
-#include "src/libs/controllers/CStorePhotoTransaction.h"
 #include "src/libs/controllers/CRetrievePhotoTransaction.h"
+#include "src/libs/controllers/CStorePhotoTransaction.h"
 #include "src/libs/controllers/IReceiver.h"
 #include "src/libs/dao/CChecksumList.h"
 
@@ -91,20 +91,25 @@ class CReceiver : public IReceiver {
     void MessageStatus(const char *aMessage, int aTimeMsc);
 
   protected:
+		void VerifyEndMessage(char aData);
+		void PreventBufferOverflow();
+
     void ActionWhenFirstCharIsCorrect(char aChar);
     /**
      * @brief IsBeginChar Verify if it is begin char
+		 *
      * @param aChar Char to verify
      * @return True if begin char, otherwise false
      */
     bool IsBeginChar(char aChar);
 
     /**
-     * @brief CheckBeginOrEndMessage Check if begin or end message
+		 * @brief VerifyBeginMessage Check if begin message
+		 *
      * @param aData Byte array
      * @param aPosition Current position
      */
-    void CheckBeginOrEndMessage(QByteArray aData, int aPosition);
+		void VerifyBeginMessage(QByteArray aData, int aPosition);
 
     /**
      * @brief ExecuteConnectActions execute connect actions
@@ -163,7 +168,7 @@ class CReceiver : public IReceiver {
      *
 		 * @param aData is data to route
      */
-    void RouteData(char aData);
+		void RouteData(char aData);
 
     /**
 		 * @brief Serve single received message
