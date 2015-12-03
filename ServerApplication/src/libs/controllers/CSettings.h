@@ -16,7 +16,7 @@ class CSettings {
      *
      * @return QString driver name
      */
-    QString GetDriver() const;
+		QString GetDriver() const;
 
     /**
      * @brief GetPortNum get port number
@@ -32,5 +32,9 @@ class CSettings {
      * @return QString of connection parameter
      */
 		QString GetConnectionString() const;
+
+protected:
+		bool IsSQLiteDriver() const;
+		bool IsMySqlDriver() const;
 };
 #endif // CSETTINGS_H

@@ -91,8 +91,14 @@ class CReceiver : public IReceiver {
     void MessageStatus(const char *aMessage, int aTimeMsc);
 
   protected:
+		bool IsBytesAvailable();
+		void TryServeReceivedMessage();
+		void PrepareBuffersToReceiveDataMode();
+		bool NotChecksumInServer();
+		void CleanBuffers();
+		void VerifyMessageFormat();
 		void AppendToChecksum(char aData);
-		void VerifyEndMessage(char aData);
+		bool IsEndMessageChar(char aData);
 		void PreventBufferOverflow();
 
 		void SetChecksumMode();

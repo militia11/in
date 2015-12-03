@@ -85,6 +85,14 @@ class CServer : public IServer {
     void PauseAccepting();
 
   protected:
+		void TryConnect(QTcpSocket *aSocket);
+
+		/**
+		 * @brief NotListen Verify Server listening status
+		 * @return True if server not listen, otherwise false
+		 */
+		bool NotListen();
+
     /**
      * @brief SocketError attend socket exception
      * @param aText socket error

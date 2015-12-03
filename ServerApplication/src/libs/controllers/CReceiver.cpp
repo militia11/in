@@ -57,7 +57,7 @@ QTcpSocket *CReceiver::GetSocket() const {
 }
 
 void CReceiver::NewData() {
-		while (mSocket->bytesAvailable() > 0) {
+		while (IsBytesAvailable()) {
 				QByteArray vData {mSocket->readAll()};
 				mReceiveBuffer->append(vData);
 
@@ -68,24 +68,46 @@ void CReceiver::NewData() {
 		}
 }
 
+bool CReceiver::IsBytesAvailable() {
+		return mSocket->bytesAvailable() > 0 ;
+}
+
+void CReceiver::TryServeReceivedMessage() {
+		try {
+				ServeReceivedMessage();
+		} catch (std::runtime_error vException) {
+				MessageFormatException(vException.what());
+		}
+}
+
+void CReceiver::PrepareBuffersToReceiveDataMode() {
+		mReceiveDataMode = Mode_Receive_File_Data;
+		mMessageSize = mReceiveByteCount;
+		mReceiveBuffer->clear();
+		mReceiveByteCount = 0;
+}
+
+void CReceiver::CleanBuffers() {
+		delete mDataSize;
+		mDataSize         = new int32_t {0};
+		mMessageSize      = 0;
+		mReceiveByteCount = 0;
+		mReceiveBuffer->clear();
+}
+
+void CReceiver::VerifyMessageFormat() {
+		if (!HasMessageCorrectFormat(mMessageFileChecksum)) {
+				throw std::runtime_error("Nieprawidłowy format wiadomości");
+		}
+}
+
 void CReceiver::AppendToChecksum(char aData) {
 		mMessageFileChecksum[mReceiveByteCount] = aData;
 		mReceiveByteCount++;
 }
 
-void CReceiver::VerifyEndMessage(char aData) {
-		if (aData == '<') {       // End of send message checksum
-				mReceiveDataMode = Mode_Receive_File_Data;
-				mMessageSize = mReceiveByteCount;
-				mReceiveBuffer->clear();
-				mReceiveByteCount = 0;
-
-				try {
-						ServeReceivedMessage();
-				} catch (std::runtime_error vException) {
-						MessageFormatException(vException.what());
-				}
-		}
+bool CReceiver::IsEndMessageChar(char aData) {
+		return aData == '<';
 }
 
 void CReceiver::PreventBufferOverflow() {
@@ -119,7 +141,12 @@ void CReceiver::RouteData(char aData) {
 				case Mode_Receive_File_Checksum: {
 						AppendToChecksum(aData);
 						PreventBufferOverflow();
-						VerifyEndMessage(aData);
+
+						if (IsEndMessageChar(aData)) {
+								PrepareBuffersToReceiveDataMode();
+								TryServeReceivedMessage();
+						}
+
 						break;
         }
 
@@ -129,23 +156,11 @@ void CReceiver::RouteData(char aData) {
 }
 
 void CReceiver::ServeReceivedMessage() {
-		if (!HasMessageCorrectFormat(mMessageFileChecksum)) {
-				throw std::runtime_error("Nieprawidłowy format wiadomości");
-		}
+		VerifyMessageFormat();
+		emit ReadData(mMessageFileChecksum);///@todo usunacPOTEM!!!!!!!!!!1
+		CleanBuffers();
 
-		int vChecksum {ConvertMessageArrayToInt()};
-		emit ReadData(mMessageFileChecksum);///@todo usunac
-
-		delete mDataSize;
-		mDataSize         = new int32_t {0};
-		mMessageSize      = 0;
-		mReceiveByteCount = 0;
-		mReceiveBuffer->clear();
-
-		CChecksumList *vChecksumList {gRepository.GetChecksumList()};
-		bool vIsChecksumInServer {vChecksumList->CheckFileChecksum(vChecksum)};
-
-		if (!vIsChecksumInServer) {
+		if (NotChecksumInServer()) {
 				const char *vMessage = "SEND";
 				ResponeToClient(vMessage);
 				//        i klient zapamietuje co wysylal jaka sume wiec ten plik wysyla
@@ -153,6 +168,12 @@ void CReceiver::ServeReceivedMessage() {
 				//        QString vClientMessage = PrepareSendingToClientMessage(vChecksum);
 				//        ResponeToClient(vClientMessage);
 		}
+}
+
+bool CReceiver::NotChecksumInServer() {
+		int vChecksum {ConvertMessageArrayToInt()};
+		CChecksumList *vChecksumList {gRepository.GetChecksumList()};
+		return vChecksumList->CheckFileChecksum(vChecksum);
 }
 
 bool CReceiver::HasMessageCorrectFormat(char *aMessage) {
@@ -262,7 +283,6 @@ void CReceiver::Disconnected() {
 }
 
 int CReceiver::ConvertMessageArrayToInt() {
-		// wersja 1:
 		QString vNumberAsString;
 
 		for (auto i = 0; i < mMessageSize; i++) {
@@ -272,10 +292,6 @@ int CReceiver::ConvertMessageArrayToInt() {
     }
 
 		return vNumberAsString.toInt();
-		// wersja alternatywna:
-		//    std::string vStringFromArray(mMessageClntFileChecksum);
-		//    std::string vNumAsString = vStringFromArray.substr(2, mMessageSize-4);
-		//    int vNum = QString::fromStdString(vNumAsString).toInt();
 }
 
 void CReceiver::ResponeToClient(const char *aMessage) {

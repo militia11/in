@@ -100,6 +100,10 @@ class CMainWindow : public QMainWindow {
     void closeEvent(QCloseEvent *aEvent);
 
 	protected:
+		bool UpdateDatabaseOrConnection();
+		void TryRunServer();
+		bool IsDatabase();
+
     /**
      * @brief ServerListeningProblem attend server listening exception
      * @param aError server error
