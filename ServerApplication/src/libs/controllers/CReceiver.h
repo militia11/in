@@ -91,6 +91,31 @@ class CReceiver : public IReceiver {
     void MessageStatus(const char *aMessage, int aTimeMsc);
 
   protected:
+    void ActionWhenFirstCharIsCorrect(char aChar);
+    /**
+     * @brief IsBeginChar Verify if it is begin char
+     * @param aChar Char to verify
+     * @return True if begin char, otherwise false
+     */
+    bool IsBeginChar(char aChar);
+
+    /**
+     * @brief CheckBeginOrEndMessage Check if begin or end message
+     * @param aData Byte array
+     * @param aPosition Current position
+     */
+    void CheckBeginOrEndMessage(QByteArray aData, int aPosition);
+
+    /**
+     * @brief ExecuteConnectActions execute connect actions
+     */
+    void ExecuteConnectActions(QTcpSocket *aSocket);
+
+    /**
+     * @brief EmitNotConnectedStatus Emit not connected status
+     */
+    void EmitNotConnectedStatus();
+
     /**
      * @brief MessageFormatException print message format exception
 		 *

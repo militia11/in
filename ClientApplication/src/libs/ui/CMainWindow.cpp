@@ -105,13 +105,13 @@ void CMainWindow::ShowSocketException(QAbstractSocket::SocketError aError) {
 }
 
 void CMainWindow::on_pushButton_clicked() {
-  QImage image("<USER>/Pictures/a.jpg");// lub .jpeg
-  ui->llabel->setPixmap(QPixmap::fromImage(im));
+  //QImage image("<USER>/Pictures/a.jpg");// lub .jpeg
+  //ui->llabel->setPixmap(QPixmap::fromImage(im));
 
   //pic_>       "<USER>/Pictures",
 }
   //lub
-  "<USER>/<APPNAME>/Pictures"
+  //"<USER>/<APPNAME>/Pictures"
 
   // lub
   // /Camera
