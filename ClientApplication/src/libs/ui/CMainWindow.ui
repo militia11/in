@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>502</width>
-    <height>238</height>
+    <width>516</width>
+    <height>288</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -66,6 +66,20 @@
       </property>
       <property name="text">
        <string>Archiwizuj zdjęcia</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="lLabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>pokaz zdjecie</string>
       </property>
      </widget>
     </item>

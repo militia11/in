@@ -59,6 +59,8 @@ class CMainWindow : public QMainWindow {
      * @brief vClient is Client class
      */
     IClient *vClient;
+  private slots:
+    void on_pushButton_clicked();
 };
 
 #endif // CMAINWINDOW_H

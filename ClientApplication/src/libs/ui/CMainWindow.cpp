@@ -8,7 +8,9 @@
 #include <QImage>				//?
 #include <QImageWriter>
 #include <QMessageBox>
+#include <QStandardPaths>
 #include <QTimer>
+
 
 CMainWindow::CMainWindow(QWidget *aParent) :
     QMainWindow(aParent),
@@ -101,3 +103,58 @@ void CMainWindow::ShowSocketException(QAbstractSocket::SocketError aError) {
 		QAbstractSocket::ListeningState	5	For internal use only.
 		*/
 }
+
+void CMainWindow::on_pushButton_clicked() {
+  QImage image("<USER>/Pictures/a.jpg");// lub .jpeg
+  ui->llabel->setPixmap(QPixmap::fromImage(im));
+
+  //pic_>       "<USER>/Pictures",
+}
+  //lub
+  "<USER>/<APPNAME>/Pictures"
+
+  // lub
+  // /Camera
+  //lub  /storage/emulated/0/DCIM
+
+
+  //data - >    "<APPROOT>/files", "<USER>/<APPNAME>/files"
+
+  /*
+  In the table above, <APPNAME> is usually the organization name, the application name, or both, or a unique name generated at packaging. Similarly, <APPROOT> is the location where this application is installed (often a sandbox). <APPDIR> is the directory containing the application executable.
+
+  The paths above should not be relied upon, as they may change according to OS configuration, locale, or they may change in future Qt versions.
+
+  Note: On Android, applications with open files on the external storage (<USER> locations), will be killed if the external storage is unmounted.
+*/
+  // http://doc.qt.io/qt-5/qstandardpaths.html
+  //QStandardPaths::PicturesLocation
+
+
+
+
+  /*
+   *
+   *
+[static]
+QStringList QStandardPaths::standardLocations(StandardLocation type)
+
+Returns all the directories where files of type belong.
+
+The list of directories is sorted from high to low priority, starting with writableLocation() if it can be determined. This list is empty if no locations for type are defined.
+
+See also writableLocation().
+
+   *  don't use qrc too, and this is my code into .pro for deploy to assets for Android:
+
+@
+Common data to insert into APK Assets
+
+COMMON_DATA.path = /assets
+COMMON_DATA.files = $files($PWD/BundleData/Common/*)
+INSTALLS += COMMON_DATA
+@
+
+Then you can access to the data installed using the "assets:/path/filename.ext" as path name.
+
+   * */
