@@ -91,6 +91,9 @@ class CReceiver : public IReceiver {
     void MessageStatus(const char *aMessage, int aTimeMsc);
 
   protected:
+		bool IsDataSizeAboveNullBufferAboveDataSize();
+		bool IsDataSizeNullBuffer4();
+		bool DownloadPossible();
 		bool IsBytesAvailable();
 		void TryServeReceivedMessage();
 		void PrepareBuffersToReceiveDataMode();

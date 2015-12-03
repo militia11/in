@@ -68,6 +68,19 @@ void CReceiver::NewData() {
 		}
 }
 
+bool CReceiver::IsDataSizeAboveNullBufferAboveDataSize() {
+		return *mDataSize > 0 && mReceiveBuffer->size() >= *mDataSize;
+}
+
+bool CReceiver::IsDataSizeNullBuffer4() {
+		return *mDataSize == 0 && mReceiveBuffer->size() >= 4;
+}
+
+bool CReceiver::DownloadPossible() {
+		return IsDataSizeNullBuffer4() ||
+					 IsDataSizeAboveNullBufferAboveDataSize();
+}
+
 bool CReceiver::IsBytesAvailable() {
 		return mSocket->bytesAvailable() > 0 ;
 }
@@ -199,27 +212,47 @@ bool CReceiver::HasMessageCorrectFormat(char *aMessage) {
 }
 
 void CReceiver::ServeReceivedFileData() {
-		int32_t vCurrentSize {*mDataSize};
+		/*
+				// Jeśli można pobierać dane pobieraj
+				while ((vCurrentSize == 0 && mReceiveBuffer->size() >= 4) ||
+								(vCurrentSize > 0 &&
+								 mReceiveBuffer->size() >= vCurrentSize)) {
 
-		while ((vCurrentSize == 0 && mReceiveBuffer->size() >= 4) ||
-						(vCurrentSize > 0 &&
-						 mReceiveBuffer->size() >= vCurrentSize)) {
+						if (vCurrentSize == 0 &&
+										mReceiveBuffer->size() >=
+										4) { //if size of data has received completely, then store it on our global variable
+								vCurrentSize = ByteArrayToInt(mReceiveBuffer->left(4));
+								qDebug() << "vcu" << vCurrentSize;
+								*mDataSize = vCurrentSize;
+								mReceiveBuffer->remove(0, 4);
+						}
 
-				if (vCurrentSize == 0 &&
-								mReceiveBuffer->size() >=
-								4) {
+						if (vCurrentSize > 0 && mReceiveBuffer->size() >=
+										vCurrentSize) { // If data has received completely, then emit our SIGNAL with the data
+								if (vCurrentSize > 4punk) {
+				QByteArray vData = mReceiveBuffer->left(vCurrentSize);
+				qDebug() << "data przy add" << vData;
+						*/
+
+
+		while (DownloadPossible()) {
+				int32_t	vCurrentSize = *mDataSize;
+
+				if (IsDataSizeNullBuffer4()) {
 						vCurrentSize = ByteArrayToInt(mReceiveBuffer->left(4));
-
 						*mDataSize = vCurrentSize;
+
 						mReceiveBuffer->remove(0, 4);
 				}
 
-				if (vCurrentSize > 0 && mReceiveBuffer->size() >=
-								vCurrentSize) {
-						if (vCurrentSize > 4 /*punk*/) {
+				if (IsDataSizeAboveNullBufferAboveDataSize()) {
+						if (vCurrentSize > 4) {  /*punk*/
 								QByteArray vData {mReceiveBuffer->left(vCurrentSize)};
 								u_int16_t vChecksum {CalculateFileDataChecksum(vData)};
-								CStorePhotoTransaction StoreTransaction(vData, vData.size(), vChecksum);
+								CStorePhotoTransaction StoreTransaction(
+										vData,
+										vData.size(),
+										vChecksum);
 								StoreTransaction.Execute();
 								emit ReadData(vData);
 
