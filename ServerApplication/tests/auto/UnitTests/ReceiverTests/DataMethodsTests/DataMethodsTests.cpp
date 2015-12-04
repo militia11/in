@@ -14,6 +14,11 @@ class DataMethodsTests : public QObject {
   DataMethodsTests();
 
  private Q_SLOTS:
+  void TestRemoveSizeFromBuffer();
+  void TestHasDataReceivedCompletelyMethod();
+  void TestHasDataReceivedCompletelyMethodTDataSizeAboveBufferExpectFalse();
+  void TestHasDataReceivedCompletelyMethodTDataSizeBelow0ExpectFalse();
+  void TestHasDataReceivedCompletelyMethodTDataSizeEqual0ExpectFalse();
   void TestNewDataMethod();
   void TestRouteDataMethod();
   void TestRouteDataPreventBufferOverflow();
@@ -22,9 +27,51 @@ class DataMethodsTests : public QObject {
   void TestServeReceivedMessageChangeAllParam();
   void TestServeReceivedMessageChangeMinimumToExecution();
   void TestServeReceivedFileData();
+
 };
 
 DataMethodsTests::DataMethodsTests() {
+}
+
+void DataMethodsTests::TestRemoveSizeFromBuffer() {
+  CReceiverWrapper vReceiver;
+
+  vReceiver.ForTestSetReceiveBuffer(new QByteArray("Test data"));  // size is 9
+  vReceiver.ForTestRemoveSizeFromBuffer();
+  QCOMPARE(*vReceiver.ForTestGetReveiveBuffer(),
+           QByteArray(" data")); //should remove first 4 bytes
+}
+
+void DataMethodsTests::TestHasDataReceivedCompletelyMethod() {
+  CReceiverWrapper vReceiver;
+
+  vReceiver.ForTestSetDataSize(new int32_t {1});
+  vReceiver.ForTestSetReceiveBuffer(new QByteArray("Test data"));  // size() == 9
+  QVERIFY(vReceiver.ForTestHasDataReceivedCompletely());
+}
+
+void DataMethodsTests::TestHasDataReceivedCompletelyMethodTDataSizeAboveBufferExpectFalse() {
+  CReceiverWrapper vReceiver;
+
+  vReceiver.ForTestSetDataSize(new int32_t {10});
+  vReceiver.ForTestSetReceiveBuffer(new QByteArray("Test data"));
+  QVERIFY(vReceiver.ForTestHasDataReceivedCompletely() == false);
+}
+
+void DataMethodsTests::TestHasDataReceivedCompletelyMethodTDataSizeBelow0ExpectFalse() {
+  CReceiverWrapper vReceiver;
+
+  vReceiver.ForTestSetDataSize(new int32_t { -1});
+  vReceiver.ForTestSetReceiveBuffer(new QByteArray("Test data"));
+  QVERIFY(vReceiver.ForTestHasDataReceivedCompletely() == false);
+}
+
+void DataMethodsTests::TestHasDataReceivedCompletelyMethodTDataSizeEqual0ExpectFalse() {
+  CReceiverWrapper vReceiver;
+
+  vReceiver.ForTestSetDataSize(new int32_t {}); // is 0
+  vReceiver.ForTestSetReceiveBuffer(new QByteArray("Test data"));
+  QVERIFY(vReceiver.ForTestHasDataReceivedCompletely() == false);
 }
 
 void DataMethodsTests::TestNewDataMethod() {
@@ -51,7 +98,7 @@ void DataMethodsTests::TestRouteDataMethod() {
 
   // Verify if in mMessageFileChecksum[mReceiveByteCount] is set char
   QCOMPARE(*vReceiver.ForTestGetMessageFileChecksum(), vExpectedChar);
-  //mReceiveByteCount++;
+  // mReceiveByteCount++;
   QCOMPARE(vReceiver.ForTestGetReceiveByteCount(), 1);
 }
 

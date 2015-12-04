@@ -36,7 +36,7 @@ QString CSettings::GetConnectionString() const {
                                 vSettings.value("password").toString(),
                                 vSettings.value("databaseName").toString()
                             );
-		} else if (IsMySqlDriver()) {
+    } else if (IsSQLiteDriver()) {
         vConnectionString = QString("database=%1")
                             .arg(
                                 vSettings.value("databaseName").toString()
@@ -51,9 +51,9 @@ QString CSettings::GetConnectionString() const {
 }
 
 bool CSettings::IsSQLiteDriver() const{
-		return GetDriver() == QString("mysql");
+    return GetDriver() == "sqlite3";
 }
 
 bool CSettings::IsMySqlDriver() const{
-		return GetDriver() == QString("sqlite3");
+    return GetDriver() == "mysql";
 }

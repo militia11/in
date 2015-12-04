@@ -91,10 +91,62 @@ class CReceiver : public IReceiver {
     void MessageStatus(const char *aMessage, int aTimeMsc);
 
   protected:
-		bool IsDataSizeAboveNullBufferAboveDataSize();
-		bool IsDataSizeNullBuffer4();
-		bool DownloadPossible();
+    /**
+     * @brief RemoveSizeFromBuffer Remove current size from buffer
+     */
+    void RemoveSizeFromBuffer();
+
+    /**
+     * @brief SaveAndSetCurrentSize Set and save current size to class member
+     */
+    void SaveAndSetCurrentSize(int32_t *aCurrentSize);
+
+    /**
+     * @brief StoreData Store data to database
+     *
+     * @param aCurrentSize Size of data to store
+     */
+    void StoreData(int32_t aCurrentSize);
+
+    /**
+     * @brief NotPunk Verify if size is not punk
+     *
+     * @param aSize Size to verify
+     * @return True if is not punk, otherwise false
+     */
+    bool NotPunk(int32_t aSize);
+
+    /**
+     * @brief HasDataReceivedCompletely Verify if data has received completely
+     *
+     * @return True if data has received completely, otherwise false
+     */
+    bool HasDataReceivedCompletely();
+
+    /**
+     * @brief HasSizeOfDataReceivedCompletely Verify if size of data
+     *        has received completely
+     *
+     * @return True if size of data has received completely, otherwise false
+     */
+    bool HasSizeOfDataReceivedCompletely();
+
+    /**
+     * @brief CanReceive Verify if can proceed
+     *        of receive data from device
+     *
+     * @return True if can receive, otherwise false
+     */
+    bool CanReceive();
+
+    /**
+     * @brief IsBytesAvailable Verify if bytes available in socket
+     *
+     * @return True if bytes available, otherwise false
+     */
 		bool IsBytesAvailable();
+    void CleanSizesFields(int* aCurrentSize);
+     void RemoveDataFromBuffer(int32_t aCurrentSize);
 		void TryServeReceivedMessage();
 		void PrepareBuffersToReceiveDataMode();
 		bool NotChecksumInServer();

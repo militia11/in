@@ -12,326 +12,325 @@
 extern CRepository gRepository;
 
 CReceiver::CReceiver() :
-		mSocket(nullptr),
-		mReceiveBuffer(nullptr),
-		mDataSize(nullptr),
-		mReceiveDataMode(Mode_Receive_File_Data),
-		mMessageSize(0),
-		mReceiveByteCount(0) {
+  mSocket(nullptr),
+  mReceiveBuffer(nullptr),
+  mDataSize(nullptr),
+  mReceiveDataMode(Mode_Receive_File_Data),
+  mMessageSize(0),
+  mReceiveByteCount(0) {
 }
 
 CReceiver::~CReceiver() {
-		Disconnected();
+  Disconnected();
+}
+
+bool CReceiver::HasDataReceivedCompletely() {
+  return *mDataSize > 0 && mReceiveBuffer->size() >= *mDataSize;
 }
 
 void CReceiver::Connect(QTcpSocket *aSocket) {
-		(aSocket) ? ExecuteConnectActions(aSocket) : EmitNotConnectedStatus();
+  (aSocket) ? ExecuteConnectActions(aSocket) : EmitNotConnectedStatus();
 }
 
-void CReceiver::ExecuteConnectActions(QTcpSocket *aSocket) {
-		const char *vMessage {
-				"Klient połączony. Nasłuchiwanie serwera wyłączone"
-		};
-
-		QByteArray b("12");
-		qDebug() << CalculateFileDataChecksum(b);
-		emit MessageStatus(vMessage, 2200);
-
-		mSocket = aSocket;
-		mDataSize = new int32_t {0};
-		mReceiveBuffer = new QByteArray();
-
-		ConnectSocketSignals();
+void CReceiver::RemoveSizeFromBuffer() {
+  mReceiveBuffer->remove(0, 4);
 }
 
-void CReceiver::EmitNotConnectedStatus() {
-		const char *vMessage {
-				"Nie można połączyć"
-		};
-		emit MessageStatus(vMessage, 2200);
-		throw  std::runtime_error("Nie można połączyć");
+bool CReceiver::HasSizeOfDataReceivedCompletely() {
+  return *mDataSize == 0 && mReceiveBuffer->size() >= 4;
 }
 
-QTcpSocket *CReceiver::GetSocket() const {
-		return mSocket;
+void CReceiver::SaveAndSetCurrentSize(int32_t *aCurrentSize) {
+  *aCurrentSize = ByteArrayToInt(mReceiveBuffer->left(4));
+  *mDataSize = *aCurrentSize;
 }
 
-void CReceiver::NewData() {
-		while (IsBytesAvailable()) {
-				QByteArray vData {mSocket->readAll()};
-				mReceiveBuffer->append(vData);
-
-				for (auto i = 0; i < vData.length(); i++) {///@todo test do tej funkcji
-						VerifyBeginMessage(vData, i);
-						RouteData(vData[i]);
-				}
-		}
+void CReceiver::StoreData(int32_t aCurrentSize) {
+  QByteArray vData {mReceiveBuffer->left(aCurrentSize)};
+  u_int16_t vChecksum {CalculateFileDataChecksum(vData)};
+  CStorePhotoTransaction StoreTransaction(
+    vData,
+    vData.size(),
+    vChecksum);
+  StoreTransaction.Execute();
+  emit ReadData(vData);
 }
 
-bool CReceiver::IsDataSizeAboveNullBufferAboveDataSize() {
-		return *mDataSize > 0 && mReceiveBuffer->size() >= *mDataSize;
+bool CReceiver::NotPunk(int32_t aSize) {
+  return aSize > 4;
 }
 
-bool CReceiver::IsDataSizeNullBuffer4() {
-		return *mDataSize == 0 && mReceiveBuffer->size() >= 4;
-}
-
-bool CReceiver::DownloadPossible() {
-		return IsDataSizeNullBuffer4() ||
-					 IsDataSizeAboveNullBufferAboveDataSize();
+bool CReceiver::CanReceive() {
+  return HasSizeOfDataReceivedCompletely() ||
+         HasDataReceivedCompletely();
 }
 
 bool CReceiver::IsBytesAvailable() {
-		return mSocket->bytesAvailable() > 0 ;
+  return mSocket->bytesAvailable() > 0;
+}
+
+void CReceiver::CleanSizesFields(int *aCurrentSize) {
+  *aCurrentSize = 0;
+  *mDataSize    = *aCurrentSize;
+}
+
+void CReceiver::RemoveDataFromBuffer(int32_t aCurrentSize) {
+  mReceiveBuffer->remove(0, aCurrentSize);
 }
 
 void CReceiver::TryServeReceivedMessage() {
-		try {
-				ServeReceivedMessage();
-		} catch (std::runtime_error vException) {
-				MessageFormatException(vException.what());
-		}
+  try {
+    ServeReceivedMessage();
+  } catch (std::runtime_error vException) {
+    MessageFormatException(vException.what());
+  }
 }
 
 void CReceiver::PrepareBuffersToReceiveDataMode() {
-		mReceiveDataMode = Mode_Receive_File_Data;
-		mMessageSize = mReceiveByteCount;
-		mReceiveBuffer->clear();
-		mReceiveByteCount = 0;
+  mReceiveDataMode = Mode_Receive_File_Data;
+  mMessageSize = mReceiveByteCount;
+  mReceiveBuffer->clear();
+  mReceiveByteCount = 0;
 }
 
 void CReceiver::CleanBuffers() {
-		delete mDataSize;
-		mDataSize         = new int32_t {0};
-		mMessageSize      = 0;
-		mReceiveByteCount = 0;
-		mReceiveBuffer->clear();
+  delete mDataSize;
+  mDataSize         = new int32_t {0};
+  mMessageSize      = 0;
+  mReceiveByteCount = 0;
+  mReceiveBuffer->clear();
 }
 
 void CReceiver::VerifyMessageFormat() {
-		if (!HasMessageCorrectFormat(mMessageFileChecksum)) {
-				throw std::runtime_error("Nieprawidłowy format wiadomości");
-		}
+  if (!HasMessageCorrectFormat(mMessageFileChecksum)) {
+    throw std::runtime_error("Nieprawidłowy format wiadomości");
+  }
 }
 
 void CReceiver::AppendToChecksum(char aData) {
-		mMessageFileChecksum[mReceiveByteCount] = aData;
-		mReceiveByteCount++;
+  mMessageFileChecksum[mReceiveByteCount] = aData;
+  mReceiveByteCount++;
 }
 
 bool CReceiver::IsEndMessageChar(char aData) {
-		return aData == '<';
+  return aData == '<';
 }
 
 void CReceiver::PreventBufferOverflow() {
-		if (mReceiveByteCount >= 1024) {
-				mReceiveByteCount = 0;
-		}
+  if (mReceiveByteCount >= 1024) {
+    mReceiveByteCount = 0;
+  }
 }
 
 void CReceiver::VerifyBeginMessage(QByteArray aData, int aPosition) {
-		if (IsBeginChar(aData[aPosition]) && IsBeginChar(aData[aPosition + 1]))  {
-				SetChecksumMode();
-		}
+  if (IsBeginChar(aData[aPosition]) && IsBeginChar(aData[aPosition + 1]))  {
+    SetChecksumMode();
+  }
 }
 
 void CReceiver::SetChecksumMode() {
-		mReceiveDataMode = Mode_Receive_File_Checksum;
-		mReceiveByteCount = 0;
+  mReceiveDataMode = Mode_Receive_File_Checksum;
+  mReceiveByteCount = 0;
 }
 
 bool CReceiver::IsBeginChar(char aChar) {
-		return aChar == '>';
+  return aChar == '>';
 }
 
 void CReceiver::RouteData(char aData) {
-		switch (mReceiveDataMode) {
-				case Mode_Receive_File_Data : {
-						ServeReceivedFileData();
-						break;
-				}
-
-				case Mode_Receive_File_Checksum: {
-						AppendToChecksum(aData);
-						PreventBufferOverflow();
-
-						if (IsEndMessageChar(aData)) {
-								PrepareBuffersToReceiveDataMode();
-								TryServeReceivedMessage();
-						}
-
-						break;
-        }
-
-				default:
-						break;
+  switch (mReceiveDataMode) {
+    case Mode_Receive_File_Data : {
+      ServeReceivedFileData();
+      break;
     }
+
+    case Mode_Receive_File_Checksum: {
+      AppendToChecksum(aData);
+      PreventBufferOverflow();
+
+      if (IsEndMessageChar(aData)) {
+        PrepareBuffersToReceiveDataMode();
+        TryServeReceivedMessage();
+      }
+
+      break;
+    }
+
+    default:
+      break;
+  }
 }
 
 void CReceiver::ServeReceivedMessage() {
-		VerifyMessageFormat();
-		emit ReadData(mMessageFileChecksum);///@todo usunacPOTEM!!!!!!!!!!1
-		CleanBuffers();
+  VerifyMessageFormat();
+  emit ReadData(mMessageFileChecksum);///@todo usunacPOTEM!!!!!!!!!!1
+  CleanBuffers();
 
-		if (NotChecksumInServer()) {
-				const char *vMessage = "SEND";
-				ResponeToClient(vMessage);
-				//        i klient zapamietuje co wysylal jaka sume wiec ten plik wysyla
-				//        alternatywa:
-				//        QString vClientMessage = PrepareSendingToClientMessage(vChecksum);
-				//        ResponeToClient(vClientMessage);
-		}
+  if (NotChecksumInServer()) {
+    const char *vMessage = "SEND";
+    ResponeToClient(vMessage);
+    //        i klient zapamietuje co wysylal jaka sume wiec ten plik wysyla
+    //        alternatywa:
+    //        QString vClientMessage = PrepareSendingToClientMessage(vChecksum);
+    //        ResponeToClient(vClientMessage);
+  }
 }
 
 bool CReceiver::NotChecksumInServer() {
-		int vChecksum {ConvertMessageArrayToInt()};
-		CChecksumList *vChecksumList {gRepository.GetChecksumList()};
-		return vChecksumList->CheckFileChecksum(vChecksum);
+  int vChecksum {ConvertMessageArrayToInt()};
+  CChecksumList *vChecksumList {gRepository.GetChecksumList()};
+  return vChecksumList->CheckFileChecksum(vChecksum);
 }
 
 bool CReceiver::HasMessageCorrectFormat(char *aMessage) {
-		bool vCorrect {true};
-		int vChecksumLength {mMessageSize - 3}; // Minus 3 bytes char '>', '>' and '<'
+  bool vCorrect {true};
+  int vChecksumLength {mMessageSize - 3}; // Minus 3 bytes char '>', '>' and '<'
 
-		if (aMessage[0] != '>' || aMessage[1] != '>') {  // Begin message
-				vCorrect = false;
-		} else if ((aMessage[mMessageSize - 1] != ('<'))) {  // End message
+  if (aMessage[0] != '>' || aMessage[1] != '>') {  // Begin message
+    vCorrect = false;
+  } else if ((aMessage[mMessageSize - 1] != ('<'))) {  // End message
+    vCorrect = false;
+
+  } else {
+    for (auto i = 2; i < vChecksumLength + 2; ++i) {  // Checksum
+      if (!isxdigit(aMessage[i])) {
         vCorrect = false;
 
-		} else {
-				for (auto i = 2; i < vChecksumLength + 2; ++i) {  // Checksum
-						if (!isxdigit(aMessage[i])) {
-								vCorrect = false;
-
-								return vCorrect;
-						}
-				}
+        return vCorrect;
+      }
     }
+  }
 
-		return vCorrect;
+  return vCorrect;
 }
 
 void CReceiver::ServeReceivedFileData() {
-		/*
-				// Jeśli można pobierać dane pobieraj
-				while ((vCurrentSize == 0 && mReceiveBuffer->size() >= 4) ||
-								(vCurrentSize > 0 &&
-								 mReceiveBuffer->size() >= vCurrentSize)) {
+  while (CanReceive()) {
+    int32_t vCurrentSize = *mDataSize;
 
-						if (vCurrentSize == 0 &&
-										mReceiveBuffer->size() >=
-										4) { //if size of data has received completely, then store it on our global variable
-								vCurrentSize = ByteArrayToInt(mReceiveBuffer->left(4));
-								qDebug() << "vcu" << vCurrentSize;
-								*mDataSize = vCurrentSize;
-								mReceiveBuffer->remove(0, 4);
-						}
-
-						if (vCurrentSize > 0 && mReceiveBuffer->size() >=
-										vCurrentSize) { // If data has received completely, then emit our SIGNAL with the data
-								if (vCurrentSize > 4punk) {
-				QByteArray vData = mReceiveBuffer->left(vCurrentSize);
-				qDebug() << "data przy add" << vData;
-						*/
-
-
-		while (DownloadPossible()) {
-				int32_t	vCurrentSize = *mDataSize;
-
-				if (IsDataSizeNullBuffer4()) {
-						vCurrentSize = ByteArrayToInt(mReceiveBuffer->left(4));
-						*mDataSize = vCurrentSize;
-
-						mReceiveBuffer->remove(0, 4);
-				}
-
-				if (IsDataSizeAboveNullBufferAboveDataSize()) {
-						if (vCurrentSize > 4) {  /*punk*/
-								QByteArray vData {mReceiveBuffer->left(vCurrentSize)};
-								u_int16_t vChecksum {CalculateFileDataChecksum(vData)};
-								CStorePhotoTransaction StoreTransaction(
-										vData,
-										vData.size(),
-										vChecksum);
-								StoreTransaction.Execute();
-								emit ReadData(vData);
-
-								//pokazowa wersja pokazaniem obrazu z bazy:
-								//CRetrievePhotoTransaction vRetrieveTransaction(175);
-								//vRetrieveTransaction.Execute();
-								//QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
-								/// pokaze sie obraz i napis Pobrano lub Zarchiwizowano
-								//emit ReadData(vRetrieveData);///@todo odznaczyc kom na koniec sprawdzic co i jak
-						}
-
-						mReceiveBuffer->remove(0, vCurrentSize);
-
-						vCurrentSize  = 0;
-						*mDataSize    = vCurrentSize;
-				}
+    if (HasSizeOfDataReceivedCompletely()) {
+      SaveAndSetCurrentSize(&vCurrentSize);
+      RemoveSizeFromBuffer();
     }
+
+    if (HasDataReceivedCompletely()) {
+      if (NotPunk(vCurrentSize)) {
+        StoreData(vCurrentSize);
+
+        //pokazowa wersja pokazaniem obrazu z bazy:
+        //CRetrievePhotoTransaction vRetrieveTransaction(175);
+        //vRetrieveTransaction.Execute();
+        //QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
+        /// pokaze sie obraz i napis Pobrano lub Zarchiwizowano
+        //emit ReadData(vRetrieveData);///@todo odznaczyc kom na koniec sprawdzic co i jak
+      }
+
+      RemoveDataFromBuffer(vCurrentSize);
+      CleanSizesFields(&vCurrentSize);
+    }
+  }
 }
 
 uint16_t CReceiver::CalculateFileDataChecksum(QByteArray aData) {
-		uint16_t vCheckSum {};
+  uint16_t vCheckSum {};
 
-		for (auto i = 0; i < aData.length(); ++i) {
-				vCheckSum += aData[i];
-		}
+  for (auto i = 0; i < aData.length(); ++i) {
+    vCheckSum += aData[i];
+  }
 
-		return vCheckSum;
+  return vCheckSum;
 }
 
 int32_t CReceiver::ByteArrayToInt(QByteArray aData) {
-		int32_t vResult {};
-		QDataStream vData(&aData, QIODevice::ReadWrite);
-		vData >> vResult;
+  int32_t vResult {};
+  QDataStream vData(&aData, QIODevice::ReadWrite);
+  vData >> vResult;
 
-		return vResult;
+  return vResult;
 }
 
 void CReceiver::ConnectSocketSignals() {
-		QObject::connect(mSocket, SIGNAL(disconnected()), this,
-										 SLOT(Disconnected()), Qt::DirectConnection);
+  QObject::connect(mSocket, SIGNAL(disconnected()), this,
+                   SLOT(Disconnected()), Qt::DirectConnection);
 
-		QObject::connect(mSocket, SIGNAL(readyRead()), this,
-										 SLOT(NewData()), Qt::DirectConnection);
+  QObject::connect(mSocket, SIGNAL(readyRead()), this,
+                   SLOT(NewData()), Qt::DirectConnection);
 }
 
 void CReceiver::Disconnected() {
-		const char *vMessage {
-				"Rozłączono"
-		};
+  const char *vMessage {
+    "Rozłączono"
+  };
 
-		emit MessageStatus(vMessage, 2200);
-		emit Disconnect();
+  emit MessageStatus(vMessage, 2200);
+  emit Disconnect();
 
-		mSocket->deleteLater();
+  mSocket->deleteLater();
 
-		delete mReceiveBuffer;
-		mReceiveBuffer = nullptr;
+  delete mReceiveBuffer;
+  mReceiveBuffer = nullptr;
 
-		delete mDataSize;
-		mDataSize = nullptr;
+  delete mDataSize;
+  mDataSize = nullptr;
 }
 
 int CReceiver::ConvertMessageArrayToInt() {
-		QString vNumberAsString;
+  QString vNumberAsString;
 
-		for (auto i = 0; i < mMessageSize; i++) {
-				if (isdigit(mMessageFileChecksum[i])) {
-						vNumberAsString.append(mMessageFileChecksum[i]);
-				}
+  for (auto i = 0; i < mMessageSize; i++) {
+    if (isdigit(mMessageFileChecksum[i])) {
+      vNumberAsString.append(mMessageFileChecksum[i]);
     }
+  }
 
-		return vNumberAsString.toInt();
+  return vNumberAsString.toInt();
 }
 
 void CReceiver::ResponeToClient(const char *aMessage) {
-		mSocket->write(aMessage);
+  mSocket->write(aMessage);
 }
 
 void CReceiver::MessageFormatException(const char *aException) {
-		qDebug() << "Message Format Exception: " + QString::fromStdString(aException);
-		MessageStatus(aException, 2200);
+  qDebug() << "Message Format Exception: " + QString::fromStdString(aException);
+  MessageStatus(aException, 2200);
+}
+
+void CReceiver::ExecuteConnectActions(QTcpSocket *aSocket) {
+  const char *vMessage {
+    "Klient połączony. Nasłuchiwanie serwera wyłączone"
+  };
+
+  QByteArray b("12");
+  qDebug() << CalculateFileDataChecksum(b);
+  emit MessageStatus(vMessage, 2200);
+
+  mSocket = aSocket;
+  mDataSize = new int32_t {0};
+  mReceiveBuffer = new QByteArray();
+
+  ConnectSocketSignals();
+}
+
+void CReceiver::EmitNotConnectedStatus() {
+  const char *vMessage {
+    "Nie można połączyć"
+  };
+  emit MessageStatus(vMessage, 2200);
+  throw  std::runtime_error("Nie można połączyć");
+}
+
+QTcpSocket *CReceiver::GetSocket() const {
+  return mSocket;
+}
+
+void CReceiver::NewData() {
+  while (IsBytesAvailable()) {
+    QByteArray vData {mSocket->readAll()};
+    mReceiveBuffer->append(vData);
+
+    for (auto i = 0; i < vData.length(); i++) {///@todo test do tej funkcji
+      VerifyBeginMessage(vData, i);
+      RouteData(vData[i]);
+    }
+  }
 }

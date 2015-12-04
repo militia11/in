@@ -10,8 +10,6 @@
  * CServer class inherits from QTcpServer. CServer listening for incoming connection.
  * When client connected to the specify port server pause listening and resume accepting
  * incoming connections when client disconnected
- *
- * @todo dopisać później
  */
 class CServer : public IServer {
     Q_OBJECT
@@ -91,7 +89,7 @@ class CServer : public IServer {
 		 * @brief NotListen Verify Server listening status
 		 * @return True if server not listen, otherwise false
 		 */
-		bool NotListen();
+		bool ListenOnSpecifyPort();
 
     /**
      * @brief SocketError attend socket exception

@@ -16,6 +16,16 @@ void CReceiverWrapper::ForTestSetReceiveByteCount(int aByteCount) {
 		mReceiveByteCount = aByteCount;
 }
 
+void CReceiverWrapper::ForTestRemoveSizeFromBuffer()
+{
+  RemoveSizeFromBuffer();
+}
+
+bool CReceiverWrapper::ForTestHasDataReceivedCompletely()
+{
+  return HasDataReceivedCompletely();
+}
+
 void CReceiverWrapper::ForTestConnect(QTcpSocket *aSocket) {
 		Connect(aSocket);
 }

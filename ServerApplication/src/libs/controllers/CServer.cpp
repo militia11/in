@@ -20,8 +20,8 @@ CServer::~CServer() {
 }
 
 void CServer::Run() {
-		(NotListen()) ? throw std::runtime_error("Nie można wystartować serwera") :
-		MessageStatus("Serwer nasłuchuje...", 2400);
+    (ListenOnSpecifyPort()) ? MessageStatus("Serwer nasłuchuje...", 2400) :
+     throw std::runtime_error("Nie można wystartować serwera");
 }
 
 void CServer::StopListening() {
@@ -45,8 +45,7 @@ void CServer::IncomingConnection() {
 				PauseAccepting();
 		}
 
-		const char *vMessage {"Witaj kliencie\n"};
-		mReceiver->ResponeToClient(vMessage);
+    mReceiver->ResponeToClient("Witaj kliencie\n");
 }
 
 void CServer::ResumeAccepting() {
@@ -67,8 +66,8 @@ void CServer::TryConnect(QTcpSocket *aSocket) {
 		}
 }
 
-bool CServer::NotListen() {
-		this->listen(QHostAddress::Any, mPortNumber) == false;
+bool CServer::ListenOnSpecifyPort() {
+    return this->listen(QHostAddress::Any, mPortNumber) ;
 }
 
 void CServer::SocketError(const char *aText) {

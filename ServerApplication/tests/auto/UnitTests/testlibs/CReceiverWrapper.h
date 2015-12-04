@@ -12,8 +12,21 @@
  */
 class CReceiverWrapper : public CReceiver {
  public:
-
     /**
+     * @brief ForTestRemoveSizeFromBuffer call protected method
+     *        RemoveSizeFromBuffer for unit tests
+     */
+    void ForTestRemoveSizeFromBuffer();
+
+  /**
+   * @brief ForTestHasDataReceivedCompletely call protected method
+   *        HasDataReceivedCompletely for unit tests
+   *
+   * @return True if data has received completely, otherwise false
+   */
+  bool ForTestHasDataReceivedCompletely();
+
+  /**
    * @brief ForTestConnect call protected method Connect
    *        for unit tests
    *
