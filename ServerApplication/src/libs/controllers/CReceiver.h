@@ -69,23 +69,23 @@ class CReceiver : public IReceiver {
     void Disconnect();
 
     /**
-		 * @brief Signal emited when error occured a socket
+			 * @brief Signal emited when error occured a socket
      *
-		 * @param aSocketError is a QTcpSocket::SocketError
+			 * @param aSocketError is a QTcpSocket::SocketError
      */
     void Error(QTcpSocket::SocketError aSocketError);
 
     /**
-		 * @brief Signal emited when was read data
-		 *
-		 * @param aData is a QByteArray data which was read
+			 * @brief Signal emited when was read data
+			 *
+			 * @param aData is a QByteArray data which was read
      */
     void ReadData(QByteArray aData);
 
     /**
      * @brief MessageStatus  Signal emited to send status for mainly to the main status bar
-		 *
-		 * @param aMessage Message to send
+			 *
+			 * @param aMessage Message to send
      * @param aTimeMsc Time in miliseconds
      */
     void MessageStatus(const char *aMessage, int aTimeMsc);
@@ -145,8 +145,8 @@ class CReceiver : public IReceiver {
      * @return True if bytes available, otherwise false
      */
 		bool IsBytesAvailable();
-    void CleanSizesFields(int* aCurrentSize);
-     void RemoveDataFromBuffer(int32_t aCurrentSize);
+		void CleanSizesFields(int *aCurrentSize);
+		void RemoveDataFromBuffer(int32_t aCurrentSize);
 		void TryServeReceivedMessage();
 		void PrepareBuffersToReceiveDataMode();
 		bool NotChecksumInServer();
@@ -160,15 +160,15 @@ class CReceiver : public IReceiver {
 
     /**
      * @brief IsBeginChar Verify if it is begin char
-		 *
+			 *
      * @param aChar Char to verify
      * @return True if begin char, otherwise false
      */
     bool IsBeginChar(char aChar);
 
     /**
-		 * @brief VerifyBeginMessage Check if begin message
-		 *
+			 * @brief VerifyBeginMessage Check if begin message
+			 *
      * @param aData Byte array
      * @param aPosition Current position
      */
@@ -186,14 +186,14 @@ class CReceiver : public IReceiver {
 
     /**
      * @brief MessageFormatException print message format exception
-		 *
-		 * @param vException is message exception
+			 *
+			 * @param vException is message exception
      */
     void MessageFormatException(const char *aException);
 
     /**
-		 * @brief Method to respone information to client
-		 */
+			 * @brief Method to respone information to client
+			 */
 		void ResponeToClient(const char *aMessage = 0);
 
 		/**
@@ -212,34 +212,34 @@ class CReceiver : public IReceiver {
 
     /**
      * @brief ServeFileData serve file data
-		 *        from incoming connection
+			 *        from incoming connection
      */
     void ServeReceivedFileData();
 
     /**
-		 * @brief ByteArrayToInt convert array to int
+			 * @brief ByteArrayToInt convert array to int
      *
-		 * @param aData array
-		 * @return Integer number converted from array
+			 * @param aData Array of data
+			 * @return Integer number converted from array
      */
     int32_t ByteArrayToInt(QByteArray aData);
 
     /**
      * @brief RouteData function switch data to
      *        CCheckSumList class or file data to save
-		 *        in server
+			 *        in server
      *
-		 * @param aData is data to route
+			 * @param aData is data to route
      */
 		void RouteData(char aData);
 
     /**
-		 * @brief Serve single received message
+			 * @brief Serve single received message
      */
     void ServeReceivedMessage();
 
     /**
-		 * @brief Check has message correct format
+			 * @brief Check has message correct format
      *
      * Message should consist from:
      * - message begin chars: ">>"
@@ -253,9 +253,9 @@ class CReceiver : public IReceiver {
 
     /**
      * @brief CalculateFileDataChecksum calculate message checksum
-		 *        to compare with expected
+			 *        to compare with expected
      *
-		 * @return Checksum calculated as youngest byte of sum of all bytes
+			 * @return Checksum calculated as youngest byte of sum of all bytes
      */
     uint16_t CalculateFileDataChecksum(QByteArray aData);
 
@@ -266,12 +266,12 @@ class CReceiver : public IReceiver {
     void ConnectSocketSignals();
 
     /**
-		 * @brief mSocket of Client
+			 * @brief mSocket of Client
      */
     QTcpSocket *mSocket;
 
     /**
-		 * @brief mReceiveBuffer is buffer of received data
+			 * @brief mReceiveBuffer is buffer of received data
      */
     QByteArray *mReceiveBuffer;
 
@@ -286,7 +286,8 @@ class CReceiver : public IReceiver {
     ReceiveDataMode mReceiveDataMode;
 
     /**
-     * @brief mMessageClntFileChecksum is checksum of file sended from client
+		 * @brief mMessageClntFileChecksum is checksum of file sended
+		 *        from client
      */
     char mMessageFileChecksum[1024];
 

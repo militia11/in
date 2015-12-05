@@ -16,14 +16,12 @@ void CReceiverWrapper::ForTestSetReceiveByteCount(int aByteCount) {
 		mReceiveByteCount = aByteCount;
 }
 
-void CReceiverWrapper::ForTestRemoveSizeFromBuffer()
-{
-  RemoveSizeFromBuffer();
+void CReceiverWrapper::ForTestRemoveSizeFromBuffer() {
+		RemoveSizeFromBuffer();
 }
 
-bool CReceiverWrapper::ForTestHasDataReceivedCompletely()
-{
-  return HasDataReceivedCompletely();
+bool CReceiverWrapper::ForTestHasDataReceivedCompletely() {
+		return HasDataReceivedCompletely();
 }
 
 void CReceiverWrapper::ForTestConnect(QTcpSocket *aSocket) {
@@ -55,21 +53,23 @@ void CReceiverWrapper::ForTestSetDataSize(int32_t *aDataSize) {
 }
 
 void CReceiverWrapper::ForTestServeReceivedMessage() {
-	ServeReceivedMessage();
+		ServeReceivedMessage();
 }
 
-void CReceiverWrapper::ForTestDisconnected()
-{
-	Disconnected();
+void CReceiverWrapper::ForTestDisconnected() {
+		Disconnected();
 }
 
-u_int16_t CReceiverWrapper::ForTestCalculateFileDataChecksum(QByteArray aData)
-{
-	return CalculateFileDataChecksum(aData);
+u_int16_t CReceiverWrapper::ForTestCalculateFileDataChecksum(QByteArray aData) {
+		return CalculateFileDataChecksum(aData);
 }
 
 ReceiveDataMode CReceiverWrapper::ForTestGetReceiveDataMode() {
 		return mReceiveDataMode;
+}
+
+bool CReceiverWrapper::ForTestHasSizeOfDataReceivedCompletely() {
+		return HasSizeOfDataReceivedCompletely();
 }
 
 QTcpSocket *CReceiverWrapper::ForTestGetSocket() {
@@ -85,12 +85,11 @@ void CReceiverWrapper::ForTestNewData() {
 }
 
 void CReceiverWrapper::ForTestRouteData(char aData) {
-	RouteData(aData);
+		RouteData(aData);
 }
 
-void CReceiverWrapper::ForTestServeReceivedFileData()
-{
-	ServeReceivedFileData();
+void CReceiverWrapper::ForTestServeReceivedFileData() {
+		ServeReceivedFileData();
 }
 
 int CReceiverWrapper::ForTestGetReceiveByteCount() {
