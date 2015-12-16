@@ -44,27 +44,27 @@ class CRepository {
 
     /**
      * @brief GetDatabase method is getter to
-     *				database connection object.
+     *				database connection object
      *
      * @return server::AndroidPhotosDatabase is pointer to
-     *				 the actual database.
+     *				 the actual database
      */
     server::AndroidPhotosDatabase *GetDatabase() const;
 
     /**
      * @brief GetChecksumList get list of checksums.
      *
-     * @return checksums list.
+     * @return Checksums list
      */
     CChecksumList *GetChecksumList() const;
 
     /**
-     * @brief Method create database tables.
+     * @brief Method create database tables
      */
     void PopulateDatabase();
 
     /**
-     * @brief Connect function call to connect to database.
+     * @brief Connect function call to connect to database
      */
     void Connect();
 
@@ -105,7 +105,7 @@ class CRepository {
     QString mDriver;
 
     /**
-     * @brief mConnectionString is string to connect to database.
+     * @brief mConnectionString is string to connect to database
      */
     QString mConnectionString;
 };

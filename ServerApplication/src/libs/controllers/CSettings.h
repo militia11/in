@@ -3,6 +3,9 @@
 
 #include <QSettings>
 
+/**
+ * @brief The CSettings class represents application settings
+ */
 class CSettings {
   public:
     /**
@@ -34,7 +37,18 @@ class CSettings {
 		QString GetConnectionString() const;
 
 protected:
+    /**
+     * @brief IsSQLiteDriver Verify if it is SQLite driver
+     *
+     * @return True if it is SQLite driver, otherwise false
+     */
 		bool IsSQLiteDriver() const;
+
+    /**
+     * @brief IsMySqlDriver Verify if it is MySql driver
+     *
+     * @return True if it is MySql driver, otherwise false
+     */
 		bool IsMySqlDriver() const;
 };
 #endif // CSETTINGS_H

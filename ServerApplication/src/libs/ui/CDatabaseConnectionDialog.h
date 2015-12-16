@@ -8,9 +8,13 @@
 extern CRepository gRepository;
 
 namespace Ui {
+
 class CDatabaseConnectionDialog;
 }
 
+/**
+ * @brief The CDatabaseConnectionDialog class
+ */
 class CDatabaseConnectionDialog : public QDialog {
     Q_OBJECT
 
@@ -25,10 +29,39 @@ class CDatabaseConnectionDialog : public QDialog {
      */
     ~CDatabaseConnectionDialog();
 
+    /**
+     * @brief GetHost Getter for host
+     *
+     * @return Host
+     */
     QString GetHost() const;
+
+    /**
+     * @brief GetDriver Getter for Driver
+     *
+     * @return Driver
+     */
     QString GetDriver() const;
+
+    /**
+     * @brief GetDatabaseName Getter for database name
+     *
+     * @return Database name
+     */
     QString GetDatabaseName() const;
+
+    /**
+     * @brief GetUser Getter for user
+     *
+     * @return User
+     */
     QString GetUser() const;
+
+    /**
+     * @brief GetPassword Getter for password
+     *
+     * @return Password
+     */
     QString GetPassword() const;
 
   private slots:
@@ -59,11 +92,34 @@ class CDatabaseConnectionDialog : public QDialog {
      */
     void UpdateMembers();
 
+    /**
+     * @brief mHost Host
+     */
     QString mHost;
+
+    /**
+     * @brief mUser User
+     */
     QString mUser;
+
+    /**
+     * @brief mDatabaseName Database name
+     */
     QString mDatabaseName;
+
+    /**
+     * @brief mPassword Password
+     */
     QString mPassword;
+
+    /**
+     * @brief mDriver Driver
+     */
     QString mDriver;
+
+    /**
+     * @brief ui Pointer to user interface
+     */
     Ui::CDatabaseConnectionDialog *ui;
 };
 

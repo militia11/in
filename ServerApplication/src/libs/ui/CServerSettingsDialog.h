@@ -7,6 +7,9 @@ namespace Ui {
 class CServerSettingsDialog;
 }
 
+/**
+ * @brief The CServerSettingsDialog class
+ */
 class CServerSettingsDialog : public QDialog {
     Q_OBJECT
 
@@ -42,9 +45,14 @@ class CServerSettingsDialog : public QDialog {
     void on_mButtonBoxOkCancel_rejected();
 
   private:
-    ///@todo
+    /**
+     * @brief UpdateServerSettings Update server settings
+     */
     void UpdateServerSettings();
 
+    /**
+     * @brief ui Pointer to user interface
+     */
     Ui::CServerSettingsDialog *ui;
 };
 

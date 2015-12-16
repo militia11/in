@@ -21,11 +21,11 @@ HEADERS += \
     CTransaction.h \
     CRetrievePhotoTransaction.h \
     CStorePhotoTransaction.h \
-    IReceiver.h \
     IServer.h \
     CReceiver.h \
     IReceiverFactory.h \
-    CReceiverFactoryImplementation.h
+    CReceiverFactoryImplementation.h \
+    IReceiver.h
 
 SOURCES += \
     CServer.cpp \

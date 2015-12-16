@@ -17,13 +17,13 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 SOURCES += \
-    CMainWindow.cpp
+	MainWindow.cpp
 
 HEADERS += \
-    CMainWindow.h
+	MainWindow.h
 
 FORMS += \
-    CMainWindow.ui
+	MainWindow.ui
 
 LIBS += -L../../../ClientApplication/share -lshare
 

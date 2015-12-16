@@ -4,16 +4,17 @@
 #include <inttypes.h> //uint_t* and int_t* types
 
 #include <QByteArray>
+#include <QObject>
 #include <QtCore>
 #include <QtNetwork>
 
-#include "src/libs/controllers/IClient.h"
+#include "src/libs/controllers/CClient.h"
 
 /**
  * @brief The CClient class represent client in
  *        client-server architecture
  */
-class CClient : public IClient {
+class CClient : public QObject{
 		Q_OBJECT
 
   public:
@@ -59,7 +60,6 @@ class CClient : public IClient {
      */
     virtual QByteArray ConvertImageToByteArray(const QImage &aImage);
 
-
 public slots:
 		/**
 		 * @brief ConnectToHost method connect to host
@@ -99,10 +99,29 @@ public slots:
      */
     virtual QByteArray PrepareMessageData(int16_t aChecksum);
 
+    /**
+     * @brief mPortNumber Port number
+     */
     int         mPortNumber;
+    
+    /**
+     * @brief mSendFile True if file need to send, otherwise false
+     */
 		bool        mSendFile;
+    
+    /**
+     * @brief mSocket Socket
+     */
 		QTcpSocket  *mSocket;
+    
+    /**
+     * @brief mReceiveBuffer Receive buffer
+     */ 
 		QByteArray  *mReceiveBuffer;
+    
+    /**
+     * @brief mActualData Actual data
+     */
 		QByteArray  mActualData;
 };
 #endif // CCLIENT_H

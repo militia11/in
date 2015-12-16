@@ -3,9 +3,9 @@
 
 #include "src/libs/controllers/CTransaction.h"
 
-#include "src/libs/dao/androidphotosdatabase.hpp"
-
 #include <QByteArray>
+
+#include "src/libs/dao/androidphotosdatabase.hpp"
 
 using server::Photo;
 
@@ -15,7 +15,12 @@ using server::Photo;
  */
 class CRetrievePhotoTransaction : CTransaction {
   public:
-    CRetrievePhotoTransaction(int aChecksum);
+    /**
+     * @brief Constructor CRetrieveFromDBTransaction class
+     * 
+     * @param aChecksum Checksum
+     */
+    explicit CRetrievePhotoTransaction(int aChecksum);
 
     /**
      * @brief Retrieve photo from database

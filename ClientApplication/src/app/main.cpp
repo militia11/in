@@ -1,4 +1,4 @@
-#include "src/libs/ui/CMainWindow.h"
+#include "src/libs/ui/MainWindow.h"
 #include <QApplication>
 int main(int argc, char *argv[]) {
     QApplication vApplication(argc

@@ -2,11 +2,11 @@
 #define CSTOREPHOTOTRANSACTION_H
 
 #include <litesql.hpp>
-
 #include "src/libs/dao/androidphotosdatabase.hpp"
-#include "src/libs/controllers/CTransaction.h"
 
 #include <QBuffer>
+
+#include "src/libs/controllers/CTransaction.h"
 
 using server::Photo;
 
@@ -16,7 +16,7 @@ using server::Photo;
  */
 class CStorePhotoTransaction : public CTransaction {
   public:
-    CStorePhotoTransaction(QByteArray aData, int aDataSize, int aChecksum);
+    explicit CStorePhotoTransaction(QByteArray aData, int aDataSize, int aChecksum);
 
     /**
      * @brief Store photo into database and update checksum list

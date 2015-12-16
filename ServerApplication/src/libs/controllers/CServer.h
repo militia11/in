@@ -83,16 +83,24 @@ class CServer : public IServer {
     void PauseAccepting();
 
   protected:
+    /**
+     * @brief TryConnect Try call Connect method and throw exception
+     *        when it is socket error
+     *
+     * @param aSocket Socket
+     */
 		void TryConnect(QTcpSocket *aSocket);
 
 		/**
-		 * @brief NotListen Verify Server listening status
-		 * @return True if server not listen, otherwise false
+     * @brief ListenOnSpecifyPort Verify Server listening status on specify port
+     *
+     * @return True if server not listen, otherwise false
 		 */
 		bool ListenOnSpecifyPort();
 
     /**
      * @brief SocketError attend socket exception
+     *
      * @param aText socket error
      */
     void SocketError(const char *aText);

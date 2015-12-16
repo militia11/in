@@ -25,6 +25,21 @@ class IServer : public QTcpServer {
     virtual void StopListening() = 0;
 
     /**
+     * @brief TryConnect Try call Connect method and throw exception
+     *        when it is socket error
+     *
+     * @param aSocket Socket
+     */
+    virtual void TryConnect(QTcpSocket *aSocket) = 0;
+
+    /**
+     * @brief ListenOnSpecifyPort Verify Server listening status on specify port
+     *
+     * @return True if server not listen, otherwise false
+     */
+    virtual bool ListenOnSpecifyPort() = 0;
+
+    /**
      * @brief Method return CReceiver member of the class
      *
      * @return Object which represent  client class (CReceiver)

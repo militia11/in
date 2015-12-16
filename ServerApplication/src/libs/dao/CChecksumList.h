@@ -5,8 +5,6 @@
 
 /**
  * @brief The CChecksumList class represents list of file checksum.
- *
- * @todo dopisać
  */
 class CChecksumList {
   public:

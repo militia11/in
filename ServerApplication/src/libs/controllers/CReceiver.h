@@ -26,8 +26,6 @@ enum ReceiveDataMode {
  *
  * CReceiver class inherits from QObject. This class have responsibility
  * of coordinate communication with CReceiver class from Android-side application
- *
- * @todo dopisac wiecej pozniej
  */
 class CReceiver : public IReceiver {
     Q_OBJECT
@@ -145,17 +143,73 @@ class CReceiver : public IReceiver {
      * @return True if bytes available, otherwise false
      */
 		bool IsBytesAvailable();
+
+    /**
+     * @brief CleanSizesFields Clean sizes fields
+     *
+     * @param aCurrentSize Current size to clear
+     */
 		void CleanSizesFields(int *aCurrentSize);
+
+    /**
+     * @brief RemoveDataFromBuffer Remove data from buffer
+     *
+     * @param aCurrentSize Current size
+     */
 		void RemoveDataFromBuffer(int32_t aCurrentSize);
+
+    /**
+     * @brief TryServeReceivedMessage Try call ServeReceivedMessage method
+     */
 		void TryServeReceivedMessage();
+
+    /**
+     * @brief PrepareBuffersToReceiveDataMode Prepare buffers to
+     *        Mode_Receive_File_Data
+     */
 		void PrepareBuffersToReceiveDataMode();
+
+    /**
+     * @brief NotChecksumInServer Verify if checksum is in server
+     *
+     * @return True if checksum is in server, otherwise false
+     */
 		bool NotChecksumInServer();
+
+    /**
+     * @brief CleanBuffers Clean buffers
+     */
 		void CleanBuffers();
+
+    /**
+     * @brief VerifyMessageFormat Call HasMessageCorrectFormat method and throw
+     *        exception when message format is not correct
+     */
 		void VerifyMessageFormat();
+
+    /**
+     * @brief AppendToChecksum Append next sign to checksum
+     *
+     * @param aData Data to append
+     */
 		void AppendToChecksum(char aData);
+
+    /**
+     * @brief IsEndMessageChar Verify if it is end message char
+     *
+     * @param aData Char to verify
+     * @return True if it is end message char, otherwise false
+     */
 		bool IsEndMessageChar(char aData);
+
+    /**
+     * @brief PreventBufferOverflow Prevent buffer overflow
+     */
 		void PreventBufferOverflow();
 
+    /**
+     * @brief SetChecksumMode Set Mode_Receive_File_Checksum mode
+     */
 		void SetChecksumMode();
 
     /**

@@ -13,6 +13,9 @@ namespace Ui {
 class MainWindow;
 }
 
+/**
+ * @brief The CMainWindow class
+ */
 class CMainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -100,15 +103,34 @@ class CMainWindow : public QMainWindow {
     void closeEvent(QCloseEvent *aEvent);
 
 	protected:
+    /**
+     * @brief UpdateDatabaseOrConnection if database exists populate database,
+     *        otherwise open DatabaseConnectionSettings dialog
+     *
+     * @return True if database exists, otherwise false
+     */
 		bool UpdateDatabaseOrConnection();
+
+    /**
+     * @brief TryRunServer Try call RunServer method. Throw exception if server listening
+     *        problem occured
+     */
 		void TryRunServer();
+
+    /**
+     * @brief IsDatabase Verify if database exist, if it is not null pointer
+     *
+     * @return True if database exists, otherwise false
+     */
 		bool IsDatabase();
 
     /**
      * @brief ServerListeningProblem attend server listening exception
+     *
      * @param aError server error
      */
     void ServerListeningProblem(const char *aError);
+
     /**
      * @brief Method connect server signals to CMainWindow slots
      */
@@ -120,7 +142,14 @@ class CMainWindow : public QMainWindow {
      */
     inline void ConnectActionsSignals();
 
+    /**
+     * @brief ui Pointer to user interface
+     */
     Ui::MainWindow *ui;
+
+    /**
+     * @brief mServer Pointer to server
+     */
     IServer *mServer;
 };
 
