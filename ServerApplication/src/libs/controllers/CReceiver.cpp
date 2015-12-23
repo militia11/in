@@ -12,68 +12,40 @@
 extern CRepository gRepository;
 
 /*
- * CMutexHelper vMutexHelper(&mMsgMutex);
-  char *vCharPointerToData = reinterpret_cast<char *>(aData);
-  const char *vCostCharPointerToData =
-    const_cast<const char *>(vCharPointerToData);
+ * 	const char *vCastedPointerToData = reinterpret_cast<const char *>(aData);
+  const QByteArray vNewData(vCastedPointerToData, aLen);
 
-  QByteArray vIncommingData(vCostCharPointerToData, aLen);
-
-  QList<QByteArray> vCompleteMessages =
-    mSynchronizer->SynchronizeMessages(vIncommingData);
-
+  QList<QByteArray> vNewMessages =
+    mSynchronizer->SynchronizeMessages(vNewData);
   foreach (  // NOLINT(whitespace/parens)
-    QByteArray vMessage,
-    vCompleteMessages) {
-    BYTE *vCharPointerToData =
-      reinterpret_cast<BYTE *>(vMessage.data());
-
-    if (!mValidator->HasMessageCorrectFormat(vMessage)) {
-      ++mReceiveFrameNOKCnt;
-      PrintMessage(
-        ":" + GetDeviceName() + ":IncorrectMessageFormat:",
-        vCharPointerToData,
-        vMessage.length());
-    } else if (!mValidator->HasMessageCorrectChecksum(vMessage)) {
+      const QByteArray &vMessage,
+      vNewMessages) {
+    if (mValidator->IsChecksumValidate(vMessage)) {
+      ++mReceiveFrameOKCnt;
+      if (IsVerbose()) {
+        QString vFormat("mm:ss.zzz");
+        printf_now(
+          ":%s:%s:%s",
+          qPrintable(
+            QDateTime::currentDateTime().time().toString(vFormat)),
+          ":GODVT:CorrectMessage:",
+          qPrintable(QString(vMessage.toHex())));
+      }
+      mExecutor->NewData(vMessage);
+    } else {
       ++mReceiveFrameFaultCnt;
+      const BYTE *vCharPointerToConstData =
+        reinterpret_cast<const BYTE *>(vMessage.data());
+      BYTE *vCharPointerToData =
+        const_cast<BYTE *>(vCharPointerToConstData);
+
       PrintMessage(
         ":" + GetDeviceName() + ":IncorrectChecksum:",
         vCharPointerToData,
         vMessage.length());
-    } else {
-      QByteArray vBodyPartAsHex =
-        vMessage.mid(2, vMessage.length()-6);
-        // 2 bytes of header
-        // 6 = 2 bytes of header + 2bytes of checksum + CR + LF
-      QByteArray vBodyAsBinary =
-        QByteArray::fromHex(vBodyPartAsHex);
-      char aTarget = vMessage.at(1);
-
-      try {
-        if (IsVerbose() && aTarget != 'S') {
-          QString vFormat("hh:mm:ss.z ");
-          printf_now(
-            " %s:%s:%s",
-            qPrintable(QDateTime::currentDateTime().time().
-            toString(vFormat)),
-            "GOD:CorrectMessage:",
-            qPrintable(QString(vMessage)));
-        }
-        mRouter->Route(vBodyAsBinary, aTarget);
-      } catch (const std::runtime_error &vError) {
-        if (IsVerbose()) {
-          printf_now(
-            ":%s:%s\n",
-            GetDeviceName().c_str(),
-            vError.what());
-        }
-      }
-      ++mReceiveFrameOKCnt;
     }
   }
- *
- **/
-
+ * /
 CReceiver::CReceiver() :
 		mSocket(nullptr),
 		mReceiveBuffer(nullptr),
