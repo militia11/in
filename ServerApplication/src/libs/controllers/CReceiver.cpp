@@ -11,6 +11,69 @@
 
 extern CRepository gRepository;
 
+/*
+ * CMutexHelper vMutexHelper(&mMsgMutex);
+  char *vCharPointerToData = reinterpret_cast<char *>(aData);
+  const char *vCostCharPointerToData =
+    const_cast<const char *>(vCharPointerToData);
+
+  QByteArray vIncommingData(vCostCharPointerToData, aLen);
+
+  QList<QByteArray> vCompleteMessages =
+    mSynchronizer->SynchronizeMessages(vIncommingData);
+
+  foreach (  // NOLINT(whitespace/parens)
+    QByteArray vMessage,
+    vCompleteMessages) {
+    BYTE *vCharPointerToData =
+      reinterpret_cast<BYTE *>(vMessage.data());
+
+    if (!mValidator->HasMessageCorrectFormat(vMessage)) {
+      ++mReceiveFrameNOKCnt;
+      PrintMessage(
+        ":" + GetDeviceName() + ":IncorrectMessageFormat:",
+        vCharPointerToData,
+        vMessage.length());
+    } else if (!mValidator->HasMessageCorrectChecksum(vMessage)) {
+      ++mReceiveFrameFaultCnt;
+      PrintMessage(
+        ":" + GetDeviceName() + ":IncorrectChecksum:",
+        vCharPointerToData,
+        vMessage.length());
+    } else {
+      QByteArray vBodyPartAsHex =
+        vMessage.mid(2, vMessage.length()-6);
+        // 2 bytes of header
+        // 6 = 2 bytes of header + 2bytes of checksum + CR + LF
+      QByteArray vBodyAsBinary =
+        QByteArray::fromHex(vBodyPartAsHex);
+      char aTarget = vMessage.at(1);
+
+      try {
+        if (IsVerbose() && aTarget != 'S') {
+          QString vFormat("hh:mm:ss.z ");
+          printf_now(
+            " %s:%s:%s",
+            qPrintable(QDateTime::currentDateTime().time().
+            toString(vFormat)),
+            "GOD:CorrectMessage:",
+            qPrintable(QString(vMessage)));
+        }
+        mRouter->Route(vBodyAsBinary, aTarget);
+      } catch (const std::runtime_error &vError) {
+        if (IsVerbose()) {
+          printf_now(
+            ":%s:%s\n",
+            GetDeviceName().c_str(),
+            vError.what());
+        }
+      }
+      ++mReceiveFrameOKCnt;
+    }
+  }
+ *
+ **/
+
 CReceiver::CReceiver() :
 		mSocket(nullptr),
 		mReceiveBuffer(nullptr),
