@@ -24,6 +24,18 @@ CReceiver::~CReceiver() {
 		Disconnected();
 }
 
+void CReceiver::NewData() {
+    while (IsBytesAvailable()) {
+        QByteArray vData {mSocket->readAll()};
+        mReceiveBuffer->append(vData);
+
+        for (auto i = 0; i < vData.length(); i++) {
+            VerifyBeginMessage(vData, i);
+            RouteData(vData[i]);
+        }
+    }
+}
+
 bool CReceiver::HasDataReceivedCompletely() {
 		return *mDataSize > 0 && mReceiveBuffer->size() >= *mDataSize;
 }
@@ -307,18 +319,6 @@ void CReceiver::EmitNotConnectedStatus() {
 
 QTcpSocket *CReceiver::GetSocket() const {
 		return mSocket;
-}
-
-void CReceiver::NewData() {
-		while (IsBytesAvailable()) {
-				QByteArray vData {mSocket->readAll()};
-				mReceiveBuffer->append(vData);
-
-				for (auto i = 0; i < vData.length(); i++) {///@todo test do tej funkcji
-						VerifyBeginMessage(vData, i);
-						RouteData(vData[i]);
-				}
-		}
 }
 
 //NOTE:1
