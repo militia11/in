@@ -30,17 +30,17 @@ class CRepository {
      */
     virtual ~CRepository();
 
-		/**
-		 * @brief RefreshChecksums update checksum list represent as
-		 *				mChecksumList variable
-		 */
-		void RefreshChecksums();
+    /**
+     * @brief RefreshChecksums update checksum list represent as
+     *				mChecksumList variable
+     */
+    void RefreshChecksums();
 
     /**
      * @brief Set database settings
      */
     void SetSettings(const QString &aDriver,
-										 const QString &aConnectionString);
+                     const QString &aConnectionString);
 
     /**
      * @brief GetDatabase method is getter to

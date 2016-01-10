@@ -11,195 +11,195 @@
  * Used to access protected variables in tests
  */
 class CReceiverWrapper : public CReceiver {
-	public:
+  public:
     /**
      * @brief ForTestRemoveSizeFromBuffer call protected method
      *        RemoveSizeFromBuffer for unit tests
      */
     void ForTestRemoveSizeFromBuffer();
 
-		/**
-		 * @brief ForTestHasDataReceivedCompletely call protected method
-		 *        HasDataReceivedCompletely for unit tests
-		 *
-		 * @return True if data has received completely, otherwise false
-		 */
-		bool ForTestHasDataReceivedCompletely();
+    /**
+     * @brief ForTestHasDataReceivedCompletely call protected method
+     *        HasDataReceivedCompletely for unit tests
+     *
+     * @return True if data has received completely, otherwise false
+     */
+    bool ForTestHasDataReceivedCompletely();
 
-		/**
-		 * @brief ForTestConnect call protected method Connect
-		 *        for unit tests
-		 *
-		 * @param aSocket Socket
-		 */
-		void ForTestConnect(QTcpSocket *aSocket);
+    /**
+     * @brief ForTestConnect call protected method Connect
+     *        for unit tests
+     *
+     * @param aSocket Socket
+     */
+    void ForTestConnect(QTcpSocket *aSocket);
 
-		/**
-		 * @brief ForTestDisconnectedcall protected method Disconnected
-		 *        for unit tests
-		 */
-		void ForTestDisconnected();
+    /**
+     * @brief ForTestDisconnectedcall protected method Disconnected
+     *        for unit tests
+     */
+    void ForTestDisconnected();
 
-		/**
-		 * @brief ForTestNewData call protected method NewData
-		 *        for unit tests
-		 */
-		void ForTestNewData();
+    /**
+     * @brief ForTestNewData call protected method NewData
+     *        for unit tests
+     */
+    void ForTestNewData();
 
-		/**
-		 * @brief ForTestRouteData call protected method RouteData
-		 *        for unit tests
-		 *
-		 * @param aData
-		 */
-		void ForTestRouteData(char aData);
+    /**
+     * @brief ForTestRouteData call protected method RouteData
+     *        for unit tests
+     *
+     * @param aData
+     */
+    void ForTestRouteData(char aData);
 
-		/**
-		 * @brief ForTestServeReceivedFileData call protected method
-		 *        ServeReceivedFileData for unit tests
-		 */
-		void ForTestServeReceivedFileData();
+    /**
+     * @brief ForTestServeReceivedFileData call protected method
+     *        ServeReceivedFileData for unit tests
+     */
+    void ForTestServeReceivedFileData();
 
-		/**
-		 * @brief ForTestServeReceivedMessage call protected method
-		 *        ServeReceivedMessage for unit tests
-		 */
-		void ForTestServeReceivedMessage();
+    /**
+     * @brief ForTestServeReceivedMessage call protected method
+     *        ServeReceivedMessage for unit tests
+     */
+    void ForTestServeReceivedMessage();
 
-		u_int16_t ForTestCalculateFileDataChecksum(QByteArray aData);
+    u_int16_t ForTestCalculateFileDataChecksum(QByteArray aData);
 
-		/**
-		 * @brief Set protected mMessageSize field for unit test
-		 *
-		 * @param aSize New message size
-		 */
-		void ForTestSetMessageSize(int aSize);
+    /**
+     * @brief Set protected mMessageSize field for unit test
+     *
+     * @param aSize New message size
+     */
+    void ForTestSetMessageSize(int aSize);
 
-		/**
-		 * @brief ForTestSetReceiveByteCount Set protected field
-		 *        mReceiveByteCount for unit tests
-		 *
-		 * @param aByteCount New Receive byte count
-		 */
-		void ForTestSetReceiveByteCount(int aByteCount);
+    /**
+     * @brief ForTestSetReceiveByteCount Set protected field
+     *        mReceiveByteCount for unit tests
+     *
+     * @param aByteCount New Receive byte count
+     */
+    void ForTestSetReceiveByteCount(int aByteCount);
 
-		/**
-		 * @brief ForTestHasMessageCorrectFormat call protected method
-		 *        HasMessageCorrectFormat for unit tests
-		 *
-		 * Message should consist from:
-		 * - message begin chars: ">>"
-		 * - data as hex-ascii string
-		 * - end message char: "<"
-		 *
-		 * @param aMessage Message to check
-		 * @return True for correct format, False for incorrect
-		 */
-		bool ForTestHasMessageCorrectFormat(char *aMessage);
+    /**
+     * @brief ForTestHasMessageCorrectFormat call protected method
+     *        HasMessageCorrectFormat for unit tests
+     *
+     * Message should consist from:
+     * - message begin chars: ">>"
+     * - data as hex-ascii string
+     * - end message char: "<"
+     *
+     * @param aMessage Message to check
+     * @return True for correct format, False for incorrect
+     */
+    bool ForTestHasMessageCorrectFormat(char *aMessage);
 
-		/**
-		 * @brief ForTestSetReceiveDataMode Set protected field mReceiveDataMode
-		 *        for unit tests
-		 *
-		 * @param aMode Mode to set
-		 */
-		void ForTestSetReceiveDataMode(ReceiveDataMode aMode);
+    /**
+     * @brief ForTestSetReceiveDataMode Set protected field mReceiveDataMode
+     *        for unit tests
+     *
+     * @param aMode Mode to set
+     */
+    void ForTestSetReceiveDataMode(ReceiveDataMode aMode);
 
-		/**
-		 * @brief ForTestSetMessage Set protected field mMessageFileChecksum
-		 *        for unit tests
-		 *
-		 * @param aMessageFileChecksum Message file checksum to set
-		 */
-		void ForTestSetMessage(char *aMessageFileChecksum);
+    /**
+     * @brief ForTestSetMessage Set protected field mMessageFileChecksum
+     *        for unit tests
+     *
+     * @param aMessageFileChecksum Message file checksum to set
+     */
+    void ForTestSetMessage(char *aMessageFileChecksum);
 
-		/**
-		 * @brief ForTestSetSocket Set protected field mSocket
-		 *        for unit tests
-		 *
-		 *  @param aSocket Socket to set
-		 */
-		void ForTestSetSocket(QTcpSocket *aSocket);
+    /**
+     * @brief ForTestSetSocket Set protected field mSocket
+     *        for unit tests
+     *
+     *  @param aSocket Socket to set
+     */
+    void ForTestSetSocket(QTcpSocket *aSocket);
 
-		/**
-		 * @brief ForTestSetReceiveBuffer Set protected field
-		 *        mReceiveBuffer for unit tests
-		 *
-		 * @param aBuffer Buffer to set
-		 */
-		void ForTestSetReceiveBuffer(QByteArray *aBuffer);
+    /**
+     * @brief ForTestSetReceiveBuffer Set protected field
+     *        mReceiveBuffer for unit tests
+     *
+     * @param aBuffer Buffer to set
+     */
+    void ForTestSetReceiveBuffer(QByteArray *aBuffer);
 
-		/**
-		 * @brief ForTestSetDataSize Set protected field mDataSize
-		 *        for unit tests
-		 *
-		 * @param aDataSize Data size to set
-		 */
-		void ForTestSetDataSize(int32_t *aDataSize);
+    /**
+     * @brief ForTestSetDataSize Set protected field mDataSize
+     *        for unit tests
+     *
+     * @param aDataSize Data size to set
+     */
+    void ForTestSetDataSize(int32_t *aDataSize);
 
-		/**
-		 * @brief ForTestGetReceiveDataMode Get protected mReceiveDataMode
-		 *        variable for unit tests
-		 *
-		 * @return protected mReceiveDataMode variable
-		 */
-		ReceiveDataMode ForTestGetReceiveDataMode();
+    /**
+     * @brief ForTestGetReceiveDataMode Get protected mReceiveDataMode
+     *        variable for unit tests
+     *
+     * @return protected mReceiveDataMode variable
+     */
+    ReceiveDataMode ForTestGetReceiveDataMode();
 
-		bool ForTestHasSizeOfDataReceivedCompletely();
-		/**
-		 * @brief ForTestGetMessageFileChecksum Get protected mMessageFileChecksum
-		 *				variable for unit tests
-		 *
-		 * @return mMessageFileChecksum variable
-		 */
-		char *ForTestGetMessageFileChecksum();
+    bool ForTestHasSizeOfDataReceivedCompletely();
+    /**
+     * @brief ForTestGetMessageFileChecksum Get protected mMessageFileChecksum
+     *				variable for unit tests
+     *
+     * @return mMessageFileChecksum variable
+     */
+    char *ForTestGetMessageFileChecksum();
 
-		/**
-		 * @brief ForTestGetMessageSize Get protected mMessageSize
-		 * 				variable for unit tests
-		 *
-		 * @return mMessageSize variable
-		 */
-		int ForTestGetMessageSize();
+    /**
+     * @brief ForTestGetMessageSize Get protected mMessageSize
+     * 				variable for unit tests
+     *
+     * @return mMessageSize variable
+     */
+    int ForTestGetMessageSize();
 
-		/**
-		 * @brief ForTestGetReceiveByteCount Get protected
-		 *        variable for unit tests
-		 *
-		 * @return variable
-		 */
-		int ForTestGetReceiveByteCount();
+    /**
+     * @brief ForTestGetReceiveByteCount Get protected
+     *        variable for unit tests
+     *
+     * @return variable
+     */
+    int ForTestGetReceiveByteCount();
 
-		/**
-		 * @brief ForTestGetSocket Get protected
-		 *        variable for unit tests
-		 *
-		 * @return variable
-		 */
-		QTcpSocket *ForTestGetSocket();
+    /**
+     * @brief ForTestGetSocket Get protected
+     *        variable for unit tests
+     *
+     * @return variable
+     */
+    QTcpSocket *ForTestGetSocket();
 
-		/**
-		 * @brief ForTestGetReveiveBuffer Get protected
-		 *        variable for unit tests
-		 *
-		 * @return variable
-		 */
-		QByteArray *ForTestGetReveiveBuffer();
+    /**
+     * @brief ForTestGetReveiveBuffer Get protected
+     *        variable for unit tests
+     *
+     * @return variable
+     */
+    QByteArray *ForTestGetReveiveBuffer();
 
-		/**
-		 * @brief Get protected mDataSize variable
-		 *        for unit tests
-		 *
-		 * @return Protected mDataSize variable
-		 */
-		int32_t *ForTestGetDataSize();
+    /**
+     * @brief Get protected mDataSize variable
+     *        for unit tests
+     *
+     * @return Protected mDataSize variable
+     */
+    int32_t *ForTestGetDataSize();
 
-		/**
-		 * @brief Call protected method ConvertMessageArrayToInt
-		 *
-		 * @return Checksum
-		 */
-		int ForTestConvertMessageArrayToInt();
+    /**
+     * @brief Call protected method ConvertMessageArrayToInt
+     *
+     * @return Checksum
+     */
+    int ForTestConvertMessageArrayToInt();
 };
 
 #endif // CReceiverWRAPPER_H

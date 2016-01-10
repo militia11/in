@@ -8,20 +8,20 @@
 #include "tests/auto/UnitTests/testlib/CQTcpSocketMock.h"
 
 class ConnectionAndReadDataTests : public QObject {
-  Q_OBJECT
+    Q_OBJECT
 
- public:
-  ConnectionAndReadDataTests();
+  public:
+    ConnectionAndReadDataTests();
 
- private Q_SLOTS:
-  void TestConnectionConnectedState();
-  void TestConnectionUnConnectedState();
-  void TestConnectionClosingState();
-  void TestConnectionHostLookupState();
-  void TestConnectionListeninigState();
-  void TestConnectionBoundState();
-  void TestConnectionConnectingState();
-  void TestReadData();
+  private Q_SLOTS:
+    void TestConnectionConnectedState();
+    void TestConnectionUnConnectedState();
+    void TestConnectionClosingState();
+    void TestConnectionHostLookupState();
+    void TestConnectionListeninigState();
+    void TestConnectionBoundState();
+    void TestConnectionConnectingState();
+    void TestReadData();
 
 };
 
@@ -29,148 +29,148 @@ ConnectionAndReadDataTests::ConnectionAndReadDataTests() {
 }
 
 void ConnectionAndReadDataTests::TestConnectionConnectedState() {
-  CQTcpSocketMock *vSocket = new CQTcpSocketMock;
-  vSocket->ForTestSetSocketState(QAbstractSocket::ConnectedState);
+    CQTcpSocketMock *vSocket = new CQTcpSocketMock;
+    vSocket->ForTestSetSocketState(QAbstractSocket::ConnectedState);
 
-  CClient vClient(vSocket);
-  vClient.ConnectToHost("127.0.0.1");
+    CClient vClient(vSocket);
+    vClient.ConnectToHost("127.0.0.1");
 
-  QString vExpectedLog = "->connectToHost(127.0.0.1, 1234)";
-  QCOMPARE(vSocket->GetLog(), vExpectedLog);
+    QString vExpectedLog = "->connectToHost(127.0.0.1, 1234)";
+    QCOMPARE(vSocket->GetLog(), vExpectedLog);
 }
 
 void ConnectionAndReadDataTests::TestConnectionUnConnectedState() {
-  CQTcpSocketMock *vSocket = new CQTcpSocketMock;
-  vSocket->ForTestSetSocketState(QAbstractSocket::ClosingState);
+    CQTcpSocketMock *vSocket = new CQTcpSocketMock;
+    vSocket->ForTestSetSocketState(QAbstractSocket::ClosingState);
 
-  CClient vClient(vSocket);
+    CClient vClient(vSocket);
 #include "tests/auto/UnitTests/testlib/CClientWrapper.h"
-  bool vPass = false;
+    bool vPass = false;
 
-  try {
-    vClient.ConnectToHost("127.0.0.1");
-  } catch (QAbstractSocket::SocketError vError) {
-    if (vError == QAbstractSocket::SocketTimeoutError) {
-      vPass = true;
+    try {
+        vClient.ConnectToHost("127.0.0.1");
+    } catch (QAbstractSocket::SocketError vError) {
+        if (vError == QAbstractSocket::SocketTimeoutError) {
+            vPass = true;
+        }
     }
-  }
 
-  QVERIFY(vPass);
-  QString vExpectedLog = "->connectToHost(127.0.0.1, 1234)";
-  QCOMPARE(vSocket->GetLog(), vExpectedLog);
+    QVERIFY(vPass);
+    QString vExpectedLog = "->connectToHost(127.0.0.1, 1234)";
+    QCOMPARE(vSocket->GetLog(), vExpectedLog);
 }
 
 void ConnectionAndReadDataTests::TestConnectionClosingState() {
-  CQTcpSocketMock *vSocket = new CQTcpSocketMock;
-  vSocket->ForTestSetSocketState(QAbstractSocket::UnconnectedState);
+    CQTcpSocketMock *vSocket = new CQTcpSocketMock;
+    vSocket->ForTestSetSocketState(QAbstractSocket::UnconnectedState);
 
-  CClient vClient(vSocket);
+    CClient vClient(vSocket);
 
-  bool vPass = false;
+    bool vPass = false;
 
-  try {
-    vClient.ConnectToHost("127.0.0.1");
-  } catch (QAbstractSocket::SocketError vError) {
-    if (vError == QAbstractSocket::UnknownSocketError) {
-      vPass = true;
+    try {
+        vClient.ConnectToHost("127.0.0.1");
+    } catch (QAbstractSocket::SocketError vError) {
+        if (vError == QAbstractSocket::UnknownSocketError) {
+            vPass = true;
+        }
     }
-  }
 
-  QVERIFY(vPass);
-  QString vExpectedLog = "->connectToHost(127.0.0.1, 1234)";
-  QCOMPARE(vSocket->GetLog(), vExpectedLog);
+    QVERIFY(vPass);
+    QString vExpectedLog = "->connectToHost(127.0.0.1, 1234)";
+    QCOMPARE(vSocket->GetLog(), vExpectedLog);
 }
 
 void ConnectionAndReadDataTests::TestConnectionHostLookupState() {
-  CQTcpSocketMock *vSocket = new CQTcpSocketMock;
-  vSocket->ForTestSetSocketState(QAbstractSocket::HostLookupState);
+    CQTcpSocketMock *vSocket = new CQTcpSocketMock;
+    vSocket->ForTestSetSocketState(QAbstractSocket::HostLookupState);
 
-  CClient vClient(vSocket);
+    CClient vClient(vSocket);
 
-  bool vPass = false;
+    bool vPass = false;
 
-  try {
-    vClient.ConnectToHost("127.0.0.1");
-  } catch (QAbstractSocket::SocketError vError) {
-    if (vError == QAbstractSocket::HostNotFoundError) {
-      vPass = true;
+    try {
+        vClient.ConnectToHost("127.0.0.1");
+    } catch (QAbstractSocket::SocketError vError) {
+        if (vError == QAbstractSocket::HostNotFoundError) {
+            vPass = true;
+        }
     }
-  }
 
-  QVERIFY(vPass);
-  QString vExpectedLog = "->connectToHost(127.0.0.1, 1234)";
-  QCOMPARE(vSocket->GetLog(), vExpectedLog);
+    QVERIFY(vPass);
+    QString vExpectedLog = "->connectToHost(127.0.0.1, 1234)";
+    QCOMPARE(vSocket->GetLog(), vExpectedLog);
 }
 
 void ConnectionAndReadDataTests::TestConnectionListeninigState() {
-  CQTcpSocketMock *vSocket = new CQTcpSocketMock;
-  vSocket->ForTestSetSocketState(QAbstractSocket::ListeningState);
+    CQTcpSocketMock *vSocket = new CQTcpSocketMock;
+    vSocket->ForTestSetSocketState(QAbstractSocket::ListeningState);
 
-  CClient vClient(vSocket);
+    CClient vClient(vSocket);
 
-  bool vPass = false;
+    bool vPass = false;
 
-  try {
-    vClient.ConnectToHost("127.0.0.1");
-  } catch (QAbstractSocket::SocketError vError) {
-    if (vError == QAbstractSocket::SocketTimeoutError) {
-      vPass = true;
+    try {
+        vClient.ConnectToHost("127.0.0.1");
+    } catch (QAbstractSocket::SocketError vError) {
+        if (vError == QAbstractSocket::SocketTimeoutError) {
+            vPass = true;
+        }
     }
-  }
 
-  QVERIFY(vPass);
-  QString vExpectedLog = "->connectToHost(127.0.0.1, 1234)";
-  QCOMPARE(vSocket->GetLog(), vExpectedLog);
+    QVERIFY(vPass);
+    QString vExpectedLog = "->connectToHost(127.0.0.1, 1234)";
+    QCOMPARE(vSocket->GetLog(), vExpectedLog);
 }
 
 void ConnectionAndReadDataTests::TestConnectionBoundState() {
-  CQTcpSocketMock *vSocket = new CQTcpSocketMock;
-  vSocket->ForTestSetSocketState(QAbstractSocket::BoundState);
+    CQTcpSocketMock *vSocket = new CQTcpSocketMock;
+    vSocket->ForTestSetSocketState(QAbstractSocket::BoundState);
 
-  CClient vClient(vSocket);
+    CClient vClient(vSocket);
 
-  bool vPass = false;
+    bool vPass = false;
 
-  try {
-    vClient.ConnectToHost("127.0.0.1");
-  } catch (QAbstractSocket::SocketError vError) {
-    if (vError == QAbstractSocket::SocketTimeoutError) {
-      vPass = true;
+    try {
+        vClient.ConnectToHost("127.0.0.1");
+    } catch (QAbstractSocket::SocketError vError) {
+        if (vError == QAbstractSocket::SocketTimeoutError) {
+            vPass = true;
+        }
     }
-  }
 
-  QVERIFY(vPass);
-  QString vExpectedLog = "->connectToHost(127.0.0.1, 1234)";
-  QCOMPARE(vSocket->GetLog(), vExpectedLog);
+    QVERIFY(vPass);
+    QString vExpectedLog = "->connectToHost(127.0.0.1, 1234)";
+    QCOMPARE(vSocket->GetLog(), vExpectedLog);
 }
 void ConnectionAndReadDataTests::TestConnectionConnectingState() {
-  CQTcpSocketMock *vSocket = new CQTcpSocketMock;
-  vSocket->ForTestSetSocketState(QAbstractSocket::ConnectingState);
+    CQTcpSocketMock *vSocket = new CQTcpSocketMock;
+    vSocket->ForTestSetSocketState(QAbstractSocket::ConnectingState);
 
-  CClient vClient(vSocket);
+    CClient vClient(vSocket);
 
-  bool vPass = false;
+    bool vPass = false;
 
-  try {
-    vClient.ConnectToHost("127.0.0.1");
-  } catch (QAbstractSocket::SocketError vError) {
-    if (vError == QAbstractSocket::UnknownSocketError) {
-      vPass = true;
+    try {
+        vClient.ConnectToHost("127.0.0.1");
+    } catch (QAbstractSocket::SocketError vError) {
+        if (vError == QAbstractSocket::UnknownSocketError) {
+            vPass = true;
+        }
     }
-  }
 
-  QVERIFY(vPass);
-  QString vExpectedLog = "->connectToHost(127.0.0.1, 1234)";
-  QCOMPARE(vSocket->GetLog(), vExpectedLog);
+    QVERIFY(vPass);
+    QString vExpectedLog = "->connectToHost(127.0.0.1, 1234)";
+    QCOMPARE(vSocket->GetLog(), vExpectedLog);
 }
 
 void ConnectionAndReadDataTests::TestReadData() {
-  CQTcpSocketMock *vSocketMock = new CQTcpSocketMock;
-  CClientWrapper vClient(vSocketMock);
-  vClient.ForTestReadData();
+    CQTcpSocketMock *vSocketMock = new CQTcpSocketMock;
+    CClientWrapper vClient(vSocketMock);
+    vClient.ForTestReadData();
 
-  QString vExpectedLog("->bytesAvailable()");
-  QCOMPARE(vSocketMock->GetLog(), vExpectedLog);
+    QString vExpectedLog("->bytesAvailable()");
+    QCOMPARE(vSocketMock->GetLog(), vExpectedLog);
 }
 
 QTEST_APPLESS_MAIN(ConnectionAndReadDataTests)

@@ -6,8 +6,7 @@
 /**
  * @brief The CQTcpSocketMock class is mock of QTcpSocket class in server
  */
-class CQTcpSocketMockInServer : public QTcpSocket
-{
+class CQTcpSocketMockInServer : public QTcpSocket {
   public:
     /**
      * @brief CQTcpSocketMockInServer class constructor

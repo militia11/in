@@ -28,22 +28,22 @@ class CMainWindow : public QMainWindow {
      */
     ~CMainWindow();
 
-	protected slots:
+  protected slots:
     /**
      * @brief on_mPushButtonSendPhoto_clicked
      */
     void on_mPushButtonSendPhoto_clicked();
-    
+
     /**
      * @brief on_mPushButtonSendChecksum_clicked
      */
     void on_mPushButtonSendChecksum_clicked();
-    
+
     /**
      * @brief on_mPushButtonConnect_clicked
      */
     void on_mPushButtonConnect_clicked();
-    
+
     /**
      * @brief on_pushButton_clicked
      */
@@ -55,12 +55,12 @@ class CMainWindow : public QMainWindow {
      */
     void on_mPushButtonArchivePhoto_clicked();
 
-	protected:
-		/**
-		 * @brief ShowSocketException Comunicate socket exception
-		 * @param vError Socket error
-		 */
-		void ShowSocketException(QAbstractSocket::SocketError aError);
+  protected:
+    /**
+     * @brief ShowSocketException Comunicate socket exception
+     * @param vError Socket error
+     */
+    void ShowSocketException(QAbstractSocket::SocketError aError);
 
     /**
      * @brief ui Is dialog

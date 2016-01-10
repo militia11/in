@@ -8,62 +8,62 @@
 #include "tests/auto/UnitTests/testlibs/CReceiverMock.h"
 
 CServer::CServer(IReceiverFactory *aReceiversFactory) :
-		mReceiversFactory(aReceiversFactory) {
-		UpdatePortNumber();
-		mReceiver = mReceiversFactory->Make();
-		connect(this, SIGNAL(newConnection()), this, SLOT(IncomingConnection()));
+    mReceiversFactory(aReceiversFactory) {
+    UpdatePortNumber();
+    mReceiver = mReceiversFactory->Make();
+    connect(this, SIGNAL(newConnection()), this, SLOT(IncomingConnection()));
 }
 
 CServer::~CServer() {
-		delete mReceiver;
-		mReceiver = nullptr;
+    delete mReceiver;
+    mReceiver = nullptr;
 }
 
 void CServer::Run() {
     (ListenOnSpecifyPort()) ? MessageStatus("Serwer nasłuchuje...", 2400) :
-     throw std::runtime_error("Nie można wystartować serwera");
+    throw std::runtime_error("Nie można wystartować serwera");
 }
 
 void CServer::StopListening() {
-		MessageStatus("Wyłączone nasłuchiwanie serwera", 2400);
-		close();
+    MessageStatus("Wyłączone nasłuchiwanie serwera", 2400);
+    close();
 }
 
 IReceiver *CServer::GetReceiver() const {
-		return mReceiver;
+    return mReceiver;
 }
 
 void CServer::IncomingConnection() {
-		emit ConnectClient();
-		QTcpSocket *vSocket {nextPendingConnection()};
-		TryConnect(vSocket);
+    emit ConnectClient();
+    QTcpSocket *vSocket {nextPendingConnection()};
+    TryConnect(vSocket);
 
-		IReceiver *vIReceiver {mReceiver};
-		CReceiver *vReceiver {dynamic_cast<CReceiver *>(vIReceiver)};
+    IReceiver *vIReceiver {mReceiver};
+    CReceiver *vReceiver {dynamic_cast<CReceiver *>(vIReceiver)};
 
-		if (vReceiver) {
-				PauseAccepting();
-		}
+    if (vReceiver) {
+        PauseAccepting();
+    }
 
     mReceiver->ResponeToClient("Witaj kliencie\n");
 }
 
 void CServer::ResumeAccepting() {
-		emit ChangeServerStatus();
-		QTcpServer::resumeAccepting();
+    emit ChangeServerStatus();
+    QTcpServer::resumeAccepting();
 }
 
 void CServer::PauseAccepting() {
-		emit ChangeServerStatus();
-		QTcpServer::pauseAccepting();
+    emit ChangeServerStatus();
+    QTcpServer::pauseAccepting();
 }
 
 void CServer::TryConnect(QTcpSocket *aSocket) {
-		try {
-				mReceiver->Connect(aSocket);
-		} catch (std::runtime_error aError) {
-				SocketError(aError.what());
-		}
+    try {
+        mReceiver->Connect(aSocket);
+    } catch (std::runtime_error aError) {
+        SocketError(aError.what());
+    }
 }
 
 bool CServer::ListenOnSpecifyPort() {
@@ -71,19 +71,19 @@ bool CServer::ListenOnSpecifyPort() {
 }
 
 void CServer::SocketError(const char *aText) {
-		///@todo to co mateusz zrobil zamiast qdebug
-		qDebug() << "Socket Error: " + QString::fromStdString(aText);
+    ///@todo to co mateusz zrobil zamiast qdebug
+    qDebug() << "Socket Error: " + QString::fromStdString(aText);
 }
 
 void CServer::ConnectClientSignals() {
-		connect(mReceiver, SIGNAL(Disconnect()), this, SLOT(ResumeAccepting()),
-						Qt::DirectConnection);
+    connect(mReceiver, SIGNAL(Disconnect()), this, SLOT(ResumeAccepting()),
+            Qt::DirectConnection);
 
-		connect(mReceiver, SIGNAL(Connected()), this, SLOT(PauseAccepting()),
-						Qt::DirectConnection);
+    connect(mReceiver, SIGNAL(Connected()), this, SLOT(PauseAccepting()),
+            Qt::DirectConnection);
 }
 
 void CServer::UpdatePortNumber() {
-		CSettings vSettings;
-		mPortNumber = vSettings.GetPortNumber();
+    CSettings vSettings;
+    mPortNumber = vSettings.GetPortNumber();
 }

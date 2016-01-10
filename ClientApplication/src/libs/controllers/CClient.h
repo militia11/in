@@ -14,14 +14,14 @@
  * @brief The CClient class represent client in
  *        client-server architecture
  */
-class CClient : public QObject{
-		Q_OBJECT
+class CClient : public QObject {
+    Q_OBJECT
 
   public:
     /**
      * @brief CClient class constructor
      */
-    CClient(QTcpSocket* aSocket);
+    CClient(QTcpSocket *aSocket);
 
     /**
      * @brief CClient class destructor
@@ -49,7 +49,7 @@ class CClient : public QObject{
      *				of photos stored on mobile device and update
      *				server photos
      */
-		virtual void UpdateServerPhotos();
+    virtual void UpdateServerPhotos();
 
     /**
      * @brief ConvertImageToByteArray method convert imaqe to
@@ -60,13 +60,13 @@ class CClient : public QObject{
      */
     virtual QByteArray ConvertImageToByteArray(const QImage &aImage);
 
-public slots:
-		/**
-		 * @brief ConnectToHost method connect to host
-		 *
-		 * @param aHost is hostname/number
-		 */
-		virtual bool ConnectToHost(QString aHost);
+  public slots:
+    /**
+     * @brief ConnectToHost method connect to host
+     *
+     * @param aHost is hostname/number
+     */
+    virtual bool ConnectToHost(QString aHost);
 
   protected slots:
     /**
@@ -74,22 +74,22 @@ public slots:
      */
     virtual void ReadData();
 
-	protected:
-		/**
-		 * @brief CalculateFileDataChecksum calculate file checksum
-		 *
-		 * @param aData Byte array of data
-		 * @return Checksum
-		 */
-		virtual int16_t CalculateFileDataChecksum(QByteArray aData);
+  protected:
+    /**
+     * @brief CalculateFileDataChecksum calculate file checksum
+     *
+     * @param aData Byte array of data
+     * @return Checksum
+     */
+    virtual int16_t CalculateFileDataChecksum(QByteArray aData);
 
     /**
      * @brief IntToArray Convert integer to QByteArray
      *
      * @param aSource Source is integer
-		 * @return QByteArray Array of bytes
+    	 * @return QByteArray Array of bytes
      */
-		virtual QByteArray IntToArray(int32_t aSource);
+    virtual QByteArray IntToArray(int32_t aSource);
 
     /**
      * @brief PrepareMessageData prepare message data
@@ -103,25 +103,25 @@ public slots:
      * @brief mPortNumber Port number
      */
     int         mPortNumber;
-    
+
     /**
      * @brief mSendFile True if file need to send, otherwise false
      */
-		bool        mSendFile;
-    
+    bool        mSendFile;
+
     /**
      * @brief mSocket Socket
      */
-		QTcpSocket  *mSocket;
-    
+    QTcpSocket  *mSocket;
+
     /**
      * @brief mReceiveBuffer Receive buffer
-     */ 
-		QByteArray  *mReceiveBuffer;
-    
+     */
+    QByteArray  *mReceiveBuffer;
+
     /**
      * @brief mActualData Actual data
      */
-		QByteArray  mActualData;
+    QByteArray  mActualData;
 };
 #endif // CCLIENT_H

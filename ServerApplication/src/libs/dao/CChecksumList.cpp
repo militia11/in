@@ -40,11 +40,11 @@ void CChecksumList::ReceiveChecksumsFromDB() {
 }
 
 bool CChecksumList::CheckFileChecksum(uint16_t aChecksum) {
-		for (int vChecksum : mChecksumList) {
-				if (aChecksum == vChecksum) {
-						return true;
-				}
-		}
+    for (int vChecksum : mChecksumList) {
+        if (aChecksum == vChecksum) {
+            return true;
+        }
+    }
 
     return false;
 }

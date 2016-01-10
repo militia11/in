@@ -25,7 +25,7 @@ class CReceiverMock : public IReceiver {
     /**
     * @brief Mock of ResponeToClient method
     */
-		void ResponeToClient(const char *aMessage = 0);
+    void ResponeToClient(const char *aMessage = 0);
 
     /**
      * @brief Mock of GetSocket method

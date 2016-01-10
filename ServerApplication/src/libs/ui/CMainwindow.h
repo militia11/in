@@ -38,7 +38,7 @@ class CMainWindow : public QMainWindow {
      */
     bool ConnectToDatabaseAgain();
 
-	protected slots:
+  protected slots:
     /**
      * @brief DisplayData is slot to Display data in main window.
      *
@@ -102,27 +102,27 @@ class CMainWindow : public QMainWindow {
     */
     void closeEvent(QCloseEvent *aEvent);
 
-	protected:
+  protected:
     /**
      * @brief UpdateDatabaseOrConnection if database exists populate database,
      *        otherwise open DatabaseConnectionSettings dialog
      *
      * @return True if database exists, otherwise false
      */
-		bool UpdateDatabaseOrConnection();
+    bool UpdateDatabaseOrConnection();
 
     /**
      * @brief TryRunServer Try call RunServer method. Throw exception if server listening
      *        problem occured
      */
-		void TryRunServer();
+    void TryRunServer();
 
     /**
      * @brief IsDatabase Verify if database exist, if it is not null pointer
      *
      * @return True if database exists, otherwise false
      */
-		bool IsDatabase();
+    bool IsDatabase();
 
     /**
      * @brief ServerListeningProblem attend server listening exception

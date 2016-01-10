@@ -55,15 +55,15 @@ void CRepository::PopulateDatabase() {
 
 void CRepository::Disconnect() {
     delete mDatabase;
-		mDatabase = nullptr;
+    mDatabase = nullptr;
 }
 
 void CRepository::AttendDatabaseConnectionException(const char *aException) {
-		qDebug() << "Database connection error:" +
-						 QString::fromStdString(aException);
+    qDebug() << "Database connection error:" +
+             QString::fromStdString(aException);
 
-		mLastConnectionError = true;
-		mDatabase = nullptr;
+    mLastConnectionError = true;
+    mDatabase = nullptr;
 }
 
 void CRepository::RefreshChecksums() {

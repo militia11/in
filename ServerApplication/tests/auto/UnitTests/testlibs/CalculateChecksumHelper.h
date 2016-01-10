@@ -8,21 +8,20 @@
  * @brief The CalculateChecksumHelper class is helper for unit test
  *        which need to calculate checksum
  */
-class CalculateChecksumHelper
-{
-public:
+class CalculateChecksumHelper {
+  public:
     /**
-   * @brief CalculateChecksumHelper constructor
-   */
-	CalculateChecksumHelper();
+    * @brief CalculateChecksumHelper constructor
+    */
+    CalculateChecksumHelper();
 
-  /**
-   * @brief CalculateFileDataChecksum calculate checksum from data
-   *
-   * @param aData Data to calculate checksum
-   * @return calculate checksum
-   */
-  static uint16_t CalculateFileDataChecksum(QByteArray aData);
+    /**
+     * @brief CalculateFileDataChecksum calculate checksum from data
+     *
+     * @param aData Data to calculate checksum
+     * @return calculate checksum
+     */
+    static uint16_t CalculateFileDataChecksum(QByteArray aData);
 };
 
 #endif // CALCULATECHECKSUMHELPER_H

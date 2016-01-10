@@ -41,16 +41,18 @@ bool CMainWindow::ConnectToDatabaseAgain() {
 }
 
 void CMainWindow::closeEvent(QCloseEvent *aEvent) {
-		//    QString vMessage {"Wszystkie niezapisane zmiany zostaną utracone."
-		//                       "Czy na pewno chcesz zamknąć program?"};
-		//    int vAnswerButton {QMessageBox::warning( this, "WARNING", vMessage ,
-		//                        QMessageBox::Yes | QMessageBox::No)};
+		QString vMessage {"Wszystkie niezapisane zmiany zostaną utracone."
+											"Czy na pewno chcesz zamknąć program?"
+										 };
+		int vAnswerButton {QMessageBox::warning( this, "WARNING", vMessage ,
+											 QMessageBox::Yes | QMessageBox::No)
+											};
 
-		//    if (vAnswerButton == QMessageBox::Yes) {
-		//        aEvent->accept();
-		//    } else {
-		//        aEvent->ignore();
-		//    }
+		if (vAnswerButton == QMessageBox::Yes) {
+				aEvent->accept();
+		} else {
+				aEvent->ignore();
+		}
 }
 
 bool CMainWindow::UpdateDatabaseOrConnection() {

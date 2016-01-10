@@ -20,10 +20,11 @@ CRetrievePhotoTransaction::CRetrievePhotoTransaction(int aChecksum) :
 }
 
 void CRetrievePhotoTransaction::Execute() {
-		server::AndroidPhotosDatabase *mDatabase {gRepository.GetDatabase()};
+    server::AndroidPhotosDatabase *mDatabase {gRepository.GetDatabase()};
 
-		Photo vPhoto {litesql::select<Photo>(*mDatabase,
-																					Photo::Checksum == mChecksum).one()};
+    Photo vPhoto {litesql::select<Photo>(*mDatabase,
+                                         Photo::Checksum == mChecksum).one()
+                 };
 
     RetrieveData(vPhoto);
 }
@@ -33,7 +34,7 @@ QByteArray CRetrievePhotoTransaction::GetData() const {
 }
 
 void CRetrievePhotoTransaction::RetrieveData(Photo aPhoto) {
-		Blob vBlob {aPhoto.data.value()};
+    Blob vBlob {aPhoto.data.value()};
 
     if (vBlob.isNull()) {
         qDebug() << "Obiektu o podanej sumie kontrolnej nie ma w bazie";
@@ -42,7 +43,7 @@ void CRetrievePhotoTransaction::RetrieveData(Photo aPhoto) {
     }
 
     size_t vBuffSize {aPhoto.datasize.value()};
-		u8_t *vBuffer {new u8_t[vBuffSize]};
+    u8_t *vBuffer {new u8_t[vBuffSize]};
 
     vBlob.getData(vBuffer, vBuffSize);
     mData = QByteArray(reinterpret_cast<char *>(vBuffer), vBuffSize);

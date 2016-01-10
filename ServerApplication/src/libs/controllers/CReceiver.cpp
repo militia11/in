@@ -24,6 +24,18 @@ CReceiver::~CReceiver() {
 		Disconnected();
 }
 
+void CReceiver::NewData() {
+		while (IsBytesAvailable()) {
+				QByteArray vData {mSocket->readAll()};
+				mReceiveBuffer->append(vData);
+
+				for (auto i = 0; i < vData.length(); i++) {
+						VerifyBeginMessage(vData, i);
+						RouteData(vData[i]);
+				}
+		}
+}
+
 bool CReceiver::HasDataReceivedCompletely() {
 		return *mDataSize > 0 && mReceiveBuffer->size() >= *mDataSize;
 }
@@ -57,7 +69,7 @@ void CReceiver::StoreData(int32_t aCurrentSize) {
 				vData.size(),
 				vChecksum);
 		StoreTransaction.Execute();
-		emit ReadData(vData);
+		emit ReadData(vData);  // NOTE 2
 }
 
 bool CReceiver::NotPunk(int32_t aSize) {
@@ -168,7 +180,7 @@ void CReceiver::ServeReceivedMessage() {
 
 		if (NotChecksumInServer()) {
 				const char *vMessage = "SEND";
-				ResponeToClient(vMessage);  //NOTE:1
+				ResponeToClient(vMessage);  //NOTE 1
 		}
 }
 
@@ -309,26 +321,14 @@ QTcpSocket *CReceiver::GetSocket() const {
 		return mSocket;
 }
 
-void CReceiver::NewData() {
-		while (IsBytesAvailable()) {
-				QByteArray vData {mSocket->readAll()};
-				mReceiveBuffer->append(vData);
-
-				for (auto i = 0; i < vData.length(); i++) {///@todo test do tej funkcji
-						VerifyBeginMessage(vData, i);
-						RouteData(vData[i]);
-				}
-		}
-}
-
-//NOTE:1
+//NOTE 1:
 //  i klient zapamietuje co wysylal jaka sume wiec ten plik wysyla
 //  alternatywa:    QString vClientMessage = PrepareSendingToClientMessage(vChecksum);ResponeToClient(vClientMessage);
 
-//NOTE:2
-//pokazowa wersja pokazaniem obrazu z bazy:
-//CRetrievePhotoTransaction vRetrieveTransaction(175);
-//vRetrieveTransaction.Execute();
-//QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
-// pokaze sie obraz i napis Pobrano lub Zarchiwizowano
-//emit ReadData(vRetrieveData);///@todo odznaczyc kom na koniec sprawdzic co i jak
+//NOTE 2:
+//w tym miejscu można użyć pokazowego kodu z wyświetleniem obrazu z bazy:
+
+//		CRetrievePhotoTransaction vRetrieveTransaction(55773);
+//		vRetrieveTransaction.Execute();
+//		QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
+//		emit ReadData(vRetrieveData);

@@ -8,7 +8,7 @@ CSettings::CSettings() {
 QString CSettings::GetDriver() const {
     QSettings vSettings;
     vSettings.beginGroup("database");
-		QString vDriver {vSettings.value("driver").toString()};
+    QString vDriver {vSettings.value("driver").toString()};
     vSettings.endGroup();
 
     return vDriver;
@@ -28,7 +28,7 @@ QString CSettings::GetConnectionString() const {
     QSettings vSettings;
     vSettings.beginGroup("database");
 
-		if (IsMySqlDriver()) {
+    if (IsMySqlDriver()) {
         vConnectionString = QString("host=%1;user=%2;password=%3;database=%4")
                             .arg(
                                 vSettings.value("host").toString(),
@@ -47,13 +47,13 @@ QString CSettings::GetConnectionString() const {
 
     vSettings.endGroup();
 
-		return vConnectionString;
+    return vConnectionString;
 }
 
-bool CSettings::IsSQLiteDriver() const{
+bool CSettings::IsSQLiteDriver() const {
     return GetDriver() == "sqlite3";
 }
 
-bool CSettings::IsMySqlDriver() const{
+bool CSettings::IsMySqlDriver() const {
     return GetDriver() == "mysql";
 }

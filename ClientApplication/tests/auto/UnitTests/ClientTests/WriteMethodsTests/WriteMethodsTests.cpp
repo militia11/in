@@ -4,8 +4,7 @@
 #include "src/libs/controllers/CClient.h"
 #include "tests/auto/UnitTests/testlib/CQTcpSocketMock.h"
 
-class WriteMethodsTestsTest : public QObject
-{
+class WriteMethodsTestsTest : public QObject {
     Q_OBJECT
 
   public:
@@ -15,60 +14,55 @@ class WriteMethodsTestsTest : public QObject
     void TestWriteMessageMethodConnectedState();
     void TestWriteMessageMethodUnConnectedState();
     void TestWriteDataMethodConnectedState();
-     void TestWriteDataMethodUnConnectedState();
+    void TestWriteDataMethodUnConnectedState();
 };
 
-WriteMethodsTestsTest::WriteMethodsTestsTest()
-{
+WriteMethodsTestsTest::WriteMethodsTestsTest() {
 }
 
-void WriteMethodsTestsTest::TestWriteMessageMethodConnectedState()
-{
-  CQTcpSocketMock *vSocket = new CQTcpSocketMock;
-  vSocket->ForTestSetSocketState(QAbstractSocket::ConnectedState);
+void WriteMethodsTestsTest::TestWriteMessageMethodConnectedState() {
+    CQTcpSocketMock *vSocket = new CQTcpSocketMock;
+    vSocket->ForTestSetSocketState(QAbstractSocket::ConnectedState);
 
-  CClient vClient(vSocket);
-  vClient.WriteMessage(QByteArray());
+    CClient vClient(vSocket);
+    vClient.WriteMessage(QByteArray());
 
-  QString vExpectedLog = "->waitForBytesWritten(30000)";
-  QCOMPARE(vSocket->GetLog(), vExpectedLog);
+    QString vExpectedLog = "->waitForBytesWritten(30000)";
+    QCOMPARE(vSocket->GetLog(), vExpectedLog);
 }
 
-void WriteMethodsTestsTest::TestWriteMessageMethodUnConnectedState()
-{
-  CQTcpSocketMock *vSocket = new CQTcpSocketMock;
-  vSocket->ForTestSetSocketState(QAbstractSocket::UnconnectedState);
+void WriteMethodsTestsTest::TestWriteMessageMethodUnConnectedState() {
+    CQTcpSocketMock *vSocket = new CQTcpSocketMock;
+    vSocket->ForTestSetSocketState(QAbstractSocket::UnconnectedState);
 
-  CClient vClient(vSocket);
-  vClient.WriteMessage(QByteArray());
+    CClient vClient(vSocket);
+    vClient.WriteMessage(QByteArray());
 
-  QString vExpectedLog = "";
-  QCOMPARE(vSocket->GetLog(), vExpectedLog);
+    QString vExpectedLog = "";
+    QCOMPARE(vSocket->GetLog(), vExpectedLog);
 }
 
-void WriteMethodsTestsTest::TestWriteDataMethodConnectedState()
-{
-  CQTcpSocketMock *vSocket = new CQTcpSocketMock;
-  vSocket->ForTestSetSocketState(QAbstractSocket::ConnectedState);
+void WriteMethodsTestsTest::TestWriteDataMethodConnectedState() {
+    CQTcpSocketMock *vSocket = new CQTcpSocketMock;
+    vSocket->ForTestSetSocketState(QAbstractSocket::ConnectedState);
 
-  CClient vClient(vSocket);
-  vClient.WriteData(QByteArray());
+    CClient vClient(vSocket);
+    vClient.WriteData(QByteArray());
 
-  QString vExpectedLog = "->waitForBytesWritten(30000)";
-  QCOMPARE(vSocket->GetLog(), vExpectedLog);
+    QString vExpectedLog = "->waitForBytesWritten(30000)";
+    QCOMPARE(vSocket->GetLog(), vExpectedLog);
 
 }
 
-void WriteMethodsTestsTest::TestWriteDataMethodUnConnectedState()
-{
-  CQTcpSocketMock *vSocket = new CQTcpSocketMock;
-  vSocket->ForTestSetSocketState(QAbstractSocket::UnconnectedState);
+void WriteMethodsTestsTest::TestWriteDataMethodUnConnectedState() {
+    CQTcpSocketMock *vSocket = new CQTcpSocketMock;
+    vSocket->ForTestSetSocketState(QAbstractSocket::UnconnectedState);
 
-  CClient vClient(vSocket);
-  vClient.WriteData(QByteArray());
+    CClient vClient(vSocket);
+    vClient.WriteData(QByteArray());
 
-  QString vExpectedLog = "";
-  QCOMPARE(vSocket->GetLog(), vExpectedLog);
+    QString vExpectedLog = "";
+    QCOMPARE(vSocket->GetLog(), vExpectedLog);
 }
 
 QTEST_APPLESS_MAIN(WriteMethodsTestsTest)

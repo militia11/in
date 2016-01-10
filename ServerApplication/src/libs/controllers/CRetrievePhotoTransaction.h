@@ -17,7 +17,7 @@ class CRetrievePhotoTransaction : CTransaction {
   public:
     /**
      * @brief Constructor CRetrieveFromDBTransaction class
-     * 
+     *
      * @param aChecksum Checksum
      */
     explicit CRetrievePhotoTransaction(int aChecksum);

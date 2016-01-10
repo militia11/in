@@ -30,7 +30,7 @@ enum ReceiveDataMode {
 class CReceiver : public IReceiver {
     Q_OBJECT
 
-	public:
+  public:
     /**
      * @brief CReceiver constructor
      */
@@ -43,47 +43,47 @@ class CReceiver : public IReceiver {
 
     /**
      * @brief Method called to get CReceiver class member mSocket
-		 *        which represent socket
+    	 *        which represent socket
      *
      * @return CReceiver socket
      */
     QTcpSocket *GetSocket() const;
 
-	protected slots:
-		/**
-		 * @brief Slot called when connection lost
-		 */
-		void Disconnected();
+  protected slots:
+    /**
+     * @brief Slot called when connection lost
+     */
+    void Disconnected();
 
     /**
-		 * @brief Method called on new incomming data
+    	 * @brief Method called on new incomming data
      */
     void NewData();
 
   signals:
     /**
-		 * @brief Signal emited when client disconnect from server
+    	 * @brief Signal emited when client disconnect from server
      */
     void Disconnect();
 
     /**
-			 * @brief Signal emited when error occured a socket
+    		 * @brief Signal emited when error occured a socket
      *
-			 * @param aSocketError is a QTcpSocket::SocketError
+    		 * @param aSocketError is a QTcpSocket::SocketError
      */
     void Error(QTcpSocket::SocketError aSocketError);
 
     /**
-			 * @brief Signal emited when was read data
-			 *
-			 * @param aData is a QByteArray data which was read
+    		 * @brief Signal emited when was read data
+    		 *
+    		 * @param aData is a QByteArray data which was read
      */
     void ReadData(QByteArray aData);
 
     /**
      * @brief MessageStatus  Signal emited to send status for mainly to the main status bar
-			 *
-			 * @param aMessage Message to send
+    		 *
+    		 * @param aMessage Message to send
      * @param aTimeMsc Time in miliseconds
      */
     void MessageStatus(const char *aMessage, int aTimeMsc);
@@ -142,57 +142,57 @@ class CReceiver : public IReceiver {
      *
      * @return True if bytes available, otherwise false
      */
-		bool IsBytesAvailable();
+    bool IsBytesAvailable();
 
     /**
      * @brief CleanSizesFields Clean sizes fields
      *
      * @param aCurrentSize Current size to clear
      */
-		void CleanSizesFields(int *aCurrentSize);
+    void CleanSizesFields(int *aCurrentSize);
 
     /**
      * @brief RemoveDataFromBuffer Remove data from buffer
      *
      * @param aCurrentSize Current size
      */
-		void RemoveDataFromBuffer(int32_t aCurrentSize);
+    void RemoveDataFromBuffer(int32_t aCurrentSize);
 
     /**
      * @brief TryServeReceivedMessage Try call ServeReceivedMessage method
      */
-		void TryServeReceivedMessage();
+    void TryServeReceivedMessage();
 
     /**
      * @brief PrepareBuffersToReceiveDataMode Prepare buffers to
      *        Mode_Receive_File_Data
      */
-		void PrepareBuffersToReceiveDataMode();
+    void PrepareBuffersToReceiveDataMode();
 
     /**
      * @brief NotChecksumInServer Verify if checksum is in server
      *
      * @return True if checksum is in server, otherwise false
      */
-		bool NotChecksumInServer();
+    bool NotChecksumInServer();
 
     /**
      * @brief CleanBuffers Clean buffers
      */
-		void CleanBuffers();
+    void CleanBuffers();
 
     /**
      * @brief VerifyMessageFormat Call HasMessageCorrectFormat method and throw
      *        exception when message format is not correct
      */
-		void VerifyMessageFormat();
+    void VerifyMessageFormat();
 
     /**
      * @brief AppendToChecksum Append next sign to checksum
      *
      * @param aData Data to append
      */
-		void AppendToChecksum(char aData);
+    void AppendToChecksum(char aData);
 
     /**
      * @brief IsEndMessageChar Verify if it is end message char
@@ -200,33 +200,33 @@ class CReceiver : public IReceiver {
      * @param aData Char to verify
      * @return True if it is end message char, otherwise false
      */
-		bool IsEndMessageChar(char aData);
+    bool IsEndMessageChar(char aData);
 
     /**
      * @brief PreventBufferOverflow Prevent buffer overflow
      */
-		void PreventBufferOverflow();
+    void PreventBufferOverflow();
 
     /**
      * @brief SetChecksumMode Set Mode_Receive_File_Checksum mode
      */
-		void SetChecksumMode();
+    void SetChecksumMode();
 
     /**
      * @brief IsBeginChar Verify if it is begin char
-			 *
+    		 *
      * @param aChar Char to verify
      * @return True if begin char, otherwise false
      */
     bool IsBeginChar(char aChar);
 
     /**
-			 * @brief VerifyBeginMessage Check if begin message
-			 *
+    		 * @brief VerifyBeginMessage Check if begin message
+    		 *
      * @param aData Byte array
      * @param aPosition Current position
      */
-		void VerifyBeginMessage(QByteArray aData, int aPosition);
+    void VerifyBeginMessage(QByteArray aData, int aPosition);
 
     /**
      * @brief ExecuteConnectActions execute connect actions
@@ -240,60 +240,60 @@ class CReceiver : public IReceiver {
 
     /**
      * @brief MessageFormatException print message format exception
-			 *
-			 * @param vException is message exception
+    		 *
+    		 * @param vException is message exception
      */
     void MessageFormatException(const char *aException);
 
     /**
-			 * @brief Method to respone information to client
-			 */
-		void ResponeToClient(const char *aMessage = 0);
+    		 * @brief Method to respone information to client
+    		 */
+    void ResponeToClient(const char *aMessage = 0);
 
-		/**
-		 * @brief Method called when server receive incoming connection,
-		 *        client is connecting to specify port
-		 */
-		void Connect(QTcpSocket *aSocket);
+    /**
+     * @brief Method called when server receive incoming connection,
+     *        client is connecting to specify port
+     */
+    void Connect(QTcpSocket *aSocket);
 
-		/**
-		 * @brief ConvertMessageArrayToInt method convert message
-		 *        to int
-		 *
-		 * @return Checksum
-		 */
+    /**
+     * @brief ConvertMessageArrayToInt method convert message
+     *        to int
+     *
+     * @return Checksum
+     */
     int ConvertMessageArrayToInt();
 
     /**
      * @brief ServeFileData serve file data
-			 *        from incoming connection
+    		 *        from incoming connection
      */
     void ServeReceivedFileData();
 
     /**
-			 * @brief ByteArrayToInt convert array to int
+    		 * @brief ByteArrayToInt convert array to int
      *
-			 * @param aData Array of data
-			 * @return Integer number converted from array
+    		 * @param aData Array of data
+    		 * @return Integer number converted from array
      */
     int32_t ByteArrayToInt(QByteArray aData);
 
     /**
      * @brief RouteData function switch data to
      *        CCheckSumList class or file data to save
-			 *        in server
+    		 *        in server
      *
-			 * @param aData is data to route
+    		 * @param aData is data to route
      */
-		void RouteData(char aData);
+    void RouteData(char aData);
 
     /**
-			 * @brief Serve single received message
+    		 * @brief Serve single received message
      */
     void ServeReceivedMessage();
 
     /**
-			 * @brief Check has message correct format
+    		 * @brief Check has message correct format
      *
      * Message should consist from:
      * - message begin chars: ">>"
@@ -303,13 +303,13 @@ class CReceiver : public IReceiver {
      * @param aMessage Message to check
      * @return True for correct format, false for incorrect
      */
-		bool HasMessageCorrectFormat(char *aMessage);
+    bool HasMessageCorrectFormat(char *aMessage);
 
     /**
      * @brief CalculateFileDataChecksum calculate message checksum
-			 *        to compare with expected
+    		 *        to compare with expected
      *
-			 * @return Checksum calculated as youngest byte of sum of all bytes
+    		 * @return Checksum calculated as youngest byte of sum of all bytes
      */
     uint16_t CalculateFileDataChecksum(QByteArray aData);
 
@@ -320,12 +320,12 @@ class CReceiver : public IReceiver {
     void ConnectSocketSignals();
 
     /**
-			 * @brief mSocket of Client
+    		 * @brief mSocket of Client
      */
     QTcpSocket *mSocket;
 
     /**
-			 * @brief mReceiveBuffer is buffer of received data
+    		 * @brief mReceiveBuffer is buffer of received data
      */
     QByteArray *mReceiveBuffer;
 
@@ -340,8 +340,8 @@ class CReceiver : public IReceiver {
     ReceiveDataMode mReceiveDataMode;
 
     /**
-		 * @brief mMessageClntFileChecksum is checksum of file sended
-		 *        from client
+    	 * @brief mMessageClntFileChecksum is checksum of file sended
+    	 *        from client
      */
     char mMessageFileChecksum[1024];
 

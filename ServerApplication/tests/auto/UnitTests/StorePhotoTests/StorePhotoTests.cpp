@@ -20,21 +20,21 @@ class StorePhotoTests : public QObject {
     Q_OBJECT
 
   public:
-		uint16_t CalculateFileDataChecksumHelper(QByteArray aData);
+    uint16_t CalculateFileDataChecksumHelper(QByteArray aData);
 
   private Q_SLOTS:
-		void TestStorePhoto();
+    void TestStorePhoto();
 };
 
 void StorePhotoTests::TestStorePhoto() {
-		gRepository.SetSettings("sqlite3",
+    gRepository.SetSettings("sqlite3",
                             "database=:memory:"); // dzięki temu, że w pamięci testy można w jenkinsie
     gRepository.Connect();
     gRepository.PopulateDatabase();
 
     Q_INIT_RESOURCE(server_resources);  // Use resources from diffrent project
 
-		QImage vAddedImage {QImage(":/sample_photo.jpg", "JPG")};
+    QImage vAddedImage {QImage(":/sample_photo.jpg", "JPG")};
 
     // Part adding image
     QBuffer vBufferToStoreData;
@@ -43,7 +43,7 @@ void StorePhotoTests::TestStorePhoto() {
     vWriter.write(vAddedImage);
 
     QByteArray vAddedData = vBufferToStoreData.data();
-		int16_t vChecksumAddImage = CalculateFileDataChecksumHelper(vAddedData);
+    int16_t vChecksumAddImage = CalculateFileDataChecksumHelper(vAddedData);
 
     CStorePhotoTransaction vStoreTransaction(
         vAddedData, vAddedData.size(), vChecksumAddImage);
@@ -67,7 +67,7 @@ void StorePhotoTests::TestStorePhoto() {
     QCOMPARE(vAddedImage.format(), vRetrievedImage.format());
 
     int16_t vChecksumRetrievedImage =
-				CalculateFileDataChecksumHelper(vRetrievedData);
+        CalculateFileDataChecksumHelper(vRetrievedData);
 
     QCOMPARE(vChecksumAddImage, vChecksumRetrievedImage);
 

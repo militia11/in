@@ -12,7 +12,7 @@ class CReceiverFactoryImplementation : public IReceiverFactory {
   public:
     /**
      * @brief Make create an object
-     * 
+     *
      * @return CReceiver object
      */
     IReceiver *Make();

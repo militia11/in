@@ -4,11 +4,11 @@ CalculateChecksumHelper::CalculateChecksumHelper() {
 }
 
 uint16_t CalculateChecksumHelper::CalculateFileDataChecksum(QByteArray aData) {
-  uint16_t vChecksum {};
+    uint16_t vChecksum {};
 
-  for (auto i = 0; i < aData.length(); ++i) {
-    vChecksum += aData[i];
-  }
+    for (auto i = 0; i < aData.length(); ++i) {
+        vChecksum += aData[i];
+    }
 
-  return vChecksum;
+    return vChecksum;
 }

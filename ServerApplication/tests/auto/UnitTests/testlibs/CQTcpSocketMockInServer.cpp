@@ -1,16 +1,13 @@
 #include "CQTcpSocketMockInServer.h"
 
-CQTcpSocketMockInServer::CQTcpSocketMockInServer()
-{
+CQTcpSocketMockInServer::CQTcpSocketMockInServer() {
 }
 
-const QString CQTcpSocketMockInServer::GetLog() const
-{
-  return mLog;
+const QString CQTcpSocketMockInServer::GetLog() const {
+    return mLog;
 }
 
-qint64 CQTcpSocketMockInServer::bytesAvailable() const
-{
-  mLog += "->bytesAvailable()";
-  return -1;
+qint64 CQTcpSocketMockInServer::bytesAvailable() const {
+    mLog += "->bytesAvailable()";
+    return -1;
 }
