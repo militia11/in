@@ -8,9 +8,7 @@ SUBDIRS += \
     CReceiverFactoryTests \
     GetSettingsTests \
     testlibs \
-    RunUnitTests \
-    ValidatorTests \
-    SynchronizerTests
+    RunUnitTests
 
 ServerTests.depends += testlibs
 ReceiverTests.depends += testlibs

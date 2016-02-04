@@ -45,7 +45,7 @@ extern CRepository gRepository;
         vMessage.length());
     }
   }
- * /
+ */
 CReceiver::CReceiver() :
 		mSocket(nullptr),
 		mReceiveBuffer(nullptr),

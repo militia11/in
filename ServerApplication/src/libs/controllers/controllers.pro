@@ -26,10 +26,7 @@ HEADERS += \
     IReceiverFactory.h \
     CReceiverFactoryImplementation.h \
     IReceiver.h \
-    CValidator.h \
-    CSynchrionizer.h \
-    IValidator.h \
-    ISynchrionizer.h
+    CValidator.h
 
 SOURCES += \
     CServer.cpp \
@@ -37,6 +34,4 @@ SOURCES += \
     CRetrievePhotoTransaction.cpp \
     CStorePhotoTransaction.cpp \
     CReceiver.cpp \
-    CReceiverFactoryImplementation.cpp \
-    CValidator.cpp \
-    CSynchrionizer.cpp
+    CReceiverFactoryImplementation.cpp

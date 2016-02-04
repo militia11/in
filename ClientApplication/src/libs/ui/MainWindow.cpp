@@ -32,6 +32,7 @@ CMainWindow::~CMainWindow() {
 }
 
 void CMainWindow::on_mPushButtonSendPhoto_clicked() {
+  // WYSLIJ DANE PLIKU:
 //		Q_INIT_RESOURCE(client_resources);  // Use resources from different project
 ///@todo
     QImage vImageToSend = QImage(":/sample_photo.jpg", "JPG");
@@ -45,6 +46,7 @@ void CMainWindow::on_mPushButtonSendPhoto_clicked() {
 }
 
 void CMainWindow::on_mPushButtonSendChecksum_clicked() {
+  // wyslij checksum
     QByteArray vMessageData(">>336<");
     qDebug() << "sumaFile->" << vMessageData;
     qDebug() << "Czy udało się wysłać sume: " << vClient->WriteMessage(
@@ -52,47 +54,60 @@ void CMainWindow::on_mPushButtonSendChecksum_clicked() {
 }
 
 void CMainWindow::on_mPushButtonConnect_clicked() {
+  // POŁĄCZ
     vClient = new CClient(new QTcpSocket);
 
         try {
-				qDebug() << "Czy udało się połączyć z hostem: " <<
-								 vClient->ConnectToHost("5.172.247.219"); //192.168.56.1
-		} catch (QAbstractSocket::SocketError vError) {
-				ShowSocketException(vError);
-		}
+        qDebug() << "Czy udało się połączyć z hostem: " <<
+                 vClient->ConnectToHost("5.172.247.219"); //192.168.56.1
+    } catch (QAbstractSocket::SocketError vError) {
+        ShowSocketException(vError);
+    }
 }
 
 void CMainWindow::on_mPushButtonArchivePhoto_clicked() {
-		vClient->UpdateServerPhotos();
+  // Archiwizuj zdjęcia
+    vClient->UpdateServerPhotos();
 }
 
 void CMainWindow::ShowSocketException(QAbstractSocket::SocketError aError) {
-		switch (aError) {
-				case QAbstractSocket::SocketTimeoutError:
-						qDebug() <<
-										 "SocketTimeoutError: Socket is in closing, listening or bound state"; ///@todo I TESTY DO TEJ FUNKCJI później status bar zobaczyc na telefonie jak dziala ze zmiana ekranu  i dac
-						break;
+    switch (aError) {
+        case QAbstractSocket::SocketTimeoutError:
+            qDebug() <<
+                     "SocketTimeoutError: Socket is in closing, listening or bound state"; ///@todo I TESTY DO TEJ FUNKCJI później status bar zobaczyc na telefonie jak dziala ze zmiana ekranu  i dac
+            break;
 
-				case  QAbstractSocket::UnknownSocketError:
-						qDebug() <<
-										 "UnknownSocketError: The socket has started establishing a connection or the socket is not connected. Connecting or unconnected state";
-						break;
+        case  QAbstractSocket::UnknownSocketError:
+            qDebug() <<
+                     "UnknownSocketError: The socket has started establishing a connection or the socket is not connected. Connecting or unconnected state";
+            break;
 
-				case QAbstractSocket::HostNotFoundError:
-						qDebug() <<
-										 "HostNotFoundError: The socket is performing a host name lookup. Socket in HostLookupState";
-						break;
+        case QAbstractSocket::HostNotFoundError:
+            qDebug() <<
+                     "HostNotFoundError: The socket is performing a host name lookup. Socket in HostLookupState";
+            break;
 
-				default:
-						break;
-		}
+        default:
+            break;
+    }
 }
 
 void CMainWindow::on_pushButton_clicked() {
-  QImage image("<USER>/Pictures/a.jpg");// lub .jpeg
+  // pokaz zdjecie z tel
+  qDebug() << "standardLocations() PicturesLocation" << QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
+  qDebug() << "app Dir moze:" << QCoreApplication::applicationDirPath();
+  QStringList vPicturesLocation = QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
+
+  foreach (QString location, vPicturesLocation) {
+    qDebug() <<"locations in loop meybe many?:"<< location;
+  }
+  QString vPath = vPicturesLocation.at(0);
+  vPath += "/a.jpg";
+  qDebug() << "Koncowy path:" << vPath;
+  QImage image(vPath);// lub .jpeg
   ui->label->setPixmap(QPixmap::fromImage(image));
  }
-
+ // lub w ostatecznosci zrobic wersje z otwarciem pliku pickerem i wysłaniem go
 
 /*
  * QAbstractSocket::UnconnectedState	0	The socket is not connected.
@@ -128,9 +143,7 @@ QAbstractSocket::ListeningState	5	For internal use only.
 
 
 
-  /*
-   *
-   *
+/*
 [static]
 QStringList QStandardPaths::standardLocations(StandardLocation type)
 
@@ -146,10 +159,8 @@ See also writableLocation().
 Common data to insert into APK Assets
 
 COMMON_DATA.path = /assets
-COMMON_DATA.files = $files($PWD/BundleData/Common/*)
+COMMON_DATA.files = $files($PWD/BundleData/Common)
 INSTALLS += COMMON_DATA
 @
-
 Then you can access to the data installed using the "assets:/path/filename.ext" as path name.
-
    * */

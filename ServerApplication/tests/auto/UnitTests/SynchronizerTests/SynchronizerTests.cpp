@@ -30,8 +30,6 @@ void SimpleSingleMessage();
 void ComplicatedExample();
 // Copyright 2015 WB Electronics S.A.
 
-#include "CGODSynchronizerTest.h"
-
 #include "../CGODSynchronizer.h"
 
 void CGODSynchronizerTest::EmptyNewData() {
