@@ -128,9 +128,8 @@ COMMON_DATA.files = $files($PWD/BundleData/Common)
 INSTALLS += COMMON_DATA
 @
 Then you can access to the data installed using the "assets:/path/filename.ext" as path name.
- * */
-/*
- * QAbstractSocket::UnconnectedState  0 The socket is not connected.
+
+QAbstractSocket::UnconnectedState  0 The socket is not connected.
 QAbstractSocket::HostLookupState  1 The socket is performing a host name lookup.
 QAbstractSocket::ConnectingState  2 The socket has started establishing a connection.
 QAbstractSocket::ConnectedState 3 A connection is established.

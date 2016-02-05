@@ -107,7 +107,7 @@ public slots:
     /**
      * @brief mSendFile True if file need to send, otherwise false
      */
-		bool        mSendFile;
+    bool        mSendFile;
     
     /**
      * @brief mSocket Socket

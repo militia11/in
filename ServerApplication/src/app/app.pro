@@ -21,5 +21,6 @@ INCLUDEPATH += ../..
 LIBS += -L../libs/ui -lui
 LIBS += -L../libs/controllers -lcontrollers
 LIBS += -L../libs/dao -ldao
+LIBS += -L../../share -lshare
 
 CONFIG += c++11

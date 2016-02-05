@@ -7,6 +7,7 @@
 #include <QImageReader>
 #include <QMessageBox>
 
+#include "CAboutProgramDialog.h"
 #include "CDatabaseConnectionDialog.h"
 #include "CServerSettingsDialog.h"
 #include "src/libs/controllers/CReceiverFactoryImplementation.h"
@@ -24,6 +25,11 @@ CMainWindow::CMainWindow(QWidget *aParent) :
 		ui->ActionStopServer->setChecked(true);
 
 		ShowStatus("Wyłączone nasłuchiwanie serwera", 2400);
+
+    Q_INIT_RESOURCE(server_resources);  // Use resources from diffrent project
+
+    QImage vAddedImage {QImage(":/sample_photo.jpg", "JPG")};
+    ui->mImageLabel->setPixmap(QPixmap::fromImage(vAddedImage));
 }
 
 CMainWindow::~CMainWindow() {
@@ -125,7 +131,12 @@ void CMainWindow::StopServer() {
 
 void CMainWindow::ServerSettings() {
 		CServerSettingsDialog vDialog;
-		vDialog.exec();
+    vDialog.exec();
+}
+
+void CMainWindow::AboutProgram() {
+  CAboutProgramDialog vDialog;
+  vDialog.exec();
 }
 
 void CMainWindow::DatabaseConnectionSettings() {
@@ -171,4 +182,6 @@ void CMainWindow::ConnectActionsSignals() {
 
 		connect(ui->ActionDataBaseConnection, SIGNAL(triggered()), this,
 						SLOT(DatabaseConnectionSettings()));
+
+    connect(ui->ActionInfo, SIGNAL(triggered()), this, SLOT(AboutProgram()));
 }

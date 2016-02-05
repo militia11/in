@@ -83,6 +83,11 @@ class CMainWindow : public QMainWindow {
     void ServerSettings();
 
     /**
+     * @brief AboutProgram slot display form  with information about program
+     */
+    void AboutProgram();
+
+    /**
      * @brief DatabaseConnectionSettings slot display form to
      *				change database connection options
      */

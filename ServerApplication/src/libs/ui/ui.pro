@@ -11,6 +11,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 INCLUDEPATH += ../../..
 
+LIBS += -L../../share -lshare
+
 TARGET = ui
 TEMPLATE = lib
 CONFIG += staticlib
@@ -18,16 +20,19 @@ CONFIG += staticlib
 SOURCES  += \
     CMainwindow.cpp \
     CServerSettingsDialog.cpp \
-    CDatabaseConnectionDialog.cpp
+    CDatabaseConnectionDialog.cpp \
+    CAboutProgramDialog.cpp
 
 HEADERS  += \
     CMainwindow.h \
     CServerSettingsDialog.h \
-    CDatabaseConnectionDialog.h
+    CDatabaseConnectionDialog.h \
+    CAboutProgramDialog.h
 
 FORMS    += \
     mainwindow.ui \
     CServerSettingsDialog.ui \
-    CDatabaseConnectionDialog.ui
+    CDatabaseConnectionDialog.ui \
+    CAboutProgramDialog.ui
 
 CONFIG += c++11
