@@ -1,5 +1,9 @@
 #include "CRepository.h"
 
+#include <QDebug>
+#include <QDir>
+#include <QStandardPaths>
+
 CRepository gRepository;
 
 CRepository::CRepository() {
@@ -9,11 +13,19 @@ CRepository::~CRepository() {
 }
 
 void CRepository::PopulateRepository() {
-    // zapełnienie listy zdjęć zdjęciami z telefonu
-    //for()
-    //mImages.append();
+    QStringList vPicturesLocation = QStandardPaths::standardLocations(
+                                      QStandardPaths::PicturesLocation);
+    QString vPath = vPicturesLocation.at(0);
+    QDir vDir(vPath);
+    QStringList vAllFiles = vDir.entryList(QDir::Files);
+
+    foreach (QString vLocation, vAllFiles) {
+        QString vValidPath = vPath + "/";
+        vValidPath += vLocation;
+        mImagesPaths.append(vValidPath);
+    }
 }
 
-QList<QImage> CRepository::GetImages() {
-    return mImages;
+QStringList CRepository::GetImages() {
+    return mImagesPaths;
 }

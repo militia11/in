@@ -49,7 +49,7 @@ class CClient : public QObject{
      *				of photos stored on mobile device and update
      *				server photos
      */
-		virtual void UpdateServerPhotos();
+    virtual void UpdateServerPhotos();
 
     /**
      * @brief ConvertImageToByteArray method convert imaqe to
@@ -66,7 +66,7 @@ public slots:
 		 *
 		 * @param aHost is hostname/number
 		 */
-		virtual bool ConnectToHost(QString aHost);
+        virtual bool ConnectToHost(QString aHost);
 
   protected slots:
     /**

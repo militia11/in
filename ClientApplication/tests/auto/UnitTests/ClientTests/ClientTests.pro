@@ -6,4 +6,5 @@ SUBDIRS += \
     ConvertIntToArrayTests \
     CalculateChecksumTests \
     WriteMethodsTests \
-    ConnectionAndReadDataTests
+    ConnectionAndReadDataTests \
+    UpdateServerPhotosTests

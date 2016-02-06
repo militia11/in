@@ -56,14 +56,12 @@ void CMainWindow::on_mPushButtonConnect_clicked() {
   // POŁĄCZ
   vClient = new CClient(new QTcpSocket);
   QString vIpAddress = ui->textEdit->toPlainText();
-  qDebug() << "Czy udało się połączyć z hostem: " <<
-           vClient->ConnectToHost(vIpAddress);
-  /* try {
+  try {
    qDebug() << "Czy udało się połączyć z hostem: " <<
             vClient->ConnectToHost("5.172.247.219"); //192.168.56.1
   } catch (QAbstractSocket::SocketError vError) {
    ShowSocketException(vError);
-  }*/
+  }
 }
 
 void CMainWindow::on_mPushButtonArchivePhoto_clicked() {
@@ -74,21 +72,29 @@ void CMainWindow::on_mPushButtonArchivePhoto_clicked() {
 void CMainWindow::ShowSocketException(QAbstractSocket::SocketError aError) {
   switch (aError) {
     case QAbstractSocket::SocketTimeoutError:
+      ui->label->setText("SocketTimeoutError: Socket is in closing, listening or bound state"); ///@todo I TESTY DO TEJ FUNKCJI później status bar zobaczyc na telefonie jak dziala ze zmiana ekranu  i dac
+
       qDebug() <<
                "SocketTimeoutError: Socket is in closing, listening or bound state"; ///@todo I TESTY DO TEJ FUNKCJI później status bar zobaczyc na telefonie jak dziala ze zmiana ekranu  i dac
       break;
 
     case  QAbstractSocket::UnknownSocketError:
+      ui->label->setText("UnknownSocketError: The socket has started establishing a connection or the socket is not connected. Connecting or unconnected state");
       qDebug() <<
                "UnknownSocketError: The socket has started establishing a connection or the socket is not connected. Connecting or unconnected state";
       break;
 
     case QAbstractSocket::HostNotFoundError:
+      ui->label->setText( "HostNotFoundError: The socket is performing a host name lookup. Socket in HostLookupState");
       qDebug() <<
                "HostNotFoundError: The socket is performing a host name lookup. Socket in HostLookupState";
       break;
+    case QAbstractSocket::NetworkError:
+      ui->label->setText("network error;");
+      qDebug() << "network error;";
 
     default:
+      ui->label->setText("def error");
       break;
   }
 }
@@ -97,37 +103,22 @@ void CMainWindow::on_pushButton_clicked() {
   // pokaz zdjecie z tel
   qDebug() << "standardLocations() PicturesLocation" <<
            QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
-  qDebug() << "app Dir moze:" << QCoreApplication::applicationDirPath();
   QStringList vPicturesLocation = QStandardPaths::standardLocations(
                                     QStandardPaths::PicturesLocation);
 
-  foreach (QString location, vPicturesLocation) {
-    qDebug() << "locations in loop meybe many?:" << location;
-  }
   QString vPath = vPicturesLocation.at(0);
+  QDir vDir(vPath);
+  QStringList vAllFiles =  vDir.entryList(QDir::Files);
+          foreach (QString location, vAllFiles) {
+            qDebug() << "file:" << location;
+          }
+
   vPath += "/a.jpg";
   qDebug() << "Koncowy path:" << vPath;
-  QImage image(vPath);// lub .jpeg
+  QImage image(vPath);
   ui->label->setPixmap(QPixmap::fromImage(image));
 }
-// lub w ostatecznosci zrobic wersje z otwarciem pliku pickerem i wysłaniem go
-
-// lub
-// /Camera
-//lub  /storage/emulated/0/DCIM
-//data - >    "<APPROOT>/files", "<USER>/<APPNAME>/files"
 /*
-In the table above, <APPNAME> is usually the organization name, the application name, or both, or a unique name generated at packaging.
-Similarly, <APPROOT> is the location where this application is installed (often a sandbox). <APPDIR> is the directory containing
-the application executable.
-The paths above should not be relied upon, as they may change according to OS configuration, locale, or they may change in future Qt versions.
-Note: On Android, applications with open files on the external storage (<USER> locations), will be killed if the external storage is unmounted.
-Common data to insert into APK Assets
-COMMON_DATA.path = /assets
-COMMON_DATA.files = $files($PWD/BundleData/Common)
-INSTALLS += COMMON_DATA
-@
-Then you can access to the data installed using the "assets:/path/filename.ext" as path name.
 
 QAbstractSocket::UnconnectedState  0 The socket is not connected.
 QAbstractSocket::HostLookupState  1 The socket is performing a host name lookup.

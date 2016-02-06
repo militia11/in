@@ -4,9 +4,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include <QAbstractSocket>
 #include <QBuffer>
 #include <QImage>
 #include <QImageWriter>
+#include <QPixmap>
 
 #include "src/libs/dao/CRepository.h"
 #include "tests/auto/UnitTests/testlib/CQTcpSocketMock.h"
@@ -34,7 +36,7 @@ CClient::~CClient() {
 void CClient::ReadData() {
   while (mSocket->bytesAvailable() > 0) {
     QByteArray vMessageData = mSocket->readAll();
-// moze konieczne czyszczenie bufora zobaczyc!
+    // moze konieczne czyszczenie bufora zobaczyc!
     if (vMessageData ==
         QByteArray("NEW FILE")) {
       mSendFile = true;
@@ -45,12 +47,13 @@ void CClient::ReadData() {
 bool CClient::ConnectToHost(QString aHost) {
   mSocket->connectToHost(aHost, mPortNumber);
   qDebug() << "state before" << mSocket->state();
-  bool vHasBeenEstablished = mSocket->waitForConnected();
+  bool vHasBeenEstablished = mSocket->waitForConnected(90000);
   qDebug() << "state after" << mSocket->state();
   qDebug() << "vHasBeenEstablished in connectToHost:" << vHasBeenEstablished;
 
   if (vHasBeenEstablished == false) {
-    throw mSocket->error();
+      qDebug() << mSocket->error();
+      throw mSocket->error();
   }
 
   return vHasBeenEstablished;
@@ -113,13 +116,27 @@ QByteArray CClient::IntToArray(int32_t aSource) {
 }
 
 void CClient::UpdateServerPhotos() {
-  QList<QImage> vImagesList = gRepository.GetImages();
+  gRepository.PopulateRepository();
+  QStringList vImagesPath = gRepository.GetImages();
+
+  // wersja finalna:
+  foreach (QString vPath, vImagesPath) {
+      QImage vImage(vPath);
+   QByteArray vData = ConvertImageToByteArray(vImage);
+   int16_t vFileChecksum = CalculateFileDataChecksum(vData);
+   QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
+   WriteMessage(vChecksumByte);
+   sleep(3);
+
+   if (mSendFile) {
+     WriteData(vData);
+     mSendFile = false;
+   }
+ }
+
   // wersja 1 testowa 1 obrazek sprawdzenie i  wysłanie:
-  QStringList vPicturesLocation = QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
-  QString vPath = vPicturesLocation.at(0);
-  vPath += "/a.jpg";
-  qDebug() << "Koncowy path:" << vPath;
-  QImage image(vPath);// lub .jpeg
+  /*
+   QImage image(vPath);// lub .jpeg
   qDebug() << "size image in update serv photo func:" << image.size();
    QByteArray vData = ConvertImageToByteArray(image);
    int16_t vFileChecksum = CalculateFileDataChecksum(vData);
@@ -128,23 +145,9 @@ void CClient::UpdateServerPhotos() {
    WriteMessage(vChecksumByte);
    sleep(3);
    qDebug() << "mSendFile Flag:" << mSendFile;
+
    if (mSendFile) {
      WriteData(vData);
      mSendFile = false;
-   }
-  // wersja finalna:
-  /*for (QList<QImage>::iterator vIterator = vImagesList.begin();
-       vIterator != vImagesList.end(); ++vIterator) {
-    // lub mActualData = dół i wysyłanie w ReadData choć lepiej tu
-    QByteArray vData = ConvertImageToByteArray(*vIterator);
-    int16_t vFileChecksum = CalculateFileDataChecksum(vData);
-    QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
-    WriteMessage(vChecksumByte);
-    sleep(3); ///@todo this->WaitForResult();
-
-    if (mSendFile) {
-      WriteData(vData);
-      mSendFile = false;
-    }
-  }*/
+   }*/
 }

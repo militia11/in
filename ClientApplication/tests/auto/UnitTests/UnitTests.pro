@@ -3,6 +3,7 @@ TEMPLATE = subdirs
 SUBDIRS += \
     ClientTests \
     RunUnitTests \
-    testlib
+    testlib \
+    RepositoryTests
 
 ClientTests.depends += testlib
