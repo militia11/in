@@ -55,7 +55,7 @@ void CClient::WaitForChangeStatus() {
 
   do {
     vMilliseconds = vTimer.elapsed();
-    sleep(3);
+    usleep(1000);
   } while (
     (mServerAvailability == status_unknown) && (vMilliseconds < vTimeout));
 }

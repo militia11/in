@@ -83,6 +83,8 @@ public slots:
   protected:
     /**
      * @brief WaitForChangeStatus Wait for change status
+     *
+     * Wait 10 seconds until status changed or timeout end
      */
     void WaitForChangeStatus();
 
