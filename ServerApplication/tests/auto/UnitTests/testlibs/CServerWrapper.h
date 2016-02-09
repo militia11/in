@@ -15,7 +15,6 @@ class CServerWrapper : public CServer {
      * @brief Constructor with dependency-injection
      *
      * @param aReceiversFactory Factory of receivers
-     * @todo może napisac o tym w pracy?
      */
     CServerWrapper(IReceiverFactory *aReceiversFactory);
 

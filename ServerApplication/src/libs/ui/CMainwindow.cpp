@@ -28,7 +28,7 @@ CMainWindow::CMainWindow(QWidget *aParent) :
 
     Q_INIT_RESOURCE(server_resources);  // Use resources from diffrent project
 
-    QImage vAddedImage {QImage(":/sample_photo.jpg", "JPG")};
+    QImage vAddedImage {QImage(":/logo_1.png", "PNG")};
     ui->mImageLabel->setPixmap(QPixmap::fromImage(vAddedImage));
 }
 

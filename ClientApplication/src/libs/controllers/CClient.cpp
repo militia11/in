@@ -18,11 +18,10 @@ extern CRepository gRepository;
 CClient::CClient(QTcpSocket *aSocket) : mSocket(aSocket) {
   mPortNumber = 1234;
   mReceiveBuffer = 0;
-  mSendFile = false;
+  mServerAvailability = status_unknown;
 
   QObject::connect(mSocket, SIGNAL(readyRead()),
                    this, SLOT(ReadData()), Qt::DirectConnection);
-  PrepareMessageData(384); //usunąć potem
 }
 
 CClient::~CClient() {
@@ -36,11 +35,46 @@ CClient::~CClient() {
 void CClient::ReadData() {
   while (mSocket->bytesAvailable() > 0) {
     QByteArray vMessageData = mSocket->readAll();
-    // moze konieczne czyszczenie bufora zobaczyc!
+    ///@todo moze konieczne czyszczenie bufora zobaczyc!
+
     if (vMessageData ==
-        QByteArray("NEW FILE")) {
-      mSendFile = true;
+        QByteArray("IN SERVER")) {
+      mServerAvailability = status_in_server;
+    } else if (vMessageData == QByteArray("NOT AVAILABLE")) {
+      mServerAvailability = status_not_available;
     }
+  }
+}
+
+void CClient::WaitForChangeStatus() {
+  int vMilliseconds = 0;
+  int vTimeout = 10000; // milliseconds
+
+  QTime vTimer;
+  vTimer.start();
+
+  do {
+    vMilliseconds = vTimer.elapsed();
+    sleep(3);
+  } while (
+    (mServerAvailability == status_unknown) && (vMilliseconds < vTimeout));
+}
+
+void CClient::ManageData(QByteArray aData) {
+  switch (mServerAvailability) {
+    case status_in_server:
+      WriteData(aData);
+      mServerAvailability = status_unknown;
+      break;
+
+    case status_not_available:
+      ///@todo moze ponowne wyslanie?
+      mServerAvailability = status_unknown;
+      break;
+
+    default:
+      // do nothing
+      break;
   }
 }
 
@@ -52,8 +86,8 @@ bool CClient::ConnectToHost(QString aHost) {
   qDebug() << "vHasBeenEstablished in connectToHost:" << vHasBeenEstablished;
 
   if (vHasBeenEstablished == false) {
-      qDebug() << mSocket->error();
-      throw mSocket->error();
+    qDebug() << mSocket->error();
+    throw mSocket->error();
   }
 
   return vHasBeenEstablished;
@@ -63,7 +97,7 @@ QByteArray CClient::ConvertImageToByteArray(const QImage &aImage) {
   QBuffer vBuffer;
 
   QImageWriter vWriter(&vBuffer, "JPG");
-  vWriter.write(aImage); // unikniecie vWriter.write(*(*vIterator));
+  vWriter.write(aImage);
   return vBuffer.data();
 }
 
@@ -121,18 +155,15 @@ void CClient::UpdateServerPhotos() {
 
   // wersja finalna:
   foreach (QString vPath, vImagesPath) {
-      QImage vImage(vPath);
-   QByteArray vData = ConvertImageToByteArray(vImage);
-   int16_t vFileChecksum = CalculateFileDataChecksum(vData);
-   QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
-   WriteMessage(vChecksumByte);
-   sleep(3);
+    QImage vImage(vPath);
+    QByteArray vData = ConvertImageToByteArray(vImage);
 
-   if (mSendFile) {
-     WriteData(vData);
-     mSendFile = false;
-   }
- }
+    int16_t vFileChecksum = CalculateFileDataChecksum(vData);
+    QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
+    WriteMessage(vChecksumByte);
+    WaitForChangeStatus();
+    ManageData(vData);
+  }
 
   // wersja 1 testowa 1 obrazek sprawdzenie i  wysłanie:
   /*

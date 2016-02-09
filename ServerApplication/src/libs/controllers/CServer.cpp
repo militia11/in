@@ -71,7 +71,6 @@ bool CServer::ListenOnSpecifyPort() {
 }
 
 void CServer::SocketError(const char *aText) {
-		///@todo to co mateusz zrobil zamiast qdebug
 		qDebug() << "Socket Error: " + QString::fromStdString(aText);
 }
 

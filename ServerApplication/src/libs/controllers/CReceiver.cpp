@@ -198,7 +198,7 @@ void CReceiver::RouteData(char aData) {
 
 void CReceiver::ServeReceivedMessage() {
 		VerifyMessageFormat();
-		emit ReadData(mMessageFileChecksum);///@todo usunacPOTEM!!!!!!!!!!1
+    emit ReadData(mMessageFileChecksum);///@todo usunac
 		CleanBuffers();
 
 		if (NotChecksumInServer()) {
@@ -349,7 +349,7 @@ void CReceiver::NewData() {
 				QByteArray vData {mSocket->readAll()};
 				mReceiveBuffer->append(vData);
 
-				for (auto i = 0; i < vData.length(); i++) {///@todo test do tej funkcji
+        for (auto i = 0; i < vData.length(); i++) {
 						VerifyBeginMessage(vData, i);
 						RouteData(vData[i]);
 				}
@@ -366,4 +366,4 @@ void CReceiver::NewData() {
 //vRetrieveTransaction.Execute();
 //QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
 // pokaze sie obraz i napis Pobrano lub Zarchiwizowano
-//emit ReadData(vRetrieveData);///@todo odznaczyc kom na koniec sprawdzic co i jak
+//emit ReadData(vRetrieveData);

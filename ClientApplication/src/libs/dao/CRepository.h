@@ -1,18 +1,14 @@
 #ifndef CREPOSITORY_H
 #define CREPOSITORY_H
 
-#include <QList>
-
-/// jesli nie bedzie bazy zmienic nazwe klasy na cos zwiazane z pobieraniem sum zdjec z telefonu! i danych?
+#include <QStringList>
 
 /**
  * @brief The CRepository class represents access to photos
  *        stored in mobile application.
  *
- * This class is client application repository.
+ * This class is client application repository. Store images paths.
  *
- * ///@todo nie wiadomo czy tak bedzie?
- * ///It's initialize communication to database.
  */
 class CRepository {
   public:

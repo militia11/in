@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>40</y>
+      <y>110</y>
       <width>601</width>
-      <height>431</height>
+      <height>361</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -30,7 +30,7 @@
      </sizepolicy>
     </property>
     <property name="text">
-     <string>wyskoczy ZARCHIWIZOWANO</string>
+     <string/>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -74,6 +74,19 @@
       </layout>
      </item>
     </layout>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>80</y>
+      <width>571</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>po odebraniu zdjecia wyskoczy ZARCHIWIZOWANO lepiej na pasku statusu</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="mMenubar">

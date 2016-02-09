@@ -10,6 +10,12 @@
 
 #include "src/libs/controllers/CClient.h"
 
+enum serverAvailability {
+  status_unknown = -1,
+  status_in_server = 0,
+  status_not_available = 1
+};
+
 /**
  * @brief The CClient class represent client in
  *        client-server architecture
@@ -74,8 +80,20 @@ public slots:
      */
     virtual void ReadData();
 
-	protected:
-		/**
+  protected:
+    /**
+     * @brief WaitForChangeStatus Wait for change status
+     */
+    void WaitForChangeStatus();
+
+    /**
+     * @brief ManageData manage data
+     *
+     * @param aData Data to send
+     */
+    void ManageData(QByteArray aData);
+
+    /**
 		 * @brief CalculateFileDataChecksum calculate file checksum
 		 *
 		 * @param aData Byte array of data
@@ -103,11 +121,11 @@ public slots:
      * @brief mPortNumber Port number
      */
     int         mPortNumber;
-    
+
     /**
-     * @brief mSendFile True if file need to send, otherwise false
+     * @brief mServerAvailability Server availability
      */
-    bool        mSendFile;
+    serverAvailability mServerAvailability;
     
     /**
      * @brief mSocket Socket

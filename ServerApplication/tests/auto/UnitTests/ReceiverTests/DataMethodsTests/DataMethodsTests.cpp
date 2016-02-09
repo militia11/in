@@ -240,7 +240,7 @@ void DataMethodsTests::TestServeReceivedFileData() {
 		vReceiver.ForTestSetReceiveBuffer(vData);
 
 		vReceiver.ForTestServeReceivedFileData();
-		///@todo
+
 		CRetrievePhotoTransaction vRetrieveTransaction(858);
 		vRetrieveTransaction.Execute();
 
