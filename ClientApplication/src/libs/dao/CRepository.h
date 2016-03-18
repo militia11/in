@@ -5,26 +5,26 @@
 
 /**
  * @brief The CRepository class represents access to photos
- *        stored in mobile application.
+ *        stored in mobile application
  *
- * This class is client application repository. Store images paths.
+ * This class is client application repository. Store images paths
  *
  */
 class CRepository {
   public:
     /**
-     * @brief CRepository constructor.
+     * @brief CRepository constructor
      */
     CRepository();
 
     /**
-     * @brief CRepository destructor.
+     * @brief CRepository destructor
      */
     virtual ~CRepository();
 
     /**
      * @brief PopulateRepository add photos from mobile device to
-     *        repository.
+     *        repository
      */
     void PopulateRepository();
 
@@ -32,7 +32,7 @@ class CRepository {
 
   private:
     /**
-     * @brief mImages container of images path from mobile device.
+     * @brief mImages Container of images path from mobile device
      */
     QStringList mImagesPaths;
 };

@@ -23,6 +23,7 @@ class CQTcpSocketMockInServer : public QTcpSocket
 
     /**
      * @brief bytesAvailable Mock of bytesAvailable method for unit tests
+     *
      * @return Integer equal 5 to unit tests
      */
     virtual qint64 bytesAvailable() const;

@@ -17,7 +17,6 @@ void CReceiverMock::RouteData(char aData) {
 }
 
 void CReceiverMock::ServeReceivedMessage() {
-
 }
 
 bool CReceiverMock::HasMessageCorrectFormat(char *aMessage) {
@@ -26,7 +25,6 @@ bool CReceiverMock::HasMessageCorrectFormat(char *aMessage) {
 }
 
 void CReceiverMock::ServeReceivedFileData() {
-
 }
 
 uint16_t CReceiverMock::CalculateFileDataChecksum(QByteArray aData) {
@@ -41,17 +39,13 @@ int32_t CReceiverMock::ByteArrayToInt(QByteArray aData) {
 
 void CReceiverMock::Connect(QTcpSocket *aSocket) {
 		Q_UNUSED(aSocket);
-		//if(aSocket==0) {
 		mLog += "->Connect(0)";  // aSocket should be is nullptr set in constructor
-		//}
 }
 
 void CReceiverMock::ConnectSocketSignals() {
-
 }
 
 void CReceiverMock::Disconnected() {
-
 }
 
 int CReceiverMock::ConvertMessageArrayToInt() {

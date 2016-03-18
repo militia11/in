@@ -11,41 +11,6 @@
 
 extern CRepository gRepository;
 
-/*
- * 	const char *vCastedPointerToData = reinterpret_cast<const char *>(aData);
-  const QByteArray vNewData(vCastedPointerToData, aLen);
-
-  QList<QByteArray> vNewMessages =
-    mSynchronizer->SynchronizeMessages(vNewData);
-  foreach (  // NOLINT(whitespace/parens)
-      const QByteArray &vMessage,
-      vNewMessages) {
-    if (mValidator->IsChecksumValidate(vMessage)) {
-      ++mReceiveFrameOKCnt;
-      if (IsVerbose()) {
-        QString vFormat("mm:ss.zzz");
-        printf_now(
-          ":%s:%s:%s",
-          qPrintable(
-            QDateTime::currentDateTime().time().toString(vFormat)),
-          ":GODVT:CorrectMessage:",
-          qPrintable(QString(vMessage.toHex())));
-      }
-      mExecutor->NewData(vMessage);
-    } else {
-      ++mReceiveFrameFaultCnt;
-      const BYTE *vCharPointerToConstData =
-        reinterpret_cast<const BYTE *>(vMessage.data());
-      BYTE *vCharPointerToData =
-        const_cast<BYTE *>(vCharPointerToConstData);
-
-      PrintMessage(
-        ":" + GetDeviceName() + ":IncorrectChecksum:",
-        vCharPointerToData,
-        vMessage.length());
-    }
-  }
- */
 CReceiver::CReceiver() :
 		mSocket(nullptr),
 		mReceiveBuffer(nullptr),
@@ -202,9 +167,12 @@ void CReceiver::ServeReceivedMessage() {
 		CleanBuffers();
 
 		if (NotChecksumInServer()) {
-				const char *vMessage = "SEND";
+        const char *vMessage = "NOT AVAILABLE";
 				ResponeToClient(vMessage);  //NOTE:1
-		}
+    } else {
+       const char *vMessage = "IN SERVER";
+       ResponeToClient(vMessage);  //NOTE:1
+    }
 }
 
 bool CReceiver::NotChecksumInServer() {
@@ -215,7 +183,7 @@ bool CReceiver::NotChecksumInServer() {
 
 bool CReceiver::HasMessageCorrectFormat(char *aMessage) {
 		bool vCorrect {true};
-		int vChecksumLength {mMessageSize - 3}; // Minus 3 bytes char '>', '>' and '<'
+    int vChecksumLength {mMessageSize - 3}; // Minus 3 bytes: two chars '>' and one '<'
 
 		if (aMessage[0] != '>' || aMessage[1] != '>') {  // Begin message
 				vCorrect = false;

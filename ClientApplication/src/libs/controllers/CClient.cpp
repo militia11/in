@@ -72,8 +72,7 @@ void CClient::ManageData(QByteArray aData) {
       mServerAvailability = status_unknown;
       break;
 
-    default:
-      // do nothing
+    default:  // do nothing
       break;
   }
 }
@@ -153,8 +152,7 @@ void CClient::UpdateServerPhotos() {
   gRepository.PopulateRepository();
   QStringList vImagesPath = gRepository.GetImages();
 
-  // wersja finalna:
-  foreach (QString vPath, vImagesPath) {
+  foreach (QString vPath, vImagesPath) { // wersja finalna:
     QImage vImage(vPath);
     QByteArray vData = ConvertImageToByteArray(vImage);
 
@@ -164,21 +162,14 @@ void CClient::UpdateServerPhotos() {
     WaitForChangeStatus();
     ManageData(vData);
   }
-
   // wersja 1 testowa 1 obrazek sprawdzenie i  wysłanie:
   /*
    QImage image(vPath);// lub .jpeg
-  qDebug() << "size image in update serv photo func:" << image.size();
+   qDebug() << "size image in update serv photo func:" << image.size();
    QByteArray vData = ConvertImageToByteArray(image);
    int16_t vFileChecksum = CalculateFileDataChecksum(vData);
    QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
-   qDebug() << "vChecksumByte" << vChecksumByte;
    WriteMessage(vChecksumByte);
-   sleep(3);
-   qDebug() << "mSendFile Flag:" << mSendFile;
-
-   if (mSendFile) {
-     WriteData(vData);
-     mSendFile = false;
-   }*/
+   WaitForChangeStatus();
+   ManageData(vData);*/
 }

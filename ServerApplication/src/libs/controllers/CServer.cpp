@@ -45,7 +45,7 @@ void CServer::IncomingConnection() {
 				PauseAccepting();
 		}
 
-    mReceiver->ResponeToClient("Witaj kliencie\n");
+		mReceiver->ResponeToClient("Witaj kliencie\n");
 }
 
 void CServer::ResumeAccepting() {

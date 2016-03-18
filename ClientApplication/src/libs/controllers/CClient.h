@@ -10,6 +10,9 @@
 
 #include "src/libs/controllers/CClient.h"
 
+/**
+ * @brief The serverAvailability enum. State of response message
+ */
 enum serverAvailability {
   status_unknown = -1,
   status_in_server = 0,
@@ -72,7 +75,7 @@ public slots:
 		 *
 		 * @param aHost is hostname/number
 		 */
-        virtual bool ConnectToHost(QString aHost);
+     virtual bool ConnectToHost(QString aHost);
 
   protected slots:
     /**

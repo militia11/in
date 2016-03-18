@@ -56,7 +56,7 @@ class CReceiver : public IReceiver {
 		void Disconnected();
 
     /**
-		 * @brief Method called on new incomming data
+     * @brief Method called when new incomming data received
      */
     void NewData();
 
