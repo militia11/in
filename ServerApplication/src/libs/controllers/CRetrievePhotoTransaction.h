@@ -11,7 +11,7 @@ using server::Photo;
 
 /**
  * @brief The CRetrieveFromDBTransaction class retrieve blob data
- *				from database
+ *		  from database
  */
 class CRetrievePhotoTransaction : CTransaction {
   public:

@@ -15,8 +15,8 @@
  */
 enum serverAvailability {
   status_unknown = -1,
-  status_in_server = 0,
-  status_not_available = 1
+  status_in_server = 1,
+  status_not_available = 2
 };
 
 /**
@@ -70,11 +70,11 @@ class CClient : public QObject{
     virtual QByteArray ConvertImageToByteArray(const QImage &aImage);
 
 public slots:
-		/**
-		 * @brief ConnectToHost method connect to host
-		 *
-		 * @param aHost is hostname/number
-		 */
+    /**
+     * @brief ConnectToHost method connect to host
+     *
+     * @param aHost is hostname/number
+     */
      virtual bool ConnectToHost(QString aHost);
 
   protected slots:
@@ -99,12 +99,12 @@ public slots:
     void ManageData(QByteArray aData);
 
     /**
-		 * @brief CalculateFileDataChecksum calculate file checksum
-		 *
-		 * @param aData Byte array of data
-		 * @return Checksum
-		 */
-		virtual int16_t CalculateFileDataChecksum(QByteArray aData);
+     * @brief CalculateFileDataChecksum calculate file checksum
+     *
+     * @param aData Byte array of data
+     * @return Checksum
+     */
+    virtual int16_t CalculateFileDataChecksum(QByteArray aData);
 
     /**
      * @brief IntToArray Convert integer to QByteArray
@@ -112,7 +112,7 @@ public slots:
      * @param aSource Source is integer
 		 * @return QByteArray Array of bytes
      */
-		virtual QByteArray IntToArray(int32_t aSource);
+    virtual QByteArray IntToArray(int32_t aSource);
 
     /**
      * @brief PrepareMessageData prepare message data
@@ -135,16 +135,16 @@ public slots:
     /**
      * @brief mSocket Socket
      */
-		QTcpSocket  *mSocket;
+    QTcpSocket  *mSocket;
     
     /**
      * @brief mReceiveBuffer Receive buffer
      */ 
-		QByteArray  *mReceiveBuffer;
+    QByteArray  *mReceiveBuffer;
     
     /**
      * @brief mActualData Actual data
      */
-		QByteArray  mActualData;
+    QByteArray  mActualData;
 };
 #endif // CCLIENT_H

@@ -19,14 +19,14 @@ class CSettings {
      *
      * @return QString driver name
      */
-		QString GetDriver() const;
+    QString GetDriver() const;
 
     /**
      * @brief GetPortNum get port number
      *
      * @return Port number
      */
-		int GetPortNumber() const;
+    int GetPortNumber() const;
 
     /**
      * @brief GetConnectionString method read settings
@@ -34,7 +34,7 @@ class CSettings {
      *
      * @return QString of connection parameter
      */
-		QString GetConnectionString() const;
+    QString GetConnectionString() const;
 
 protected:
     /**
@@ -42,13 +42,13 @@ protected:
      *
      * @return True if it is SQLite driver, otherwise false
      */
-		bool IsSQLiteDriver() const;
+    bool IsSQLiteDriver() const;
 
     /**
      * @brief IsMySqlDriver Verify if it is MySql driver
      *
      * @return True if it is MySql driver, otherwise false
      */
-		bool IsMySqlDriver() const;
+    bool IsMySqlDriver() const;
 };
 #endif // CSETTINGS_H

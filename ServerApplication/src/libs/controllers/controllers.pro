@@ -25,8 +25,7 @@ HEADERS += \
     CReceiver.h \
     IReceiverFactory.h \
     CReceiverFactoryImplementation.h \
-    IReceiver.h \
-    CValidator.h
+    IReceiver.h
 
 SOURCES += \
     CServer.cpp \

@@ -68,7 +68,7 @@ class IServer : public QTcpServer {
 
     /**
      * @brief UpdatePortNum get and update actually port number
-    	 *        from programm config file to application
+     *        from programm config file to application
      */
     virtual void UpdatePortNumber() = 0;
 };

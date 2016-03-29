@@ -30,11 +30,11 @@ class CRepository {
      */
     virtual ~CRepository();
 
-		/**
-		 * @brief RefreshChecksums update checksum list represent as
-		 *				mChecksumList variable
-		 */
-		void RefreshChecksums();
+    /**
+     * @brief RefreshChecksums update checksum list represent as
+     *				mChecksumList variable
+     */
+    void RefreshChecksums();
 
     /**
      * @brief Set database settings

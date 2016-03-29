@@ -55,7 +55,7 @@ void CMainWindow::on_mPushButtonConnect_clicked() {
   QString vIpAddress = ui->textEdit->toPlainText();
   try {
    qDebug() << "Czy udało się połączyć z hostem: " <<
-            vClient->ConnectToHost("5.172.247.219"); //192.168.56.1
+						vClient->ConnectToHost(vIpAddress);
   } catch (QAbstractSocket::SocketError vError) {
    ShowSocketException(vError);
   }

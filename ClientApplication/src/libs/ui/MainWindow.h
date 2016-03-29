@@ -63,12 +63,12 @@ class CMainWindow : public QMainWindow {
 		void ShowSocketException(QAbstractSocket::SocketError aError);
 
     /**
-     * @brief ui Is dialog
+		 * @brief ui User interface dialog
      */
     Ui::CMainWindow *ui;
 
     /**
-     * @brief vClient is Client class
+		 * @brief vClient Client class
      */
     CClient *vClient;
 };

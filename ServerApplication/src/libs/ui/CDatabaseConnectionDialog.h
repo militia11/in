@@ -77,18 +77,18 @@ class CDatabaseConnectionDialog : public QDialog {
 
   protected:
     /**
-    	 * @brief Update database settings from configuration file
-       *				to form labels
+     * @brief Update database settings from configuration file
+     *	   	  to form labels
      */
     void UpdateSettings();
 
     /**
-       * @brief Save database settings to configuration file
+     * @brief Save database settings to configuration file
      */
     void SaveSettings();
 
     /**
-       * @brief Update class members to actual form labels
+     * @brief Update class members to actual form labels
      */
     void UpdateMembers();
 
