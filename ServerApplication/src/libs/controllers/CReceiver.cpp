@@ -57,7 +57,8 @@ void CReceiver::StoreData(int32_t aCurrentSize) {
 				vData.size(),
 				vChecksum);
 		StoreTransaction.Execute();
-		emit ReadData(vData);
+         qDebug() << "in store data deep\n"; qDebug() << vData;
+        emit ReadData(vData); // Note: 2
 }
 
 bool CReceiver::NotPunk(int32_t aSize) {
@@ -163,14 +164,16 @@ void CReceiver::RouteData(char aData) {
 
 void CReceiver::ServeReceivedMessage() {
 		VerifyMessageFormat();
-    emit ReadData(mMessageFileChecksum);///@todo usunac
+        emit ReadData(mMessageFileChecksum);///@todo usunac
 		CleanBuffers();
 
 		if (NotChecksumInServer()) {
         const char *vMessage = "NOT AVAILABLE";
 				ResponeToClient(vMessage);  //NOTE:1
+                qDebug() << "not\n";
     } else {
        const char *vMessage = "IN SERVER";
+       qDebug() << "in\n";
        ResponeToClient(vMessage);  //NOTE:1
     }
 }
@@ -182,7 +185,7 @@ bool CReceiver::NotChecksumInServer() {
 }
 
 bool CReceiver::HasMessageCorrectFormat(char *aMessage) {
-		bool vCorrect {true};
+    bool vCorrect {true};
     int vChecksumLength {mMessageSize - 3}; // Minus 3 bytes: two chars '>' and one '<'
 
 		if (aMessage[0] != '>' || aMessage[1] != '>') {  // Begin message
@@ -203,6 +206,7 @@ bool CReceiver::HasMessageCorrectFormat(char *aMessage) {
 }
 
 void CReceiver::ServeReceivedFileData() {
+     qDebug() << "serve data\n";
 		while (CanReceive()) {
 				int32_t vCurrentSize = *mDataSize;
 
@@ -213,6 +217,7 @@ void CReceiver::ServeReceivedFileData() {
 
 				if (HasDataReceivedCompletely()) {
 						if (NotPunk(vCurrentSize)) {
+                             qDebug() << "in not punk\n";
 								StoreData(vCurrentSize);
 						}
 
@@ -276,7 +281,7 @@ int CReceiver::ConvertMessageArrayToInt() {
 }
 
 void CReceiver::ResponeToClient(const char *aMessage) {
-		mSocket->write(aMessage);
+        mSocket->write(aMessage);
 }
 
 void CReceiver::MessageFormatException(const char *aException) {
@@ -288,6 +293,7 @@ void CReceiver::ExecuteConnectActions(QTcpSocket *aSocket) {
 		const char *vMessage {
 				"Klient połączony. Nasłuchiwanie serwera wyłączone"
 		};
+        qDebug() << "Klient połączony. Nasłuchiwanie serwera wyłączone";
 
 		QByteArray b("12");
 		qDebug() << CalculateFileDataChecksum(b);
@@ -304,6 +310,8 @@ void CReceiver::EmitNotConnectedStatus() {
 		const char *vMessage {
 				"Nie można połączyć"
 		};
+        qDebug() << "Nie można połączyć";
+
 		emit MessageStatus(vMessage, 2200);
 		throw  std::runtime_error("Nie można połączyć");
 }
@@ -313,7 +321,7 @@ QTcpSocket *CReceiver::GetSocket() const {
 }
 
 void CReceiver::NewData() {
-		while (IsBytesAvailable()) {
+        while (IsBytesAvailable()) {
 				QByteArray vData {mSocket->readAll()};
 				mReceiveBuffer->append(vData);
 

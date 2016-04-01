@@ -31,8 +31,25 @@ CMainWindow::~CMainWindow() {
 }
 
 void CMainWindow::on_mPushButtonSendPhoto_clicked() {
-  QImage vImageToSend = QImage(":/sample_photo.jpg", "JPG");
-  QBuffer vBuffer;
+  // wyslij dane pliku
+    //QImage vImageToSend = QImage(":/sample_photo.jpg", "JPG");
+    qDebug() << "standardLocations() PicturesLocation" <<
+             QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
+    QStringList vPicturesLocation = QStandardPaths::standardLocations(
+                                      QStandardPaths::PicturesLocation);
+
+    QString vPath = vPicturesLocation.at(0);
+    QDir vDir(vPath);
+    QStringList vAllFiles =  vDir.entryList(QDir::Files);
+            foreach (QString location, vAllFiles) {
+              qDebug() << "file:" << location;
+            }
+
+    vPath += "/a.jpg";
+    qDebug() << "Koncowy path:" << vPath;
+    QImage imageToSend(vPath);
+
+   QBuffer vBuffer;
 
   QImageWriter vWriter(&vBuffer, "JPG");
   vWriter.write(vImageToSend);
@@ -90,7 +107,7 @@ void CMainWindow::ShowSocketException(QAbstractSocket::SocketError aError) {
       qDebug() << "network error;";
 
     default:
-      ui->label->setText("def error");
+      ui->label->setText("default error");
       break;
   }
 }

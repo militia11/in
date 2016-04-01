@@ -12,7 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 INCLUDEPATH += ../../..
 
-#LIBS += -L../../share -lshare
+LIBS += -L../../share -lshare
 
 TARGET = ui
 TEMPLATE = lib

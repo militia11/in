@@ -85,5 +85,5 @@ void CServer::ConnectClientSignals() {
 
 void CServer::UpdatePortNumber() {
 		CSettings vSettings;
-		mPortNumber = vSettings.GetPortNumber();
+        mPortNumber = 1234;//vSettings.GetPortNumber();
 }
