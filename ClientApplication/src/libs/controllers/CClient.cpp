@@ -34,15 +34,15 @@ CClient::~CClient() {
 
 void CClient::ReadData() {
 		while (mSocket->bytesAvailable() > 0) {
-		QByteArray vMessageData = mSocket->readAll();
-		///@todo moze konieczne czyszczenie bufora zobaczyc!
+            QByteArray vMessageData = mSocket->readAll();
+            ///@todo moze konieczne czyszczenie bufora zobaczyc!
 
-		if (vMessageData ==
-			QByteArray("IN SERVER")) {
-			mServerAvailability = status_in_server;
-		} else if (vMessageData == QByteArray("NOT AVAILABLE")) {
-			mServerAvailability = status_not_available;
-		}
+            if (vMessageData ==
+                QByteArray("IN SERVER")) {
+                mServerAvailability = status_in_server;
+            } else if (vMessageData == QByteArray("NOT AVAILABLE")) {
+                mServerAvailability = status_not_available;
+            }
 		}
 }
 
@@ -54,10 +54,9 @@ void CClient::WaitForChangeStatus() {
 		vTimer.start();
 
 		do {
-		vMilliseconds = vTimer.elapsed();
-		usleep(1000);
-		} while (
-		(mServerAvailability == status_unknown) && (vMilliseconds < vTimeout));
+            vMilliseconds = vTimer.elapsed();
+            usleep(1000);
+		} while ((mServerAvailability == status_unknown) && (vMilliseconds < vTimeout));
 }
 
 void CClient::ManageData(QByteArray aData) {
@@ -107,14 +106,17 @@ QByteArray CClient::PrepareMessageData(int16_t aChecksum) {
 }
 
 bool CClient::WriteData(const QByteArray &aData) {
-		if (mSocket->state() == QAbstractSocket::ConnectedState) {
-            qDebug() <<"data length" << aData.length();
+        if (mSocket->state() == QAbstractSocket::ConnectedState) {
             mSocket->write(IntToArray(aData.length()));
+            bool x = mSocket->waitForBytesWritten();
+            usleep(2000);
             mSocket->write(aData);
-            return mSocket->waitForBytesWritten();
-		} else {
+
+             mSocket->waitForBytesWritten();
+            return x;
+        } else {
             return false;
-		}
+        }
 }
 
 bool CClient::WriteMessage(const QByteArray &aData) {
@@ -130,7 +132,7 @@ int16_t CClient::CalculateFileDataChecksum(QByteArray aData) {
 		int16_t vChecksum {};
 
 		for (int i = 0; i < aData.length(); ++i) {
-		vChecksum += aData[i];
+            vChecksum += aData[i];
 		}
 
 		return vChecksum;
@@ -149,14 +151,14 @@ void CClient::UpdateServerPhotos() {
 		QStringList vImagesPath = gRepository.GetImages();
 
 		foreach (QString vPath, vImagesPath) { // wersja finalna:
-		QImage vImage(vPath);
-		QByteArray vData = ConvertImageToByteArray(vImage);
+            QImage vImage(vPath);
+            QByteArray vData = ConvertImageToByteArray(vImage);
 
-		int16_t vFileChecksum = CalculateFileDataChecksum(vData);
-		QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
-		WriteMessage(vChecksumByte);
-		WaitForChangeStatus();
-		ManageData(vData);
+            int16_t vFileChecksum = CalculateFileDataChecksum(vData);
+            QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
+            WriteMessage(vChecksumByte);
+            WaitForChangeStatus();
+            ManageData(vData);
 		}
 		// wersja 1 testowa 1 obrazek sprawdzenie i  wysłanie:
 		/*
