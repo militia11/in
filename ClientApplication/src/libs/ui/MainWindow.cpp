@@ -47,7 +47,7 @@ void CMainWindow::on_mPushButtonSendPhoto_clicked() {
 
     vPath += "/a.jpg";
     qDebug() << "Koncowy path:" << vPath;
-    QImage imageToSend(vPath);
+    QImage vImageToSend(vPath);
 
    QBuffer vBuffer;
 
@@ -55,7 +55,12 @@ void CMainWindow::on_mPushButtonSendPhoto_clicked() {
   vWriter.write(vImageToSend);
 
   QByteArray vData = vBuffer.data();
-  qDebug() << "Czy udało się wysłać dane: " << vClient->WriteData(vData);
+  qDebug() << "Czy udało się wysłać dane: ";
+  if(vClient->WriteData(vData)) {
+       ui->label->setText("udalo");
+  } else {
+     ui->label->setText("NIE udalo");
+  }
 }
 
 void CMainWindow::on_mPushButtonSendChecksum_clicked() {

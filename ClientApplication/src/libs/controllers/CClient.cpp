@@ -79,18 +79,11 @@ void CClient::ManageData(QByteArray aData) {
 
 bool CClient::ConnectToHost(QString aHost) {
 		mSocket->connectToHost(aHost, mPortNumber);
-        qDebug() << "state before: " << mSocket->state() << "\n";
         bool vHasBeenEstablished = mSocket->waitForConnected();
-        qDebug() << "state after: " << mSocket->state() << "\n";
-        qDebug() << "vHasBeenEstablished in connectToHost: " << vHasBeenEstablished << "\n";;
 
-		if (vHasBeenEstablished == false) {
-            qDebug() << "jest blad....... \n";
-			qDebug() << mSocket->error();
+        if (vHasBeenEstablished == false) {
 			throw mSocket->error();
 		}
-
-        qDebug() << "ESTABLISHED PRZED RUN: " << vHasBeenEstablished<< "\n";
 
         return vHasBeenEstablished;
 }
@@ -100,6 +93,7 @@ QByteArray CClient::ConvertImageToByteArray(const QImage &aImage) {
 
 		QImageWriter vWriter(&vBuffer, "JPG");
 		vWriter.write(aImage);
+
 		return vBuffer.data();
 }
 
@@ -114,22 +108,20 @@ QByteArray CClient::PrepareMessageData(int16_t aChecksum) {
 
 bool CClient::WriteData(const QByteArray &aData) {
 		if (mSocket->state() == QAbstractSocket::ConnectedState) {
-		mSocket->write(IntToArray(aData.length()));
-		mSocket->write(aData);
-
-		return mSocket->waitForBytesWritten();
+            mSocket->write(IntToArray(aData.length()));
+            mSocket->write(aData);
+            return mSocket->waitForBytesWritten();
 		} else {
-
-		return false;
+            return false;
 		}
 }
 
 bool CClient::WriteMessage(const QByteArray &aData) {
 		if (mSocket->state() == QAbstractSocket::ConnectedState) {
-		mSocket->write(aData);
-		return mSocket->waitForBytesWritten();
+            mSocket->write(aData);
+            return mSocket->waitForBytesWritten();
 		} else {
-		return false;
+            return false;
 		}
 }
 
