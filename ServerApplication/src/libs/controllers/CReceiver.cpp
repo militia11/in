@@ -25,7 +25,9 @@ CReceiver::~CReceiver() {
 }
 
 bool CReceiver::HasDataReceivedCompletely() {
-		return *mDataSize > 0 && mReceiveBuffer->size() >= *mDataSize;
+     qDebug() << "data size:" << *mDataSize <<  "\n";
+     qDebug() << "BUFOR:" << mReceiveBuffer->size()<< "\n";
+    return *mDataSize > 0 && mReceiveBuffer->size() >= *mDataSize;
 }
 
 bool CReceiver::HasSizeOfDataReceivedCompletely() {
@@ -41,12 +43,21 @@ void CReceiver::Connect(QTcpSocket *aSocket) {
 }
 
 void CReceiver::RemoveSizeFromBuffer() {
-		mReceiveBuffer->remove(0, 4);
+    qDebug() << "remove SIZE\n";
+    mReceiveBuffer->remove(0, 4);
 }
 
 void CReceiver::SaveAndSetCurrentSize(int32_t *aCurrentSize) {
-		*aCurrentSize = ByteArrayToInt(mReceiveBuffer->left(4));
+    QByteArray ab = mReceiveBuffer->left(4);
+    // QString DataAsString = QTextCodec::codecForMib(1015)->toUnicode(ab);
+
+     qDebug() <<"CPIIIIIIIIIIIIIIIIIIIIIIIIIII" <<
+        *aCurrentSize = ByteArrayToInt(ab);
+    qDebug() << "++>curr ize" << *aCurrentSize<< "\n";
+    qDebug() << "++>dat ize" << *mDataSize<< "\n";
+
 		*mDataSize = *aCurrentSize;
+      qDebug() << "++>dat ize AFTER" << *mDataSize << "\n";
 }
 
 void CReceiver::StoreData(int32_t aCurrentSize) {
@@ -104,6 +115,7 @@ void CReceiver::CleanBuffers() {
 
 void CReceiver::VerifyMessageFormat() {
 		if (!HasMessageCorrectFormat(mMessageFileChecksum)) {
+            qDebug() << "messa che" << mMessageFileChecksum;
 				throw std::runtime_error("Nieprawidłowy format wiadomości");
 		}
 }
@@ -118,9 +130,9 @@ bool CReceiver::IsEndMessageChar(char aData) {
 }
 
 void CReceiver::PreventBufferOverflow() {
-		if (mReceiveByteCount >= 1024) {
-				mReceiveByteCount = 0;
-		}
+        if (mReceiveByteCount >= 1024) {
+                mReceiveByteCount = 0;
+        }
 }
 
 void CReceiver::VerifyBeginMessage(QByteArray aData, int aPosition) {
@@ -189,33 +201,38 @@ bool CReceiver::HasMessageCorrectFormat(char *aMessage) {
     int vChecksumLength {mMessageSize - 3}; // Minus 3 bytes: two chars '>' and one '<'
 
 		if (aMessage[0] != '>' || aMessage[1] != '>') {  // Begin message
-				vCorrect = false;
+            qDebug() << "a";
+            vCorrect = false;qDebug() << "";
 		} else if ((aMessage[mMessageSize - 1] != ('<'))) {  // End message
-        vCorrect = false;
-
+            vCorrect = false;
+         qDebug() << "b";
 		} else {
+            qDebug() << "c";
 				for (auto i = 2; i < vChecksumLength + 2; ++i) {  // Checksum
 						if (!isxdigit(aMessage[i])) {
 								vCorrect = false;
 								break;
 						}
 				}
-    }
+        }
+        qDebug() << vCorrect;
 
-		return vCorrect;
+        return vCorrect;
 }
 
 void CReceiver::ServeReceivedFileData() {
-     qDebug() << "serve data\n";
 		while (CanReceive()) {
 				int32_t vCurrentSize = *mDataSize;
 
 				if (HasSizeOfDataReceivedCompletely()) {
+                      qDebug() << "size completly\n";
 						SaveAndSetCurrentSize(&vCurrentSize);
 						RemoveSizeFromBuffer();
 				}
 
 				if (HasDataReceivedCompletely()) {
+                     qDebug() << "data completly\n";
+                      qDebug() << "in not punk\n";
 						if (NotPunk(vCurrentSize)) {
                              qDebug() << "in not punk\n";
 								StoreData(vCurrentSize);

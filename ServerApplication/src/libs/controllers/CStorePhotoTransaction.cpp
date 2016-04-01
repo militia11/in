@@ -23,7 +23,7 @@ void CStorePhotoTransaction::Execute() {
 		server::AndroidPhotosDatabase *mDatabase {gRepository.GetDatabase()};
 
 		Photo *vPhoto {new Photo(*mDatabase)};
-    SetAtributtesToPhoto(vPhoto);
+        SetAtributtesToPhoto(vPhoto);
 		vPhoto->update();
 		delete vPhoto;
 

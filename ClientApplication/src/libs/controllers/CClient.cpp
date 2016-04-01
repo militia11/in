@@ -108,6 +108,7 @@ QByteArray CClient::PrepareMessageData(int16_t aChecksum) {
 
 bool CClient::WriteData(const QByteArray &aData) {
 		if (mSocket->state() == QAbstractSocket::ConnectedState) {
+            qDebug() <<"data length" << aData.length();
             mSocket->write(IntToArray(aData.length()));
             mSocket->write(aData);
             return mSocket->waitForBytesWritten();
