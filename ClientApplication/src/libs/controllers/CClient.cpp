@@ -79,17 +79,20 @@ void CClient::ManageData(QByteArray aData) {
 
 bool CClient::ConnectToHost(QString aHost) {
 		mSocket->connectToHost(aHost, mPortNumber);
-		qDebug() << "state before" << mSocket->state();
-		bool vHasBeenEstablished = mSocket->waitForConnected(90000);
-		qDebug() << "state after" << mSocket->state();
-		qDebug() << "vHasBeenEstablished in connectToHost:" << vHasBeenEstablished;
+        qDebug() << "state before: " << mSocket->state() << "\n";
+        bool vHasBeenEstablished = mSocket->waitForConnected();
+        qDebug() << "state after: " << mSocket->state() << "\n";
+        qDebug() << "vHasBeenEstablished in connectToHost: " << vHasBeenEstablished << "\n";;
 
 		if (vHasBeenEstablished == false) {
+            qDebug() << "jest blad....... \n";
 			qDebug() << mSocket->error();
 			throw mSocket->error();
 		}
 
-		return vHasBeenEstablished;
+        qDebug() << "ESTABLISHED PRZED RUN: " << vHasBeenEstablished<< "\n";
+
+        return vHasBeenEstablished;
 }
 
 QByteArray CClient::ConvertImageToByteArray(const QImage &aImage) {

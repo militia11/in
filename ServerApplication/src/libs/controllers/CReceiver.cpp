@@ -6,7 +6,7 @@
 #include <stdio.h> // convert array to int function
 #include <QDebug>
 #include <QFile>
-
+#include <QDataStream>
 #include "src/libs/dao/CRepository.h"
 
 extern CRepository gRepository;
@@ -51,7 +51,7 @@ void CReceiver::SaveAndSetCurrentSize(int32_t *aCurrentSize) {
 
 void CReceiver::StoreData(int32_t aCurrentSize) {
 		QByteArray vData {mReceiveBuffer->left(aCurrentSize)};
-		u_int16_t vChecksum {CalculateFileDataChecksum(vData)};
+        uint16_t vChecksum {CalculateFileDataChecksum(vData)};
 		CStorePhotoTransaction StoreTransaction(
 				vData,
 				vData.size(),

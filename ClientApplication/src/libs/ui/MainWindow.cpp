@@ -52,10 +52,10 @@ void CMainWindow::on_mPushButtonSendChecksum_clicked() {
 void CMainWindow::on_mPushButtonConnect_clicked() {
   // POŁĄCZ
   vClient = new CClient(new QTcpSocket);
-  QString vIpAddress = ui->textEdit->toPlainText();
+  QString vIpAddress = "192.168.8.100"; // ui->textEdit->toPlainText();
   try {
    qDebug() << "Czy udało się połączyć z hostem: " <<
-						vClient->ConnectToHost(vIpAddress);
+                        vClient->ConnectToHost(vIpAddress) << "\n";
   } catch (QAbstractSocket::SocketError vError) {
    ShowSocketException(vError);
   }
@@ -70,7 +70,6 @@ void CMainWindow::ShowSocketException(QAbstractSocket::SocketError aError) {
   switch (aError) {
     case QAbstractSocket::SocketTimeoutError:
       ui->label->setText("SocketTimeoutError: Socket is in closing, listening or bound state"); ///@todo I TESTY DO TEJ FUNKCJI później status bar zobaczyc na telefonie jak dziala ze zmiana ekranu  i dac
-
       qDebug() <<
                "SocketTimeoutError: Socket is in closing, listening or bound state"; ///@todo I TESTY DO TEJ FUNKCJI później status bar zobaczyc na telefonie jak dziala ze zmiana ekranu  i dac
       break;

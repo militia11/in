@@ -26,10 +26,10 @@ CMainWindow::CMainWindow(QWidget *aParent) :
 
     ShowStatus("Wyłączone nasłuchiwanie serwera", 2400);
 
-    Q_INIT_RESOURCE(server_resources);  // Use resources from diffrent project
+    //Q_INIT_RESOURCE(server_resources);  // Use resources from diffrent project
 
-    QImage vAddedImage {QImage(":/logo_1.png", "PNG")};
-    ui->mImageLabel->setPixmap(QPixmap::fromImage(vAddedImage));
+   //QImage vAddedImage {QImage(":/logo_1.png", "PNG")};
+   // ui->mImageLabel->setPixmap(QPixmap::fromImage(vAddedImage));
 }
 
 CMainWindow::~CMainWindow() {

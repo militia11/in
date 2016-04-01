@@ -34,7 +34,7 @@ IReceiver *CServer::GetReceiver() const {
 }
 
 void CServer::IncomingConnection() {
-		emit ConnectClient();
+		qDebug() << "incoming connection...";
 		QTcpSocket *vSocket {nextPendingConnection()};
 		TryConnect(vSocket);
 
@@ -46,6 +46,7 @@ void CServer::IncomingConnection() {
 		}
 
 		mReceiver->ResponeToClient("Witaj kliencie\n");
+		emit ConnectClient();
 }
 
 void CServer::ResumeAccepting() {
@@ -67,7 +68,7 @@ void CServer::TryConnect(QTcpSocket *aSocket) {
 }
 
 bool CServer::ListenOnSpecifyPort() {
-    return this->listen(QHostAddress::Any, mPortNumber) ;
+		return this->listen(QHostAddress::Any, mPortNumber);
 }
 
 void CServer::SocketError(const char *aText) {

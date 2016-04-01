@@ -54,7 +54,7 @@ class CChecksumList {
     /**
      * @brief mChecksumList is list of checksums
      */
-		QList<u_int16_t> mChecksumList;
+        QList<uint16_t> mChecksumList;
 };
 
 #endif // CCHECKSUMLIST_H
