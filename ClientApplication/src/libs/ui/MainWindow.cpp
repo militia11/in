@@ -61,8 +61,6 @@ void CMainWindow::on_mPushButtonSendPhoto_clicked() {
 //    vPath += "/a.jpg";
     vPath += name;
     vPath += ".jpg";
-
-
     qDebug() << "Koncowy path:" << vPath;
     QImage vImageToSend(vPath);
 
@@ -135,8 +133,7 @@ void CMainWindow::ShowSocketException(QAbstractSocket::SocketError aError) {
   }
 }
 
-void CMainWindow::on_pushButton_clicked() {
-  // pokaz zdjecie z tel
+void CMainWindow::on_pushButton_clicked() { // pokaz zdjecie z tel
   qDebug() << "standardLocations() PicturesLocation" <<
            QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
   QStringList vPicturesLocation = QStandardPaths::standardLocations(

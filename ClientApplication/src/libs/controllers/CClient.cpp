@@ -192,9 +192,13 @@ uint16_t vFileChecksum = CalculateFileDataChecksum(vData);
             QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
             qDebug() <<"vChecksumByte\n"<< vChecksumByte;
             WriteMessage(vChecksumByte);
-            usleep(3000);
+            usleep(1000);
+            if(mServerAvailability==status_not_available) {
+                WriteData(aData);
+                mServerAvailability==status_unknown;
+             }
             //WaitForChangeStatus();
-            ManageData(vData);
+            //ManageData(vData);
 
 //WriteData(vData);
 //       wersja 1 testowa 1 obrazek sprawdzenie i  wysłanie:
