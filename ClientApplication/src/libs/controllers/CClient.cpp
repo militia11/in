@@ -39,8 +39,12 @@ void CClient::ReadData() {
 
             if (vMessageData ==
                 QByteArray("IN SERVER")) {
+                emit action(5);
+                vMessageData.clear();
                 mServerAvailability = status_in_server;
             } else if (vMessageData == QByteArray("NOT AVAILABLE")) {
+                 emit action(2);
+                 vMessageData.clear();
                 mServerAvailability = status_not_available;
             }
 		}
@@ -56,10 +60,11 @@ void CClient::WaitForChangeStatus() {
 		do {
             vMilliseconds = vTimer.elapsed();
             usleep(1000);
-		} while ((mServerAvailability == status_unknown) && (vMilliseconds < vTimeout));
+        } while ((mServerAvailability == status_unknown) && (vMilliseconds < vTimeout));
 }
 
 void CClient::ManageData(QByteArray aData) {
+    emit action(99);
 		switch (mServerAvailability) {
 		case status_in_server:
 			WriteData(aData);
@@ -150,25 +155,58 @@ void CClient::UpdateServerPhotos() {
 		gRepository.PopulateRepository();
 		QStringList vImagesPath = gRepository.GetImages();
 
-		foreach (QString vPath, vImagesPath) { // wersja finalna:
-            QImage vImage(vPath);
-            QByteArray vData = ConvertImageToByteArray(vImage);
+//        foreach (QString vPath, vImagesPath) { // wersja finalna:
+//            QImage vImage(vPath);
+//            QByteArray vData = ConvertImageToByteArray(vImage);
 
-            int16_t vFileChecksum = CalculateFileDataChecksum(vData);
+//            int16_t vFileChecksum = CalculateFileDataChecksum(vData);
+//            QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
+//            WriteMessage(vChecksumByte);
+//            WaitForChangeStatus();
+//            ManageData(vData);
+//        }
+
+        QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
+QStringList vPicturesLocation = QStandardPaths::standardLocations(
+                                 QStandardPaths::PicturesLocation);
+
+QString vPath = vPicturesLocation.at(0);
+QDir vDir(vPath);
+QStringList vAllFiles =  vDir.entryList(QDir::Files);
+       foreach (QString location, vAllFiles) {
+         qDebug() << "file:" << location;
+       }
+
+
+    vPath += "/a.jpg";
+
+qDebug() << "Koncowy path:" << vPath;
+QImage vImageToSend(vPath);
+
+QBuffer vBuffer;
+
+QImageWriter vWriter(&vBuffer, "JPG");
+vWriter.write(vImageToSend);
+
+QByteArray vData = vBuffer.data();
+
+int16_t vFileChecksum = CalculateFileDataChecksum(vData);
             QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
             qDebug() <<"vChecksumByte"<< vChecksumByte;
             WriteMessage(vChecksumByte);
             WaitForChangeStatus();
             ManageData(vData);
-		}
-		// wersja 1 testowa 1 obrazek sprawdzenie i  wysłanie:
-		/*
-		 QImage image(vPath);// lub .jpeg
-		 qDebug() << "size image in update serv photo func:" << image.size();
-		 QByteArray vData = ConvertImageToByteArray(image);
-		 int16_t vFileChecksum = CalculateFileDataChecksum(vData);
-		 QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
-		 WriteMessage(vChecksumByte);
-		 WaitForChangeStatus();
-		 ManageData(vData);*/
+
+//WriteData(vData);
+
+        // wersja 1 testowa 1 obrazek sprawdzenie i  wysłanie:
+
+//         QImage image(vImagesPath);// lub .jpeg
+//		 qDebug() << "size image in update serv photo func:" << image.size();
+//		 QByteArray vData = ConvertImageToByteArray(image);
+//		 int16_t vFileChecksum = CalculateFileDataChecksum(vData);
+//		 QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
+//		 WriteMessage(vChecksumByte);
+//		 WaitForChangeStatus();
+//         ManageData(vData);
 }
