@@ -59,20 +59,20 @@ void CClient::WaitForChangeStatus() {
 
 		do {
             vMilliseconds = vTimer.elapsed();
-            usleep(1000);
-        } while ((mServerAvailability == status_unknown) && (vMilliseconds < vTimeout));
+            //usleep(1000);//(mServerAvailability == status_unknown) &&
+        } while ((vMilliseconds < vTimeout));
 }
 
 void CClient::ManageData(QByteArray aData) {
     emit action(99);
 		switch (mServerAvailability) {
 		case status_in_server:
-			WriteData(aData);
+
 			mServerAvailability = status_unknown;
 			break;
 
 		case status_not_available:
-			///@todo moze ponowne wyslanie?
+            WriteData(aData);
 			mServerAvailability = status_unknown;
 			break;
 
