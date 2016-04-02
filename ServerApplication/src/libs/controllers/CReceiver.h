@@ -88,7 +88,19 @@ class CReceiver : public IReceiver {
      */
     void MessageStatus(const char *aMessage, int aTimeMsc);
 
+    /**
+     * @brief Receive data progress changed
+     *
+     * @param aProgress Progress
+     */
+    void ReceiveDataProgressChanged(int aProgress);
+
   protected:
+    /**
+     * @brief Calculate progress
+     */
+    void CalculateProgress();
+
     /**
      * @brief RemoveSizeFromBuffer Remove current size from buffer
      */

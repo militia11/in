@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
         vSettings.GetConnectionString());
 
     CMainWindow vMainWindow;
-    vMainWindow.show();
+    vMainWindow.showMaximized();
     vMainWindow.ConnectToDatabaseAgain();
 
     return vApplication.exec();

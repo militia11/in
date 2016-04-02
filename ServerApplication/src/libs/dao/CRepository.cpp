@@ -39,7 +39,7 @@ void CRepository::Connect() {
         mDatabase = new server::AndroidPhotosDatabase(mDriver.toStdString(),
                 mConnectionString.toStdString());
         PopulateDatabase();
-        RefreshChecksums();
+        UpdateChecksums();
 
         mLastConnectionError = false;
     } catch (std::exception &vException) {
@@ -66,7 +66,7 @@ void CRepository::AttendDatabaseConnectionException(const char *aException) {
 		mDatabase = nullptr;
 }
 
-void CRepository::RefreshChecksums() {
+void CRepository::UpdateChecksums() {
     if (mChecksumList) {
         mChecksumList->Clear();
         mChecksumList->ReceiveChecksumsFromDB();

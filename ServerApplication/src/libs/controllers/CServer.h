@@ -66,6 +66,13 @@ class CServer : public IServer {
      */
     void ChangeServerStatus();
 
+    /**
+     * @brief Receive data progress changed
+     *
+     * @param aProgress Progress
+     */
+    void ReceiveDataProgressChanged(int aProgress);
+
   protected slots:
     /**
      * @brief Slot called when new incoming connection come

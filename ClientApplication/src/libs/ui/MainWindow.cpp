@@ -45,7 +45,13 @@ void CMainWindow::on_mPushButtonSendPhoto_clicked() {
               qDebug() << "file:" << location;
             }
 
-    vPath += "/a.jpg";
+            QString name("/");
+            name.append(ui->textEdit->toPlainText());
+//    vPath += "/a.jpg";
+    vPath += name;
+    vPath += ".jpg";
+
+
     qDebug() << "Koncowy path:" << vPath;
     QImage vImageToSend(vPath);
 

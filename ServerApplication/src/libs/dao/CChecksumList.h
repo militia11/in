@@ -37,7 +37,22 @@ class CChecksumList {
      *
      * @return True if checksum is the same in another in server
      */
-		bool CheckFileChecksum(uint16_t aChecksum);
+    bool CheckFileChecksum(uint16_t aChecksum);
+
+    /**
+     * @brief Get checksums count
+     *
+     * @return Checksums count
+     */
+    int GetChecksumsCount() const;
+
+    /**
+      * @brief Get checksum
+      *
+      * @param aPosition Position
+      * @return Checksum value
+      */
+     int GetChecksum(int aPosition) const;
 
     /**
      * @brief UpdateChecksumList update list of checksums

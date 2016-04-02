@@ -17,16 +17,24 @@ CReceiver::CReceiver() :
 		mDataSize(nullptr),
 		mReceiveDataMode(Mode_Receive_File_Data),
 		mMessageSize(0),
-		mReceiveByteCount(0) {
-}
+		mReceiveByteCount(0) {}
 
 CReceiver::~CReceiver() {
 		Disconnected();
 }
 
+
+void CReceiver::CalculateProgress()
+{       int vProgress = 0;
+if((*mDataSize!=0 && mReceiveBuffer->size()!=0)) {
+   double vs = (*mDataSize)/mReceiveBuffer->size();
+   vProgress = 100.0/vs;
+}
+     emit ReceiveDataProgressChanged(int(vProgress));
+}
+
+
 bool CReceiver::HasDataReceivedCompletely() {
-     qDebug() << "data size:" << *mDataSize <<  "\n";
-     qDebug() << "BUFOR:" << mReceiveBuffer->size()<< "\n";
     return *mDataSize > 0 && mReceiveBuffer->size() >= *mDataSize;
 }
 
@@ -48,17 +56,11 @@ void CReceiver::RemoveSizeFromBuffer() {
 }
 
 void CReceiver::SaveAndSetCurrentSize(int32_t *aCurrentSize) {
-    QByteArray ab = mReceiveBuffer->left(4);
-    // QString DataAsString = QTextCodec::codecForMib(1015)->toUnicode(ab);
-
-     qDebug() <<"CPIIIIIIIIIIIIIIIIIIIIIIIIIII" <<
-        *aCurrentSize = ByteArrayToInt(ab);
-    qDebug() << "++>curr ize" << *aCurrentSize<< "\n";
-    qDebug() << "++>dat ize" << *mDataSize<< "\n";
+    QByteArray vData = mReceiveBuffer->left(4);
+        *aCurrentSize = ByteArrayToInt(vData);
 
 		*mDataSize = *aCurrentSize;
-      qDebug() << "++>dat ize AFTER" << *mDataSize << "\n";
-}
+   }
 
 void CReceiver::StoreData(int32_t aCurrentSize) {
 		QByteArray vData {mReceiveBuffer->left(aCurrentSize)};
@@ -136,9 +138,9 @@ void CReceiver::PreventBufferOverflow() {
 }
 
 void CReceiver::VerifyBeginMessage(QByteArray aData, int aPosition) {
-		if (IsBeginChar(aData[aPosition]) && IsBeginChar(aData[aPosition + 1]))  {
-				SetChecksumMode();
-		}
+        if (IsBeginChar(aData[aPosition]) && IsBeginChar(aData[aPosition + 1]))  {
+                SetChecksumMode();
+        }
 }
 
 void CReceiver::SetChecksumMode() {
@@ -182,10 +184,8 @@ void CReceiver::ServeReceivedMessage() {
 		if (NotChecksumInServer()) {
         const char *vMessage = "NOT AVAILABLE";
 				ResponeToClient(vMessage);  //NOTE:1
-                qDebug() << "not\n";
     } else {
        const char *vMessage = "IN SERVER";
-       qDebug() << "in\n";
        ResponeToClient(vMessage);  //NOTE:1
     }
 }
@@ -201,13 +201,10 @@ bool CReceiver::HasMessageCorrectFormat(char *aMessage) {
     int vChecksumLength {mMessageSize - 3}; // Minus 3 bytes: two chars '>' and one '<'
 
 		if (aMessage[0] != '>' || aMessage[1] != '>') {  // Begin message
-            qDebug() << "a";
-            vCorrect = false;qDebug() << "";
+            vCorrect = false;
 		} else if ((aMessage[mMessageSize - 1] != ('<'))) {  // End message
             vCorrect = false;
-         qDebug() << "b";
 		} else {
-            qDebug() << "c";
 				for (auto i = 2; i < vChecksumLength + 2; ++i) {  // Checksum
 						if (!isxdigit(aMessage[i])) {
 								vCorrect = false;
@@ -223,18 +220,14 @@ bool CReceiver::HasMessageCorrectFormat(char *aMessage) {
 void CReceiver::ServeReceivedFileData() {
 		while (CanReceive()) {
 				int32_t vCurrentSize = *mDataSize;
-
 				if (HasSizeOfDataReceivedCompletely()) {
-                      qDebug() << "size completly\n";
 						SaveAndSetCurrentSize(&vCurrentSize);
 						RemoveSizeFromBuffer();
 				}
 
+                CalculateProgress();
 				if (HasDataReceivedCompletely()) {
-                     qDebug() << "data completly\n";
-                      qDebug() << "in not punk\n";
 						if (NotPunk(vCurrentSize)) {
-                             qDebug() << "in not punk\n";
 								StoreData(vCurrentSize);
 						}
 
@@ -245,13 +238,13 @@ void CReceiver::ServeReceivedFileData() {
 }
 
 uint16_t CReceiver::CalculateFileDataChecksum(QByteArray aData) {
-		uint16_t vCheckSum {};
+        uint16_t vChecksum {};
 
 		for (auto i = 0; i < aData.length(); ++i) {
-				vCheckSum += aData[i];
+                vChecksum += aData[i];
 		}
 
-		return vCheckSum;
+        return vChecksum;
 }
 
 int32_t CReceiver::ByteArrayToInt(QByteArray aData) {
@@ -346,7 +339,7 @@ void CReceiver::NewData() {
 						VerifyBeginMessage(vData, i);
 						RouteData(vData[i]);
 				}
-		}
+        }
 }
 
 //NOTE:1

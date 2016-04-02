@@ -34,7 +34,7 @@ class CMainWindow : public QMainWindow {
      * @brief Method connect to database one more time
      *
      * @return True if connection success, False if is unable to
-     *				 connect to specify database
+     *		   connect to specify database
      */
     bool ConnectToDatabaseAgain();
 
@@ -107,6 +107,11 @@ class CMainWindow : public QMainWindow {
     */
     void closeEvent(QCloseEvent *aEvent);
 
+private slots:
+    //TODO
+    void on_mPushButtonPrevious_clicked();
+    void on_mPushButtonNext_clicked();
+
 	protected:
     /**
      * @brief UpdateDatabaseOrConnection if database exists populate database,
@@ -143,7 +148,7 @@ class CMainWindow : public QMainWindow {
 
     /**
      * @brief Method connect signals represents actions
-     *			  to CMainWindow slots
+     *		  to CMainWindow slots
      */
     inline void ConnectActionsSignals();
 
@@ -156,6 +161,12 @@ class CMainWindow : public QMainWindow {
      * @brief mServer Pointer to server
      */
     IServer *mServer;
+
+    /**
+     * @brief mCurrentPhoto Current photo
+     */
+    int mCurrentPhoto;
+
 };
 
 #endif // MAINWINDOW_H

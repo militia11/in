@@ -11,6 +11,7 @@ CServer::CServer(IReceiverFactory *aReceiversFactory) :
 		mReceiversFactory(aReceiversFactory) {
 		UpdatePortNumber();
 		mReceiver = mReceiversFactory->Make();
+        ConnectClientSignals();
 		connect(this, SIGNAL(newConnection()), this, SLOT(IncomingConnection()));
 }
 
@@ -79,8 +80,12 @@ void CServer::ConnectClientSignals() {
 		connect(mReceiver, SIGNAL(Disconnect()), this, SLOT(ResumeAccepting()),
 						Qt::DirectConnection);
 
-		connect(mReceiver, SIGNAL(Connected()), this, SLOT(PauseAccepting()),
+        connect(this, SIGNAL(ConnectClient()), this, SLOT(PauseAccepting()),
 						Qt::DirectConnection);
+
+        connect(mReceiver, SIGNAL(ReceiveDataProgressChanged(int)), this,
+                SIGNAL(ReceiveDataProgressChanged(int)),
+                        Qt::DirectConnection);
 }
 
 void CServer::UpdatePortNumber() {

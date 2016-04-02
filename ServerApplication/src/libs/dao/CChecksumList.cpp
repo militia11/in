@@ -46,7 +46,16 @@ bool CChecksumList::CheckFileChecksum(uint16_t aChecksum) {
 				}
 		}
 
-    return false;
+        return false;
+}
+
+int CChecksumList::GetChecksumsCount() const
+{  return mChecksumList.count();
+}
+
+int CChecksumList::GetChecksum(int aPosition) const
+{
+    return mChecksumList[aPosition];
 }
 
 //void CChecksumList::UpdateChecksumList() {

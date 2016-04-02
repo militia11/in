@@ -16,7 +16,8 @@ extern CRepository gRepository;
 
 CMainWindow::CMainWindow(QWidget *aParent) :
     QMainWindow(aParent),
-    ui(new Ui::MainWindow) {
+    ui(new Ui::MainWindow),
+    mCurrentPhoto(-1) {
     ui->setupUi(this);
 
     ConnectActionsSignals();
@@ -28,8 +29,8 @@ CMainWindow::CMainWindow(QWidget *aParent) :
 
     Q_INIT_RESOURCE(server_resources);  // Use resources from diffrent project
 
-   QImage vAddedImage {QImage(":/logo_1.png", "PNG")};
-   ui->mImageLabel->setPixmap(QPixmap::fromImage(vAddedImage));
+    QImage vAddedImage {QImage(":/logo_1.png", "PNG")};
+    ui->mImageLabel->setPixmap(QPixmap::fromImage(vAddedImage));
 }
 
 CMainWindow::~CMainWindow() {
@@ -93,8 +94,6 @@ void CMainWindow::DisplayData(QByteArray aData) {
 
     ui->mImageLabel->setPixmap(
             QPixmap::fromImage(vImage));
-    ui->mListWidget->insertItem(0, aData);
-    ui->mTextEdit->setText(aData);
 }
 
 void CMainWindow::ClientConnected() {
@@ -168,6 +167,9 @@ void CMainWindow::ConnectServerSignals() {
 
     connect(mServer, SIGNAL(ChangeServerStatus()), this,
                     SLOT(ChangeActionServerStatus()));
+
+    connect(mServer, SIGNAL(ReceiveDataProgressChanged(int)), ui->mProgressBar,
+                    SLOT(setValue(int)));
 }
 
 void CMainWindow::ConnectActionsSignals() {
@@ -184,4 +186,33 @@ void CMainWindow::ConnectActionsSignals() {
                     SLOT(DatabaseConnectionSettings()));
 
     connect(ui->ActionInfo, SIGNAL(triggered()), this, SLOT(AboutProgram()));
+}
+
+void CMainWindow::on_mPushButtonPrevious_clicked()
+{ CChecksumList * vChecksumList = gRepository.GetChecksumList();
+    int vPhotosCount = vChecksumList->GetChecksumsCount();
+ if(mCurrentPhoto>0) {
+     qDebug() << "cur ph"<<mCurrentPhoto<<"\n";
+   mCurrentPhoto--;
+   uint16_t vCurrentPhotoChecksum = vChecksumList->GetChecksum(mCurrentPhoto);
+   CRetrievePhotoTransaction vRetrieveTransaction(vCurrentPhotoChecksum);
+   vRetrieveTransaction.Execute();
+   QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
+   DisplayData(vRetrieveData);
+ }
+}
+
+void CMainWindow::on_mPushButtonNext_clicked()
+{CChecksumList * vChecksumList = gRepository.GetChecksumList();
+    int vPhotosCount = vChecksumList->GetChecksumsCount();
+
+    if(mCurrentPhoto<vPhotosCount) {
+        qDebug() << "cur ph"<<mCurrentPhoto<<"\n";
+            mCurrentPhoto++;
+            uint16_t vCurrentPhotoChecksum = vChecksumList->GetChecksum(mCurrentPhoto);
+            CRetrievePhotoTransaction vRetrieveTransaction(vCurrentPhotoChecksum);
+            vRetrieveTransaction.Execute();
+            QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
+            DisplayData(vRetrieveData);
+    }
 }
