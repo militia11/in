@@ -107,8 +107,7 @@ void CReceiver::PrepareBuffersToReceiveDataMode() {
 }
 
 void CReceiver::CleanBuffers() {
-		delete mDataSize;
-		mDataSize         = new int32_t {0};
+        mDataSize         = 0;
 		mMessageSize      = 0;
 		mReceiveByteCount = 0;
 		mReceiveBuffer->clear();
@@ -179,10 +178,14 @@ void CReceiver::ServeReceivedMessage() {
         emit ReadData(mMessageFileChecksum);///@todo usunac
 		CleanBuffers();
 
-		if (NotChecksumInServer()) {
+        if (NotChecksumInServer()) {        qDebug() <<"nottttttttttt available\n";
+
         const char *vMessage = "NOT AVAILABLE";
 				ResponeToClient(vMessage);  //NOTE:1
+
     } else {
+            qDebug() <<"in sssssssssserver\n";
+
        const char *vMessage = "IN SERVER";
        ResponeToClient(vMessage);  //NOTE:1
     }
@@ -226,6 +229,7 @@ void CReceiver::ServeReceivedFileData() {
                 CalculateProgress();
 				if (HasDataReceivedCompletely()) {
 						if (NotPunk(vCurrentSize)) {
+                            qDebug() <<"store data\n";
 								StoreData(vCurrentSize);
 						}
 
