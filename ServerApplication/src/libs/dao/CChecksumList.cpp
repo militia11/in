@@ -50,7 +50,7 @@ bool CChecksumList::CheckFileChecksum(uint16_t aChecksum) {
 }
 
 int CChecksumList::GetChecksumsCount() const
-{  return mChecksumList.count();
+{  return mChecksumList.length();//count();
 }
 
 int CChecksumList::GetChecksum(int aPosition) const

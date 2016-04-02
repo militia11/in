@@ -99,11 +99,18 @@ void CMainWindow::DisplayData(QByteArray aData) {
 void CMainWindow::ClientConnected() {
     connect(mServer->GetReceiver(), SIGNAL(ReadData(QByteArray)), this,
                     SLOT(DisplayData(QByteArray))) ;
+    connect(mServer->GetReceiver(), SIGNAL(ReadData(QByteArray)), this,
+                    SLOT(IncrementCurrentPhotoNumber())) ;
 }
 
 void CMainWindow::ReceiverCreated() {
     connect(mServer->GetReceiver(), SIGNAL(MessageStatus(const char *, int)),
-                    this, SLOT(ShowStatus(const char *, int)));
+            this, SLOT(ShowStatus(const char *, int)));
+}
+
+void CMainWindow::IncrementCurrentPhotoNumber()
+{
+mCurrentPhoto++;
 }
 
 void CMainWindow::ShowStatus(const char *aMessageStatus, int aTimeMsc) {
@@ -192,7 +199,7 @@ void CMainWindow::on_mPushButtonPrevious_clicked()
 { CChecksumList * vChecksumList = gRepository.GetChecksumList();
     int vPhotosCount = vChecksumList->GetChecksumsCount();
  if(mCurrentPhoto>0) {
-     qDebug() << "cur ph"<<mCurrentPhoto<<"\n";
+
    mCurrentPhoto--;
    uint16_t vCurrentPhotoChecksum = vChecksumList->GetChecksum(mCurrentPhoto);
    CRetrievePhotoTransaction vRetrieveTransaction(vCurrentPhotoChecksum);
@@ -206,8 +213,7 @@ void CMainWindow::on_mPushButtonNext_clicked()
 {CChecksumList * vChecksumList = gRepository.GetChecksumList();
     int vPhotosCount = vChecksumList->GetChecksumsCount();
 
-    if(mCurrentPhoto<vPhotosCount) {
-        qDebug() << "cur ph"<<mCurrentPhoto<<"\n";
+    if(mCurrentPhoto<vPhotosCount-1) {
             mCurrentPhoto++;
             uint16_t vCurrentPhotoChecksum = vChecksumList->GetChecksum(mCurrentPhoto);
             CRetrievePhotoTransaction vRetrieveTransaction(vCurrentPhotoChecksum);

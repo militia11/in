@@ -51,7 +51,7 @@ void CReceiver::Connect(QTcpSocket *aSocket) {
 }
 
 void CReceiver::RemoveSizeFromBuffer() {
-    qDebug() << "remove SIZE\n";
+
     mReceiveBuffer->remove(0, 4);
 }
 
@@ -70,8 +70,7 @@ void CReceiver::StoreData(int32_t aCurrentSize) {
 				vData.size(),
 				vChecksum);
 		StoreTransaction.Execute();
-         qDebug() << "in store data deep\n"; qDebug() << vData;
-        emit ReadData(vData); // Note: 2
+        emit ReadData(vData);
 }
 
 bool CReceiver::NotPunk(int32_t aSize) {
@@ -117,8 +116,7 @@ void CReceiver::CleanBuffers() {
 
 void CReceiver::VerifyMessageFormat() {
 		if (!HasMessageCorrectFormat(mMessageFileChecksum)) {
-            qDebug() << "messa che" << mMessageFileChecksum;
-				throw std::runtime_error("Nieprawidłowy format wiadomości");
+           throw std::runtime_error("Nieprawidłowy format wiadomości");
 		}
 }
 
@@ -193,7 +191,8 @@ void CReceiver::ServeReceivedMessage() {
 bool CReceiver::NotChecksumInServer() {
 		int vChecksum {ConvertMessageArrayToInt()};
 		CChecksumList *vChecksumList {gRepository.GetChecksumList()};
-		return vChecksumList->CheckFileChecksum(vChecksum);
+
+        return vChecksumList->CheckFileChecksum(vChecksum);
 }
 
 bool CReceiver::HasMessageCorrectFormat(char *aMessage) {
@@ -212,7 +211,6 @@ bool CReceiver::HasMessageCorrectFormat(char *aMessage) {
 						}
 				}
         }
-        qDebug() << vCorrect;
 
         return vCorrect;
 }

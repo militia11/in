@@ -59,6 +59,11 @@ class CMainWindow : public QMainWindow {
     void ReceiverCreated();
 
     /**
+     * @brief Increment current photo number
+     */
+    void IncrementCurrentPhotoNumber();
+
+    /**
      * @brief ShowStatus
      *
      * @param aMessageStatus
