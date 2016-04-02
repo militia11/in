@@ -195,7 +195,7 @@ bool CReceiver::NotChecksumInServer() {
 		int vChecksum {ConvertMessageArrayToInt()};
 		CChecksumList *vChecksumList {gRepository.GetChecksumList()};
 
-        return vChecksumList->CheckFileChecksum(vChecksum);
+        return !(vChecksumList->CheckFileChecksum(vChecksum));
 }
 
 bool CReceiver::HasMessageCorrectFormat(char *aMessage) {

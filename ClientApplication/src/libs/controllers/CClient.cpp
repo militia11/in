@@ -156,6 +156,7 @@ void CClient::UpdateServerPhotos() {
 
             int16_t vFileChecksum = CalculateFileDataChecksum(vData);
             QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
+            qDebug() <<"vChecksumByte"<< vChecksumByte;
             WriteMessage(vChecksumByte);
             WaitForChangeStatus();
             ManageData(vData);
