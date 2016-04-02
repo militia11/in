@@ -113,12 +113,11 @@ QByteArray CClient::PrepareMessageData(uint16_t aChecksum) {
 bool CClient::WriteData(const QByteArray &aData) {
         if (mSocket->state() == QAbstractSocket::ConnectedState) {
             mSocket->write(IntToArray(aData.length()));
-            bool x = mSocket->waitForBytesWritten();
+            mSocket->waitForBytesWritten();
             usleep(2000);
             mSocket->write(aData);
 
-             mSocket->waitForBytesWritten();
-            return x;
+            return mSocket->waitForBytesWritten();
         } else {
             return false;
         }
