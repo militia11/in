@@ -106,7 +106,7 @@ public slots:
      * @param aData Byte array of data
      * @return Checksum
      */
-    virtual int16_t CalculateFileDataChecksum(QByteArray aData);
+    virtual uint16_t CalculateFileDataChecksum(QByteArray aData);
 
     /**
      * @brief IntToArray Convert integer to QByteArray
@@ -122,7 +122,7 @@ public slots:
      * @param aChecksum Convert to message QByteArray
      * @return QByteArray Message
      */
-    virtual QByteArray PrepareMessageData(int16_t aChecksum);
+    virtual QByteArray PrepareMessageData(uint16_t aChecksum);
 
     /**
      * @brief mPortNumber Port number
