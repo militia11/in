@@ -23,11 +23,22 @@ CMainWindow::CMainWindow(QWidget *aParent) :
 }
 
 CMainWindow::~CMainWindow() {
-  delete vClient;
-  vClient = nullptr;
+  delete mClient;
+  mClient = nullptr;
 
   delete ui;
   ui = nullptr;
+}
+
+void CMainWindow::duact(int s)
+{
+    if(s==2){
+        ui->label->setText("not in serv");
+    }else if(s==5) {
+         ui->label->setText("IN SERVER");
+    } else if(s==99){
+        ui->label->setText("IN manage datea");
+    }
 }
 
 void CMainWindow::on_mPushButtonSendPhoto_clicked() {
@@ -62,7 +73,7 @@ void CMainWindow::on_mPushButtonSendPhoto_clicked() {
 
   QByteArray vData = vBuffer.data();
   qDebug() << "Czy udało się wysłać dane: ";
-  if(vClient->WriteData(vData)) {
+  if(mClient->WriteData(vData)) {
        ui->label->setText("udalo");
   } else {
      ui->label->setText("NIE udalo");
@@ -73,17 +84,17 @@ void CMainWindow::on_mPushButtonSendChecksum_clicked() {
   // wyslij checksum
   QByteArray vMessageData(">>336<");
   qDebug() << "sumaFile->" << vMessageData;
-  qDebug() << "Czy udało się wysłać sume: " << vClient->WriteMessage(
+  qDebug() << "Czy udało się wysłać sume: " << mClient->WriteMessage(
              vMessageData);
 }
 
 void CMainWindow::on_mPushButtonConnect_clicked() {
   // POŁĄCZ
-  vClient = new CClient(new QTcpSocket);
+  mClient = new CClient(new QTcpSocket);
   QString vIpAddress = "192.168.8.100"; // ui->textEdit->toPlainText();
   try {
    qDebug() << "Czy udało się połączyć z hostem: " <<
-                        vClient->ConnectToHost(vIpAddress) << "\n";
+                        mClient->ConnectToHost(vIpAddress) << "\n";
   } catch (QAbstractSocket::SocketError vError) {
    ShowSocketException(vError);
   }
@@ -91,7 +102,8 @@ void CMainWindow::on_mPushButtonConnect_clicked() {
 
 void CMainWindow::on_mPushButtonArchivePhoto_clicked() {
   // Archiwizuj zdjęcia
-  vClient->UpdateServerPhotos();
+     connect(mClient, SIGNAL(action(int)), SLOT(duact(int)));
+  mClient->UpdateServerPhotos();
 }
 
 void CMainWindow::ShowSocketException(QAbstractSocket::SocketError aError) {

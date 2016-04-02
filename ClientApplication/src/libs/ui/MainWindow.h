@@ -29,6 +29,7 @@ class CMainWindow : public QMainWindow {
     ~CMainWindow();
 
 	protected slots:
+    void duact(int s);
     /**
      * @brief on_mPushButtonSendPhoto_clicked
      */
@@ -70,7 +71,7 @@ class CMainWindow : public QMainWindow {
     /**
 		 * @brief vClient Client class
      */
-    CClient *vClient;
+    CClient *mClient;
 };
 
 #endif // CMAINWINDOW_H
