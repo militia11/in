@@ -52,15 +52,15 @@ void CClient::ReadData() {
 
 void CClient::WaitForChangeStatus() {
 		int vMilliseconds = 0;
-		int vTimeout = 10000; // milliseconds
+        int vTimeout = 3000; // milliseconds
 
-		QTime vTimer;
-		vTimer.start();
+        //QTime vTimer;
+        //vTimer.start();
 
-		do {
-            vMilliseconds = vTimer.elapsed();
-            //usleep(1000);//(mServerAvailability == status_unknown) &&
-        } while ((vMilliseconds < vTimeout));
+//		do {
+//            vMilliseconds = vTimer.elapsed();
+//            //usleep(1000);//(mServerAvailability == status_unknown) &&
+//        } while ((vMilliseconds < vTimeout));
 }
 
 void CClient::ManageData(QByteArray aData) {
@@ -192,7 +192,8 @@ uint16_t vFileChecksum = CalculateFileDataChecksum(vData);
             QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
             qDebug() <<"vChecksumByte\n"<< vChecksumByte;
             WriteMessage(vChecksumByte);
-            WaitForChangeStatus();
+            usleep(3000);
+            //WaitForChangeStatus();
             ManageData(vData);
 
 //WriteData(vData);
