@@ -101,7 +101,7 @@ QByteArray CClient::ConvertImageToByteArray(const QImage &aImage) {
 		return vBuffer.data();
 }
 
-QByteArray CClient::PrepareMessageData(uint16_t aChecksum) {
+QByteArray CClient::PrepareMessageData(uint32_t aChecksum) {
 		QByteArray vData(qPrintable(QString::number(aChecksum)));
 		vData.insert(0, '>');
 		vData.insert(1, '>');
@@ -132,8 +132,8 @@ bool CClient::WriteMessage(const QByteArray &aData) {
 		}
 }
 
-uint16_t CClient::CalculateFileDataChecksum(QByteArray aData) {
-        uint16_t vChecksum {};
+uint32_t CClient::CalculateFileDataChecksum(QByteArray aData) {
+        uint32_t vChecksum {};
 
 		for (int i = 0; i < aData.length(); ++i) {
             vChecksum += aData[i];
@@ -165,37 +165,34 @@ void CClient::UpdateServerPhotos() {
 //            ManageData(vData);
 //        }
 
-        QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
+QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
 QStringList vPicturesLocation = QStandardPaths::standardLocations(
                                  QStandardPaths::PicturesLocation);
 
 QString vPath = vPicturesLocation.at(0);
 QDir vDir(vPath);
 QStringList vAllFiles =  vDir.entryList(QDir::Files);
-       foreach (QString location, vAllFiles) {
-         qDebug() << "file:" << location;
-       }
-    vPath += "/a.jpg";
+foreach (QString location, vAllFiles) {
+ qDebug() << "file:" << location;
+}
+vPath += "/a.jpg";
 
 qDebug() << "Koncowy path:" << vPath;
 QImage vImageToSend(vPath);
-
 QBuffer vBuffer;
-
 QImageWriter vWriter(&vBuffer, "JPG");
 vWriter.write(vImageToSend);
-
 QByteArray vData = vBuffer.data();
-
-uint16_t vFileChecksum = CalculateFileDataChecksum(vData);
-  qDebug() <<"vChecksum one\n"<< vFileChecksum;
+uint32_t vFileChecksum = CalculateFileDataChecksum(vData);
+qDebug() <<"vChecksum one\n"<< vFileChecksum;
             QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
             qDebug() <<"vChecksumByte\n"<< vChecksumByte;
             WriteMessage(vChecksumByte);
             usleep(1000);
             if(mServerAvailability==status_not_available) {
-                WriteData(aData);
-                mServerAvailability==status_unknown;
+                WriteData(vData);
+                mServerAvailability=status_unknown;
+                emit action(33);
              }
             //WaitForChangeStatus();
             //ManageData(vData);

@@ -44,11 +44,6 @@ class CMainWindow : public QMainWindow {
      * @brief on_mPushButtonConnect_clicked
      */
     void on_mPushButtonConnect_clicked();
-    
-    /**
-     * @brief on_pushButton_clicked
-     */
-    void on_pushButton_clicked();
 
     /**
      * @brief on_mPushButtonArchivePhoto_clicked slot when

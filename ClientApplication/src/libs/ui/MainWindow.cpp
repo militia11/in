@@ -38,6 +38,8 @@ void CMainWindow::duact(int s)
          ui->label->setText("IN SERVER");
     } else if(s==99){
         ui->label->setText("IN manage datea");
+    } else if(s==33) {
+         ui->label_2->setText("buuuba");
     }
 }
 
@@ -133,24 +135,6 @@ void CMainWindow::ShowSocketException(QAbstractSocket::SocketError aError) {
   }
 }
 
-void CMainWindow::on_pushButton_clicked() { // pokaz zdjecie z tel
-  qDebug() << "standardLocations() PicturesLocation" <<
-           QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
-  QStringList vPicturesLocation = QStandardPaths::standardLocations(
-                                    QStandardPaths::PicturesLocation);
-
-  QString vPath = vPicturesLocation.at(0);
-  QDir vDir(vPath);
-  QStringList vAllFiles =  vDir.entryList(QDir::Files);
-          foreach (QString location, vAllFiles) {
-            qDebug() << "file:" << location;
-          }
-
-  vPath += "/a.jpg";
-  qDebug() << "Koncowy path:" << vPath;
-  QImage image(vPath);
-  ui->label->setPixmap(QPixmap::fromImage(image));
-}
 /*
 
 QAbstractSocket::UnconnectedState  0 The socket is not connected.
