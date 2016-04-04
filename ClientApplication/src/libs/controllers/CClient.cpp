@@ -194,7 +194,11 @@ qDebug() <<"vChecksum one\n"<< vFileChecksum;
                 mServerAvailability=status_unknown;
                 emit action(33);
 
-             }
+             } else if(mServerAvailability==status_in_server) {
+                emit action(34);
+            } else if(mServerAvailability==status_unknown) {
+                emit action(35);
+            }
             //WaitForChangeStatus();
             //ManageData(vData);
 
