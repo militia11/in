@@ -44,9 +44,10 @@ void CClient::ReadData() {
                 mServerAvailability = status_in_server;
             } else if (vMessageData == QByteArray("NOT AVAILABLE")) {
                  emit action(2);
-                mSend = true;
-                 vMessageData.clear();
-                mServerAvailability = status_not_available;
+                 WriteData(mActualData);
+                //mSend = true;
+                 //vMessageData.clear();
+                //mServerAvailability = status_not_available;
             }
 		}
 }
@@ -183,8 +184,8 @@ QImage vImageToSend(vPath);
 QBuffer vBuffer;
 QImageWriter vWriter(&vBuffer, "JPG");
 vWriter.write(vImageToSend);
-QByteArray vData = vBuffer.data();
-uint32_t vFileChecksum = CalculateFileDataChecksum(vData);
+mActualData = vBuffer.data();
+uint32_t vFileChecksum = CalculateFileDataChecksum(mActualData);
 qDebug() <<"vChecksum one\n"<< vFileChecksum;
             QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
             qDebug() <<"vChecksumByte\n"<< vChecksumByte;
@@ -192,7 +193,7 @@ qDebug() <<"vChecksum one\n"<< vFileChecksum;
             usleep(3500);
             if(mSend) {
                 emit action(33);
-                WriteData(vData);
+               // WriteData(mActualData);
 
             } else {
                 emit action(35);
