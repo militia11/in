@@ -115,7 +115,6 @@ bool CClient::WriteData(const QByteArray &aData) {
         if (mSocket->state() == QAbstractSocket::ConnectedState) {
             mSocket->write(IntToArray(aData.length()));
             mSocket->waitForBytesWritten();
-            usleep(2000);
             mSocket->write(aData);
 
             return mSocket->waitForBytesWritten();
@@ -186,7 +185,7 @@ qDebug() <<"vChecksum one\n"<< vFileChecksum;
             QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
             qDebug() <<"vChecksumByte\n"<< vChecksumByte;
             WriteMessage(vChecksumByte);
-            usleep(5500);
+            sleep(5);
 
 
             QString vPath2 = vPicturesLocation.at(0);
@@ -203,7 +202,7 @@ qDebug() <<"vChecksum one\n"<< vFileChecksum;
                         QByteArray vChecksumByte2 = PrepareMessageData(vFileChecksum2);
                         qDebug() <<"vChecksumByte\n"<< vChecksumByte2;
                         WriteMessage(vChecksumByte2);
-                        usleep(5500);
+                        sleep(5);
 
 
 //WriteData(vData);
