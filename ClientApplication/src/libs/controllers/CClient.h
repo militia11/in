@@ -132,7 +132,7 @@ public slots:
     /**
      * @brief mServerAvailability Server availability
      */
-    serverAvailability mServerAvailability;
+   volatile serverAvailability mServerAvailability;
     
     /**
      * @brief mSocket Socket
@@ -148,5 +148,6 @@ public slots:
      * @brief mActualData Actual data
      */
     QByteArray  mActualData;
+    volatile bool mSend;
 };
 #endif // CCLIENT_H

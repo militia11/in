@@ -39,11 +39,13 @@ void CMainWindow::duact(int s)
     } else if(s==99){
         ui->label->setText("IN manage datea");
     } else if(s==33) {
-         ui->label_2->setText("ava");
+         ui->label_2->setText("not available!");
     } else if(s==34) {
-         ui->label_2->setText("in sss");
+         ui->label_2->setText("in sss!");
     } else if(s==35) {
-         ui->label_2->setText("undefined");
+         ui->label_2->setText("undefined!");
+    } else if(s==100) {
+        ui->label_3->setText("write ok");
     }
 }
 

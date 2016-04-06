@@ -80,6 +80,13 @@
      <widget class="QTextEdit" name="textEdit"/>
     </item>
     <item>
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>TextLabel33</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QLabel" name="label_2">
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;TextLabel2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

@@ -19,7 +19,7 @@ CClient::CClient(QTcpSocket *aSocket) : mSocket(aSocket) {
 		mPortNumber = 1234;
 		mReceiveBuffer = 0;
 		mServerAvailability = status_unknown;
-
+mSend=false;
 		QObject::connect(mSocket, SIGNAL(readyRead()),
 						 this, SLOT(ReadData()), Qt::DirectConnection);
 }
@@ -44,6 +44,7 @@ void CClient::ReadData() {
                 mServerAvailability = status_in_server;
             } else if (vMessageData == QByteArray("NOT AVAILABLE")) {
                  emit action(2);
+                mSend = true;
                  vMessageData.clear();
                 mServerAvailability = status_not_available;
             }
@@ -188,17 +189,25 @@ qDebug() <<"vChecksum one\n"<< vFileChecksum;
             QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
             qDebug() <<"vChecksumByte\n"<< vChecksumByte;
             WriteMessage(vChecksumByte);
-            usleep(1000);
-            if(mServerAvailability==status_not_available) {
-                WriteData(vData);
-                mServerAvailability=status_unknown;
+            usleep(3500);
+            if(mSend) {
                 emit action(33);
+                WriteData(vData);
 
-             } else if(mServerAvailability==status_in_server) {
-                emit action(34);
-            } else if(mServerAvailability==status_unknown) {
+            } else {
                 emit action(35);
             }
+//            if(mServerAvailability==status_not_available) {
+//                emit action(33);
+//                if(WriteData(vData)) {
+//                } action(100);
+//                //mServerAvailability=status_unknown;
+
+//            } else if(mServerAvailability==status_in_server) {
+//                emit action(34);
+//            } else if(mServerAvailability==status_unknown) {
+//                emit action(35);
+//            }
             //WaitForChangeStatus();
             //ManageData(vData);
 
