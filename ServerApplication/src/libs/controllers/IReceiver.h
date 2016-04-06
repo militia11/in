@@ -98,7 +98,7 @@ class IReceiver : public QObject {
      *
      * @return Checksum calculated as youngest byte of sum of all bytes
      */
-    virtual uint16_t CalculateFileDataChecksum(QByteArray aData) = 0;
+    virtual uint32_t CalculateFileDataChecksum(QByteArray aData) = 0;
 
     /**
      * @brief Method connect socket's signals to

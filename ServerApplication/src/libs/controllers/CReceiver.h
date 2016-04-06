@@ -39,7 +39,7 @@ class CReceiver : public IReceiver {
     /**
      * @brief CReceiver destructor
      */
-    ~ CReceiver();
+    ~CReceiver();
 
     /**
      * @brief Method called to get CReceiver class member mSocket
@@ -326,7 +326,7 @@ class CReceiver : public IReceiver {
      *
      * @return Checksum calculated as youngest byte of sum of all bytes
      */
-    uint16_t CalculateFileDataChecksum(QByteArray aData);
+    uint32_t CalculateFileDataChecksum(QByteArray aData);
 
     /**
      * @brief Method connect socket's signals to

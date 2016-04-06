@@ -39,7 +39,7 @@ bool CReceiver::HasDataReceivedCompletely() {
 }
 
 bool CReceiver::HasSizeOfDataReceivedCompletely() {
-		return *mDataSize == 0 && mReceiveBuffer->size() >= 4;
+        return *mDataSize == 0 && mReceiveBuffer->size() >= 4;
 }
 
 void CReceiver::RemoveDataFromBuffer(int32_t aCurrentSize) {
@@ -51,7 +51,6 @@ void CReceiver::Connect(QTcpSocket *aSocket) {
 }
 
 void CReceiver::RemoveSizeFromBuffer() {
-
     mReceiveBuffer->remove(0, 4);
 }
 
@@ -64,7 +63,7 @@ void CReceiver::SaveAndSetCurrentSize(int32_t *aCurrentSize) {
 
 void CReceiver::StoreData(int32_t aCurrentSize) {
 		QByteArray vData {mReceiveBuffer->left(aCurrentSize)};
-        uint16_t vChecksum {CalculateFileDataChecksum(vData)};
+        uint32_t vChecksum {CalculateFileDataChecksum(vData)};
 		CStorePhotoTransaction StoreTransaction(
 				vData,
 				vData.size(),
@@ -102,15 +101,18 @@ void CReceiver::TryServeReceivedMessage() {
 void CReceiver::PrepareBuffersToReceiveDataMode() {
 		mReceiveDataMode = Mode_Receive_File_Data;
 		mMessageSize = mReceiveByteCount;
-		mReceiveBuffer->clear();
+        delete mReceiveBuffer;//->clear();
+        mReceiveBuffer = new QByteArray();
 		mReceiveByteCount = 0;
 }
 
 void CReceiver::CleanBuffers() {
-        mDataSize         = 0;
-		mMessageSize      = 0;
-		mReceiveByteCount = 0;
+        *mDataSize        = 0;
+        mMessageSize      = 0;
+        mReceiveByteCount = 0;
 		mReceiveBuffer->clear();
+        delete mReceiveBuffer;
+        mReceiveBuffer = new QByteArray();
 }
 
 void CReceiver::VerifyMessageFormat() {
@@ -151,12 +153,12 @@ bool CReceiver::IsBeginChar(char aChar) {
 
 void CReceiver::RouteData(char aData) {
 		switch (mReceiveDataMode) {
-				case Mode_Receive_File_Data : {
+                case Mode_Receive_File_Data : {
 						ServeReceivedFileData();
 						break;
 				}
 
-				case Mode_Receive_File_Checksum: {
+                case Mode_Receive_File_Checksum: {
 						AppendToChecksum(aData);
 						PreventBufferOverflow();
 
@@ -175,7 +177,7 @@ void CReceiver::RouteData(char aData) {
 
 void CReceiver::ServeReceivedMessage() {
 		VerifyMessageFormat();
-        emit ReadData(mMessageFileChecksum);///@todo usunac
+       qDebug() << mMessageFileChecksum;///@todo usunac
 		CleanBuffers();
 
         if (NotChecksumInServer()) {        qDebug() <<"nottttttttttt available\n";
@@ -239,8 +241,8 @@ void CReceiver::ServeReceivedFileData() {
     }
 }
 
-uint16_t CReceiver::CalculateFileDataChecksum(QByteArray aData) {
-        uint16_t vChecksum {};
+uint32_t CReceiver::CalculateFileDataChecksum(QByteArray aData) {
+        uint32_t vChecksum {};
 
 		for (auto i = 0; i < aData.length(); ++i) {
                 vChecksum += aData[i];
@@ -276,7 +278,7 @@ void CReceiver::Disconnected() {
 		delete mReceiveBuffer;
 		mReceiveBuffer = nullptr;
 
-		delete mDataSize;
+        delete mDataSize;
 		mDataSize = nullptr;
 }
 
@@ -335,9 +337,10 @@ QTcpSocket *CReceiver::GetSocket() const {
 void CReceiver::NewData() {
         while (IsBytesAvailable()) {
 				QByteArray vData {mSocket->readAll()};
-				mReceiveBuffer->append(vData);
+                mReceiveBuffer->append(vData);
 
         for (auto i = 0; i < vData.length(); i++) {
+
 						VerifyBeginMessage(vData, i);
 						RouteData(vData[i]);
 				}
