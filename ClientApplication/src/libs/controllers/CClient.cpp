@@ -41,14 +41,13 @@ void CClient::ReadData() {
                 QByteArray("IN SERVER")) {
                 emit action(5);
                 vMessageData.clear();
-                mServerAvailability = status_in_server;
             } else if (vMessageData == QByteArray("NOT AVAILABLE")) {
                  emit action(2);
                  WriteData(mActualData);
-                //mSend = true;
-                 //vMessageData.clear();
-                //mServerAvailability = status_not_available;
+                 vMessageData.clear();
             }
+
+            mActualData.clear();
 		}
 }
 
@@ -153,8 +152,8 @@ QByteArray CClient::IntToArray(int32_t aSource) {
 }
 
 void CClient::UpdateServerPhotos() {
-		gRepository.PopulateRepository();
-		QStringList vImagesPath = gRepository.GetImages();
+//		gRepository.PopulateRepository();
+//		QStringList vImagesPath = gRepository.GetImages();
 
 //        foreach (QString vPath, vImagesPath) { // wersja finalna:
 //            QImage vImage(vPath);
@@ -174,9 +173,6 @@ QStringList vPicturesLocation = QStandardPaths::standardLocations(
 QString vPath = vPicturesLocation.at(0);
 QDir vDir(vPath);
 QStringList vAllFiles =  vDir.entryList(QDir::Files);
-foreach (QString location, vAllFiles) {
- qDebug() << "file:" << location;
-}
 vPath += "/a.jpg";
 
 qDebug() << "Koncowy path:" << vPath;
@@ -190,27 +186,25 @@ qDebug() <<"vChecksum one\n"<< vFileChecksum;
             QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
             qDebug() <<"vChecksumByte\n"<< vChecksumByte;
             WriteMessage(vChecksumByte);
-            usleep(3500);
-            if(mSend) {
-                emit action(33);
-               // WriteData(mActualData);
+            usleep(5500);
 
-            } else {
-                emit action(35);
-            }
-//            if(mServerAvailability==status_not_available) {
-//                emit action(33);
-//                if(WriteData(vData)) {
-//                } action(100);
-//                //mServerAvailability=status_unknown;
 
-//            } else if(mServerAvailability==status_in_server) {
-//                emit action(34);
-//            } else if(mServerAvailability==status_unknown) {
-//                emit action(35);
-//            }
-            //WaitForChangeStatus();
-            //ManageData(vData);
+            QString vPath2 = vPicturesLocation.at(0);
+
+            vPath2 += "/b.jpg";
+
+            qDebug() << "Koncowy path:" << vPath2;
+            QImage vImageToSend2(vPath2);
+
+            vWriter.write(vImageToSend);
+            mActualData = vBuffer.data();
+            uint32_t vFileChecksum2 = CalculateFileDataChecksum(mActualData);
+            qDebug() <<"vChecksum one\n"<< vFileChecksum2;
+                        QByteArray vChecksumByte2 = PrepareMessageData(vFileChecksum2);
+                        qDebug() <<"vChecksumByte\n"<< vChecksumByte2;
+                        WriteMessage(vChecksumByte2);
+                        usleep(5500);
+
 
 //WriteData(vData);
 //       wersja 1 testowa 1 obrazek sprawdzenie i  wysłanie:
