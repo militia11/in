@@ -23,131 +23,131 @@ enum serverAvailability {
  * @brief The CClient class represent client in
  *        client-server architecture
  */
-class CClient : public QObject{
-		Q_OBJECT
+class CClient : public QObject {
+  Q_OBJECT
 
-  public:
-    /**
-     * @brief CClient class constructor
-     */
-    CClient(QTcpSocket* aSocket);
+ public:
+  /**
+   * @brief CClient class constructor
+   */
+  CClient(QTcpSocket *aSocket);
 
-    /**
-     * @brief CClient class destructor
-     */
-    ~CClient();
+  /**
+   * @brief CClient class destructor
+   */
+  ~CClient();
 
-    /**
-     * @brief WriteData write file data to socket
-     *
-     * @param aData data to write
-     * @return True if write successfull, otherwise false
-     */
-    virtual bool WriteData(const QByteArray &aData);
+  /**
+   * @brief WriteData write file data to socket
+   *
+   * @param aData data to write
+   * @return True if write successfull, otherwise false
+   */
+  virtual bool WriteData(const QByteArray &aData);
 
-    /**
-     * @brief WriteMessage write message to socket
-     *
-     * @param aData Message to write
-     * @return True if write successfull, otherwise false
-     */
-    virtual bool WriteMessage(const QByteArray &aData);
+  /**
+   * @brief WriteMessage write message to socket
+   *
+   * @param aData Message to write
+   * @return True if write successfull, otherwise false
+   */
+  virtual bool WriteMessage(const QByteArray &aData);
 
-    /**
-     * @brief UpdateServerPhotos calculates checksums
-     *				of photos stored on mobile device and update
-     *				server photos
-     */
-    virtual void UpdateServerPhotos();
+  /**
+   * @brief UpdateServerPhotos calculates checksums
+   *        of photos stored on mobile device and update
+   *        server photos
+   */
+  virtual void UpdateServerPhotos();
 
-    /**
-     * @brief ConvertImageToByteArray method convert imaqe to
-     *        QByteArray
-     *
-     * @param aImage Image to convert
-     * @return Converted image to QByteArray
-     */
-    virtual QByteArray ConvertImageToByteArray(const QImage &aImage);
+  /**
+   * @brief ConvertImageToByteArray method convert imaqe to
+   *        QByteArray
+   *
+   * @param aImage Image to convert
+   * @return Converted image to QByteArray
+   */
+  virtual QByteArray ConvertImageToByteArray(const QImage &aImage);
 
-signals:
-    void action(int num);
-public slots:
-    /**
-     * @brief ConnectToHost method connect to host
-     *
-     * @param aHost is hostname/number
-     */
-     virtual bool ConnectToHost(QString aHost);
+ signals:
+  void action(int num);
+ public slots:
+  /**
+   * @brief ConnectToHost method connect to host
+   *
+   * @param aHost is hostname/number
+   */
+  virtual bool ConnectToHost(QString aHost);
 
-  protected slots:
-    /**
-     * @brief ReadData method read received data
-     */
-    virtual void ReadData();
+ protected slots:
+  /**
+   * @brief ReadData method read received data
+   */
+  virtual void ReadData();
 
-  protected:
-    /**
-     * @brief WaitForChangeStatus Wait for change status
-     *
-     * Wait 10 seconds until status changed or timeout end
-     */
-    void WaitForChangeStatus();
+ protected:
+  /**
+   * @brief WaitForChangeStatus Wait for change status
+   *
+   * Wait 10 seconds until status changed or timeout end
+   */
+  void WaitForChangeStatus();
 
-    /**
-     * @brief ManageData manage data
-     *
-     * @param aData Data to send
-     */
-    void ManageData(QByteArray aData);
+  /**
+   * @brief ManageData manage data
+   *
+   * @param aData Data to send
+   */
+  void ManageData(QByteArray aData);
 
-    /**
-     * @brief CalculateFileDataChecksum calculate file checksum
-     *
-     * @param aData Byte array of data
-     * @return Checksum
-     */
-    virtual uint32_t CalculateFileDataChecksum(QByteArray aData);
+  /**
+   * @brief CalculateFileDataChecksum calculate file checksum
+   *
+   * @param aData Byte array of data
+   * @return Checksum
+   */
+  virtual uint32_t CalculateFileDataChecksum(QByteArray aData);
 
-    /**
-     * @brief IntToArray Convert integer to QByteArray
-     *
-     * @param aSource Source is integer
-		 * @return QByteArray Array of bytes
-     */
-    virtual QByteArray IntToArray(int32_t aSource);
+  /**
+   * @brief IntToArray Convert integer to QByteArray
+   *
+   * @param aSource Source is integer
+   * @return QByteArray Array of bytes
+   */
+  virtual QByteArray IntToArray(int32_t aSource);
 
-    /**
-     * @brief PrepareMessageData prepare message data
-     *
-     * @param aChecksum Convert to message QByteArray
-     * @return QByteArray Message
-     */
-    virtual QByteArray PrepareMessageData(uint32_t aChecksum);
+  /**
+   * @brief PrepareMessageData prepare message data
+   *
+   * @param aChecksum Convert to message QByteArray
+   * @return QByteArray Message
+   */
+  virtual QByteArray PrepareMessageData(uint32_t aChecksum);
 
-    /**
-     * @brief mPortNumber Port number
-     */
-    int         mPortNumber;
+  /**
+   * @brief mPortNumber Port number
+   */
+  int         mPortNumber;
 
-    /**
-     * @brief mServerAvailability Server availability
-     */
-   volatile serverAvailability mServerAvailability;
-    
-    /**
-     * @brief mSocket Socket
-     */
-    QTcpSocket  *mSocket;
-    
-    /**
-     * @brief mReceiveBuffer Receive buffer
-     */ 
-    QByteArray  *mReceiveBuffer;
-    
-    /**
-     * @brief mActualData Actual data
-     */
-    QByteArray  mActualData;
-    volatile bool mSend;
+  /**
+   * @brief mServerAvailability Server availability
+   */
+  volatile serverAvailability mServerAvailability;
+
+  /**
+   * @brief mSocket Socket
+   */
+  QTcpSocket  *mSocket;
+
+  /**
+   * @brief mReceiveBuffer Receive buffer
+   */
+  QByteArray  *mReceiveBuffer;
+
+  /**
+   * @brief mActualData Actual data
+   */
+  QByteArray  mActualData;
+  volatile bool mSend;
 };
 #endif // CCLIENT_H

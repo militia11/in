@@ -4,26 +4,23 @@
 #include "src/libs/controllers/CClient.h"
 #include "tests/auto/UnitTests/testlib/CQTcpSocketMock.h"
 
-class WriteMethodsTestsTest : public QObject
-{
-    Q_OBJECT
+class WriteMethodsTestsTest : public QObject {
+  Q_OBJECT
 
-  public:
-    WriteMethodsTestsTest();
+ public:
+  WriteMethodsTestsTest();
 
-  private Q_SLOTS:
-    void TestWriteMessageMethodConnectedState();
-    void TestWriteMessageMethodUnConnectedState();
-    void TestWriteDataMethodConnectedState();
-     void TestWriteDataMethodUnConnectedState();
+ private Q_SLOTS:
+  void TestWriteMessageMethodConnectedState();
+  void TestWriteMessageMethodUnConnectedState();
+  void TestWriteDataMethodConnectedState();
+  void TestWriteDataMethodUnConnectedState();
 };
 
-WriteMethodsTestsTest::WriteMethodsTestsTest()
-{
+WriteMethodsTestsTest::WriteMethodsTestsTest() {
 }
 
-void WriteMethodsTestsTest::TestWriteMessageMethodConnectedState()
-{
+void WriteMethodsTestsTest::TestWriteMessageMethodConnectedState() {
   CQTcpSocketMock *vSocket = new CQTcpSocketMock;
   vSocket->ForTestSetSocketState(QAbstractSocket::ConnectedState);
 
@@ -34,8 +31,7 @@ void WriteMethodsTestsTest::TestWriteMessageMethodConnectedState()
   QCOMPARE(vSocket->GetLog(), vExpectedLog);
 }
 
-void WriteMethodsTestsTest::TestWriteMessageMethodUnConnectedState()
-{
+void WriteMethodsTestsTest::TestWriteMessageMethodUnConnectedState() {
   CQTcpSocketMock *vSocket = new CQTcpSocketMock;
   vSocket->ForTestSetSocketState(QAbstractSocket::UnconnectedState);
 
@@ -46,8 +42,7 @@ void WriteMethodsTestsTest::TestWriteMessageMethodUnConnectedState()
   QCOMPARE(vSocket->GetLog(), vExpectedLog);
 }
 
-void WriteMethodsTestsTest::TestWriteDataMethodConnectedState()
-{
+void WriteMethodsTestsTest::TestWriteDataMethodConnectedState() {
   CQTcpSocketMock *vSocket = new CQTcpSocketMock;
   vSocket->ForTestSetSocketState(QAbstractSocket::ConnectedState);
 
@@ -59,8 +54,7 @@ void WriteMethodsTestsTest::TestWriteDataMethodConnectedState()
 
 }
 
-void WriteMethodsTestsTest::TestWriteDataMethodUnConnectedState()
-{
+void WriteMethodsTestsTest::TestWriteDataMethodUnConnectedState() {
   CQTcpSocketMock *vSocket = new CQTcpSocketMock;
   vSocket->ForTestSetSocketState(QAbstractSocket::UnconnectedState);
 

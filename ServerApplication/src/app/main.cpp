@@ -9,20 +9,20 @@
 extern CRepository gRepository;
 
 int main(int argc, char *argv[]) {
-    QApplication vApplication(argc, argv);
+  QApplication vApplication(argc, argv);
 
-    QApplication::setOrganizationName("Mateusz Michniewski");
-    QApplication::setOrganizationDomain("Moja Domena");
-    QApplication::setApplicationName("Android Synchronizator Serwer");
+  QApplication::setOrganizationName("Mateusz Michniewski");
+  QApplication::setOrganizationDomain("Moja Domena");
+  QApplication::setApplicationName("Android Synchronizator Serwer");
 
-    CSettings vSettings;
-    gRepository.SetSettings(
-        vSettings.GetDriver(),
-        vSettings.GetConnectionString());
+  CSettings vSettings;
+  gRepository.SetSettings(
+	vSettings.GetDriver(),
+	vSettings.GetConnectionString());
 
-    CMainWindow vMainWindow;
-    vMainWindow.showMaximized();
-    vMainWindow.ConnectToDatabaseAgain();
+  CMainWindow vMainWindow;
+  vMainWindow.showMaximized();
+  vMainWindow.ConnectToDatabaseAgain();
 
-    return vApplication.exec();
+  return vApplication.exec();
 }

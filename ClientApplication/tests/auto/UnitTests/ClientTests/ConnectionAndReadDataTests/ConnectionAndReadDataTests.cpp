@@ -44,7 +44,6 @@ void ConnectionAndReadDataTests::TestConnectionUnConnectedState() {
   vSocket->ForTestSetSocketState(QAbstractSocket::ClosingState);
 
   CClient vClient(vSocket);
-#include "tests/auto/UnitTests/testlib/CClientWrapper.h"
   bool vPass = false;
 
   try {

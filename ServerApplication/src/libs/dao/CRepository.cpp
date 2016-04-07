@@ -9,69 +9,69 @@ CRepository gRepository;
 using server::AndroidPhotosDatabase;
 
 CRepository::CRepository() : mDatabase(nullptr),
-    mChecksumList(nullptr) {
-    mLastConnectionError = false;
+  mChecksumList(nullptr) {
+  mLastConnectionError = false;
 }
 
 CRepository::~CRepository() {
-    Disconnect();
+  Disconnect();
 
-    delete mChecksumList;
-    mChecksumList = nullptr;
+  delete mChecksumList;
+  mChecksumList = nullptr;
 }
 
 void CRepository::SetSettings(const QString &aDriver,
-                              const QString &aConnectionString) {
-    this->mDriver = aDriver;
-    this->mConnectionString = aConnectionString;
+							  const QString &aConnectionString) {
+  this->mDriver = aDriver;
+  this->mConnectionString = aConnectionString;
 }
 
 AndroidPhotosDatabase *CRepository::GetDatabase() const { //const //wyproboj
-    return mDatabase;
+  return mDatabase;
 }
 
 CChecksumList *CRepository::GetChecksumList() const {
-    return mChecksumList;
+  return mChecksumList;
 }
 
 void CRepository::Connect() {
-    try {
-        mDatabase = new server::AndroidPhotosDatabase(mDriver.toStdString(),
-                mConnectionString.toStdString());
-        PopulateDatabase();
-        UpdateChecksums();
+  try {
+	mDatabase = new server::AndroidPhotosDatabase(mDriver.toStdString(),
+		mConnectionString.toStdString());
+	PopulateDatabase();
+	UpdateChecksums();
 
-        mLastConnectionError = false;
-    } catch (std::exception &vException) {
-        AttendDatabaseConnectionException(vException.what());
-    }
+	mLastConnectionError = false;
+  } catch (std::exception &vException) {
+	AttendDatabaseConnectionException(vException.what());
+  }
 }
 
 void CRepository::PopulateDatabase() {
-    if (mDatabase->needsUpgrade()) {
-        mDatabase->upgrade();
-    }
+  if (mDatabase->needsUpgrade()) {
+	mDatabase->upgrade();
+  }
 }
 
 void CRepository::Disconnect() {
-    delete mDatabase;
-		mDatabase = nullptr;
+  delete mDatabase;
+  mDatabase = nullptr;
 }
 
 void CRepository::AttendDatabaseConnectionException(const char *aException) {
-		qDebug() << "Database connection error:" +
-						 QString::fromStdString(aException);
+  qDebug() << "Database connection error:" +
+		   QString::fromStdString(aException);
 
-		mLastConnectionError = true;
-		mDatabase = nullptr;
+  mLastConnectionError = true;
+  mDatabase = nullptr;
 }
 
 void CRepository::UpdateChecksums() {
-    if (mChecksumList) {
-        mChecksumList->Clear();
-        mChecksumList->ReceiveChecksumsFromDB();
-    } else {
-        mChecksumList = new CChecksumList;
-    }
+  if (mChecksumList) {
+	mChecksumList->Clear();
+	mChecksumList->ReceiveChecksumsFromDB();
+  } else {
+	mChecksumList = new CChecksumList;
+  }
 }
 

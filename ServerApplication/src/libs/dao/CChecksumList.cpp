@@ -17,45 +17,44 @@ extern CRepository gRepository;
 using namespace litesql;
 
 CChecksumList::CChecksumList() {
-    ReceiveChecksumsFromDB();
+  ReceiveChecksumsFromDB();
 }
 
 void CChecksumList::AddFileChecksum(int16_t aChecksum) {
-    mChecksumList.append(aChecksum);
+  mChecksumList.append(aChecksum);
 }
 
 void CChecksumList::ReceiveChecksumsFromDB() {
-    server::AndroidPhotosDatabase *vDatabase  = gRepository.GetDatabase();
+  server::AndroidPhotosDatabase *vDatabase  = gRepository.GetDatabase();
 
-    if (vDatabase) {
-        std::vector<Photo> vPhotosDatabase;
+  if (vDatabase) {
+	std::vector<Photo> vPhotosDatabase;
 
-        vPhotosDatabase = select<Photo>(*vDatabase).all();
+	vPhotosDatabase = select<Photo>(*vDatabase).all();
 
-        for (std::vector<Photo>::iterator vIterator = vPhotosDatabase.begin();
-                vIterator != vPhotosDatabase.end(); ++vIterator) {
-            mChecksumList.append((*vIterator).checksum.value());
-        }
-    }
+	for (std::vector<Photo>::iterator vIterator = vPhotosDatabase.begin();
+		 vIterator != vPhotosDatabase.end(); ++vIterator) {
+	  mChecksumList.append((*vIterator).checksum.value());
+	}
+  }
 }
 
 bool CChecksumList::CheckFileChecksum(uint16_t aChecksum) {
-		for (int vChecksum : mChecksumList) {
-				if (aChecksum == vChecksum) {
-						return true;
-				}
-		}
+  for (int vChecksum : mChecksumList) {
+	if (aChecksum == vChecksum) {
+	  return true;
+	}
+  }
 
-        return false;
+  return false;
 }
 
-int CChecksumList::GetChecksumsCount() const
-{  return mChecksumList.length();//count();
+int CChecksumList::GetChecksumsCount() const {
+  return mChecksumList.length();//count();
 }
 
-int CChecksumList::GetChecksum(int aPosition) const
-{
-    return mChecksumList[aPosition];
+int CChecksumList::GetChecksum(int aPosition) const {
+  return mChecksumList[aPosition];
 }
 
 //void CChecksumList::UpdateChecksumList() {
@@ -64,5 +63,5 @@ int CChecksumList::GetChecksum(int aPosition) const
 //}
 
 void CChecksumList::Clear() {
-    mChecksumList.clear();
+  mChecksumList.clear();
 }

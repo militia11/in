@@ -16,34 +16,35 @@ using namespace litesql;
 extern CRepository gRepository;
 
 CRetrievePhotoTransaction::CRetrievePhotoTransaction(int aChecksum) :
-    mChecksum(aChecksum) {
+  mChecksum(aChecksum) {
 }
 
 void CRetrievePhotoTransaction::Execute() {
-		server::AndroidPhotosDatabase *mDatabase {gRepository.GetDatabase()};
+  server::AndroidPhotosDatabase *mDatabase {gRepository.GetDatabase()};
 
-		Photo vPhoto {litesql::select<Photo>(*mDatabase,
-																					Photo::Checksum == mChecksum).one()};
+  Photo vPhoto {litesql::select<Photo>(*mDatabase,
+									   Photo::Checksum == mChecksum).one()
+			   };
 
-    RetrieveData(vPhoto);
+  RetrieveData(vPhoto);
 }
 
 QByteArray CRetrievePhotoTransaction::GetData() const {
-    return mData;
+  return mData;
 }
 
 void CRetrievePhotoTransaction::RetrieveData(Photo aPhoto) {
-		Blob vBlob {aPhoto.data.value()};
+  Blob vBlob {aPhoto.data.value()};
 
-    if (vBlob.isNull()) {
-        qDebug() << "Obiektu o podanej sumie kontrolnej nie ma w bazie";
+  if (vBlob.isNull()) {
+	qDebug() << "Obiektu o podanej sumie kontrolnej nie ma w bazie";
 
-        return;
-    }
+	return;
+  }
 
-    size_t vBuffSize {aPhoto.datasize.value()};
-		u8_t *vBuffer {new u8_t[vBuffSize]};
+  size_t vBuffSize {aPhoto.datasize.value()};
+  u8_t *vBuffer {new u8_t[vBuffSize]};
 
-    vBlob.getData(vBuffer, vBuffSize);
-    mData = QByteArray(reinterpret_cast<char *>(vBuffer), vBuffSize);
+  vBlob.getData(vBuffer, vBuffSize);
+  mData = QByteArray(reinterpret_cast<char *>(vBuffer), vBuffSize);
 }

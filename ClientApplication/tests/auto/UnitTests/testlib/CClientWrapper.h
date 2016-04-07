@@ -12,12 +12,12 @@
  */
 class CClientWrapper : public CClient {
  public:
-    /**
-     * @brief CClientWrapper constructor
-     *
-     * @param aSocket Socket for client
-     */
-    CClientWrapper(QTcpSocket *aSocket);
+  /**
+   * @brief CClientWrapper constructor
+   *
+   * @param aSocket Socket for client
+   */
+  CClientWrapper(QTcpSocket *aSocket);
 
   /**
    * @brief ForTestIntToArray Use to call protected method IntToArray

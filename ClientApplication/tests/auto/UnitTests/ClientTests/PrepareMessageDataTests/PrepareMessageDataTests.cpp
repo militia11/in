@@ -7,25 +7,25 @@
 extern CRepository gRepository;
 
 class PrepareMessageDataTests : public QObject {
-    Q_OBJECT
+  Q_OBJECT
 
-  public:
-		PrepareMessageDataTests();
+ public:
+  PrepareMessageDataTests();
 
-  private Q_SLOTS:
-		void TestPrepareMessageData();
+ private Q_SLOTS:
+  void TestPrepareMessageData();
 };
 
 PrepareMessageDataTests::PrepareMessageDataTests() {
 }
 
 void PrepareMessageDataTests::TestPrepareMessageData() {
-		CClientWrapper vClient(new QTcpSocket());
-		int16_t vChecksum = 384;
-		QByteArray vResultData = vClient.ForTestPrepareMessageData(vChecksum);
-    QByteArray vExpectedData(">>384<");
+  CClientWrapper vClient(new QTcpSocket());
+  int16_t vChecksum = 384;
+  QByteArray vResultData = vClient.ForTestPrepareMessageData(vChecksum);
+  QByteArray vExpectedData(">>384<");
 
-    QCOMPARE(vResultData, vExpectedData);
+  QCOMPARE(vResultData, vExpectedData);
 }
 
 QTEST_APPLESS_MAIN(PrepareMessageDataTests)

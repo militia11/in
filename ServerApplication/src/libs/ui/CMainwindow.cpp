@@ -15,210 +15,210 @@
 extern CRepository gRepository;
 
 CMainWindow::CMainWindow(QWidget *aParent) :
-    QMainWindow(aParent),
-    ui(new Ui::MainWindow),
-    mCurrentPhoto(-1) {
-    ui->setupUi(this);
+  QMainWindow(aParent),
+  ui(new Ui::MainWindow),
+  mCurrentPhoto(-1) {
+  ui->setupUi(this);
 
-    ConnectActionsSignals();
+  ConnectActionsSignals();
 
-    ui->ActionStopServer->setEnabled(false);
-    ui->ActionStopServer->setChecked(true);
+  ui->ActionStopServer->setEnabled(false);
+  ui->ActionStopServer->setChecked(true);
 
-    ShowStatus("Wyłączone nasłuchiwanie serwera", 2400);
+  ShowStatus("Wyłączone nasłuchiwanie serwera", 2400);
 
-    Q_INIT_RESOURCE(server_resources);  // Use resources from diffrent project
+  Q_INIT_RESOURCE(server_resources);  // Use resources from diffrent project
 
-    QImage vAddedImage {QImage(":/logo_1.png", "PNG")};
-    ui->mImageLabel->setPixmap(QPixmap::fromImage(vAddedImage));
+  QImage vAddedImage {QImage(":/logo_1.png", "PNG")};
+  ui->mImageLabel->setPixmap(QPixmap::fromImage(vAddedImage));
 }
 
 CMainWindow::~CMainWindow() {
-    delete mServer;
-    mServer = nullptr;
+  delete mServer;
+  mServer = nullptr;
 
-    delete ui;
-    ui = nullptr;
+  delete ui;
+  ui = nullptr;
 }
 
 bool CMainWindow::ConnectToDatabaseAgain() {
-    gRepository.Disconnect();
-    gRepository.Connect();
-    return UpdateDatabaseOrConnection();
+  gRepository.Disconnect();
+  gRepository.Connect();
+  return UpdateDatabaseOrConnection();
 }
 
 void CMainWindow::closeEvent(QCloseEvent *aEvent) {
-//    QString vMessage {"Wszystkie niezapisane zmiany zostaną utracone."
-//                       "Czy na pewno chcesz zamknąć program?"};
-//    int vAnswerButton {QMessageBox::warning( this, "WARNING", vMessage ,
-//                        QMessageBox::Yes | QMessageBox::No)};
+  //    QString vMessage {"Wszystkie niezapisane zmiany zostaną utracone."
+  //                       "Czy na pewno chcesz zamknąć program?"};
+  //    int vAnswerButton {QMessageBox::warning( this, "WARNING", vMessage ,
+  //                        QMessageBox::Yes | QMessageBox::No)};
 
-//    if (vAnswerButton == QMessageBox::Yes) {
-//        aEvent->accept();
-//    } else {
-//        aEvent->ignore();
-//    }
+  //    if (vAnswerButton == QMessageBox::Yes) {
+  //        aEvent->accept();
+  //    } else {
+  //        aEvent->ignore();
+  //    }
 }
 
 bool CMainWindow::UpdateDatabaseOrConnection() {
-    if (IsDatabase()) {
-            gRepository.PopulateDatabase();
-            return true;
-    } else {
-            DatabaseConnectionSettings();
-            return false;
-    }
+  if (IsDatabase()) {
+	gRepository.PopulateDatabase();
+	return true;
+  } else {
+	DatabaseConnectionSettings();
+	return false;
+  }
 }
 
 void CMainWindow::TryRunServer() {
-    try {
-            mServer->Run();
-    } catch (std::runtime_error vError) {
-            ServerListeningProblem(vError.what());
-    }
+  try {
+	mServer->Run();
+  } catch (std::runtime_error vError) {
+	ServerListeningProblem(vError.what());
+  }
 }
 
 bool CMainWindow::IsDatabase() {
-    return gRepository.GetDatabase() != nullptr;
+  return gRepository.GetDatabase() != nullptr;
 }
 
 void CMainWindow::ServerListeningProblem(const char *aError) {
-    ui->mStatusbar->showMessage(aError, 2400);
-    qDebug() << QString::fromStdString(aError);
+  ui->mStatusbar->showMessage(aError, 2400);
+  qDebug() << QString::fromStdString(aError);
 }
 void CMainWindow::DisplayData(QByteArray aData) {
-    QBuffer vBuffer(&aData);
-    vBuffer.open( QIODevice::ReadOnly );
-    QImageReader vReader(&vBuffer, "JPG");
-    QImage vImage {vReader.read()};
+  QBuffer vBuffer(&aData);
+  vBuffer.open( QIODevice::ReadOnly );
+  QImageReader vReader(&vBuffer, "JPG");
+  QImage vImage {vReader.read()};
 
-    ui->mImageLabel->setPixmap(
-            QPixmap::fromImage(vImage));
+  ui->mImageLabel->setPixmap(
+	QPixmap::fromImage(vImage));
 }
 
 void CMainWindow::ClientConnected() {
-    connect(mServer->GetReceiver(), SIGNAL(ReadData(QByteArray)), this,
-                    SLOT(DisplayData(QByteArray))) ;
-    connect(mServer->GetReceiver(), SIGNAL(ReadData(QByteArray)), this,
-                    SLOT(IncrementCurrentPhotoNumber())) ;
+  connect(mServer->GetReceiver(), SIGNAL(ReadData(QByteArray)), this,
+		  SLOT(DisplayData(QByteArray))) ;
+  connect(mServer->GetReceiver(), SIGNAL(ReadData(QByteArray)), this,
+		  SLOT(IncrementCurrentPhotoNumber())) ;
 }
 
 void CMainWindow::ReceiverCreated() {
-    connect(mServer->GetReceiver(), SIGNAL(MessageStatus(const char *, int)),
-            this, SLOT(ShowStatus(const char *, int)));
+  connect(mServer->GetReceiver(), SIGNAL(MessageStatus(const char *, int)),
+		  this, SLOT(ShowStatus(const char *, int)));
 }
 
-void CMainWindow::IncrementCurrentPhotoNumber()
-{
-mCurrentPhoto++;
+void CMainWindow::IncrementCurrentPhotoNumber() {
+  mCurrentPhoto++;
 }
 
 void CMainWindow::ShowStatus(const char *aMessageStatus, int aTimeMsc) {
-    ui->mStatusbar->showMessage(aMessageStatus, aTimeMsc);
+  ui->mStatusbar->showMessage(aMessageStatus, aTimeMsc);
 }
 
 void CMainWindow::RunServer() {
-    mServer = new CServer(new CReceiverFactoryImplementation);
-    ConnectServerSignals();
-    TryRunServer();
+  mServer = new CServer(new CReceiverFactoryImplementation);
+  ConnectServerSignals();
+  TryRunServer();
 
-    ui->ActionStopServer->setChecked(false);
-    ui->ActionRunServer->setEnabled(false);
-    ui->ActionStopServer->setEnabled(true);
+  ui->ActionStopServer->setChecked(false);
+  ui->ActionRunServer->setEnabled(false);
+  ui->ActionStopServer->setEnabled(true);
 }
 
 void CMainWindow::StopServer() {
-    mServer->StopListening();
+  mServer->StopListening();
 
-    ui->ActionRunServer->setChecked(false);
-    ui->ActionStopServer->setEnabled(false);
-    ui->ActionRunServer->setEnabled(true);
+  ui->ActionRunServer->setChecked(false);
+  ui->ActionStopServer->setEnabled(false);
+  ui->ActionRunServer->setEnabled(true);
 }
 
 void CMainWindow::ServerSettings() {
-    CServerSettingsDialog vDialog;
-    vDialog.exec();
+  CServerSettingsDialog vDialog;
+  vDialog.exec();
 }
 
 void CMainWindow::AboutProgram() {
-    CAboutProgramDialog vDialog;
-    vDialog.exec();
+  CAboutProgramDialog vDialog;
+  vDialog.exec();
 }
 
 void CMainWindow::DatabaseConnectionSettings() {
-    CDatabaseConnectionDialog vDialog;
-    vDialog.exec();
+  CDatabaseConnectionDialog vDialog;
+  vDialog.exec();
 
-    ConnectToDatabaseAgain();
+  ConnectToDatabaseAgain();
 }
 
 void CMainWindow::ChangeActionServerStatus() {
-    bool vStatus {ui->ActionRunServer->isChecked()};
+  bool vStatus {ui->ActionRunServer->isChecked()};
 
-    ui->ActionRunServer->setEnabled(!vStatus);
-    ui->ActionStopServer->setEnabled(vStatus);
+  ui->ActionRunServer->setEnabled(!vStatus);
+  ui->ActionStopServer->setEnabled(vStatus);
 
-    ui->ActionRunServer->setChecked(vStatus);
-    ui->ActionStopServer->setChecked(!vStatus);
+  ui->ActionRunServer->setChecked(vStatus);
+  ui->ActionStopServer->setChecked(!vStatus);
 }
 
 void CMainWindow::ConnectServerSignals() {
-    connect(mServer, SIGNAL(MessageStatus(const char *, int)), this,
-                    SLOT(ShowStatus(const char *, int)));
+  connect(mServer, SIGNAL(MessageStatus(const char *, int)), this,
+		  SLOT(ShowStatus(const char *, int)));
 
-    connect(mServer, SIGNAL(newConnection()), this,
-                    SLOT(ClientConnected()));
+  connect(mServer, SIGNAL(newConnection()), this,
+		  SLOT(ClientConnected()));
 
-    connect(mServer, SIGNAL(ConnectClient()), this,
-                    SLOT(ReceiverCreated()));
+  connect(mServer, SIGNAL(ConnectClient()), this,
+		  SLOT(ReceiverCreated()));
 
-    connect(mServer, SIGNAL(ChangeServerStatus()), this,
-                    SLOT(ChangeActionServerStatus()));
+  connect(mServer, SIGNAL(ChangeServerStatus()), this,
+		  SLOT(ChangeActionServerStatus()));
 
-    connect(mServer, SIGNAL(ReceiveDataProgressChanged(int)), ui->mProgressBar,
-                    SLOT(setValue(int)));
+  connect(mServer, SIGNAL(ReceiveDataProgressChanged(int)), ui->mProgressBar,
+		  SLOT(setValue(int)));
 }
 
 void CMainWindow::ConnectActionsSignals() {
-    connect(ui->ActionRunServer, SIGNAL(triggered()), this,
-                    SLOT(RunServer()));
+  connect(ui->ActionRunServer, SIGNAL(triggered()), this,
+		  SLOT(RunServer()));
 
-    connect(ui->ActionStopServer, SIGNAL(triggered()), this,
-                    SLOT(StopServer()));
+  connect(ui->ActionStopServer, SIGNAL(triggered()), this,
+		  SLOT(StopServer()));
 
-    connect(ui->ActionServerSettings, SIGNAL(triggered()), this,
-                    SLOT(ServerSettings()));
+  connect(ui->ActionServerSettings, SIGNAL(triggered()), this,
+		  SLOT(ServerSettings()));
 
-    connect(ui->ActionDataBaseConnection, SIGNAL(triggered()), this,
-                    SLOT(DatabaseConnectionSettings()));
+  connect(ui->ActionDataBaseConnection, SIGNAL(triggered()), this,
+		  SLOT(DatabaseConnectionSettings()));
 
-    connect(ui->ActionInfo, SIGNAL(triggered()), this, SLOT(AboutProgram()));
+  connect(ui->ActionInfo, SIGNAL(triggered()), this, SLOT(AboutProgram()));
 }
 
-void CMainWindow::on_mPushButtonPrevious_clicked()
-{ CChecksumList * vChecksumList = gRepository.GetChecksumList();
-    int vPhotosCount = vChecksumList->GetChecksumsCount();
- if(mCurrentPhoto>0) {
+void CMainWindow::on_mPushButtonPrevious_clicked() {
+  CChecksumList *vChecksumList = gRepository.GetChecksumList();
+  int vPhotosCount = vChecksumList->GetChecksumsCount();
 
-   mCurrentPhoto--;
-   uint16_t vCurrentPhotoChecksum = vChecksumList->GetChecksum(mCurrentPhoto);
-   CRetrievePhotoTransaction vRetrieveTransaction(vCurrentPhotoChecksum);
-   vRetrieveTransaction.Execute();
-   QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
-   DisplayData(vRetrieveData);
- }
+  if (mCurrentPhoto > 0) {
+
+	mCurrentPhoto--;
+	uint16_t vCurrentPhotoChecksum = vChecksumList->GetChecksum(mCurrentPhoto);
+	CRetrievePhotoTransaction vRetrieveTransaction(vCurrentPhotoChecksum);
+	vRetrieveTransaction.Execute();
+	QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
+	DisplayData(vRetrieveData);
+  }
 }
 
-void CMainWindow::on_mPushButtonNext_clicked()
-{CChecksumList * vChecksumList = gRepository.GetChecksumList();
-    int vPhotosCount = vChecksumList->GetChecksumsCount();
+void CMainWindow::on_mPushButtonNext_clicked() {
+  CChecksumList *vChecksumList = gRepository.GetChecksumList();
+  int vPhotosCount = vChecksumList->GetChecksumsCount();
 
-    if(mCurrentPhoto<vPhotosCount-1) {
-            mCurrentPhoto++;
-            uint16_t vCurrentPhotoChecksum = vChecksumList->GetChecksum(mCurrentPhoto);
-            CRetrievePhotoTransaction vRetrieveTransaction(vCurrentPhotoChecksum);
-            vRetrieveTransaction.Execute();
-            QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
-            DisplayData(vRetrieveData);
-    }
+  if (mCurrentPhoto < vPhotosCount - 1) {
+	mCurrentPhoto++;
+	uint16_t vCurrentPhotoChecksum = vChecksumList->GetChecksum(mCurrentPhoto);
+	CRetrievePhotoTransaction vRetrieveTransaction(vCurrentPhotoChecksum);
+	vRetrieveTransaction.Execute();
+	QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
+	DisplayData(vRetrieveData);
+  }
 }

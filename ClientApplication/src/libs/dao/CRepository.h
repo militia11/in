@@ -11,30 +11,30 @@
  *
  */
 class CRepository {
-  public:
-    /**
-     * @brief CRepository constructor
-     */
-    CRepository();
+ public:
+  /**
+   * @brief CRepository constructor
+   */
+  CRepository();
 
-    /**
-     * @brief CRepository destructor
-     */
-    virtual ~CRepository();
+  /**
+   * @brief CRepository destructor
+   */
+  virtual ~CRepository();
 
-    /**
-     * @brief PopulateRepository add photos from mobile device to
-     *        repository
-     */
-    void PopulateRepository();
+  /**
+   * @brief PopulateRepository add photos from mobile device to
+   *        repository
+   */
+  void PopulateRepository();
 
-    QStringList GetImages();
+  QStringList GetImages();
 
-  private:
-    /**
-     * @brief mImages Container of images path from mobile device
-     */
-    QStringList mImagesPaths;
+ private:
+  /**
+   * @brief mImages Container of images path from mobile device
+   */
+  QStringList mImagesPaths;
 };
 
 #endif // CREPOSITORY_H

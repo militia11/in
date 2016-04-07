@@ -1,5 +1,5 @@
 #include "CReceiverFactoryImplementation.h"
 
 IReceiver *CReceiverFactoryImplementation::Make() {
-    return new CReceiver();
+  return new CReceiver();
 }

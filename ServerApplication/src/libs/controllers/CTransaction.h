@@ -7,16 +7,16 @@
  * This is command pattern
  */
 class CTransaction {
-  public:
-    /**
-     * @brief CTransaction constructor
-     */
-    CTransaction() {}
+ public:
+  /**
+   * @brief CTransaction constructor
+   */
+  CTransaction() {}
 
-    /**
-     * @brief Execute is call to confirm transaction
-     */
-    virtual void Execute() = 0;
+  /**
+   * @brief Execute is call to confirm transaction
+   */
+  virtual void Execute() = 0;
 };
 
 #endif // CTRANSACTION_H

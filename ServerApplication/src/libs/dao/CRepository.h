@@ -13,101 +13,101 @@ class CSettings;
 
 /**
  * @brief The CRepository class represents
- *				Data Access Object class
+ *        Data Access Object class
  *
  * This class is server application repository. It's
  * initialize communication to database
  */
 class CRepository {
-  public:
-    /**
-     * @brief CRepository constructor
-     */
-    CRepository();
+ public:
+  /**
+   * @brief CRepository constructor
+   */
+  CRepository();
 
-    /**
-     * @brief CRepository destructor
-     */
-    virtual ~CRepository();
+  /**
+   * @brief CRepository destructor
+   */
+  virtual ~CRepository();
 
-    /**
-     * @brief Update checksum list represent as
-     *				mChecksumList variable
-     */
-    void UpdateChecksums();
+  /**
+   * @brief Update checksum list represent as
+   *        mChecksumList variable
+   */
+  void UpdateChecksums();
 
-    /**
-     * @brief Set database settings
-     */
-    void SetSettings(const QString &aDriver,
-										 const QString &aConnectionString);
+  /**
+   * @brief Set database settings
+   */
+  void SetSettings(const QString &aDriver,
+				   const QString &aConnectionString);
 
-    /**
-     * @brief GetDatabase method is getter to
-     *				database connection object
-     *
-     * @return server::AndroidPhotosDatabase is pointer to
-     *				 the actual database
-     */
-    server::AndroidPhotosDatabase *GetDatabase() const;
+  /**
+   * @brief GetDatabase method is getter to
+   *        database connection object
+   *
+   * @return server::AndroidPhotosDatabase is pointer to
+   *         the actual database
+   */
+  server::AndroidPhotosDatabase *GetDatabase() const;
 
-    /**
-     * @brief GetChecksumList get list of checksums.
-     *
-     * @return Checksums list
-     */
-    CChecksumList *GetChecksumList() const;
+  /**
+   * @brief GetChecksumList get list of checksums.
+   *
+   * @return Checksums list
+   */
+  CChecksumList *GetChecksumList() const;
 
-    /**
-     * @brief Method create database tables
-     */
-    void PopulateDatabase();
+  /**
+   * @brief Method create database tables
+   */
+  void PopulateDatabase();
 
-    /**
-     * @brief Connect function call to connect to database
-     */
-    void Connect();
+  /**
+   * @brief Connect function call to connect to database
+   */
+  void Connect();
 
-    /**
-     * @brief Disconnect from database
-     */
-    void Disconnect();
+  /**
+   * @brief Disconnect from database
+   */
+  void Disconnect();
 
-    /**
-     * @brief mLastConnectionError whever we have error in last
-     *				connection
-     */
-    bool mLastConnectionError;
+  /**
+   * @brief mLastConnectionError whever we have error in last
+   *        connection
+   */
+  bool mLastConnectionError;
 
-  protected:
-    /**
-     * @brief AttendDatabaseConnectionException attend
-     *        connection exception
-     *
-     * @param aException Database connection error
-     */
-    void AttendDatabaseConnectionException(const char *aException);
+ protected:
+  /**
+   * @brief AttendDatabaseConnectionException attend
+   *        connection exception
+   *
+   * @param aException Database connection error
+   */
+  void AttendDatabaseConnectionException(const char *aException);
 
-    /**
-     * @brief mDatabase represent database connection object.
-     */
-    server::AndroidPhotosDatabase *mDatabase;
+  /**
+   * @brief mDatabase represent database connection object.
+   */
+  server::AndroidPhotosDatabase *mDatabase;
 
-    /**
-     * @brief mChecksumList is list of checksums photos stored
-     *				in database
-     */
-    CChecksumList *mChecksumList;
+  /**
+   * @brief mChecksumList is list of checksums photos stored
+   *        in database
+   */
+  CChecksumList *mChecksumList;
 
-    /**
-     * @brief mDriver is database driver
-     */
-    QString mDriver;
+  /**
+   * @brief mDriver is database driver
+   */
+  QString mDriver;
 
-    /**
-     * @brief mConnectionString is string to connect to database
-     */
-    QString mConnectionString;
+  /**
+   * @brief mConnectionString is string to connect to database
+   */
+  QString mConnectionString;
 };
 
 #endif // CREPOSITORY_H
