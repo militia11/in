@@ -153,6 +153,7 @@ QByteArray CClient::IntToArray(int32_t aSource) {
 }
 
 void CClient::UpdateServerPhotos() {
+
   QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
   QStringList vPicturesLocation = QStandardPaths::standardLocations(
 									QStandardPaths::PicturesLocation);
@@ -214,4 +215,5 @@ void CClient::UpdateServerPhotos() {
   //     WriteMessage(vChecksumByte);
   //     WaitForChangeStatus();
   //         ManageData(vData);
+
 }
