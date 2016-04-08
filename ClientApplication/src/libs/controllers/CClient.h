@@ -69,8 +69,23 @@ class CClient : public QObject {
    */
   virtual QByteArray ConvertImageToByteArray(const QImage &aImage);
 
+  /**
+   * @brief Check photo
+   *
+   * @param aPhotoNumber Photo number
+   */
+  void CheckPhoto(int aPhotoNumber);
+
  signals:
   void action(int num);
+
+  /**
+   * @brief Set status
+   *
+   * @param aMessage Message
+   */
+  void SetStatus(QString aMessage);
+
  public slots:
   /**
    * @brief ConnectToHost method connect to host

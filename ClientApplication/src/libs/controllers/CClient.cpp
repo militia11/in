@@ -38,12 +38,12 @@ void CClient::ReadData() {
 	///@todo moze konieczne czyszczenie bufora zobaczyc!
 
 	if (vMessageData ==
-		QByteArray("IN SERVER")) {
-	  emit action(5);
+		QByteArray()) {
+		emit SetStatus ("IN SERVER");
 	  vMessageData.clear();
 	} else if (vMessageData == QByteArray("NOT AVAILABLE")) {
-	  emit action(2);
 	  WriteData(mActualData);
+	  emit SetStatus ("NOT AVAILABLE");
 	  vMessageData.clear();
 	}
 
@@ -103,6 +103,22 @@ QByteArray CClient::ConvertImageToByteArray(const QImage &aImage) {
 
   return vBuffer.data();
 }
+
+void CClient::CheckPhoto(int aPhotoNumber)
+{	QString vPath = gRepository.GetImagePath(aPhotoNumber);
+	qDebug() << "Koncowy path:" << vPath;
+
+	QImage vImageToSend(vPath);
+	QBuffer vBuffer;
+	QImageWriter vWriter(&vBuffer, "JPG");
+	vWriter.write(vImageToSend);
+	mActualData = vBuffer.data();
+	uint32_t vFileChecksum = CalculateFileDataChecksum(mActualData);
+	qDebug() << "vChecksum one\n" << vFileChecksum;
+	QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
+	qDebug() << "vChecksumByte\n" << vChecksumByte;
+	WriteMessage(vChecksumByte);
+   }
 
 QByteArray CClient::PrepareMessageData(uint32_t aChecksum) {
   QByteArray vData(qPrintable(QString::number(aChecksum)));

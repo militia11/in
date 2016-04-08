@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>516</width>
-    <height>492</height>
+    <height>540</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,14 +22,26 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QPushButton" name="mPushButtonSendPhoto">
+     <widget class="QPushButton" name="mPushButtonConnect">
       <property name="font">
        <font>
         <pointsize>20</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>wyslij dane pliku</string>
+       <string>Połącz</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="mArchivizeInServer">
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Archiwizuj zdjęcie !!!</string>
       </property>
      </widget>
     </item>
@@ -46,14 +58,14 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="mPushButtonConnect">
+     <widget class="QPushButton" name="mPushButtonSendPhoto">
       <property name="font">
        <font>
         <pointsize>20</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>Połącz</string>
+       <string>wyslij dane pliku</string>
       </property>
      </widget>
     </item>
@@ -70,44 +82,49 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
-      <property name="text">
-       <string>Pokaz zdjecie z tel</string>
-      </property>
-     </widget>
+     <widget class="QListWidget" name="mPhotos"/>
     </item>
     <item>
      <widget class="QTextEdit" name="textEdit"/>
     </item>
     <item>
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>TextLabel33</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;TextLabel2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>TextLabel33</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;TextLabel2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="mStatus">
+        <property name="text">
+         <string>avai</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
-  <tabstop>mPushButtonSendPhoto</tabstop>
   <tabstop>mPushButtonSendChecksum</tabstop>
-  <tabstop>mPushButtonConnect</tabstop>
   <tabstop>mPushButtonArchivePhoto</tabstop>
  </tabstops>
  <resources/>

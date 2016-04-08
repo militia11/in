@@ -11,6 +11,10 @@
 #include <QStandardPaths>
 #include <QTimer>
 
+#include "src/libs/dao/CRepository.h"
+
+extern CRepository gRepository;
+
 CMainWindow::CMainWindow(QWidget *aParent) :
   QMainWindow(aParent),
   ui(new Ui::CMainWindow) {
@@ -20,6 +24,7 @@ CMainWindow::CMainWindow(QWidget *aParent) :
 					  "QPushButton:focus:pressed{ background-color: red; }QPushButton:focus{ "
 					  "background-color:#00FF72; } QPushButton:hover{border-color:#00FF72; "
 					  "background-color: qradialgradient(cx: 0.5, cy: 0.5, radius: 2, fx: 0.5, fy: 1, stop: 0 #182DFF, stop: 0.2 #00FF72, stop: 0.4 #182DFF); min-width: 10px; }");
+  populatePicturesList();
 }
 
 CMainWindow::~CMainWindow() {
@@ -31,11 +36,7 @@ CMainWindow::~CMainWindow() {
 }
 
 void CMainWindow::duact(int s) {
-  if (s == 2) {
-	ui->label->setText("not in serv");
-  } else if (s == 5) {
-	ui->label->setText("IN SERVER");
-  } else if (s == 99) {
+  if (s == 99) {
 	ui->label->setText("IN manage datea");
   } else if (s == 33) {
 	ui->label_2->setText("not available!");
@@ -48,6 +49,10 @@ void CMainWindow::duact(int s) {
   } else if (s == 105) {
 	  ui->label_3->setText("skonczyla petla czas while");
   }
+}
+
+void CMainWindow::ShowStatus(QString aMessage)
+{	ui->mStatus->setText (aMessage);
 }
 
 void CMainWindow::on_mPushButtonSendPhoto_clicked() {
@@ -99,6 +104,8 @@ void CMainWindow::on_mPushButtonSendChecksum_clicked() {
 void CMainWindow::on_mPushButtonConnect_clicked() {
   // POŁĄCZ
   mClient = new CClient(new QTcpSocket);
+  connect(mClient, SIGNAL(action(int)), SLOT(duact(int)));
+  connect(mClient, SIGNAL(SetStatus(QString)), SLOT(ShowStatus(QString)));
   QString vIpAddress = "192.168.8.100"; // ui->textEdit->toPlainText();
 
   try {
@@ -111,8 +118,15 @@ void CMainWindow::on_mPushButtonConnect_clicked() {
 
 void CMainWindow::on_mPushButtonArchivePhoto_clicked() {
   // Archiwizuj zdjęcia
-  connect(mClient, SIGNAL(action(int)), SLOT(duact(int)));
   mClient->UpdateServerPhotos();
+}
+
+void CMainWindow::populatePicturesList()
+{gRepository.PopulateRepository();
+	QStringList vPhotosNames = gRepository.GetImagesNames ();
+	for(int i = 0; i < vPhotosNames.length(); i++) {
+		ui->mPhotos->addItem(QString::number(i+1) + ": " + vPhotosNames[i]);
+	}
 }
 
 void CMainWindow::ShowSocketException(QAbstractSocket::SocketError aError) {
@@ -145,14 +159,8 @@ void CMainWindow::ShowSocketException(QAbstractSocket::SocketError aError) {
   }
 }
 
-/*
-
-QAbstractSocket::UnconnectedState  0 The socket is not connected.
-QAbstractSocket::HostLookupState  1 The socket is performing a host name lookup.
-QAbstractSocket::ConnectingState  2 The socket has started establishing a connection.
-QAbstractSocket::ConnectedState 3 A connection is established.
-QAbstractSocket::BoundState 4 The socket is bound to an address and port.
-QAbstractSocket::ClosingState 6 The socket is about to close (data may still be waiting to be written).
-QAbstractSocket::ListeningState 5 For internal use only.
-*/
-
+void CMainWindow::on_mArchivizeInServer_clicked()
+{ // ARCHIWIZUJ ZDJecie 1 !!!
+	int aPhotoNumber = ui->mPhotos->currentRow();
+	mClient->CheckPhoto(aPhotoNumber);
+}

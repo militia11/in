@@ -19,7 +19,7 @@ RepositoryTests::RepositoryTests() {
 void RepositoryTests::TestPopulateAndGetImagesPaths() {
   CRepository vRepostitory;
   vRepostitory.PopulateRepository();
-  QStringList vAllFiles = vRepostitory.GetImages();
+  QStringList vAllFiles = vRepostitory.GetImagesPaths();
 
   QStringList vPicturesLocation = QStandardPaths::standardLocations(
                                     QStandardPaths::PicturesLocation);

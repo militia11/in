@@ -23,9 +23,19 @@ void CRepository::PopulateRepository() {
 	QString vValidPath = vPath + "/";
 	vValidPath += vLocation;
 	mImagesPaths.append(vValidPath);
+	mImagesNames.append(vLocation);
   }
 }
 
-QStringList CRepository::GetImages() {
-  return mImagesPaths;
+QStringList CRepository::GetImagesPaths() {
+	return mImagesPaths;
+}
+
+QStringList CRepository::GetImagesNames() {
+	return mImagesNames;
+}
+
+QString CRepository::GetImagePath(int aNumber)
+{
+	return mImagesPaths[aNumber];
 }
