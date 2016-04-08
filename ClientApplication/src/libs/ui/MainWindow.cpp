@@ -46,8 +46,10 @@ void CMainWindow::duact(int s) {
 	ui->label_2->setText("undefined!");
   } else if (s == 100) {
 	ui->label_3->setText("write ok");
-  } else if (s == 105) {
-	  ui->label_3->setText("skonczyla petla czas while");
+  } else if (s == 106) {
+    ui->label_3->setText("udaoo write d");
+  }  else if (s == 107) {
+    ui->label_3->setText(" nie udaoo write d");
   }
 }
 

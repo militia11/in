@@ -45,6 +45,15 @@ void CClient::ReadData() {
 	  WriteData(mActualData);
 	  emit SetStatus ("NOT AVAILABLE");
 	  vMessageData.clear();
+
+
+        if (WriteData(mActualData)) {
+            emit action(106);
+            vMessageData.clear();
+        } else {
+            emit action(107);
+            vMessageData.clear();
+        }
 	}
 
 	mActualData.clear();
@@ -57,8 +66,6 @@ void CClient::WaitForChangeStatus() {
 
   QTime vTimer;
   vTimer.start();
-
-  //usleep(1000);//(mServerAvailability == status_unknown) &&
   do {
 	vMilliseconds = vTimer.elapsed();
   } while (vMilliseconds < vTimeout);
@@ -97,7 +104,6 @@ bool CClient::ConnectToHost(QString aHost) {
 
 QByteArray CClient::ConvertImageToByteArray(const QImage &aImage) {
   QBuffer vBuffer;
-
   QImageWriter vWriter(&vBuffer, "JPG");
   vWriter.write(aImage);
 
@@ -107,7 +113,6 @@ QByteArray CClient::ConvertImageToByteArray(const QImage &aImage) {
 void CClient::CheckPhoto(int aPhotoNumber)
 {	QString vPath = gRepository.GetImagePath(aPhotoNumber);
 	qDebug() << "Koncowy path:" << vPath;
-
 	QImage vImageToSend(vPath);
 	QBuffer vBuffer;
 	QImageWriter vWriter(&vBuffer, "JPG");
@@ -134,7 +139,6 @@ bool CClient::WriteData(const QByteArray &aData) {
 	mSocket->write(IntToArray(aData.length()));
 	mSocket->waitForBytesWritten();
 	mSocket->write(aData);
-
 	return mSocket->waitForBytesWritten();
   } else {
 	return false;
@@ -173,12 +177,10 @@ void CClient::UpdateServerPhotos() {
   QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
   QStringList vPicturesLocation = QStandardPaths::standardLocations(
 									QStandardPaths::PicturesLocation);
-
   QString vPath = vPicturesLocation.at(0);
   QDir vDir(vPath);
   QStringList vAllFiles =  vDir.entryList(QDir::Files);
   vPath += "/a.jpg";
-
   qDebug() << "Koncowy path:" << vPath;
   QImage vImageToSend(vPath);
   QBuffer vBuffer;
@@ -190,23 +192,25 @@ void CClient::UpdateServerPhotos() {
   QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
   qDebug() << "vChecksumByte\n" << vChecksumByte;
   WriteMessage(vChecksumByte);
-  WaitForChangeStatus ();
+//  WaitForChangeStatus ();
 
-  QString vPath2 = vPicturesLocation.at(0);
+//  QString vPath2 = vPicturesLocation.at(0);
 
-  vPath2 += "/b.jpg";
+//  vPath2 += "/b.jpg";
 
-  qDebug() << "Koncowy path:" << vPath2;
-  QImage vImageToSend2(vPath2);
+//  qDebug() << "Koncowy path:" << vPath2;
+//  QImage vImageToSend2(vPath2);
 
-  vWriter.write(vImageToSend);
-  mActualData = vBuffer.data();
-  uint32_t vFileChecksum2 = CalculateFileDataChecksum(mActualData);
-  qDebug() << "vChecksum one\n" << vFileChecksum2;
-  QByteArray vChecksumByte2 = PrepareMessageData(vFileChecksum2);
-  qDebug() << "vChecksumByte\n" << vChecksumByte2;
-  WriteMessage(vChecksumByte2);
-  WaitForChangeStatus ();
+//  vWriter.write(vImageToSend);
+//  mActualData = vBuffer.data();
+//  uint32_t vFileChecksum2 = CalculateFileDataChecksum(mActualData);
+//  qDebug() << "vChecksum one\n" << vFileChecksum2;
+//  QByteArray vChecksumByte2 = PrepareMessageData(vFileChecksum2);
+//  qDebug() << "vChecksumByte\n" << vChecksumByte2;
+//  WriteMessage(vChecksumByte2);
+//  WaitForChangeStatus ();
+
+
   //    gRepository.PopulateRepository();
   //    QStringList vImagesPath = gRepository.GetImages();
 
