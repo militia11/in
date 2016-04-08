@@ -28,13 +28,27 @@ class CRepository {
    */
   void PopulateRepository();
 
-  QStringList GetImages();
+  QStringList GetImagesPaths();
+  QStringList GetImagesNames();
+
+  /**
+   * @brief Get image path
+   *
+   * @param aNumber Number
+   * @return Image path
+   */
+  QString GetImagePath(int aNumber);
 
  private:
   /**
    * @brief mImages Container of images path from mobile device
    */
   QStringList mImagesPaths;
+
+  /**
+   * @brief mImages Container of images names from mobile device
+   */
+  QStringList mImagesNames;
 };
 
 #endif // CREPOSITORY_H

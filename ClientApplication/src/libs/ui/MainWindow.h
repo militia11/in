@@ -19,6 +19,7 @@ class CMainWindow : public QMainWindow {
  public:
   /**
    * @brief CMainWindow class constructor
+   *
    * @param aParent is parent
    */
   explicit CMainWindow(QWidget *aParent = 0);
@@ -30,6 +31,14 @@ class CMainWindow : public QMainWindow {
 
  protected slots:
   void duact(int s);
+
+  /**
+   * @brief Show status
+   *
+   * @param aMessage Message
+   */
+  void ShowStatus(QString aMessage);
+
   /**
    * @brief on_mPushButtonSendPhoto_clicked
    */
@@ -52,6 +61,12 @@ class CMainWindow : public QMainWindow {
   void on_mPushButtonArchivePhoto_clicked();
 
  protected:
+
+  /**
+   * @brief Populate pictures list
+   */
+  void populatePicturesList();
+
   /**
    * @brief ShowSocketException Comunicate socket exception
    * @param vError Socket error
@@ -67,6 +82,8 @@ class CMainWindow : public QMainWindow {
    * @brief vClient Client class
    */
   CClient *mClient;
+	private slots:
+  void on_mArchivizeInServer_clicked();
 };
 
 #endif // CMAINWINDOW_H
