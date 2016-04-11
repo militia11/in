@@ -5,121 +5,121 @@
 #include "tests/auto/UnitTests/testlibs/CReceiverWrapper.h"
 
 class ConnectionTests : public QObject {
-		Q_OBJECT
+  Q_OBJECT
 
-	public:
-		ConnectionTests();
+ public:
+  ConnectionTests();
 
-	private Q_SLOTS:
-		void TestConnectMethod();
-		void TestConnectMethodNullSocket();
-		void TestGetSocket();
-		void TestGetNullSocket();
-		void TestDisconnectedMethodDeleteLaterSocket();
-		void TestDisconnectedMethodDeleteBuffer();
-		void TestDisconnectedMethodDeleteDataSize();
-		void TestDisconnectedMethodDeleteAllPointers();
+ private Q_SLOTS:
+  void TestConnectMethod();
+  void TestConnectMethodNullSocket();
+  void TestGetSocket();
+  void TestGetNullSocket();
+  void TestDisconnectedMethodDeleteLaterSocket();
+  void TestDisconnectedMethodDeleteBuffer();
+  void TestDisconnectedMethodDeleteDataSize();
+  void TestDisconnectedMethodDeleteAllPointers();
 };
 
 ConnectionTests::ConnectionTests() {
 }
 
 void ConnectionTests::TestConnectMethod() {
-		CReceiverWrapper vReceiver;
+  CReceiverWrapper vReceiver;
 
-		vReceiver.ForTestConnect(new QTcpSocket);
+  vReceiver.ForTestConnect(new QTcpSocket);
 
-		QVERIFY(vReceiver.ForTestGetSocket());
-		QVERIFY(vReceiver.ForTestGetReveiveBuffer());
-		QVERIFY(vReceiver.ForTestGetDataSize());
+  QVERIFY(vReceiver.ForTestGetSocket());
+  QVERIFY(vReceiver.ForTestGetReveiveBuffer());
+  QVERIFY(vReceiver.ForTestGetDataSize());
 }
 
 void ConnectionTests::TestConnectMethodNullSocket() {
-		CReceiverWrapper vReceiver;
+  CReceiverWrapper vReceiver;
 
-		QString vErrorLog;
+  QString vErrorLog;
 
-		try {
-				vReceiver.ForTestConnect(nullptr);
-		} catch (std::runtime_error aException) {
-				vErrorLog.append(aException.what());
-		}
+  try {
+	vReceiver.ForTestConnect(nullptr);
+  } catch (std::runtime_error aException) {
+	vErrorLog.append(aException.what());
+  }
 
-		QString vExpectedLog("Nie można połączyć");
-		QCOMPARE(vErrorLog, vExpectedLog);
+  QString vExpectedLog("Nie można połączyć");
+  QCOMPARE(vErrorLog, vExpectedLog);
 
-		QEXPECT_FAIL("", "Gniazdo powinno być pustym wskaźnikiem", Continue);
-		QVERIFY(vReceiver.ForTestGetSocket());
+  QEXPECT_FAIL("", "Gniazdo powinno być pustym wskaźnikiem", Continue);
+  QVERIFY(vReceiver.ForTestGetSocket());
 
-		QEXPECT_FAIL("", "Bufor powinien być pustym wskaźnikiem", Continue);
-		QVERIFY(vReceiver.ForTestGetReveiveBuffer());
+  QEXPECT_FAIL("", "Bufor powinien być pustym wskaźnikiem", Continue);
+  QVERIFY(vReceiver.ForTestGetReveiveBuffer());
 
-		QEXPECT_FAIL("", "DataSize powinien być pustym wskaźnikiem", Continue);
-		QVERIFY(vReceiver.ForTestGetDataSize());
+  QEXPECT_FAIL("", "DataSize powinien być pustym wskaźnikiem", Continue);
+  QVERIFY(vReceiver.ForTestGetDataSize());
 }
 
 void ConnectionTests::TestGetSocket() {
-		CReceiverWrapper vReceiver;
+  CReceiverWrapper vReceiver;
 
-		vReceiver.ForTestSetSocket(new QTcpSocket);
-		QVERIFY(vReceiver.ForTestGetSocket());
+  vReceiver.ForTestSetSocket(new QTcpSocket);
+  QVERIFY(vReceiver.ForTestGetSocket());
 }
 
 void ConnectionTests::TestGetNullSocket() {
-		CReceiverWrapper vReceiver;
+  CReceiverWrapper vReceiver;
 
-		vReceiver.ForTestSetSocket(nullptr);
+  vReceiver.ForTestSetSocket(nullptr);
 
-		QEXPECT_FAIL("", "mSocket powinien być pustym wskaźnikiem", Continue);
-		QVERIFY(vReceiver.ForTestGetSocket());
+  QEXPECT_FAIL("", "mSocket powinien być pustym wskaźnikiem", Continue);
+  QVERIFY(vReceiver.ForTestGetSocket());
 }
 
 void ConnectionTests::TestDisconnectedMethodDeleteLaterSocket() {
-		CReceiverWrapper vReceiver;
+  CReceiverWrapper vReceiver;
 
-		vReceiver.ForTestSetSocket(new QTcpSocket());
-		vReceiver.ForTestDisconnected();
+  vReceiver.ForTestSetSocket(new QTcpSocket());
+  vReceiver.ForTestDisconnected();
 
-		// Because deletelater slot from QObject
-		QVERIFY(vReceiver.ForTestGetSocket());
+  // Because deletelater slot from QObject
+  QVERIFY(vReceiver.ForTestGetSocket());
 }
 
 void ConnectionTests::TestDisconnectedMethodDeleteBuffer() {
-		CReceiverWrapper vReceiver;
+  CReceiverWrapper vReceiver;
 
-		vReceiver.ForTestSetReceiveBuffer(new QByteArray());
-		vReceiver.ForTestDisconnected();
+  vReceiver.ForTestSetReceiveBuffer(new QByteArray());
+  vReceiver.ForTestDisconnected();
 
-		QEXPECT_FAIL("", "mReceiveBuffer powinien być pustym wskaźnikiem", Continue);
-		QVERIFY(vReceiver.ForTestGetReveiveBuffer());
+  QEXPECT_FAIL("", "mReceiveBuffer powinien być pustym wskaźnikiem", Continue);
+  QVERIFY(vReceiver.ForTestGetReveiveBuffer());
 }
 
 void ConnectionTests::TestDisconnectedMethodDeleteDataSize() {
-		CReceiverWrapper vReceiver;
+  CReceiverWrapper vReceiver;
 
-		vReceiver.ForTestSetDataSize(new int32_t(25));
-		vReceiver.ForTestDisconnected();
+  vReceiver.ForTestSetDataSize(new int32_t(25));
+  vReceiver.ForTestDisconnected();
 
-		QEXPECT_FAIL("", "mDataSize powinien być pustym wskaźnikiem", Continue);
-		QVERIFY(vReceiver.ForTestGetDataSize());
+  QEXPECT_FAIL("", "mDataSize powinien być pustym wskaźnikiem", Continue);
+  QVERIFY(vReceiver.ForTestGetDataSize());
 }
 
 void ConnectionTests::TestDisconnectedMethodDeleteAllPointers() {
-		CReceiverWrapper vReceiver;
+  CReceiverWrapper vReceiver;
 
-		vReceiver.ForTestSetSocket(new QTcpSocket());
-		vReceiver.ForTestSetReceiveBuffer(new QByteArray());
-		vReceiver.ForTestSetDataSize(new int32_t(25));
+  vReceiver.ForTestSetSocket(new QTcpSocket());
+  vReceiver.ForTestSetReceiveBuffer(new QByteArray());
+  vReceiver.ForTestSetDataSize(new int32_t(25));
 
-		vReceiver.ForTestDisconnected();
+  vReceiver.ForTestDisconnected();
 
-		QVERIFY(vReceiver.ForTestGetSocket());
+  QVERIFY(vReceiver.ForTestGetSocket());
 
-		QEXPECT_FAIL("", "mReceiveBuffer powinien być pustym wskaźnikiem", Continue);
-		QVERIFY(vReceiver.ForTestGetReveiveBuffer());
+  QEXPECT_FAIL("", "mReceiveBuffer powinien być pustym wskaźnikiem", Continue);
+  QVERIFY(vReceiver.ForTestGetReveiveBuffer());
 
-		QEXPECT_FAIL("", "mDataSize powinien być pustym wskaźnikiem", Continue);
-		QVERIFY(vReceiver.ForTestGetDataSize());
+  QEXPECT_FAIL("", "mDataSize powinien być pustym wskaźnikiem", Continue);
+  QVERIFY(vReceiver.ForTestGetDataSize());
 }
 
 QTEST_MAIN(ConnectionTests)

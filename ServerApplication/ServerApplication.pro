@@ -2,9 +2,10 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     src \
-    share
+		share \
+		tests
 
-#tests.depends += src share
+tests.depends += src share
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../litesql/lib/static/ -llitesql
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../litesql/lib/static/ -llitesqld

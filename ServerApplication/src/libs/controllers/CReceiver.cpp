@@ -23,7 +23,6 @@ CReceiver::~CReceiver() {
   Disconnected();
 }
 
-
 void CReceiver::CalculateProgress() {
   int vProgress = 0;
 
@@ -34,7 +33,6 @@ void CReceiver::CalculateProgress() {
 
   emit ReceiveDataProgressChanged(int(vProgress));
 }
-
 
 bool CReceiver::HasDataReceivedCompletely() {
   return *mDataSize > 0 && mReceiveBuffer->size() >= *mDataSize;

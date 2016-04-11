@@ -9,13 +9,13 @@
  *        CReceiverFactoryImplementation class
  */
 class CReceiverMockFactory : public IReceiverFactory {
-  public:
-    /**
-     * @brief Make Get Mock of CReceiverFactoryImplementation class
-     *
-     *  @return IReceiver object
-     */
-    IReceiver *Make();
+ public:
+  /**
+   * @brief Make Get Mock of CReceiverFactoryImplementation class
+   *
+   *  @return IReceiver object
+   */
+  IReceiver *Make();
 };
 
 #endif // CRECEIVERMOCKFACTORY_H

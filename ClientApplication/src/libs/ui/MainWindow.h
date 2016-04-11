@@ -30,24 +30,12 @@ class CMainWindow : public QMainWindow {
   ~CMainWindow();
 
  protected slots:
-  void duact(int s);
-
   /**
    * @brief Show status
    *
    * @param aMessage Message
    */
   void ShowStatus(QString aMessage);
-
-  /**
-   * @brief on_mPushButtonSendPhoto_clicked
-   */
-  void on_mPushButtonSendPhoto_clicked();
-
-  /**
-   * @brief on_mPushButtonSendChecksum_clicked
-   */
-  void on_mPushButtonSendChecksum_clicked();
 
   /**
    * @brief on_mPushButtonConnect_clicked
@@ -60,8 +48,26 @@ class CMainWindow : public QMainWindow {
    */
   void on_mPushButtonArchivePhoto_clicked();
 
- protected:
+  /**
+   * @brief on_mArchivizeInServer_clicked
+   */
+  void on_mArchivizeInServer_clicked();
 
+  /**
+   * @brief on_mPhotos_clicked
+   *
+   * @param index Index
+   */
+  void on_mPhotos_clicked(const QModelIndex &index);
+
+  /**
+   * @brief on_mPhotos_doubleClicked
+   *
+   * @param index Index
+   */
+  void on_mPhotos_doubleClicked(const QModelIndex &index);
+
+ protected:
   /**
    * @brief Populate pictures list
    */
@@ -69,6 +75,7 @@ class CMainWindow : public QMainWindow {
 
   /**
    * @brief ShowSocketException Comunicate socket exception
+   *
    * @param vError Socket error
    */
   void ShowSocketException(QAbstractSocket::SocketError aError);
@@ -82,8 +89,6 @@ class CMainWindow : public QMainWindow {
    * @brief vClient Client class
    */
   CClient *mClient;
-	private slots:
-  void on_mArchivizeInServer_clicked();
 };
 
 #endif // CMAINWINDOW_H

@@ -8,13 +8,12 @@
  * @brief The CalculateChecksumHelper class is helper for unit test
  *        which need to calculate checksum
  */
-class CalculateChecksumHelper
-{
-public:
-    /**
-   * @brief CalculateChecksumHelper constructor
-   */
-	CalculateChecksumHelper();
+class CalculateChecksumHelper {
+ public:
+  /**
+  * @brief CalculateChecksumHelper constructor
+  */
+  CalculateChecksumHelper();
 
   /**
    * @brief CalculateFileDataChecksum calculate checksum from data

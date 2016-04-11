@@ -9,57 +9,59 @@
 
 
 class CReceiverFactoryTests : public QObject {
-    Q_OBJECT
+  Q_OBJECT
 
-  public:
-    CReceiverFactoryTests();
+ public:
+  CReceiverFactoryTests();
 
-  private Q_SLOTS:
-    void TestReturnReceiver();
-    void TestReturnMockReceiver();
-    void TestWrongFactoryReceiver();
-		void TTestWrongFactoryMock();
+ private Q_SLOTS:
+  void TestReturnReceiver();
+  void TestReturnMockReceiver();
+  void TestWrongFactoryReceiver();
+  void TTestWrongFactoryMock();
 };
 
 CReceiverFactoryTests::CReceiverFactoryTests() {
 }
 
 void CReceiverFactoryTests::TestReturnReceiver() {
-    CReceiverFactoryImplementation vFactory;
+  CReceiverFactoryImplementation vFactory;
 
-		IReceiver *vReceiverInterface {vFactory.Make()};
-		CReceiver *vReceiver {dynamic_cast<CReceiver *>(vReceiverInterface)};
-    QVERIFY(vReceiver);
+  IReceiver *vReceiverInterface {vFactory.Make()};
+  CReceiver *vReceiver {dynamic_cast<CReceiver *>(vReceiverInterface)};
+  QVERIFY(vReceiver);
 }
 
 void CReceiverFactoryTests::TestReturnMockReceiver() {
-    CReceiverMockFactory vFactory;
+  CReceiverMockFactory vFactory;
 
-		IReceiver *vReceiverInterface {vFactory.Make()};
-		CReceiverMock *vReceiverMock {dynamic_cast<CReceiverMock *>
-																	 (vReceiverInterface)};
-    QVERIFY(vReceiverMock);
+  IReceiver *vReceiverInterface {vFactory.Make()};
+  CReceiverMock *vReceiverMock {dynamic_cast<CReceiverMock *>
+								(vReceiverInterface)
+							   };
+  QVERIFY(vReceiverMock);
 }
 
 void CReceiverFactoryTests::TestWrongFactoryReceiver() {
-    CReceiverFactoryImplementation vFactory;
+  CReceiverFactoryImplementation vFactory;
 
-		IReceiver *vReceiverInterface {vFactory.Make()};
-		CReceiverMock *vReceiverMock {dynamic_cast<CReceiverMock *>
-																	 (vReceiverInterface)};
+  IReceiver *vReceiverInterface {vFactory.Make()};
+  CReceiverMock *vReceiverMock {dynamic_cast<CReceiverMock *>
+								(vReceiverInterface)
+							   };
 
-    QEXPECT_FAIL("", "Wrong Factory", Continue);
-    QVERIFY(vReceiverMock);
+  QEXPECT_FAIL("", "Wrong Factory", Continue);
+  QVERIFY(vReceiverMock);
 }
 
 void CReceiverFactoryTests::TTestWrongFactoryMock() {
-    CReceiverMockFactory vFactory;
+  CReceiverMockFactory vFactory;
 
-		IReceiver *vReceiverInterface {vFactory.Make()};
-		CReceiver *vReceiver {dynamic_cast<CReceiver *>(vReceiverInterface)};
+  IReceiver *vReceiverInterface {vFactory.Make()};
+  CReceiver *vReceiver {dynamic_cast<CReceiver *>(vReceiverInterface)};
 
-    QEXPECT_FAIL("", "Wrong Factory", Continue);
-    QVERIFY(vReceiver);
+  QEXPECT_FAIL("", "Wrong Factory", Continue);
+  QVERIFY(vReceiver);
 }
 
 QTEST_APPLESS_MAIN(CReceiverFactoryTests)

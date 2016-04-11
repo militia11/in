@@ -99,9 +99,9 @@ class CServer : public IServer {
   void TryConnect(QTcpSocket *aSocket);
 
   /**
-	 * @brief ListenOnSpecifyPort Verify Server listening status on specify port
-	 *
-	 * @return True if server not listening on specify port, otherwise false
+   * @brief ListenOnSpecifyPort Verify Server listening status on specify port
+   *
+   * @return True if server not listening on specify port, otherwise false
    */
   bool ListenOnSpecifyPort();
 

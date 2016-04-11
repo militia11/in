@@ -1,13 +1,12 @@
 #include "CChecksumList.h"
 
-#include "src/libs/dao/CRepository.h"
-
 #include <litesql.hpp>
 
 #include <vector>
 #include <QDebug>
 
 #include "src/libs/dao/androidphotosdatabase.hpp"
+#include "src/libs/dao/CRepository.h"
 
 using server::AndroidPhotosDatabase;
 using server::Photo;
@@ -20,7 +19,7 @@ CChecksumList::CChecksumList() {
   ReceiveChecksumsFromDB();
 }
 
-void CChecksumList::AddFileChecksum(int16_t aChecksum) {
+void CChecksumList::AddFileChecksum(uint16_t aChecksum) {
   mChecksumList.append(aChecksum);
 }
 
@@ -40,8 +39,11 @@ void CChecksumList::ReceiveChecksumsFromDB() {
 }
 
 bool CChecksumList::CheckFileChecksum(uint16_t aChecksum) {
+	qDebug() << "achceksum first jest rowne: " <<aChecksum;
   for (int vChecksum : mChecksumList) {
+	  qDebug() << "kazda chceksum:" <<vChecksum;
 	if (aChecksum == vChecksum) {
+		qDebug() << "rowna ta sama: " <<vChecksum;
 	  return true;
 	}
   }
@@ -50,17 +52,12 @@ bool CChecksumList::CheckFileChecksum(uint16_t aChecksum) {
 }
 
 int CChecksumList::GetChecksumsCount() const {
-  return mChecksumList.length();//count();
+  return mChecksumList.length();
 }
 
 int CChecksumList::GetChecksum(int aPosition) const {
   return mChecksumList[aPosition];
 }
-
-//void CChecksumList::UpdateChecksumList() {
-//mChecksumList.clear();
-//ReceiveChecksumsFromDB();
-//}
 
 void CChecksumList::Clear() {
   mChecksumList.clear();

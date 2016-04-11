@@ -1,109 +1,109 @@
 #include "CReceiverWrapper.h"
 
 char *CReceiverWrapper::ForTestGetMessageFileChecksum() {
-    return mMessageFileChecksum;
+  return mMessageFileChecksum;
 }
 
 int CReceiverWrapper::ForTestGetMessageSize() {
-    return mMessageSize;
+  return mMessageSize;
 }
 
 void CReceiverWrapper::ForTestSetMessageSize(int aSize) {
-		mMessageSize = aSize;
+  mMessageSize = aSize;
 }
 
 void CReceiverWrapper::ForTestSetReceiveByteCount(int aByteCount) {
-		mReceiveByteCount = aByteCount;
+  mReceiveByteCount = aByteCount;
 }
 
 void CReceiverWrapper::ForTestRemoveSizeFromBuffer() {
-		RemoveSizeFromBuffer();
+  RemoveSizeFromBuffer();
 }
 
 bool CReceiverWrapper::ForTestHasDataReceivedCompletely() {
-		return HasDataReceivedCompletely();
+  return HasDataReceivedCompletely();
 }
 
 void CReceiverWrapper::ForTestConnect(QTcpSocket *aSocket) {
-		Connect(aSocket);
+  Connect(aSocket);
 }
 
 bool CReceiverWrapper::ForTestHasMessageCorrectFormat(char *aMessage) {
-		return HasMessageCorrectFormat(aMessage);
+  return HasMessageCorrectFormat(aMessage);
 }
 
 void CReceiverWrapper::ForTestSetMessage(char *aMessageFileChecksum) {
-		int vMessageSize {sizeof(aMessageFileChecksum) - 1};
+  int vMessageSize {sizeof(aMessageFileChecksum) - 1};
 
-		for (auto i = 0; i < vMessageSize; ++i) {
-				mMessageFileChecksum[i] = aMessageFileChecksum[i];
-		}
+  for (auto i = 0; i < vMessageSize; ++i) {
+	mMessageFileChecksum[i] = aMessageFileChecksum[i];
+  }
 }
 
 void CReceiverWrapper::ForTestSetSocket(QTcpSocket *aSocket) {
-		mSocket = aSocket;
+  mSocket = aSocket;
 }
 
 void CReceiverWrapper::ForTestSetReceiveBuffer(QByteArray *aBuffer) {
-		mReceiveBuffer = aBuffer;
+  mReceiveBuffer = aBuffer;
 }
 
 void CReceiverWrapper::ForTestSetDataSize(int32_t *aDataSize) {
-		mDataSize = aDataSize;
+  mDataSize = aDataSize;
 }
 
 void CReceiverWrapper::ForTestServeReceivedMessage() {
-		ServeReceivedMessage();
+  ServeReceivedMessage();
 }
 
 void CReceiverWrapper::ForTestDisconnected() {
-		Disconnected();
+  Disconnected();
 }
 
 u_int16_t CReceiverWrapper::ForTestCalculateFileDataChecksum(QByteArray aData) {
-		return CalculateFileDataChecksum(aData);
+  return CalculateFileDataChecksum(aData);
 }
 
 ReceiveDataMode CReceiverWrapper::ForTestGetReceiveDataMode() {
-		return mReceiveDataMode;
+  return mReceiveDataMode;
 }
 
 bool CReceiverWrapper::ForTestHasSizeOfDataReceivedCompletely() {
-		return HasSizeOfDataReceivedCompletely();
+  return HasSizeOfDataReceivedCompletely();
 }
 
 QTcpSocket *CReceiverWrapper::ForTestGetSocket() {
-		return mSocket;
+  return mSocket;
 }
 
 QByteArray *CReceiverWrapper::ForTestGetReveiveBuffer() {
-		return mReceiveBuffer;
+  return mReceiveBuffer;
 }
 
 void CReceiverWrapper::ForTestNewData() {
-		NewData();
+  NewData();
 }
 
 void CReceiverWrapper::ForTestRouteData(char aData) {
-		RouteData(aData);
+  RouteData(aData);
 }
 
 void CReceiverWrapper::ForTestServeReceivedFileData() {
-		ServeReceivedFileData();
+  ServeReceivedFileData();
 }
 
 int CReceiverWrapper::ForTestGetReceiveByteCount() {
-		return mReceiveByteCount;
+  return mReceiveByteCount;
 }
 
 void CReceiverWrapper::ForTestSetReceiveDataMode(ReceiveDataMode aMode) {
-		mReceiveDataMode = aMode;
+  mReceiveDataMode = aMode;
 }
 
 int32_t *CReceiverWrapper::ForTestGetDataSize() {
-		return mDataSize;
+  return mDataSize;
 }
 
 int CReceiverWrapper::ForTestConvertMessageArrayToInt() {
-		return ConvertMessageArrayToInt();
+  return ConvertMessageArrayToInt();
 }

@@ -13,51 +13,52 @@
 extern CRepository gRepository;
 
 class ChecksumTests : public QObject {
-    Q_OBJECT
+  Q_OBJECT
 
-  public:
-    ChecksumTests();
+ public:
+  ChecksumTests();
 
-  private Q_SLOTS:
-    void TestAddChecksum();
-    void TestCheckFileChecksum();
+ private Q_SLOTS:
+  void TestAddChecksum();
+  void TestCheckFileChecksum();
 };
 
 ChecksumTests::ChecksumTests() {
 }
 
 void ChecksumTests::TestAddChecksum() {
-		int16_t vChecksum {194};
+  int16_t vChecksum {194};
 
-    CChecksumList vChecksumList;
-    vChecksumList.AddFileChecksum(vChecksum);
+  CChecksumList vChecksumList;
+  vChecksumList.AddFileChecksum(vChecksum);
 
-    QVERIFY(vChecksumList.CheckFileChecksum(vChecksum));
+  QVERIFY(vChecksumList.CheckFileChecksum(vChecksum));
 }
 
 void ChecksumTests::TestCheckFileChecksum() {
-    gRepository.SetSettings("sqlite3", "database=:memory:");
-    gRepository.Connect();
-    gRepository.PopulateDatabase();
+  gRepository.SetSettings("sqlite3", "database=:memory:");
+  gRepository.Connect();
+  gRepository.PopulateDatabase();
 
-    Q_INIT_RESOURCE(server_resources);  // Use resources from diffrent project
-		QImage vAddedImage {QImage(":/sample_photo.jpg", "JPG")};
+  Q_INIT_RESOURCE(server_resources);  // Use resources from diffrent project
+  QImage vAddedImage {QImage(":/sample_photo.jpg", "JPG")};
 
-    // Part adding image
-    QBuffer vBufferToStoreData;
-    QImageWriter vWriter(&vBufferToStoreData, "JPG");
-    vWriter.write(vAddedImage);
+  // Part adding image
+  QBuffer vBufferToStoreData;
+  QImageWriter vWriter(&vBufferToStoreData, "JPG");
+  vWriter.write(vAddedImage);
 
-    QByteArray vAddedData {vBufferToStoreData.data()};
+  QByteArray vAddedData {vBufferToStoreData.data()};
 
-    uint16_t vChecksumAddImage =CalculateChecksumHelper::CalculateFileDataChecksum(vAddedData);
+  uint16_t vChecksumAddImage = CalculateChecksumHelper::CalculateFileDataChecksum(
+								 vAddedData);
 
-    CStorePhotoTransaction vStoreTransaction(
-				vAddedData, vAddedData.size(), vChecksumAddImage);
-    vStoreTransaction.Execute();
+  CStorePhotoTransaction vStoreTransaction(
+	vAddedData, vAddedData.size(), vChecksumAddImage);
+  vStoreTransaction.Execute();
 
-		CChecksumList *vChecksumList {gRepository.GetChecksumList()};
-    QVERIFY(vChecksumList->CheckFileChecksum(vChecksumAddImage));
+  CChecksumList *vChecksumList {gRepository.GetChecksumList()};
+  QVERIFY(vChecksumList->CheckFileChecksum(vChecksumAddImage));
 }
 
 QTEST_APPLESS_MAIN(ChecksumTests)
