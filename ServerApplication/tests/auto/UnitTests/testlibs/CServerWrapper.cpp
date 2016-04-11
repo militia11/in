@@ -1,22 +1,22 @@
 #include "CServerWrapper.h"
 
 CServerWrapper::CServerWrapper(IReceiverFactory *aReceiversFactory) :
-		CServer(aReceiversFactory) {}
+  CServer(aReceiversFactory) {}
 
 void CServerWrapper::ForTestIncomingConnection() {
-		IncomingConnection();
+  IncomingConnection();
 }
 
 void CServerWrapper::ForTestSetPortNumber(int aPortNumber) {
-		mPortNumber = aPortNumber;
+  mPortNumber = aPortNumber;
 }
 
 int CServerWrapper::ForTestGetPortNumber() {
-		return mPortNumber;
+  return mPortNumber;
 }
 
 void CServerWrapper::ForTestUpdatePortNumber() {
-		UpdatePortNumber();
+  UpdatePortNumber();
 }
 
 

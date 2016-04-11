@@ -14,7 +14,6 @@ class CalculateChecksumTests : public QObject {
   void CalculateByteArrayOneSign();
   void CalculateByteArrayTwoSigns();
   void CalculateLongByteArray();
-  // inne wariacje
 };
 
 CalculateChecksumTests::CalculateChecksumTests() {
@@ -47,7 +46,6 @@ void CalculateChecksumTests::CalculateByteArrayTwoSigns() {
 }
 
 void CalculateChecksumTests::CalculateLongByteArray() {
-
   CReceiverWrapper vReceiver;
 
   QByteArray vData("1211");

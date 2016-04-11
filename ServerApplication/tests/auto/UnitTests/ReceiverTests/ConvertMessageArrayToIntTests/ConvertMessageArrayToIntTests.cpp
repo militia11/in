@@ -10,56 +10,56 @@
  * HasMessageCorrectFormat funtion
  */
 class ConvertMessageArrayToIntTests : public QObject {
-    Q_OBJECT
+  Q_OBJECT
 
-  public:
-    ConvertMessageArrayToIntTests();
+ public:
+  ConvertMessageArrayToIntTests();
 
-  private Q_SLOTS:
-		void TestMessageSize();
-    void TestConvertCorrectMessageThreeDigit();
-    void TestConvertCorrectMessageSixDigit();
+ private Q_SLOTS:
+  void TestMessageSize();
+  void TestConvertCorrectMessageThreeDigit();
+  void TestConvertCorrectMessageSixDigit();
 };
 
 ConvertMessageArrayToIntTests::ConvertMessageArrayToIntTests() {
 }
 
 void ConvertMessageArrayToIntTests::TestMessageSize() {
-		CReceiverWrapper vReceiver;
+  CReceiverWrapper vReceiver;
 
-		char vMessage[] {">>13586<"};
-		int vExpectedMessageSize {sizeof(vMessage) - 1};
+  char vMessage[] {">>13586<"};
+  int vExpectedMessageSize {sizeof(vMessage) - 1};
 
-		vReceiver.ForTestSetMessageSize(vExpectedMessageSize);
+  vReceiver.ForTestSetMessageSize(vExpectedMessageSize);
 
-		int vMessageSizeFromReceiver {vReceiver.ForTestGetMessageSize()};
-		QCOMPARE(vMessageSizeFromReceiver, vExpectedMessageSize);
+  int vMessageSizeFromReceiver {vReceiver.ForTestGetMessageSize()};
+  QCOMPARE(vMessageSizeFromReceiver, vExpectedMessageSize);
 }
 
 void ConvertMessageArrayToIntTests::TestConvertCorrectMessageThreeDigit() {
-		CReceiverWrapper vReceiver;
+  CReceiverWrapper vReceiver;
 
-		char vMessage[] {">>386<"};
-		int vMessageSize {sizeof(vMessage) - 1};
-		vReceiver.ForTestSetMessageSize(vMessageSize);
-		vReceiver.ForTestSetMessage(vMessage);
+  char vMessage[] {">>386<"};
+  int vMessageSize {sizeof(vMessage) - 1};
+  vReceiver.ForTestSetMessageSize(vMessageSize);
+  vReceiver.ForTestSetMessage(vMessage);
 
-		int vResult {vReceiver.ForTestConvertMessageArrayToInt()};
-		int vExpected {386};
-		QCOMPARE(vResult, vExpected);
+  int vResult {vReceiver.ForTestConvertMessageArrayToInt()};
+  int vExpected {386};
+  QCOMPARE(vResult, vExpected);
 }
 
 void ConvertMessageArrayToIntTests::TestConvertCorrectMessageSixDigit() {
-	CReceiverWrapper vReceiver;
+  CReceiverWrapper vReceiver;
 
-	char vMessage[] {">>12516<"};
-	int vMessageSize {sizeof(vMessage) - 1};
-	vReceiver.ForTestSetMessageSize(vMessageSize);
-	vReceiver.ForTestSetMessage(vMessage);
+  char vMessage[] {">>12516<"};
+  int vMessageSize {sizeof(vMessage) - 1};
+  vReceiver.ForTestSetMessageSize(vMessageSize);
+  vReceiver.ForTestSetMessage(vMessage);
 
-	int vResult {vReceiver.ForTestConvertMessageArrayToInt()};
-	int vExpected {12516};
-	QCOMPARE(vResult, vExpected);
+  int vResult {vReceiver.ForTestConvertMessageArrayToInt()};
+  int vExpected {12516};
+  QCOMPARE(vResult, vExpected);
 }
 
 QTEST_APPLESS_MAIN(ConvertMessageArrayToIntTests)

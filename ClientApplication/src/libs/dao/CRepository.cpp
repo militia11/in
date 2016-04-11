@@ -28,14 +28,13 @@ void CRepository::PopulateRepository() {
 }
 
 QStringList CRepository::GetImagesPaths() {
-	return mImagesPaths;
+  return mImagesPaths;
 }
 
 QStringList CRepository::GetImagesNames() {
-	return mImagesNames;
+  return mImagesNames;
 }
 
-QString CRepository::GetImagePath(int aNumber)
-{
-	return mImagesPaths[aNumber];
+QString CRepository::GetImagePath(int aNumber) {
+  return mImagesPaths[aNumber];
 }

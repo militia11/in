@@ -43,7 +43,7 @@ class CClient : public QObject {
    * @param aData data to write
    * @return True if write successfull, otherwise false
    */
-  virtual bool WriteData(const QByteArray &aData);
+  bool WriteData(const QByteArray &aData);
 
   /**
    * @brief WriteMessage write message to socket
@@ -51,14 +51,14 @@ class CClient : public QObject {
    * @param aData Message to write
    * @return True if write successfull, otherwise false
    */
-  virtual bool WriteMessage(const QByteArray &aData);
+  bool WriteMessage(const QByteArray &aData);
 
   /**
    * @brief UpdateServerPhotos calculates checksums
    *        of photos stored on mobile device and update
    *        server photos
    */
-  virtual void UpdateServerPhotos();
+  void UpdateServerPhotos();
 
   /**
    * @brief ConvertImageToByteArray method convert imaqe to
@@ -67,7 +67,7 @@ class CClient : public QObject {
    * @param aImage Image to convert
    * @return Converted image to QByteArray
    */
-  virtual QByteArray ConvertImageToByteArray(const QImage &aImage);
+  QByteArray ConvertImageToByteArray(const QImage &aImage);
 
   /**
    * @brief Check photo
@@ -77,8 +77,6 @@ class CClient : public QObject {
   void CheckPhoto(int aPhotoNumber);
 
  signals:
-  void action(int num);
-
   /**
    * @brief Set status
    *

@@ -19,7 +19,7 @@ class CChecksumList {
    *
    * @param aChecksum is new checksum value
    */
-  void AddFileChecksum(int16_t aChecksum);
+  void AddFileChecksum(uint16_t aChecksum);
 
   /**
    * @brief PopulateChecksumFromDB function add checksum file list
@@ -47,17 +47,12 @@ class CChecksumList {
   int GetChecksumsCount() const;
 
   /**
-	* @brief Get checksum
-	*
-	* @param aPosition Position
-	* @return Checksum value
-	*/
+  * @brief Get checksum
+  *
+  * @param aPosition Position
+  * @return Checksum value
+  */
   int GetChecksum(int aPosition) const;
-
-  /**
-   * @brief UpdateChecksumList update list of checksums
-   */
-  //void UpdateChecksumList();
 
   /**
    * @brief Clear function is a facade for clear function in

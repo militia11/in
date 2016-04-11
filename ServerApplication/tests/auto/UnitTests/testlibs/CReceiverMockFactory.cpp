@@ -2,5 +2,5 @@
 #include "tests/auto/UnitTests/testlibs/CReceiverMock.h"
 
 IReceiver *CReceiverMockFactory::Make() {
-    return new CReceiverMock();
+  return new CReceiverMock();
 }

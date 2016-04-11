@@ -39,7 +39,7 @@ void CClient::ReadData() {
 
 	if (vMessageData ==
 		QByteArray()) {
-		emit SetStatus ("IN SERVER");
+	  emit SetStatus ("IN SERVER");
 	  vMessageData.clear();
 	} else if (vMessageData == QByteArray("NOT AVAILABLE")) {
 	  WriteData(mActualData);
@@ -69,13 +69,9 @@ void CClient::WaitForChangeStatus() {
   do {
 	vMilliseconds = vTimer.elapsed();
   } while (vMilliseconds < vTimeout);
-
-  emit action(105);
 }
 
 void CClient::ManageData(QByteArray aData) {
-  emit action(99);
-
   switch (mServerAvailability) {
 	case status_in_server:
 	  mServerAvailability = status_unknown;
@@ -86,7 +82,8 @@ void CClient::ManageData(QByteArray aData) {
 	  mServerAvailability = status_unknown;
 	  break;
 
-	default: {} // do nothing
+	default: {
+	} // do nothing
 	break;
   }
 }
@@ -110,6 +107,7 @@ QByteArray CClient::ConvertImageToByteArray(const QImage &aImage) {
   return vBuffer.data();
 }
 
+<<<<<<< HEAD
 void CClient::CheckPhoto(int aPhotoNumber)
 {	QString vPath = gRepository.GetImagePath(aPhotoNumber);
 	qDebug() << "Koncowy path:" << vPath;
@@ -124,6 +122,23 @@ void CClient::CheckPhoto(int aPhotoNumber)
 	qDebug() << "vChecksumByte\n" << vChecksumByte;
 	WriteMessage(vChecksumByte);
    }
+=======
+void CClient::CheckPhoto(int aPhotoNumber) {
+  QString vPath = gRepository.GetImagePath(aPhotoNumber);
+  qDebug() << "Koncowy path:" << vPath;
+
+  QImage vImageToSend(vPath);
+  QBuffer vBuffer;
+  QImageWriter vWriter(&vBuffer, "JPG");
+  vWriter.write(vImageToSend);
+  mActualData = vBuffer.data();
+  uint32_t vFileChecksum = CalculateFileDataChecksum(mActualData);
+  qDebug() << "vChecksum one\n" << vFileChecksum;
+  QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
+  qDebug() << "vChecksumByte\n" << vChecksumByte;
+  WriteMessage(vChecksumByte);
+}
+>>>>>>> 790cce2e3fae4117a77ed2a69536aaca5f205476
 
 QByteArray CClient::PrepareMessageData(uint32_t aChecksum) {
   QByteArray vData(qPrintable(QString::number(aChecksum)));
@@ -194,6 +209,7 @@ void CClient::UpdateServerPhotos() {
   WriteMessage(vChecksumByte);
 //  WaitForChangeStatus ();
 
+<<<<<<< HEAD
 //  QString vPath2 = vPicturesLocation.at(0);
 
 //  vPath2 += "/b.jpg";
@@ -209,6 +225,10 @@ void CClient::UpdateServerPhotos() {
 //  qDebug() << "vChecksumByte\n" << vChecksumByte2;
 //  WriteMessage(vChecksumByte2);
 //  WaitForChangeStatus ();
+=======
+  QString vPath2 = vPicturesLocation.at(0);
+  vPath2 += "/b.jpg";
+>>>>>>> 790cce2e3fae4117a77ed2a69536aaca5f205476
 
 
   //    gRepository.PopulateRepository();

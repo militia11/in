@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>516</width>
-    <height>540</height>
+    <height>702</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,6 +18,9 @@
   </property>
   <property name="windowTitle">
    <string>Android Photos Archivizer</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton {color : #FFFF00; background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,		  stop: 0 cyan,stop: 0.5 #0066FF, stop: 1 cyan); } QPushButton:focus:pressed{ background-color: red; }QPushButton:focus{background-color:#00FF72; } QPushButton:hover{border-color:#00FF72; background-color: qradialgradient(cx: 0.5, cy: 0.5, radius: 2, fx: 0.5, fy: 1, stop: 0 #182DFF, stop: 0.2 #00FF72, stop: 0.4 #182DFF); min-width: 10px; }</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -46,30 +49,6 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="mPushButtonSendChecksum">
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>wyslij checksum</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="mPushButtonSendPhoto">
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>wyslij dane pliku</string>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QPushButton" name="mPushButtonArchivePhoto">
       <property name="font">
        <font>
@@ -82,38 +61,34 @@
      </widget>
     </item>
     <item>
-     <widget class="QListWidget" name="mPhotos"/>
-    </item>
-    <item>
-     <widget class="QTextEdit" name="textEdit"/>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QListWidget" name="mPhotos"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="mPhotoLabel">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>190</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>TextLabel33</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;TextLabel2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QLabel" name="mStatus">
         <property name="text">
-         <string>avai</string>
+         <string>TextLabel</string>
         </property>
        </widget>
       </item>
@@ -124,7 +99,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
-  <tabstop>mPushButtonSendChecksum</tabstop>
   <tabstop>mPushButtonArchivePhoto</tabstop>
  </tabstops>
  <resources/>
