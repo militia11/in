@@ -197,7 +197,7 @@ void CReceiver::ServeReceivedMessage() {
 bool CReceiver::NotChecksumInServer() {
   int vChecksum {ConvertMessageArrayToInt()};
   CChecksumList *vChecksumList {gRepository.GetChecksumList()};
-
+qDebug() << "return check file checksum:" <<vChecksumList->CheckFileChecksum(vChecksum);
   return !(vChecksumList->CheckFileChecksum(vChecksum));
 }
 

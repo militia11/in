@@ -184,7 +184,7 @@ class CReceiver : public IReceiver {
   /**
    * @brief NotChecksumInServer Verify if checksum is in server
    *
-   * @return True if checksum is in server, otherwise false
+   * @return True if checksum is not in server, otherwise false
    */
   bool NotChecksumInServer();
 
