@@ -166,7 +166,6 @@ QByteArray CClient::IntToArray(int32_t aSource) {
 }
 
 void CClient::UpdateServerPhotos() {
-
   QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
   QStringList vPicturesLocation = QStandardPaths::standardLocations(
 									QStandardPaths::PicturesLocation);
@@ -184,33 +183,4 @@ void CClient::UpdateServerPhotos() {
   qDebug() << "vChecksum one\n" << vFileChecksum;
   QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
   qDebug() << "vChecksumByte\n" << vChecksumByte;
-  WriteMessage(vChecksumByte);
-  // WaitForChangeStatus ();
-//  QString vPath2 = vPicturesLocation.at(0);
-//  vPath2 += "/b.jpg";
-  //    gRepository.PopulateRepository();
-  //    QStringList vImagesPath = gRepository.GetImages();
-
-  //        foreach (QString vPath, vImagesPath) { // wersja finalna:
-  //            QImage vImage(vPath);
-  //            QByteArray vData = ConvertImageToByteArray(vImage);
-
-  //            int16_t vFileChecksum = CalculateFileDataChecksum(vData);
-  //            QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
-  //            WriteMessage(vChecksumByte);
-  //            WaitForChangeStatus();
-  //            ManageData(vData);
-  //        }
-
-  //WriteData(vData);
-  //       wersja 1 testowa 1 obrazek sprawdzenie i  wysłanie:
-  //       QImage image(vImagesPath);// lub .jpeg
-  //     qDebug() << "size image in update serv photo func:" << image.size();
-  //     QByteArray vData = ConvertImageToByteArray(image);
-  //     int16_t vFileChecksum = CalculateFileDataChecksum(vData);
-  //     QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
-  //     WriteMessage(vChecksumByte);
-  //     WaitForChangeStatus();
-  //         ManageData(vData);
-
 }
