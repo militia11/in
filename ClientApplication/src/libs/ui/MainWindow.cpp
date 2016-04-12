@@ -48,7 +48,16 @@ void CMainWindow::on_mPushButtonConnect_clicked() {
 }
 
 void CMainWindow::on_mPushButtonArchivePhoto_clicked() {
-  mClient->UpdateServerPhotos();
+  //WYMUS arch zdjecie
+	int vPhotoNumber = ui->mPhotos->currentRow();
+	QString vPath = gRepository.GetImagePath(vPhotoNumber);
+	QImage vImageToSend(vPath);
+	QBuffer vBuffer;
+	QImageWriter vWriter(&vBuffer, "JPG");
+	vWriter.write(vImageToSend);
+	QByteArray vActualData = vBuffer.data();
+	mClient->WriteData(vActualData);
+	//mClient->UpdateServerPhotos();
 }
 
 void CMainWindow::populatePicturesList() {
