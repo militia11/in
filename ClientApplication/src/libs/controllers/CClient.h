@@ -90,13 +90,13 @@ class CClient : public QObject {
    *
    * @param aHost is hostname/number
    */
-  virtual bool ConnectToHost(QString aHost);
+  bool ConnectToHost(QString aHost);
 
  protected slots:
   /**
    * @brief ReadData method read received data
    */
-  virtual void ReadData();
+ void ReadData();
 
  protected:
   /**
@@ -119,7 +119,7 @@ class CClient : public QObject {
    * @param aData Byte array of data
    * @return Checksum
    */
-  virtual uint32_t CalculateFileDataChecksum(QByteArray aData);
+  int CalculateFileDataChecksum(QByteArray aData);
 
   /**
    * @brief IntToArray Convert integer to QByteArray
@@ -127,7 +127,7 @@ class CClient : public QObject {
    * @param aSource Source is integer
    * @return QByteArray Array of bytes
    */
-  virtual QByteArray IntToArray(int32_t aSource);
+  QByteArray IntToArray(int32_t aSource);
 
   /**
    * @brief PrepareMessageData prepare message data
@@ -135,32 +135,34 @@ class CClient : public QObject {
    * @param aChecksum Convert to message QByteArray
    * @return QByteArray Message
    */
-  virtual QByteArray PrepareMessageData(uint32_t aChecksum);
+  QByteArray PrepareMessageData(int aChecksum);
 
   /**
    * @brief mPortNumber Port number
    */
-  int         mPortNumber;
+  int mPortNumber;
+
+  /**
+   * @brief mSocket Socket
+   */
+  QTcpSocket *mSocket;
+
+  /**
+   * @brief mReceiveBuffer Receive buffer
+   */
+  QByteArray *mReceiveBuffer;
+
+  /**
+   * @brief mActualData Actual data
+   */
+  QByteArray mActualData;
+  ///todo
+  volatile bool mSend;
 
   /**
    * @brief mServerAvailability Server availability
    */
   volatile serverAvailability mServerAvailability;
 
-  /**
-   * @brief mSocket Socket
-   */
-  QTcpSocket  *mSocket;
-
-  /**
-   * @brief mReceiveBuffer Receive buffer
-   */
-  QByteArray  *mReceiveBuffer;
-
-  /**
-   * @brief mActualData Actual data
-   */
-  QByteArray  mActualData;
-  volatile bool mSend;
 };
 #endif // CCLIENT_H

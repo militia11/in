@@ -34,48 +34,6 @@ void CMainWindow::ShowStatus(QString aMessage)
 {	ui->mStatus->setText (aMessage);
 }
 
-void CMainWindow::on_mPushButtonSendPhoto_clicked() {
-  // wyslij dane pliku
-  //QImage vImageToSend = QImage(":/sample_photo.jpg", "JPG");
-  qDebug() << "standardLocations() PicturesLocation" <<
-		   QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
-  QStringList vPicturesLocation = QStandardPaths::standardLocations(
-									QStandardPaths::PicturesLocation);
-
-  QString vPath = vPicturesLocation.at(0);
-  QDir vDir(vPath);
-  QStringList vAllFiles =  vDir.entryList(QDir::Files);
-  foreach (QString location, vAllFiles) {
-	qDebug() << "file:" << location;
-  }
-
-  QString name("/");
-  name.append(ui->textEdit->toPlainText());
-  //    vPath += "/a.jpg";
-  vPath += name;
-  vPath += ".jpg";
-  qDebug() << "Koncowy path:" << vPath;
-  QImage vImageToSend(vPath);
-
-  QBuffer vBuffer;
-
-  QImageWriter vWriter(&vBuffer, "JPG");
-  vWriter.write(vImageToSend);
-
-  QByteArray vData = vBuffer.data();
-  qDebug() << "Czy udało się wysłać dane: ";
-
-  if (mClient->WriteData(vData)) {
-	ui->label->setText("udalo");
-  } else {
-	ui->label->setText("NIE udalo");
-  }
-}
-
-void CMainWindow::ShowStatus(QString aMessage) {
-  ui->mStatus->setText (aMessage);
-}
-
 void CMainWindow::on_mPushButtonConnect_clicked() {
   mClient = new CClient(new QTcpSocket);
   connect(mClient, SIGNAL(SetStatus(QString)), SLOT(ShowStatus(QString)));
