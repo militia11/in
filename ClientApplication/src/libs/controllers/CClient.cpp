@@ -125,8 +125,6 @@ void CClient::CheckPhoto(int aPhotoNumber)
 =======
 void CClient::CheckPhoto(int aPhotoNumber) {
   QString vPath = gRepository.GetImagePath(aPhotoNumber);
-  qDebug() << "Koncowy path:" << vPath;
-
   QImage vImageToSend(vPath);
   QBuffer vBuffer;
   QImageWriter vWriter(&vBuffer, "JPG");

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>516</width>
+    <width>536</width>
     <height>702</height>
    </rect>
   </property>
@@ -56,7 +56,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Archiwizuj zdjęcia</string>
+       <string>Archiwizuj zdjęcie WYMUS</string>
       </property>
      </widget>
     </item>
@@ -67,10 +67,22 @@
       </item>
       <item>
        <widget class="QLabel" name="mPhotoLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
           <width>0</width>
           <height>190</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>600</width>
+          <height>229</height>
          </size>
         </property>
         <property name="text">
