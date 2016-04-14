@@ -13,7 +13,7 @@ using litesql::Blob;
 extern CRepository gRepository;
 
 CStorePhotoTransaction::CStorePhotoTransaction(QByteArray aData, int aDataSize,
-	int aChecksum) :
+	int32_t aChecksum) :
   mData(aData),
   mDataSize(aDataSize),
   mChecksum(aChecksum) {

@@ -119,7 +119,7 @@ class CClient : public QObject {
    * @param aData Byte array of data
    * @return Checksum
    */
-  int CalculateFileDataChecksum(QByteArray aData);
+  int32_t CalculateFileDataChecksum(QByteArray aData);
 
   /**
    * @brief IntToArray Convert integer to QByteArray

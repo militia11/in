@@ -27,7 +27,7 @@ bool CReceiverMock::HasMessageCorrectFormat(char *aMessage) {
 void CReceiverMock::ServeReceivedFileData() {
 }
 
-uint32_t CReceiverMock::CalculateFileDataChecksum(QByteArray aData) {
+int32_t CReceiverMock::CalculateFileDataChecksum(QByteArray aData) {
   Q_UNUSED(aData);
   return 0;
 }

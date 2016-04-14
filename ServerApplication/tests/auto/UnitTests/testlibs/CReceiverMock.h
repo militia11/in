@@ -93,7 +93,7 @@ class CReceiverMock : public IReceiver {
    *
    * @return Checksum calculated as youngest byte of sum of all bytes
    */
-  uint32_t CalculateFileDataChecksum(QByteArray aData);
+  int32_t CalculateFileDataChecksum(QByteArray aData);
 
   /**
    * @brief Mock of ConnectSocketSignals method

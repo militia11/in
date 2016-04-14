@@ -19,7 +19,7 @@ CChecksumList::CChecksumList() {
   ReceiveChecksumsFromDB();
 }
 
-void CChecksumList::AddFileChecksum(uint16_t aChecksum) {
+void CChecksumList::AddFileChecksum(int32_t aChecksum) {
   mChecksumList.append(aChecksum);
 }
 
@@ -38,7 +38,7 @@ void CChecksumList::ReceiveChecksumsFromDB() {
   }
 }
 
-bool CChecksumList::CheckFileChecksum(uint16_t aChecksum) {
+bool CChecksumList::CheckFileChecksum(int32_t aChecksum) {
 	qDebug() << "achceksum first jest rowne: " <<aChecksum;
   for (int vChecksum : mChecksumList) {
 	  qDebug() << "kazda chceksum:" <<vChecksum;

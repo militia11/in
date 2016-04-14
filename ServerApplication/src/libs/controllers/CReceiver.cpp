@@ -63,7 +63,7 @@ void CReceiver::SaveAndSetCurrentSize(int32_t *aCurrentSize) {
 
 void CReceiver::StoreData(int32_t aCurrentSize) {
   QByteArray vData {mReceiveBuffer->left(aCurrentSize)};
-  uint32_t vChecksum {CalculateFileDataChecksum(vData)};
+  int32_t vChecksum {CalculateFileDataChecksum(vData)};
   CStorePhotoTransaction StoreTransaction(
 	vData,
 	vData.size(),
@@ -244,8 +244,8 @@ void CReceiver::ServeReceivedFileData() {
   }
 }
 
-uint32_t CReceiver::CalculateFileDataChecksum(QByteArray aData) {
-  uint32_t vChecksum {};
+int32_t CReceiver::CalculateFileDataChecksum(QByteArray aData) {
+  int32_t vChecksum {};
 
   for (auto i = 0; i < aData.length(); ++i) {
 	vChecksum += aData[i];

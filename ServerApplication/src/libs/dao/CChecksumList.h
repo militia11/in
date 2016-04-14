@@ -19,7 +19,7 @@ class CChecksumList {
    *
    * @param aChecksum is new checksum value
    */
-  void AddFileChecksum(uint16_t aChecksum);
+  void AddFileChecksum(int32_t aChecksum);
 
   /**
    * @brief PopulateChecksumFromDB function add checksum file list
@@ -37,7 +37,7 @@ class CChecksumList {
    *
    * @return True if checksum is the same in another in server
    */
-  bool CheckFileChecksum(uint16_t aChecksum);
+  bool CheckFileChecksum(int32_t aChecksum);
 
   /**
    * @brief Get checksums count
@@ -64,7 +64,7 @@ class CChecksumList {
   /**
    * @brief mChecksumList is list of checksums
    */
-  QList<uint16_t> mChecksumList;
+  QList<int32_t> mChecksumList;
 };
 
 #endif // CCHECKSUMLIST_H

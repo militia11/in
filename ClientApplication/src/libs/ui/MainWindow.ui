@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>536</width>
-    <height>702</height>
+    <height>706</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -44,7 +44,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Archiwizuj zdjęcie !!!</string>
+       <string>Archiwizuj zdjęcie</string>
       </property>
      </widget>
     </item>
@@ -56,7 +56,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Archiwizuj zdjęcie WYMUS</string>
+       <string>Wymuś archiwizację zdjęcia</string>
       </property>
      </widget>
     </item>
@@ -81,8 +81,8 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>600</width>
-          <height>429</height>
+          <width>615</width>
+          <height>434</height>
          </size>
         </property>
         <property name="text">

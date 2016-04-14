@@ -110,11 +110,11 @@ void CClient::CheckPhoto(int aPhotoNumber)
 	QImageWriter vWriter(&vBuffer, "JPG");
 	vWriter.write(vImageToSend);
 	mActualData = vBuffer.data();
-    int vFileChecksum = CalculateFileDataChecksum(mActualData);
+	int32_t vFileChecksum = CalculateFileDataChecksum(mActualData);
+	qDebug()<< "file czeksum in check foto:\n" << vFileChecksum;
     emit SetStatus(QString::number(vFileChecksum));
-	qDebug() << "vChecksum one\n" << vFileChecksum;
 	QByteArray vChecksumByte = PrepareMessageData(vFileChecksum);
-	qDebug() << "vChecksumByte\n" << vChecksumByte;
+	qDebug() << "vChecksumByte in check foto:\n" << vChecksumByte;
 	WriteMessage(vChecksumByte);
 }
 
@@ -147,8 +147,8 @@ bool CClient::WriteMessage(const QByteArray &aData) {
   }
 }
 
-int CClient::CalculateFileDataChecksum(QByteArray aData) {
-  int vChecksum {};
+int32_t CClient::CalculateFileDataChecksum(QByteArray aData) {
+  int32_t vChecksum {};
 
   for (int i = 0; i < aData.length(); ++i) {
 	vChecksum += aData[i];

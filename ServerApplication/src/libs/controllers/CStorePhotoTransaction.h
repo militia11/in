@@ -16,7 +16,7 @@ using server::Photo;
  */
 class CStorePhotoTransaction : public CTransaction {
  public:
-  explicit CStorePhotoTransaction(QByteArray aData, int aDataSize, int aChecksum);
+  explicit CStorePhotoTransaction(QByteArray aData, int aDataSize, int32_t aChecksum);
 
   /**
    * @brief Store photo into database and update checksum list
@@ -47,7 +47,7 @@ class CStorePhotoTransaction : public CTransaction {
   /**
    * @brief mChecksum is checksum of file
    */
-  int mChecksum;
+  int32_t mChecksum;
 };
 
 #endif // CSTOREPHOTOTRANSACTION_H
