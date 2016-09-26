@@ -49,7 +49,7 @@ class CMainWindow : public QMainWindow {
   /**
    * @brief ClientConnected slot is call when server emited signal
    *        incoming connection. This method connect client signal
-   *      ReadData to send data to CMainWindow
+   *        ReadData to send data to CMainWindow
    */
   void ClientConnected();
 
@@ -107,13 +107,10 @@ class CMainWindow : public QMainWindow {
   /**
   * @brief Close Application event communicate with user and question if
   *    we really sure to close application
-  *
-  * @todo finally turn on
   */
   void closeEvent(QCloseEvent *aEvent);
 
  private slots:
-  //TODO
   void on_mPushButtonPrevious_clicked();
   void on_mPushButtonNext_clicked();
 

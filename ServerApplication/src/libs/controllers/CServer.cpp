@@ -25,11 +25,6 @@ void CServer::Run() {
   throw std::runtime_error("Nie można wystartować serwera");
 }
 
-void CServer::StopListening() {
-  MessageStatus("Wyłączone nasłuchiwanie serwera", 2400);
-  close();
-}
-
 IReceiver *CServer::GetReceiver() const {
   return mReceiver;
 }
@@ -42,22 +37,8 @@ void CServer::IncomingConnection() {
   IReceiver *vIReceiver {mReceiver};
   CReceiver *vReceiver {dynamic_cast<CReceiver *>(vIReceiver)};
 
-  if (vReceiver) {
-	PauseAccepting();
-  }
-
   mReceiver->ResponeToClient("Witaj kliencie\n");
   emit ConnectClient();
-}
-
-void CServer::ResumeAccepting() {
-  emit ChangeServerStatus();
-  QTcpServer::resumeAccepting();
-}
-
-void CServer::PauseAccepting() {
-  emit ChangeServerStatus();
-  QTcpServer::pauseAccepting();
 }
 
 void CServer::TryConnect(QTcpSocket *aSocket) {
@@ -77,12 +58,6 @@ void CServer::SocketError(const char *aText) {
 }
 
 void CServer::ConnectClientSignals() {
-  connect(mReceiver, SIGNAL(Disconnect()), this, SLOT(ResumeAccepting()),
-		  Qt::DirectConnection);
-
-  connect(this, SIGNAL(ConnectClient()), this, SLOT(PauseAccepting()),
-		  Qt::DirectConnection);
-
   connect(mReceiver, SIGNAL(ReceiveDataProgressChanged(int)), this,
 		  SIGNAL(ReceiveDataProgressChanged(int)),
 		  Qt::DirectConnection);
@@ -90,5 +65,5 @@ void CServer::ConnectClientSignals() {
 
 void CServer::UpdatePortNumber() {
   CSettings vSettings;
-  mPortNumber = 1234;//vSettings.GetPortNumber();
+  mPortNumber = vSettings.GetPortNumber();
 }

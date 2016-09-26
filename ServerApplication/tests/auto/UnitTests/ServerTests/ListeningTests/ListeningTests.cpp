@@ -16,13 +16,11 @@ class ListeningTests : public QObject {
  private Q_SLOTS:
   void TestIncomingConnectionMethod();
   void TestAreListeningRunServerMethod();
-  void TestAreListeningStopServerMethod();
   void TestAreListeningOnSpecifyPort();
   void TestAreListeningOnWrongPortNumber();
   void TestAreListeningWhenTurnOffListening();
   void TestConnectToServer();
 
-  //qApp->processEvents(); dodać do init test
 };
 
 ListeningTests::ListeningTests() {
@@ -49,24 +47,10 @@ void ListeningTests::TestAreListeningRunServerMethod() {
   QVERIFY(vServer.isListening());
 }
 
-void ListeningTests::TestAreListeningStopServerMethod() {
-  CServer vServer(new CReceiverMockFactory());
-  vServer.Run();
-  QVERIFY(vServer.isListening());
-
-  // Stop listening
-  vServer.StopListening();
-
-  QEXPECT_FAIL("", "Serwer nie powinien nasłuchiwać", Continue);
-  QVERIFY(vServer.isListening());
-}
-
 void ListeningTests::TestAreListeningOnSpecifyPort() {
   CServer vServer(new CReceiverMockFactory());
 
-
   int vPortNumber {vServer.serverPort()};
-  qDebug() << "x" << vPortNumber;
   //  Check turn on listening without function Run
   bool vIsListen {vServer.listen(QHostAddress::Any, vPortNumber)};
   QVERIFY(vIsListen);
@@ -103,7 +87,7 @@ void ListeningTests::TestConnectToServer() {
 
   bool vConnectionEstablished {vSocket.waitForConnected()};
   QVERIFY(vConnectionEstablished);
-  QVERIFY( vSocket.state() == QTcpSocket::ConnectedState );
+  QVERIFY(vSocket.state() == QTcpSocket::ConnectedState);
 }
 
 QTEST_MAIN(ListeningTests)

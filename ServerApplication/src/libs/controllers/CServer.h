@@ -33,11 +33,6 @@ class CServer : public IServer {
   void Run();
 
   /**
-   * @brief Method called to stop listening server
-   */
-  void StopListening();
-
-  /**
    * @brief Method return CReceiver member of the class
    *
    * @return Object which represent client class (CReceiver)
@@ -61,12 +56,6 @@ class CServer : public IServer {
   void MessageStatus(const char *aMessage, int aTimeMsc);
 
   /**
-   * @brief ChangeServerStatus emitted when server status
-   *        changed
-   */
-  void ChangeServerStatus();
-
-  /**
    * @brief Receive data progress changed
    *
    * @param aProgress Progress
@@ -78,16 +67,6 @@ class CServer : public IServer {
    * @brief Slot called when new incoming connection come
    */
   void IncomingConnection();
-
-  /**
-   * @brief Method called to unblock incoming connection
-   */
-  void ResumeAccepting();
-
-  /**
-   * @brief Method called to block incoming connection
-   */
-  void PauseAccepting();
 
  protected:
   /**

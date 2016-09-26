@@ -25,7 +25,7 @@ CMainWindow::CMainWindow(QWidget *aParent) :
   ui->ActionStopServer->setEnabled(false);
   ui->ActionStopServer->setChecked(true);
 
-  ShowStatus("Wyłączone nasłuchiwanie serwera", 2400);
+  TryRunServer();
 
   Q_INIT_RESOURCE(server_resources);  // Use resources from diffrent project
 
@@ -84,7 +84,6 @@ bool CMainWindow::IsDatabase() {
 
 void CMainWindow::ServerListeningProblem(const char *aError) {
   ui->mStatusbar->showMessage(aError, 2400);
-  qDebug() << QString::fromStdString(aError);
 }
 void CMainWindow::DisplayData(QByteArray aData) {
   QBuffer vBuffer(&aData);
@@ -123,7 +122,6 @@ void CMainWindow::RunServer() {
 
   ui->ActionStopServer->setChecked(false);
   ui->ActionRunServer->setEnabled(false);
-  ui->ActionStopServer->setEnabled(true);
 }
 
 void CMainWindow::StopServer() {
@@ -151,16 +149,6 @@ void CMainWindow::DatabaseConnectionSettings() {
   ConnectToDatabaseAgain();
 }
 
-void CMainWindow::ChangeActionServerStatus() {
-  bool vStatus {ui->ActionRunServer->isChecked()};
-
-  ui->ActionRunServer->setEnabled(!vStatus);
-  ui->ActionStopServer->setEnabled(vStatus);
-
-  ui->ActionRunServer->setChecked(vStatus);
-  ui->ActionStopServer->setChecked(!vStatus);
-}
-
 void CMainWindow::ConnectServerSignals() {
   connect(mServer, SIGNAL(MessageStatus(const char *, int)), this,
 		  SLOT(ShowStatus(const char *, int)));
@@ -170,9 +158,6 @@ void CMainWindow::ConnectServerSignals() {
 
   connect(mServer, SIGNAL(ConnectClient()), this,
 		  SLOT(ReceiverCreated()));
-
-  connect(mServer, SIGNAL(ChangeServerStatus()), this,
-		  SLOT(ChangeActionServerStatus()));
 
   connect(mServer, SIGNAL(ReceiveDataProgressChanged(int)), ui->mProgressBar,
 		  SLOT(setValue(int)));

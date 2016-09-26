@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QDataStream>
+
 #include "src/libs/dao/CRepository.h"
 
 extern CRepository gRepository;
@@ -27,8 +28,8 @@ void CReceiver::CalculateProgress() {
   int vProgress = 0;
 
   if ((*mDataSize != 0 && mReceiveBuffer->size() != 0)) {
-	double vs = (*mDataSize) / mReceiveBuffer->size();
-	vProgress = 100.0 / vs;
+    double vProgress = (*mDataSize) / mReceiveBuffer->size();
+    vProgress = 100.0 / vProgress;
   }
 
   emit ReceiveDataProgressChanged(int(vProgress));
@@ -181,13 +182,13 @@ void CReceiver::ServeReceivedMessage() {
   CleanBuffers();
 
   if (NotChecksumInServer()) {
-	qDebug() << "nottttttttttt available\n";
+    qDebug() << "not available\n";
 
 	const char *vMessage = "NOT AVAILABLE";
 	ResponeToClient(vMessage);  //NOTE:1
 
   } else {
-	qDebug() << "in sssssssssserver\n";
+    qDebug() << "in server\n";
 
 	const char *vMessage = "IN SERVER";
 	ResponeToClient(vMessage);  //NOTE:1
@@ -197,7 +198,7 @@ void CReceiver::ServeReceivedMessage() {
 bool CReceiver::NotChecksumInServer() {
   int vChecksum {ConvertMessageArrayToInt()};
   CChecksumList *vChecksumList {gRepository.GetChecksumList()};
-qDebug() << "return check file checksum:" <<vChecksumList->CheckFileChecksum(vChecksum);
+  qDebug() << "return check file checksum:" <<vChecksumList->CheckFileChecksum(vChecksum);
   return !(vChecksumList->CheckFileChecksum(vChecksum));
 }
 
@@ -353,11 +354,3 @@ void CReceiver::NewData() {
 //NOTE:1
 //  i klient zapamietuje co wysylal jaka sume wiec ten plik wysyla
 //  alternatywa:    QString vClientMessage = PrepareSendingToClientMessage(vChecksum);ResponeToClient(vClientMessage);
-
-//NOTE:2
-//pokazowa wersja pokazaniem obrazu z bazy:
-//CRetrievePhotoTransaction vRetrieveTransaction(175);
-//vRetrieveTransaction.Execute();
-//QByteArray vRetrieveData {vRetrieveTransaction.GetData()};
-// pokaze sie obraz i napis Pobrano lub Zarchiwizowano
-//emit ReadData(vRetrieveData);
